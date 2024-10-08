@@ -1,6 +1,6 @@
 # 🎉 **JOIN - Dein smartes Projektmanagement-Tool** 🎉
 
-![JOIN Logo](https://raw.githubusercontent.com/mariokreitz/JOIN/refs/heads/main/assets/logo.png)
+![JOIN Logo](https://raw.githubusercontent.com/mariokreitz/JOIN/refs/heads/main/assets/img/logo.png)
 
 Willkommen bei **JOIN**!  
 JOIN ist ein benutzerfreundliches und leistungsfähiges Projektmanagement-Tool, das dir hilft, den Überblick über Aufgaben, Verantwortlichkeiten und Fortschritte deines Teams zu behalten. Dieses Tool wurde im Rahmen einer Weiterbildung an der **Developer Akademie** entwickelt und ist perfekt geeignet, um die Zusammenarbeit in Teams zu optimieren und Projekte erfolgreich zu managen.
