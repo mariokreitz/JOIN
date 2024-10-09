@@ -19,6 +19,7 @@ async function init() {
 async function getData(url) {
   const data = await fetchData(url + ".json");
   contacts = data.contacts || [];
+  console.log(contacts);
 }
 
 /**
@@ -48,12 +49,15 @@ async function renderContactList() {
       const contactsForLetter = contactsByLetter[letter];
       const contactElements = contactsForLetter.map((contact) => {
         const initials = getInitialsFromContact(contact);
-        return getContactTemplate(initials, contact.name, contact.email);
+        return getContactTemplate(initials, contact.color, contact.name, contact.email);
       });
-      return `
-      <h2>${letter}</h2>
-      ${contactElements.join("")}
-    `;
+      return /*html*/ `
+        <div class="contact-letter">
+          <h3 class="inter-extralight">${letter}</h3>
+        </div>
+        <div class="line"></div>
+        ${contactElements.join("")}
+      `;
     })
     .join("");
   contactListElement.innerHTML = contactListHtml;
