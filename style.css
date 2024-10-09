@@ -4,16 +4,21 @@
   --background-white: #ffffff;
   --background-lightGrey: #f6f7f8;
 
+  /* Text Color */
   --text-primary: #000000;
   --text-secondary: #ffffff;
   --text-email: #007cee;
+  --text-navbar: #cdcdcd;
 
-  /* Buttons */
+  /* hover and active states */
   --hover: #29abe2;
   --active: #091931;
 
   /* line color */
   --line: #d1d1d1;
+
+  /* Navbar */
+  --nav-hover: #2a3d59;
 }
 
 body {
