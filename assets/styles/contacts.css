@@ -32,6 +32,7 @@ nav {
   align-items: center;
   overflow: auto;
   scrollbar-width: thin;
+  box-shadow: 4px 0px 6px 0px #00000014;
 }
 
 .contact-control {
@@ -40,4 +41,25 @@ nav {
 
 .contact-list {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-letter {
+  width: 352px;
+  padding: 17px 36px;
+}
+
+.contact-letter > h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.contact-item {
+  width: 352px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 15px 24px;
 }

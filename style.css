@@ -10,12 +10,22 @@
   /* Buttons */
   --hover: #29abe2;
   --active: #091931;
+
+  /* line color */
+  --line: #d1d1d1;
 }
 
 body {
   background-color: var(--background-lightGrey);
   color: var(--text-primary);
   height: 100vh;
+}
+
+.line {
+  margin-block: 8px;
+  width: 352px;
+  height: 0px;
+  border: 1px solid var(--line);
 }
 
 .btn {
@@ -27,7 +37,6 @@ body {
 .btn-primary {
   background-color: var(--primary);
   color: var(--text-secondary);
-  transition: background-color 100ms, border-color 100ms, box-shadow 100ms;
 }
 
 .btn-primary:hover {
@@ -37,6 +46,7 @@ body {
 }
 
 .btn-primary:active {
+  transition: background-color 100ms, border-color 100ms, box-shadow 100ms;
   background-color: var(--active);
   border-color: var(--active);
   box-shadow: none;
