@@ -39,12 +39,13 @@ function loadHeader() {
 /**
  * Loads the navbar component into the element with the id "navbar".
  * If no element with that id exists, this function does nothing.
+ *
  * @returns {void}
  */
 function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
-  navbar.innerHTML = getNavbarTemplate();
+  navbar.innerHTML = getNavbarTemplate("contacts");
 }
 
 /**
