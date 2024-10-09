@@ -31,6 +31,11 @@
   font-size: 36px;
 }
 
+.modal-left p {
+  margin-bottom: 10px;
+  font-weight: 100;
+}
+
 .underline {
   height: 2px;
   width: 50px;
@@ -84,6 +89,14 @@
   box-shadow: 0px 0px 4px 0px #0000001a;
 }
 
+#add-contact-modal .avatar {
+  background-color: #d1d1d1;
+}
+
+#add-contact-modal .avatar img {
+  max-height: 28px;
+}
+
 .contact-form {
   min-width: 340px;
 }
@@ -101,6 +114,10 @@
   border: 1px solid var(--secondary);
 }
 
+.contact-form input::placeholder {
+  color: #d1d1d1;
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-start;
@@ -115,6 +132,14 @@
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 8px;
+}
+
+.delete-btn svg {
+  max-height: 10px;
+}
+
+.delete-btn:hover svg path {
+  fill: var(--secondary);
 }
 
 .save-dropdown {

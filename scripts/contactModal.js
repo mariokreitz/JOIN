@@ -20,3 +20,15 @@ function closeEditContactModal() {
     modal.remove();
   }
 }
+
+function openAddContactModal() {
+  const modalHtml = getAddContactModalTemplate();
+  document.body.insertAdjacentHTML("beforeend", modalHtml);
+}
+
+function closeContactModal() {
+  const modal = document.getElementById("add-contact-modal");
+  if (modal) {
+    modal.remove();
+  }
+}

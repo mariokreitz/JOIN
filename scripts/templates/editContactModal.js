@@ -32,7 +32,7 @@ function getEditContactModalTemplate() {
               </div>
               <div class="form-actions">
                 <button class="delete-btn">Delete</button>
-                <button class="save-btn">Save</button>
+                <button class="save-btn">Save <img src="./assets/svg/check-mark" alt="" /></button>
               </div>
             </form>
           </div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/styles/reset.css" />
+    <link rel="stylesheet" href="./assets/styles/font.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/styles/contacts.css" />
+    <link rel="stylesheet" href="./assets/styles/contactModal.css" />
+  </head>
+  <body onload="init()">
+    <header id="header"></header>
+    <nav id="sidebar"></nav>
+    <main>
+      <div class="contact-wrapper">
+        <div class="contacts">
+          <div class="contact-control">
+            <button type="button" class="inter-medium btn btn-primary btn-primary-big" onclick="openAddContactModal()">
+              Add new contact <img src="./assets/img/person_add.png" alt="add icon" />
+            </button>
+          </div>
+          <ul id="contactList" class="contact-list"></ul>
+        </div>
+      </div>
+    </main>
+    <script src="./scripts/firebaseConfig.js"></script>
+    <script src="./scripts/dataRequester.js"></script>
+    <script src="./scripts/templates/contacts.template.js"></script>
+    <script src="./scripts/templates/addContactModal.js"></script>
+    <script src="./scripts/contactModal.js"></script>
+  </body>
+</html>
