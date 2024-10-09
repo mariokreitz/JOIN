@@ -136,14 +136,11 @@
 
 .delete-btn svg {
   max-height: 10px;
+  margin-left: 5px;
 }
 
 .delete-btn:hover svg path {
   fill: var(--secondary);
-}
-
-.save-dropdown {
-  position: relative;
 }
 
 .save-btn {
@@ -157,6 +154,7 @@
 
 .check-mark {
   max-height: 10px;
+  margin-left: 10px;
 }
 
 .save-btn:hover {
