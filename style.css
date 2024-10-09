@@ -1,0 +1,14 @@
+:root {
+  --primary: #2a3647;
+  --secondary: #29abe2;
+  --background-white: #ffffff;
+  --background-lightGrey: #f6f7f8;
+
+  --text-primary: #000000;
+}
+
+body {
+  background-color: var(--background-lightGrey);
+  color: var(--text-primary);
+  height: 100vh;
+}
