@@ -1,0 +1,129 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  display: flex;
+  background-color: var(--background-white);
+  border-radius: 20px;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+.modal-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--primary);
+  color: white;
+  padding: 30px;
+}
+
+.modal-left h2 {
+  font-size: 36px;
+}
+
+.logo-container img {
+  width: 40px;
+  margin-bottom: 20px;
+}
+
+.modal-right {
+  display: flex;
+  padding: 80px 50px;
+  position: relative;
+}
+
+.modal-right-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  line-height: 14px;
+  vertical-align: top;
+  border-radius: 100%;
+}
+
+.avatar {
+  background-color: #f4c242;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.contact-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.delete-btn {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.save-dropdown {
+  position: relative;
+}
+
+.save-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.check-mark {
+  max-height: 10px;
+}
+
+.save-btn:hover {
+  background-color: var(--secondary);
+}
+
+.delete-btn:hover {
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  background: unset;
+}
