@@ -10,7 +10,7 @@ let contacts;
 async function init() {
   loadComponents();
   await getData(API_URL);
-  await renderContactList();
+  renderContactList();
 }
 
 /**
@@ -57,17 +57,14 @@ function loadNavbar() {
 async function getData(url) {
   const data = await fetchData(url + ".json");
   contacts = data.contacts || [];
-  console.log(contacts);
 }
 
 /**
- * Renders the contacts list in the #contactList element.
- *
- * The list is sorted by the first letter of the contact's name and grouped by letter.
- *
- * @returns {Promise<void>} - A promise that resolves when the contacts list has been rendered.
+ * Renders the list of contacts into the element with the id "contactList".
+ * If no element with that id exists, this function does nothing.
+ * @returns {void}
  */
-async function renderContactList() {
+function renderContactList() {
   const contactListElement = document.getElementById("contactList");
   if (!contactListElement) return;
 
@@ -113,3 +110,5 @@ function getInitialsFromContact({ name }) {
   const lastInitial = lastName.charAt(0);
   return `${firstInitial}${lastInitial}`;
 }
+
+window.addEventListener("resize", renderContactList);
