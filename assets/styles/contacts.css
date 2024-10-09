@@ -6,6 +6,7 @@ header {
 }
 
 main {
+  display: flex;
   padding-left: 232px;
   width: 100%;
   height: calc(100% - 96px);
@@ -57,6 +58,13 @@ nav {
   line-height: 24px;
 }
 
+.contact-horizontal-seperator {
+  margin-block: 8px;
+  width: 352px;
+  height: 0px;
+  border: 1px solid var(--line);
+}
+
 .contact-item {
   width: 352px;
   display: flex;
@@ -105,4 +113,31 @@ nav {
   color: var(--text-email);
   font-size: 16px;
   line-height: 19.2px;
+}
+
+.contact-main-heading-container {
+  margin-top: 110px;
+  margin-left: 55px;
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+
+.contact-main-heading {
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+.contact-heading-vertical-seperator {
+  margin-inline: 30px;
+  height: 59px;
+  width: 3px;
+  background-color: var(--secondary);
+  border-radius: 9999px;
+}
+
+.contact-main-subtext {
+  font-size: 27px;
+  line-height: 32.4px;
+  color: var(--primary);
 }
