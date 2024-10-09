@@ -34,6 +34,11 @@ body {
   border: 1px solid var(--line);
 }
 
+.active {
+  background-color: var(--active);
+  color: var(--text-secondary);
+}
+
 .btn {
   display: flex;
   justify-content: center;
