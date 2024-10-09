@@ -90,7 +90,7 @@ function renderContactList() {
         <div class="contact-letter">
           <h3 class="inter-extralight">${letter}</h3>
         </div>
-        <div class="line"></div>
+        <div class="contact-horizontal-seperator"></div>
         ${contactElements.join("")}
       `;
     })
