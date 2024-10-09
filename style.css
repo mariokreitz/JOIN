@@ -27,13 +27,6 @@ body {
   height: 100vh;
 }
 
-.line {
-  margin-block: 8px;
-  width: 352px;
-  height: 0px;
-  border: 1px solid var(--line);
-}
-
 .active {
   background-color: var(--active);
   color: var(--text-secondary);
