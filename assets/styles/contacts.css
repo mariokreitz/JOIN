@@ -1,0 +1,21 @@
+header {
+  background-color: var(--background-white);
+  height: 96px;
+  width: 100%;
+  padding-left: 232px;
+}
+
+main {
+  padding-left: 232px;
+  width: 100%;
+  height: calc(100% - 96px);
+}
+
+nav {
+  background-color: var(--primary);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 232px;
+  height: 100%;
+}
