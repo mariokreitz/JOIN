@@ -7,12 +7,14 @@
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./assets/styles/reset.css" />
     <link rel="stylesheet" href="./assets/styles/font.css" />
+    <link rel="stylesheet" href="./assets/styles/header.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./assets/styles/contacts.css" />
+    <link rel="stylesheet" href="./assets/styles/navbar.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
-    <nav id="sidebar"></nav>
+    <nav id="navbar" class="navbar"></nav>
     <main>
       <div class="contact-wrapper">
         <div class="contacts">
@@ -25,6 +27,8 @@
         </div>
       </div>
     </main>
+    <script src="./scripts/templates/header.template.js"></script>
+    <script src="./scripts/templates/navbar.template.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataRequester.js"></script>
     <script src="./scripts/templates/contacts.template.js"></script>
