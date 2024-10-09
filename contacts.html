@@ -14,8 +14,15 @@
     <header id="header"></header>
     <nav id="sidebar"></nav>
     <main>
-      <div class="wrapper">
-        <ul id="contactList"></ul>
+      <div class="contact-wrapper">
+        <div class="contacts">
+          <div class="contact-control">
+            <button type="button" class="inter-medium btn btn-primary btn-primary-big">
+              Add new contact <img src="./assets/img/person_add.png" alt="add icon" />
+            </button>
+          </div>
+          <ul id="contactList" class="contact-list"></ul>
+        </div>
       </div>
     </main>
     <script src="./scripts/firebaseConfig.js"></script>

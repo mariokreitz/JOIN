@@ -19,3 +19,25 @@ nav {
   width: 232px;
   height: 100%;
 }
+
+.contact-wrapper {
+  height: 100%;
+}
+
+.contacts {
+  height: -webkit-fill-available;
+  width: 456px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.contact-control {
+  padding-block: 22.5px;
+}
+
+.contact-list {
+  width: 100%;
+}
