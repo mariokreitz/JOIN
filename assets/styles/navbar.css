@@ -13,12 +13,48 @@
   justify-content: center;
 }
 
-.join-navbar-logo {
+.navbar-logo {
   width: 100px;
   height: 120px;
 }
 
-.navigations-tasks {
+.navbar-link-container {
   width: 100%;
+  height: calc(100% - 242px);
   margin-top: 114px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbar-link-container > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 56px;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: var(--text-navbar);
+  padding: 8px 56px;
+}
+
+.navbar-link:hover {
+  background-color: var(--nav-hover);
+}
+
+.navbar-link:active {
+  background-color: var(--active);
+  color: var(--text-secondary);
+}
+
+.navbar-link > img {
+  width: 30px;
+  height: 30px;
 }
