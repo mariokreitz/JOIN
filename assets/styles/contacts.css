@@ -33,6 +33,7 @@ nav {
   overflow: auto;
   scrollbar-width: thin;
   box-shadow: 4px 0px 6px 0px #00000014;
+  background-color: var(--background-white);
 }
 
 .contact-control {
@@ -60,6 +61,48 @@ nav {
   width: 352px;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 35px;
   padding: 15px 24px;
+}
+
+.contact-item:hover {
+  cursor: pointer;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+}
+
+.contact-item:active {
+  color: var(--text-secondary);
+  background: none;
+  background-color: var(--primary);
+}
+
+.contact-initials {
+  height: 42px;
+  width: 42px;
+  border: 2px solid var(--background-white);
+  border-radius: 9999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 14.4px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contact-name {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.contact-email {
+  color: var(--text-email);
+  font-size: 16px;
+  line-height: 19.2px;
 }

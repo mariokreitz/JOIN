@@ -10,10 +10,10 @@
 function getContactTemplate(initials, color, fullName, email) {
   return /*html*/ `
         <li class="contact-item">
-            <div class="contact-initials" style="background-color: ${color}">${initials}</div>
-            <div>
-                <p class="contact-name">${fullName}</p>
-                <p class="contact-email">${email}</p>
+            <span class="inter-extralight contact-initials" style="background-color: ${color}">${initials}</span>
+            <div class="contact-info">
+                <p class="inter-extralight contact-name">${fullName}</p>
+                <p class="inter-extralight contact-email">${email}</p>
             </div>
         </li>
     `;
