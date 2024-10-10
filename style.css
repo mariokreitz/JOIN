@@ -4,18 +4,32 @@
   --background-white: #ffffff;
   --background-lightGrey: #f6f7f8;
 
+  /* Text Color */
   --text-primary: #000000;
   --text-secondary: #ffffff;
+  --text-email: #007cee;
+  --text-navbar: #cdcdcd;
 
-  /* Buttons */
+  /* hover and active states */
   --hover: #29abe2;
   --active: #091931;
+
+  /* line color */
+  --line: #d1d1d1;
+
+  /* Navbar */
+  --nav-hover: #2a3d59;
 }
 
 body {
   background-color: var(--background-lightGrey);
   color: var(--text-primary);
   height: 100vh;
+}
+
+.active {
+  background-color: var(--active);
+  color: var(--text-secondary);
 }
 
 .btn {
@@ -27,7 +41,6 @@ body {
 .btn-primary {
   background-color: var(--primary);
   color: var(--text-secondary);
-  transition: background-color 100ms, border-color 100ms, box-shadow 100ms;
 }
 
 .btn-primary:hover {
@@ -37,6 +50,7 @@ body {
 }
 
 .btn-primary:active {
+  transition: background-color 100ms, border-color 100ms, box-shadow 100ms;
   background-color: var(--active);
   border-color: var(--active);
   box-shadow: none;

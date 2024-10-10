@@ -22,7 +22,7 @@ function closeEditContactModal() {
 }
 
 function openAddContactModal() {
-  const modalHtml = getAddContactModalTemplate();
+  const modalHtml = getContactModalTemplate();
   document.body.insertAdjacentHTML("beforeend", modalHtml);
 }
 
