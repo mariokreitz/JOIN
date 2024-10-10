@@ -70,11 +70,18 @@ async function getData(url) {
 }
 
 /**
- * Renders the list of contacts into the element with the id "contactList".
- * If no element with that id exists, this function does nothing.
+ * Renders the contact list by mapping the contacts array to an HTML string and
+ * setting the innerHTML of the element with the id "contactList" to that string.
+ *
+ * The contacts array is first grouped by the first letter of the contact name
+ * and then sorted by letter. For each letter, an HTML string is created for
+ * the contacts under that letter. The HTML string for each contact includes an
+ * avatar with the contact's initials and the contact's name and email.
+ *
  * @returns {void}
  */
 function renderContactList() {
+  let index = -1;
   const contactListElement = document.getElementById("contactList");
   if (!contactListElement) return;
 
@@ -94,7 +101,8 @@ function renderContactList() {
       const contactsForLetter = contactsByLetter[letter];
       const contactElements = contactsForLetter.map((contact) => {
         const initials = getInitialsFromContact(contact);
-        return getContactTemplate(initials, contact.color, contact.name, contact.email);
+        index++;
+        return getContactTemplate(index, initials, contact.color, contact.name, contact.email);
       });
       return /*html*/ `
         <div class="contact-letter">
