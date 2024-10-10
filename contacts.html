@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./assets/styles/contacts.css" />
     <link rel="stylesheet" href="./assets/styles/navbar.css" />
+    <link rel="stylesheet" href="./assets/styles/contactModal.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
@@ -19,7 +20,7 @@
       <div class="contact-wrapper">
         <div class="contacts">
           <div class="contact-control">
-            <button type="button" class="inter-medium btn btn-primary btn-primary-big">
+            <button onclick="openAddContactModal()" type="button" class="inter-medium btn btn-primary btn-primary-big">
               Add new contact <img src="./assets/img/icons/person_add.png" alt="add icon" />
             </button>
           </div>
@@ -38,5 +39,7 @@
     <script src="./scripts/dataRequester.js"></script>
     <script src="./scripts/templates/contacts.template.js"></script>
     <script src="./scripts/contacts.js"></script>
+    <script src="./scripts/templates/contactModal.template.js"></script>
+    <script src="./scripts/contactModal.js"></script>
   </body>
 </html>
