@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./assets/styles/contacts.css" />
     <link rel="stylesheet" href="./assets/styles/navbar.css" />
     <link rel="stylesheet" href="./assets/styles/contactModal.css" />
+    <link rel="stylesheet" href="./assets/styles/contactView.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
@@ -25,13 +26,6 @@
               type="button"
               class="inter-medium btn btn-primary btn-primary-big">
               Add new contact <img src="./assets/img/icons/person_add.png" alt="add icon" />
-            </button>
-            <br />
-            <button
-              onclick="openContactModal('edit', 'John Doe', 'johndoe@example.com', '+123456789');"
-              type="button"
-              class="inter-medium btn btn-primary btn-primary-big">
-              Edit contact
             </button>
           </div>
           <ul id="contactList" class="contact-list"></ul>
