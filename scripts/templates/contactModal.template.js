@@ -1,4 +1,4 @@
-function getAddContactModalTemplate() {
+function getContactModalTemplate() {
   return /* HTML */ `
     <div class="modal-overlay" id="add-contact-modal">
       <div class="modal-content">
