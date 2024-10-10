@@ -1,4 +1,14 @@
+/**
+ * The URL of the Firebase Realtime Database.
+ * @type {string}
+ * @const
+ */
 const API_URL = firebaseConfig.apiKey;
+
+/**
+ * The array of contacts.
+ * @type {Array<Object>}
+ */
 let contacts;
 
 /**
@@ -111,4 +121,14 @@ function getInitialsFromContact({ name }) {
   return `${firstInitial}${lastInitial}`;
 }
 
+/**
+ * Listens for the window resize event and re-renders the contact list when
+ * fired.
+ *
+ * This is necessary because the contact list is rendered with a masonry
+ * layout, which needs to be re-laid out when the window is resized.
+ *
+ * @listens window#resize
+ * @returns {void}
+ */
 window.addEventListener("resize", renderContactList);
