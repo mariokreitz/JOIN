@@ -1,6 +1,6 @@
 function getContactModalTemplate({ type, fullName = "", email = "", phone = "", initials = "" }) {
   const isEdit = type === "edit";
-  const cancelButtonHtml = /* HTML */ ` <button onclick="closeContactModal()" class="delete-btn">
+  const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal()" class="delete-btn">
     Cancel
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -8,7 +8,7 @@ function getContactModalTemplate({ type, fullName = "", email = "", phone = "", 
         fill="#2A3647" />
     </svg>
   </button>`;
-  return /* HTML */ `
+  return /*HTML*/ `
     <div class="modal-overlay" id="contact-modal">
       <div class="modal-content" id="modal-content">
         <div class="modal-left">
@@ -25,9 +25,11 @@ function getContactModalTemplate({ type, fullName = "", email = "", phone = "", 
           </button>
           <div class="modal-right-content">
             <div class="avatar">
-              ${isEdit
-                ? `<span id="avatar-initials">${initials}</span>`
-                : '<img src="assets/svg/person-white.svg" alt="" />'}
+              ${
+                isEdit
+                  ? `<span id="avatar-initials">${initials}</span>`
+                  : '<img src="assets/svg/person-white.svg" alt="" />'
+              }
             </div>
             <form class="contact-form">
               <div class="input-container">
