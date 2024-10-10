@@ -1,4 +1,4 @@
-function getContactModalTemplate({ type, fullName = "", email = "", phone = "", initials = "" }) {
+function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "") {
   const isEdit = type === "edit";
   const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal()" class="delete-btn">
     Cancel

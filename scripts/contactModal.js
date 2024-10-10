@@ -1,12 +1,8 @@
-function openContactModal(type, fullName = "", email = "", phone = "") {
-  const initials = type === "edit" ? getInitials(fullName) : "";
-  const modalHtml = getContactModalTemplate({
-    type,
-    fullName,
-    email,
-    phone,
-    initials,
-  });
+function openContactModal(type, name = "", email = "", phone = "") {
+  console.log(type, name, email, phone);
+
+  const initials = type === "edit" ? getInitials(name) : "";
+  const modalHtml = getContactModalTemplate(type, name, email, phone, initials);
   let modalElement = document.getElementById("contact-modal");
   if (modalElement) modalElement.remove();
   document.body.insertAdjacentHTML("beforeend", modalHtml);
