@@ -11,11 +11,31 @@
 }
 
 .modal-content {
+  position: relative;
   display: flex;
-  background-color: var(--background-white);
   border-radius: 20px;
   max-width: 800px;
   overflow: hidden;
+  transform: translateX(100%);
+  animation: slide-in 0.3s ease-out forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(200%);
+  }
 }
 
 .modal-left {
@@ -51,6 +71,7 @@
   display: flex;
   padding: 80px 30px;
   position: relative;
+  background-color: var(--background-white);
 }
 
 .modal-right-content {
@@ -89,11 +110,11 @@
   box-shadow: 0px 0px 4px 0px #0000001a;
 }
 
-#add-contact-modal .avatar {
+.avatar:has(img) {
   background-color: #d1d1d1;
 }
 
-#add-contact-modal .avatar img {
+.avatar:has(img) img {
   max-height: 28px;
 }
 
