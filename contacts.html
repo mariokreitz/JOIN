@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/styles/reset.css" />
+    <link rel="stylesheet" href="./assets/styles/font.css" />
+    <link rel="stylesheet" href="./assets/styles/header.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/styles/contacts.css" />
+    <link rel="stylesheet" href="./assets/styles/navbar.css" />
+    <link rel="stylesheet" href="./assets/styles/contactModal.css" />
+    <link rel="stylesheet" href="./assets/styles/contactView.css" />
+  </head>
+  <body onload="init()">
+    <header id="header"></header>
+    <nav id="navbar" class="navbar"></nav>
+    <main>
+      <div class="contact-list-wrapper">
+        <div class="contacts">
+          <div class="contact-control">
+            <button
+              onclick="openContactModal('add');"
+              type="button"
+              class="inter-medium btn btn-primary btn-primary-big">
+              Add new contact <img src="./assets/img/icons/person_add.png" alt="add icon" />
+            </button>
+          </div>
+          <ul id="contactList" class="contact-list"></ul>
+        </div>
+      </div>
+      <div class="contact-main-container">
+        <div class="contact-main-heading-container">
+          <h1 class="inter-medium contact-main-heading">Contacts</h1>
+          <div class="contact-heading-vertical-seperator"></div>
+          <p class="inter-extralight contact-main-subtext">Better with a team</p>
+        </div>
+        <div id="contact-view" class="contact-main-view"></div>
+      </div>
+    </main>
+    <script src="./scripts/templates/header.template.js"></script>
+    <script src="./scripts/templates/navbar.template.js"></script>
+    <script src="./scripts/templates/contactsList.template.js"></script>
+    <script src="./scripts/templates/contactModal.template.js"></script>
+    <script src="./scripts/templates/contactView.template.js"></script>
+    <script src="./scripts/firebaseConfig.js"></script>
+    <script src="./scripts/dataRequester.js"></script>
+    <script src="./scripts/contactsList.js"></script>
+    <script src="./scripts/contactModal.js"></script>
+    <script src="./scripts/contactView.js"></script>
+  </body>
+</html>

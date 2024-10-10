@@ -1,0 +1,96 @@
+.contact-main-view {
+  margin-top: 32px;
+  margin-left: 62px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.contact-main-card {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.contact-main-header {
+  display: flex;
+  gap: 54px;
+}
+
+.contact-main-initials {
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  width: 120px;
+  border: 3px solid var(--background-white);
+  border-radius: 9999px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  font-size: 47px;
+  line-height: 56.4px;
+}
+
+.contact-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-main-info > p {
+  font-size: 47px;
+  line-height: 56.4px;
+}
+
+.contact-main-controls {
+  width: 159px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.contact-main-control-btn {
+  font-size: 16px;
+  line-height: 19.2px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.contact-main-control-btn svg path {
+  fill: var(--primary);
+}
+
+.contact-main-control-btn:hover,
+.contact-main-control-btn:hover svg path {
+  fill: var(--secondary);
+  color: var(--secondary);
+  font-weight: 700;
+}
+
+.contact-main-infotext {
+  font-size: 20px;
+  line-height: 24px;
+  height: 74px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+
+.contact-main-details {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.contact-main-details-email,
+.contact-main-details-phone {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 19.2px;
+  gap: 15px;
+}
+
+.contact-main-details-email > span:last-child {
+  color: var(--text-email);
+}

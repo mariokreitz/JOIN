@@ -1,0 +1,39 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-white);
+  height: 96px;
+  width: 100%;
+  padding-left: 232px;
+}
+
+.heading-text {
+  margin-left: 116px;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.header-right {
+  margin-right: 40px;
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  align-items: center;
+}
+
+.qeustion-mark {
+  width: 20px;
+  height: 20px;
+}
+
+.profile-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  border: 3px solid rgba(42, 54, 71, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
