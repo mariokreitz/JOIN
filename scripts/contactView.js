@@ -1,20 +1,54 @@
 /**
- * Opens the contact view for the given contact ID by finding the contact item
- * by its ID, extracting the contact name from the contact item, finding the
- * contact object in the contacts array, and setting the innerHTML of the
- * contact view to the contact view template with the contact object.
- * @param {number} contactId - The ID of the contact to open in the contact view.
+ * Toggles the contact view based on the id of the contact item. If the contact
+ * item is selected, the contact view is rendered with the contact's initials and
+ * contact information. If the contact item is deselected, the contact view is
+ * cleared.
+ *
+ * @param {number} contactId - The id of the contact item.
  * @returns {void}
  */
-function openContactView(contactId) {
-  const contactItem = document.getElementById(`contact-item-${contactId}`);
-  if (!contactItem) return;
+function toggleContactView(contactId) {
+  const contactItemElement = document.getElementById(`contact-item-${contactId}`);
+  if (!contactItemElement) return;
 
-  const contactNameElement = contactItem.querySelector(".contact-name");
-  const contactName = contactNameElement.textContent;
+  const contactViewElement = document.getElementById("contact-view");
+  if (!contactViewElement) return;
 
+  const contactName = contactItemElement.querySelector(".contact-name").textContent;
   const contact = contacts.find((c) => c.name === contactName);
 
-  const contactView = document.getElementById("contact-view");
-  contactView.innerHTML = getContactViewTemplate(contact);
+  const initials = getInitialsFromContact(contact);
+  toggleSelectedContactInList(contact, contactItemElement);
+  if (contact.contactSelect) {
+    contactViewElement.innerHTML = getContactViewTemplate(initials, contact);
+  } else {
+    contactViewElement.innerHTML = "";
+  }
+}
+
+/**
+ * Toggles the selected class on the contact item element and updates the
+ * contactSelect property of the selected contact. If another contact was
+ * previously selected, it will be deselected.
+ *
+ * @param {Object} selectedContact - The contact object of the selected contact.
+ * @param {HTMLElement} contactItemElement - The <li> element representing the contact item.
+ */
+function toggleSelectedContactInList(selectedContact, contactItemElement) {
+  const previouslySelectedElement = document.querySelector(".selected");
+
+  if (contactItemElement.classList.contains("selected")) {
+    contactItemElement.classList.remove("selected");
+    selectedContact.contactSelect = false;
+  } else {
+    contactItemElement.classList.add("selected");
+    selectedContact.contactSelect = true;
+  }
+  if (previouslySelectedElement) {
+    previouslySelectedElement.classList.remove("selected");
+    const previouslySelectedContact = contacts.find(
+      (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
+    );
+    previouslySelectedContact.contactSelect = false;
+  }
 }
