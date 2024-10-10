@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="./assets/styles/contacts.css" />
     <link rel="stylesheet" href="./assets/styles/navbar.css" />
     <link rel="stylesheet" href="./assets/styles/contactModal.css" />
+    <link rel="stylesheet" href="./assets/styles/contactView.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
     <nav id="navbar" class="navbar"></nav>
     <main>
-      <div class="contact-wrapper">
+      <div class="contact-list-wrapper">
         <div class="contacts">
           <div class="contact-control">
             <button
@@ -26,21 +27,17 @@
               class="inter-medium btn btn-primary btn-primary-big">
               Add new contact <img src="./assets/img/icons/person_add.png" alt="add icon" />
             </button>
-            <br />
-            <button
-              onclick="openContactModal('edit', 'John Doe', 'johndoe@example.com', '+123456789');"
-              type="button"
-              class="inter-medium btn btn-primary btn-primary-big">
-              Edit contact
-            </button>
           </div>
           <ul id="contactList" class="contact-list"></ul>
         </div>
       </div>
-      <div class="contact-main-heading-container">
-        <h1 class="inter-medium contact-main-heading">Contacts</h1>
-        <div class="contact-heading-vertical-seperator"></div>
-        <p class="inter-extralight contact-main-subtext">Better with a team</p>
+      <div class="contact-main-container">
+        <div class="contact-main-heading-container">
+          <h1 class="inter-medium contact-main-heading">Contacts</h1>
+          <div class="contact-heading-vertical-seperator"></div>
+          <p class="inter-extralight contact-main-subtext">Better with a team</p>
+        </div>
+        <div id="contact-view" class="contact-main-view"></div>
       </div>
     </main>
     <script src="./scripts/templates/header.template.js"></script>
