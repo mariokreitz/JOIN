@@ -20,8 +20,18 @@
       <div class="contact-list-wrapper">
         <div class="contacts">
           <div class="contact-control">
-            <button onclick="openAddContactModal()" type="button" class="inter-medium btn btn-primary btn-primary-big">
+            <button
+              onclick="openContactModal('add');"
+              type="button"
+              class="inter-medium btn btn-primary btn-primary-big">
               Add new contact <img src="./assets/img/icons/person_add.png" alt="add icon" />
+            </button>
+            <br />
+            <button
+              onclick="openContactModal('edit', 'John Doe', 'johndoe@example.com', '+123456789');"
+              type="button"
+              class="inter-medium btn btn-primary btn-primary-big">
+              Edit contact
             </button>
           </div>
           <ul id="contactList" class="contact-list"></ul>

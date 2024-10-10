@@ -1,34 +1,33 @@
-function openEditContactModal(fullName, email, phone) {
-  const modalHtml = getEditContactModalTemplate();
-  const initials = getInitials(fullName);
+function openContactModal(type, fullName = "", email = "", phone = "") {
+  const initials = type === "edit" ? getInitials(fullName) : "";
+  const modalHtml = getContactModalTemplate({
+    type,
+    fullName,
+    email,
+    phone,
+    initials,
+  });
+  let modalElement = document.getElementById("contact-modal");
+  if (modalElement) modalElement.remove();
   document.body.insertAdjacentHTML("beforeend", modalHtml);
-  document.getElementById("contact-name").value = fullName;
-  document.getElementById("contact-email").value = email;
-  document.getElementById("contact-phone").value = phone;
-  document.getElementById("avatar-initials").textContent = initials;
+  applyAnimation("slide-in");
+}
+
+function closeContactModal() {
+  const modal = document.getElementById("contact-modal");
+  if (modal) {
+    applyAnimation("slide-out");
+    modal.addEventListener("animationend", () => modal.remove());
+  }
+}
+
+function applyAnimation(animationType) {
+  const modalContent = document.getElementById("modal-content");
+  modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
 }
 
 function getInitials(fullName) {
   const nameParts = fullName.split(" ");
-  const initials = nameParts[0].charAt(0) + nameParts[1].charAt(0);
+  const initials = nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : "");
   return initials.toUpperCase();
-}
-
-function closeEditContactModal() {
-  const modal = document.getElementById("edit-contact-modal");
-  if (modal) {
-    modal.remove();
-  }
-}
-
-function openAddContactModal() {
-  const modalHtml = getContactModalTemplate();
-  document.body.insertAdjacentHTML("beforeend", modalHtml);
-}
-
-function closeContactModal() {
-  const modal = document.getElementById("add-contact-modal");
-  if (modal) {
-    modal.remove();
-  }
 }
