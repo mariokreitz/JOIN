@@ -37,10 +37,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
 input,
 textarea,
 select {
