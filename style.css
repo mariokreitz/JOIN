@@ -32,6 +32,13 @@ body {
   color: var(--text-secondary);
 }
 
+.selected {
+  border-radius: 10px;
+  color: var(--text-secondary);
+  background: none !important;
+  background-color: var(--primary) !important;
+}
+
 .btn {
   display: flex;
   justify-content: center;
