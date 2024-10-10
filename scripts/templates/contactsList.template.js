@@ -9,7 +9,7 @@
  */
 function getContactTemplate(initials, color, fullName, email) {
   return /*html*/ `
-        <li class="contact-item">
+        <li onclick="openContactView()" class="contact-item">
             <span class="inter-extralight contact-initials" style="background-color: ${color}">${initials}</span>
             <div class="contact-info">
                 <p class="inter-extralight contact-name">${fullName}</p>
