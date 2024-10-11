@@ -15,6 +15,14 @@ main h4 {
   font-size: 27px;
 }
 
+.help-below span {
+  color: #29abe2;
+}
+
+main span {
+  color: #29abe2;
+}
+
 .help-below {
   margin-left: 328px;
   width: 1014px;
@@ -46,6 +54,7 @@ main {
 .how-use-p {
   margin-bottom: 16px;
 }
+
 .how-to-use-section {
   display: flex;
   flex-direction: column;
