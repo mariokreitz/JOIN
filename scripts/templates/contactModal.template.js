@@ -31,22 +31,26 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
                   : '<img src="assets/svg/person-white.svg" alt="" />'
               }
             </div>
-            <form class="contact-form">
+            <form id="contact-form" class="contact-form">
               <div class="input-container">
-                <input type="text" id="contact-name" placeholder="Name" value="${fullName}" />
+                <input type="text" id="contact-name" name="name" placeholder="Name" value="${fullName}" />
                 <i class="icon-name"><img src="./assets/svg/person.svg" alt="" /></i>
               </div>
               <div class="input-container">
-                <input type="email" id="contact-email" placeholder="Email" value="${email}" />
+                <input type="email" id="contact-email" name="email" placeholder="Email" value="${email}" />
                 <i class="icon-email"><img src="./assets/svg/mail.svg" alt="" /></i>
               </div>
               <div class="input-container">
-                <input type="tel" id="contact-phone" placeholder="Phone" value="${phone}" />
+                <input type="tel" id="contact-phone" name="phone" placeholder="Phone" value="${phone}"/>
                 <i class="icon-phone"><img src="./assets/svg/call.svg" alt="" /></i>
               </div>
               <div class="form-actions">
-                ${isEdit ? '<button class="delete-btn">Delete</button>' : cancelButtonHtml}
-                <button type="submit" class="save-btn">
+              ${
+                isEdit
+                  ? `<button class="delete-btn" onclick="event.preventDefault(); deleteContact('${fullName}')">Delete</button>`
+                  : cancelButtonHtml
+              }
+                <button onclick="handleSaveClick(event)" type="submit" class="save-btn">
                   ${isEdit ? "Save" : "Create contact"}
                   <img class="check-mark" src="./assets/svg/check-mark.svg" alt="" />
                 </button>

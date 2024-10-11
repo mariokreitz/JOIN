@@ -9,6 +9,7 @@
   --text-secondary: #ffffff;
   --text-email: #007cee;
   --text-navbar: #cdcdcd;
+  --text-navbar-bottom: #a8a8a8;
 
   /* hover and active states */
   --hover: #29abe2;
@@ -28,8 +29,8 @@ body {
 }
 
 .active {
-  background-color: var(--active);
-  color: var(--text-secondary);
+  background-color: var(--active) !important;
+  color: var(--text-secondary) !important;
 }
 
 .selected {
