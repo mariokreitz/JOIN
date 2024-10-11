@@ -45,7 +45,11 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
                 <i class="icon-phone"><img src="./assets/svg/call.svg" alt="" /></i>
               </div>
               <div class="form-actions">
-                ${isEdit ? '<button class="delete-btn">Delete</button>' : cancelButtonHtml}
+              ${
+                isEdit
+                  ? `<button class="delete-btn" onclick="event.preventDefault(); deleteContact('${fullName}')">Delete</button>`
+                  : cancelButtonHtml
+              }
                 <button onclick="handleSaveClick(event)" type="submit" class="save-btn">
                   ${isEdit ? "Save" : "Create contact"}
                   <img class="check-mark" src="./assets/svg/check-mark.svg" alt="" />
