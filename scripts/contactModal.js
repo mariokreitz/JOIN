@@ -90,7 +90,7 @@ async function createContact() {
 }
 
 async function deleteContact(contactName) {
-  const contactIndex = contacts.findIndex((contact) => contact.name === contactName);
+  const contactIndex = await getContactIndexByName(contactName);
 
   if (contactIndex >= 0) {
     const status = await deleteDataInFirebase(API_URL, "contacts", contactIndex);
