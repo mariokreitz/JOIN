@@ -101,15 +101,3 @@ async function deleteContact(contactName) {
     console.error("Contact not found.");
   }
 }
-
-async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
-  const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
-    method: "DELETE",
-  });
-
-  if (response.ok) {
-    return "Contact deleted successfully.";
-  } else {
-    return "Failed to delete contact.";
-  }
-}
