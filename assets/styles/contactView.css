@@ -54,6 +54,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  width: 100px;
 }
 
 .contact-main-control-btn svg path {
@@ -93,4 +94,30 @@
 
 .contact-main-details-email > span:last-child {
   color: var(--text-email);
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+#contact-view {
+  animation-fill-mode: forwards;
 }

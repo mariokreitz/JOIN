@@ -109,3 +109,15 @@ async function patchDataInFirebase(url, path, data, contactId) {
 async function postData() {
   console.log("hallo from postData");
 }
+
+async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
+  const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    return "Contact deleted successfully.";
+  } else {
+    return "Failed to delete contact.";
+  }
+}

@@ -1,6 +1,6 @@
-function openContactModal(type, name = "", email = "", phone = "") {
+function openContactModal(type, name = "", email = "", phone = "", color = "") {
   const initials = type === "edit" ? getInitials(name) : "";
-  const modalHtml = getContactModalTemplate(type, name, email, phone, initials);
+  const modalHtml = getContactModalTemplate(type, name, email, phone, initials, color);
   let modalElement = document.getElementById("contact-modal");
   if (modalElement) modalElement.remove();
   document.body.insertAdjacentHTML("beforeend", modalHtml);
@@ -99,17 +99,5 @@ async function deleteContact(contactName) {
     closeContactModal();
   } else {
     console.error("Contact not found.");
-  }
-}
-
-async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
-  const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
-    method: "DELETE",
-  });
-
-  if (response.ok) {
-    return "Contact deleted successfully.";
-  } else {
-    return "Failed to delete contact.";
   }
 }
