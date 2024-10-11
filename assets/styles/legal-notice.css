@@ -1,0 +1,57 @@
+.head-and-arrow {
+  width: 1014px;
+  margin-top: 110px;
+  margin-left: 328px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+.imprint-h2 {
+  font-size: 27px;
+  line-height: 32px;
+  margin-bottom: 16px;
+  padding: 0px;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+p {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+span {
+  color: #29abe2;
+}
+
+main {
+  width: 1014px;
+  margin-top: 32px;
+  margin-left: 328px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+main li {
+  line-height: 24px;
+  font-size: 20px;
+  list-style-type: disc;
+  margin-left: 24px;
+}
+
+.exploring-head {
+  margin-top: 16px;
+}
+
+.scope-belowe-p {
+  margin-top: 24px;
+}
