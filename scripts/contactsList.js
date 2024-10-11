@@ -1,11 +1,4 @@
 /**
- * The URL of the Firebase Realtime Database.
- * @type {string}
- * @const
- */
-const API_URL = firebaseConfig.apiKey;
-
-/**
  * The array of contacts.
  * @type {Array<Object>}
  */

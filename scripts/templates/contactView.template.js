@@ -4,7 +4,7 @@ function getContactViewTemplate(initials, { color, name, email, phone }) {
             <div class="contact-main-header">
                 <span class="inter-light contact-main-initials" style="background-color: ${color}">${initials}</span>
                 <div class="contact-main-info">
-                    <p class="inter-light">${name}</p>
+                    <p id="contact-main-name" class="inter-light">${name}</p>
                     <div class="contact-main-controls">
                         <button
                         class="inter-extralight contact-main-control-btn"
