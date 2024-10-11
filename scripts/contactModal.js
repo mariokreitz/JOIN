@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 function openContactModal(type, name = "", email = "", phone = "") {
   console.log(type, name, email, phone);
 
@@ -27,3 +28,5 @@ function getInitials(fullName) {
   const initials = nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : "");
   return initials.toUpperCase();
 }
+=======
+>>>>>>> Stashed changes

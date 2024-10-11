@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "") {
   const isEdit = type === "edit";
   const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal()" class="delete-btn">
@@ -58,3 +59,5 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
     </div>
   `;
 }
+=======
+>>>>>>> Stashed changes

@@ -1,0 +1,72 @@
+.head-and-arrow {
+  width: 1014px;
+  margin-top: 110px;
+  margin-left: 328px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.head-and-arrow h1 {
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+main h4 {
+  font-size: 27px;
+}
+
+.help-below {
+  margin-left: 328px;
+  width: 1014px;
+  margin-top: 32px;
+}
+
+main {
+  margin-top: 24px;
+  margin-left: 328px;
+  max-width: 1014px;
+}
+
+.whats-join {
+  width: 1014px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.whats-join p {
+  line-height: 19.2px;
+}
+
+.how-use-head {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.how-use-p {
+  margin-bottom: 16px;
+}
+
+.how-to-use-section h3 {
+  font-size: 27px;
+  margin-right: 35px;
+}
+
+.how-to-use-section h4 {
+  font-size: 20px;
+}
+
+.how-to-use-section p {
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+.howto-heading-and-p {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.how-to-use-containers {
+  display: flex;
+}
