@@ -1,4 +1,4 @@
-function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "") {
+function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "", color = "") {
   const isEdit = type === "edit";
   const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal()" class="delete-btn">
     Cancel
@@ -24,7 +24,7 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
             <img src="./assets/svg/close.svg" alt="" />
           </button>
           <div class="modal-right-content">
-            <div class="avatar">
+            <div class="avatar" ${isEdit ? `style="background-color: ${color};"` : ""}>
               ${
                 isEdit
                   ? `<span id="avatar-initials">${initials}</span>`
