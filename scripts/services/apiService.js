@@ -6,7 +6,7 @@
 const API_URL = firebaseConfig.apiKey;
 
 /**
- * Fetches JSON data from a given URL.
+ * Fetches data from the given URL and returns the response as JSON.
  *
  * @param {string} url
  *   The URL to fetch from.
@@ -29,6 +29,41 @@ async function fetchData(url) {
   }
 
   return response.json();
+}
+
+/**
+ * Finds the index of the contact with the given name in the contacts array.
+ *
+ * @param {string} contactName
+ *   The name of the contact to find.
+ *
+ * @returns {Promise<number>}
+ *   The index of the contact in the contacts array, or undefined if not found.
+ *
+ * @throws {Error}
+ *   If the URL is invalid or the request failed.
+ */
+async function getContactIndexByName(contactName) {
+  const contacts = await fetchData(`${API_URL}/contacts.json`);
+  if (!contacts) return;
+
+  return contacts?.findIndex((contact) => contact?.name === contactName);
+}
+/**
+ * Fetches JSON data from the given URL in the Firebase Realtime Database.
+ *
+ * @param {string} url
+ *   The URL of the Firebase Realtime Database.
+ *
+ * @returns {Promise<Object>}
+ *   Resolves with the parsed JSON data from the response.
+ *
+ * @throws {Error}
+ *   If the URL is invalid or the request failed.
+ */
+async function getDataFromFirebase(url) {
+  data = await fetchData(url + ".json");
+  return data.contacts.filter((el) => el != null);
 }
 
 /**
