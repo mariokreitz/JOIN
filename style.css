@@ -28,8 +28,8 @@ body {
 }
 
 .active {
-  background-color: var(--active);
-  color: var(--text-secondary);
+  background-color: var(--active) !important;
+  color: var(--text-secondary) !important;
 }
 
 .selected {

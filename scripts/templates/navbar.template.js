@@ -25,8 +25,8 @@ function getNavbarTemplate(currentPage) {
         }" href="./contacts.html"><img src="./assets/img/icons/contacts.png" alt="Contacts Icon">Contacts</a></li>
       </ul>
       <ul>
-        <li><a class="navigation gdpr" href="privacyPolicy.html">Privacy Policy</a></li>
-        <li><a class="navigation gdpr" href="legalNotice.html">Legal notice</a></li>
+        <li><a class="navigation gdpr" href="policy.html">Privacy Policy</a></li>
+        <li><a class="navigation gdpr" href="legal-notice.html">Legal notice</a></li>
       </ul>
     </div>
     `;
