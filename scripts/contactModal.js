@@ -58,21 +58,17 @@ async function handleSaveClick(event) {
 }
 
 /**
- * Updates an existing contact in Firebase.
+ * Updates a contact in Firebase Realtime Database.
  *
- * Given the contact name, gets the contact form, and the index of the contact
- * in the contacts array. If the contact form and index are valid, it gets the
- * updated contact data from the form, calls the patchDataInFirebase function
- * to update the contact in Firebase, logs the status to the console, and
- * closes the contact modal.
+ * @param {string} contactName The name of the contact to update.
  *
- * @param {string} contactName - The name of the contact to update.
  * @returns {Promise<void>} A promise that resolves when the contact has been
  * updated.
  */
 async function updateContact(contactName) {
   const contactForm = document.getElementById("contact-form");
-  const contactIndex = contacts.findIndex((contact) => contact.name === contactName);
+
+  const contactIndex = await getContactIndexByName(contactName);
 
   if (contactForm && contactIndex >= 0) {
     const formData = new FormData(contactForm);

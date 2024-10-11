@@ -58,8 +58,7 @@ function loadNavbar() {
  * @returns {Promise<void>} - A promise that resolves when the data has been fetched and the contacts array has been set.
  */
 async function getData(url) {
-  const data = await fetchData(url + ".json");
-  contacts = data.contacts || [];
+  contacts = await getDataFromFirebase(url);
 }
 
 /**
