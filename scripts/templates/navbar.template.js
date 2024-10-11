@@ -25,8 +25,12 @@ function getNavbarTemplate(currentPage) {
         }" href="./contacts.html"><img src="./assets/img/icons/contacts.png" alt="Contacts Icon">Contacts</a></li>
       </ul>
       <ul>
-        <li><a class="navigation gdpr" href="policy.html">Privacy Policy</a></li>
-        <li><a class="navigation gdpr" href="legal-notice.html">Legal notice</a></li>
+        <li><a class="navigation gdpr ${
+          currentPage == "privacy" ? "active" : ""
+        }" href="policy.html">Privacy Policy</a></li>
+        <li><a class="navigation gdpr ${
+          currentPage == "legal" ? "active" : ""
+        }" href="legal-notice.html">Legal notice</a></li>
       </ul>
     </div>
     `;

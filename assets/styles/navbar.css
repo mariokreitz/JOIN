@@ -59,7 +59,10 @@
   height: 30px;
 }
 
+.gdpr {
+  color: var(--text-navbar-bottom);
+}
+
 .gdpr:hover {
-  color: var(--secondary);
-  font-weight: 700;
+  background-color: var(--nav-hover);
 }

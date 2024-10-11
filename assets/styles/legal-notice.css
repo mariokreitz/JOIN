@@ -1,9 +1,19 @@
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 .head-and-arrow {
   width: 1014px;
   margin-top: 110px;
   margin-left: 328px;
   display: flex;
   justify-content: space-between;
+}
+
+body {
+  height: unset;
+  min-height: 100vh;
 }
 
 h1 {
