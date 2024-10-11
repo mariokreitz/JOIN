@@ -88,3 +88,28 @@ async function updateContact(contactName) {
 async function createContact() {
   await postData();
 }
+
+async function deleteContact(contactName) {
+  const contactIndex = await getContactIndexByName(contactName);
+
+  if (contactIndex >= 0) {
+    const status = await deleteDataInFirebase(API_URL, "contacts", contactIndex);
+
+    console.log(status);
+    closeContactModal();
+  } else {
+    console.error("Contact not found.");
+  }
+}
+
+async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
+  const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    return "Contact deleted successfully.";
+  } else {
+    return "Failed to delete contact.";
+  }
+}
