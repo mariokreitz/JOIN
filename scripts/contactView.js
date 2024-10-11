@@ -18,11 +18,24 @@ function toggleContactView(contactId) {
   const contact = contacts.find((c) => c.name === contactName);
 
   const initials = getInitialsFromContact(contact);
+  const isAlreadySelected = contact.contactSelect;
+
   toggleSelectedContactInList(contact, contactItemElement);
-  if (contact.contactSelect) {
-    contactViewElement.innerHTML = getContactViewTemplate(initials, contact);
+
+  if (isAlreadySelected) {
+    applyAnimationToContactView("slide-out", contactViewElement, () => {
+      contactViewElement.innerHTML = "";
+    });
   } else {
-    contactViewElement.innerHTML = "";
+    if (contactViewElement.innerHTML) {
+      applyAnimationToContactView("slide-out", contactViewElement, () => {
+        contactViewElement.innerHTML = getContactViewTemplate(initials, contact);
+        applyAnimationToContactView("slide-in", contactViewElement);
+      });
+    } else {
+      contactViewElement.innerHTML = getContactViewTemplate(initials, contact);
+      applyAnimationToContactView("slide-in", contactViewElement);
+    }
   }
 }
 
@@ -50,5 +63,22 @@ function toggleSelectedContactInList(selectedContact, contactItemElement) {
       (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
     );
     previouslySelectedContact.contactSelect = false;
+  }
+}
+
+function applyAnimationToContactView(animationType, element, callback) {
+  const body = document.body;
+  body.style.overflowX = "hidden";
+  element.style.animation = `${animationType} 0.3s ease-out forwards`;
+
+  if (callback) {
+    element.addEventListener(
+      "animationend",
+      () => {
+        body.style.overflowX = "";
+        callback();
+      },
+      { once: true }
+    );
   }
 }
