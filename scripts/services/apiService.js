@@ -106,10 +106,6 @@ async function patchDataInFirebase(url, path, data, contactId) {
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
-async function postData() {
-  };
-}
-
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
   const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
     method: "DELETE",
@@ -121,3 +117,5 @@ async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
     return "Failed to delete contact.";
   }
 }
+
+async function postData() {}
