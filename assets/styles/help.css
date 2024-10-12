@@ -11,47 +11,47 @@
   line-height: 73.2px;
 }
 
-main h4 {
+.help-main h4 {
   font-size: 27px;
 }
 
-.help-below span {
+.help-below-section span {
   color: #29abe2;
 }
 
-main span {
+.help-main span {
   color: #29abe2;
 }
 
-.help-below {
+.help-below-section {
   margin-left: 328px;
   width: 1014px;
   margin-top: 32px;
 }
 
-main {
+.help-main {
   margin-top: 24px;
   margin-left: 328px;
   max-width: 1014px;
 }
 
-.whats-join {
+.whats-join-section {
   width: 1014px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.whats-join p {
+.whats-join-section p {
   line-height: 19.2px;
 }
 
-.how-use-head {
+.how-to-use-head {
   margin-top: 24px;
   margin-bottom: 24px;
 }
 
-.how-use-p {
+.how-to-use-p {
   margin-bottom: 16px;
 }
 
