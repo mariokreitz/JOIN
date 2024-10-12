@@ -1,3 +1,17 @@
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+main {
+  padding-bottom: 40px;
+}
+
+body {
+  height: unset;
+  min-height: 100vh;
+}
+
 .help-main h4 {
   font-size: 27px;
 }
@@ -6,6 +20,7 @@
   max-width: 1014px;
   margin-left: 328px;
   margin-top: 32px;
+  margin-right: 40px;
 }
 
 .help-below-section span {
@@ -19,11 +34,11 @@
 .help-main {
   margin-top: 24px;
   margin-left: 328px;
+  margin-right: 40px;
   max-width: 1014px;
 }
 
 .whats-join-section {
-  width: 1014px;
   display: flex;
   flex-direction: column;
   gap: 16px;

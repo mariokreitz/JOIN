@@ -34,5 +34,5 @@ function loadHeader() {
 function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
-  navbar.innerHTML = getNavbarTemplate("privacy");
+  navbar.innerHTML = getNavbarTemplate();
 }
