@@ -17,18 +17,12 @@ main p {
   line-height: 19.2px;
 }
 
-.head-and-arrow {
-  width: 1016px;
-  margin-top: 110px;
-  margin-left: 328px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .policy-container {
+  max-width: 1016px;
   display: flex;
   flex-direction: column;
   margin-top: 32px;
   margin-left: 328px;
+  margin-right: 40px;
   gap: 35px;
 }
