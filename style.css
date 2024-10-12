@@ -25,7 +25,7 @@
 body {
   background-color: var(--background-lightGrey);
   color: var(--text-primary);
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .active {
@@ -77,9 +77,10 @@ body {
 }
 
 .head-and-arrow {
-  width: 1014px;
+  max-width: 1016px;
   margin-top: 110px;
   margin-left: 328px;
+  margin-right: 40px;
   display: flex;
   justify-content: space-between;
 }
