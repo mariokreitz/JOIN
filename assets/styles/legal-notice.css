@@ -21,7 +21,7 @@ h1 {
   line-height: 73.2px;
 }
 
-.imprint-h2 {
+.imprint-section-head {
   font-size: 27px;
   line-height: 32px;
   margin-bottom: 16px;
@@ -42,8 +42,8 @@ span {
   color: #29abe2;
 }
 
-main {
-  width: 1014px;
+.legal-main {
+  max-width: 1014px;
   margin-top: 32px;
   margin-left: 328px;
   display: flex;

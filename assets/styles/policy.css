@@ -28,7 +28,6 @@ main p {
 .policy-container {
   display: flex;
   flex-direction: column;
-  width: 1016px;
   margin-top: 32px;
   margin-left: 328px;
   gap: 35px;

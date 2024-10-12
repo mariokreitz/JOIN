@@ -107,7 +107,7 @@ async function patchDataInFirebase(url, path, data, contactId) {
 }
 
 async function postData() {
-  console.log("hallo from postData");
+  };
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
