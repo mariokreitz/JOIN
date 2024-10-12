@@ -3,26 +3,18 @@ h1 {
   line-height: 73.2px;
 }
 
-h2 {
+.policy-main h2 {
   font-size: 27px;
 }
 
-main img {
+.policy-main img {
   width: 32px;
   height: 32px;
 }
 
-main p {
+.policy-main p {
   margin-top: 10px;
   line-height: 19.2px;
-}
-
-.head-and-arrow {
-  width: 1016px;
-  margin-top: 110px;
-  margin-left: 328px;
-  display: flex;
-  justify-content: space-between;
 }
 
 .policy-container {
