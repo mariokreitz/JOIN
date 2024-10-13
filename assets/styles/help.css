@@ -39,6 +39,7 @@ body {
 }
 
 .whats-join-section {
+  max-width: 1014px;
   display: flex;
   flex-direction: column;
   gap: 16px;
