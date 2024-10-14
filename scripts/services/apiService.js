@@ -117,7 +117,7 @@ async function checkIfDuplicate(email, phone, contacts) {
   return false;
 }
 
-function checkLastID() {
+function checkLastID(contacts) {
   const existingIds = Object.keys(contacts);
   let newId = 0;
 
@@ -129,6 +129,7 @@ function checkLastID() {
       }
     }
   }
+  return newId;
 }
 
 async function postData() {
