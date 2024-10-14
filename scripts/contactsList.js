@@ -97,10 +97,10 @@ function renderContactList() {
         return getContactTemplate(index, initials, contact.color, contact.name, contact.email);
       });
       return /*html*/ `
-        <div class="contact-letter">
+        <li class="contact-letter">
           <h3 class="inter-extralight">${letter}</h3>
-        </div>
-        <div class="contact-horizontal-seperator"></div>
+        </li>
+        <li class="contact-horizontal-seperator"></li>
         ${contactElements.join("")}
       `;
     })
