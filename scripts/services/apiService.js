@@ -123,6 +123,8 @@ async function postData() {
 
   const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
 
+  checkIfDublicate();
+
   const existingIds = Object.keys(contacts);
 
   let newId = 0;
