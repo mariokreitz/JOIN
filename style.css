@@ -94,3 +94,14 @@ body {
   width: 32px;
   height: 32px;
 }
+
+@media (max-width: 768px) {
+  .head-and-arrow h1 {
+    font-size: 47px;
+  }
+  .head-and-arrow {
+    margin-left: 0px;
+    max-width: 100%;
+    margin-top: 48px;
+  }
+}

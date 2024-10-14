@@ -87,3 +87,43 @@ body {
 .how-to-use-containers {
   display: flex;
 }
+
+@media (max-width: 768px) {
+  .help-below-section p {
+    font-size: 16px;
+  }
+
+  .whats-join-section p {
+    font-size: 16px;
+  }
+  .how-to-use-section h4 {
+    font-size: 27px;
+  }
+
+  .how-to-use-section h3 {
+    font-size: 27px;
+  }
+  .help-main {
+    margin-left: 0px;
+  }
+  .help-below-section {
+    margin-left: 0px;
+  }
+
+  .help-head {
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+
+  .whats-join-section {
+    max-width: 100%;
+  }
+
+  .help-main {
+    max-width: 100%;
+  }
+
+  .how-to-use-section {
+    max-width: 100%;
+  }
+}
