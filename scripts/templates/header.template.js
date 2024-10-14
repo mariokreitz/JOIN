@@ -1,3 +1,8 @@
+/**
+ * Returns an HTML template for the header component.
+ *
+ * @returns {string} The HTML template.
+ */
 function getHeaderTemplate() {
   return /*html*/ `
         <h2 class="inter-extralight heading-text">Kanban Project Management Tool</h2>

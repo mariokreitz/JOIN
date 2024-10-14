@@ -1,3 +1,16 @@
+/**
+ * Given the type, full name, email, phone, initials, and color of a contact, returns an
+ * HTML string representing a single contact modal in the contact list.
+ *
+ * @param {string} type - The type of the contact modal, either "add" or "edit".
+ * @param {string} fullName - The full name of the contact.
+ * @param {string} email - The email of the contact.
+ * @param {string} phone - The phone of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} color - The color of the contact's avatar.
+ * @returns {string} An HTML string representing the contact modal.
+ */
+
 function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "", color = "") {
   const isEdit = type === "edit";
   const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal(event)" class="delete-btn">

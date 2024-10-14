@@ -14,6 +14,11 @@ function openContactModal(type, name = "", email = "", phone = "", color = "") {
   applyAnimation("slide-in");
 }
 
+/**
+ * Closes the contact modal, removing it from the DOM.
+ *
+ * @param {Event} [event] - Optional event.
+ */
 function closeContactModal(event) {
   if (event) event.preventDefault();
   const modal = document.getElementById("contact-modal");
@@ -23,6 +28,11 @@ function closeContactModal(event) {
   }
 }
 
+/**
+ * Applies the given animation to the modal content element. The animation is
+ * applied by setting the animation CSS property on the element.
+ * @param {string} animationType - The type of animation to apply.
+ */
 function applyAnimation(animationType) {
   const modalContent = document.getElementById("modal-content");
   modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;

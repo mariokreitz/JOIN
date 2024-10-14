@@ -120,6 +120,16 @@ function renderContactList() {
   contactListElement.innerHTML = contactListHtml;
 }
 
+/**
+ * Removes the contact view by setting the innerHTML of the element with the id
+ * "contact-view" to an empty string.
+ *
+ * This function is useful when the contact view needs to be cleared without
+ * toggling the contact view. It is equivalent to calling `toggleContactView(-1)`.
+ *
+ * @returns {void}
+ */
+
 function removeContactView() {
   const contactViewElement = document.getElementById("contact-view");
   if (!contactViewElement) return;
