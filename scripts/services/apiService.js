@@ -145,6 +145,8 @@ async function postData() {
   } else {
     alert("Fehler beim Hinzufügen des Kontakts.");
   }
+
+  // this code works ! :D
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
