@@ -111,6 +111,8 @@ async function postData() {
   const email = document.getElementById("contact-email").value;
   const phone = document.getElementById("contact-phone").value;
 
+  const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
+
   const newContact = {
     name: fullName,
     email: email,
