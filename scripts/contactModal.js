@@ -1,3 +1,10 @@
+/**
+ * Timeout in milliseconds that is used for how long the warning in the form
+ * validation is shown.
+ * @constant {number}
+ */
+const TIMEOUT = 2000;
+
 function openContactModal(type, name = "", email = "", phone = "", color = "") {
   const initials = type === "edit" ? getInitials(name) : "";
   const modalHtml = getContactModalTemplate(type, name, email, phone, initials, color);
@@ -65,9 +72,10 @@ async function updateContact(contactName) {
 
   const contactIndex = await getContactIndexByName(contactName);
 
-  if (contactForm && contactIndex >= 0) {
+  if (contactForm && contactIndex >= 0 && validateFormdata()) {
     const formData = new FormData(contactForm);
     const updatedContact = {
+      createdAt: Date.now(),
       name: formData.get("name"),
       email: formData.get("email"),
       phone: formData.get("phone"),
@@ -78,16 +86,128 @@ async function updateContact(contactName) {
 
     closeContactModal();
     renderContactsPage();
+    await selectLatestCreatedContact();
   }
 }
 
+/**
+ * Creates a new contact in Firebase Realtime Database.
+ *
+ * @returns {Promise<void>} A promise that resolves when the contact has been
+ * created.
+ */
 async function createContact() {
+  if (!validateFormdata()) return;
   const status = await postData();
   console.log(status);
 
   closeContactModal();
   renderContactsPage();
   await selectLatestCreatedContact();
+}
+
+/**
+ * Validates the form data in the contact form.
+ *
+ * @returns {boolean} True if the form is valid, false otherwise.
+ */
+function validateFormdata() {
+  const { name, email, phone } = getFormData();
+
+  const nameRegex = /^[A-Z][a-z]+ [A-Z][a-z]+$/;
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  const phoneRegex = /^\+?\d{1,3}?[-.\s]?(\(?\d{1,5}?\)?[-.\s]?)?\d{5,12}$/;
+
+  if (!nameRegex.test(name)) {
+    showNameWarning();
+    return false;
+  }
+  if (!emailRegex.test(email)) {
+    showEmailWarning();
+    return false;
+  }
+  if (!phoneRegex.test(phone)) {
+    showPhoneWarning();
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Gets the form data from the contact form.
+ *
+ * @returns {Object} An object with the form data: {name: string, email: string, phone: string}.
+ */
+function getFormData() {
+  const contactForm = document.getElementById("contact-form");
+  const formData = new FormData(contactForm);
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const phone = formData.get("phone");
+  return { name, email, phone };
+}
+
+/**
+ * Shows a warning message for the contact name input field when the name is not in the
+ * correct format. The warning message is shown for 2 seconds and then removed.
+ * @returns {void}
+ */
+function showNameWarning() {
+  const inputNameField = document.getElementById("contact-name");
+  inputNameField.style.borderColor = "red";
+  inputNameField.insertAdjacentHTML(
+    "afterend",
+    `<p style="color: red; font-size: 12px;">Name must be in the format: Firstname Lastname</p>`
+  );
+  setTimeout(() => {
+    inputNameField.style.borderColor = "";
+    const feedback = inputNameField.nextElementSibling;
+    if (feedback && feedback.tagName === "P") {
+      feedback.remove();
+    }
+  }, TIMEOUT);
+}
+
+/**
+ * Shows a warning message for the contact email input field when the email is not in the
+ * correct format. The warning message is shown for 2 seconds and then removed.
+ * @returns {void}
+ */
+function showEmailWarning() {
+  const inputEmailField = document.getElementById("contact-email");
+  inputEmailField.style.borderColor = "red";
+  inputEmailField.insertAdjacentHTML(
+    "afterend",
+    `<p style="color: red; font-size: 12px;">Email must be in the format: example@domain.com</p>`
+  );
+  setTimeout(() => {
+    inputEmailField.style.borderColor = "";
+    const feedback = inputEmailField.nextElementSibling;
+    if (feedback && feedback.tagName === "P") {
+      feedback.remove();
+    }
+  }, TIMEOUT);
+}
+
+/**
+ * Shows a warning message for the contact phone input field when the phone is not in the
+ * correct format. The warning message is shown for 2 seconds and then removed.
+ * @returns {void}
+ */
+function showPhoneWarning() {
+  const inputPhoneField = document.getElementById("contact-phone");
+  inputPhoneField.style.borderColor = "red";
+  inputPhoneField.insertAdjacentHTML(
+    "afterend",
+    `<p style="color: red; font-size: 12px;">Phone number cannot be empty</p>`
+  );
+  setTimeout(() => {
+    inputPhoneField.style.borderColor = "";
+    const feedback = inputPhoneField.nextElementSibling;
+    if (feedback && feedback.tagName === "P") {
+      feedback.remove();
+    }
+  }, TIMEOUT);
 }
 
 /**
