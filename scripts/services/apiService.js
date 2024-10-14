@@ -106,14 +106,15 @@ async function patchDataInFirebase(url, path, data, contactId) {
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
-async function checkIfDublicate(email, phone, contacts) {
+async function checkIfDuplicate(email, phone, contacts) {
   const duplicateContact = Object.values(contacts).find(
     (contact) => contact.email === email || contact.phone === phone
   );
   if (duplicateContact) {
     alert("Kontakt mit der gleichen E-Mail oder Telefonnummer existiert bereits.");
-    return;
+    return true;
   }
+  return false;
 }
 
 async function postData() {
@@ -123,7 +124,7 @@ async function postData() {
 
   const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
 
-  checkIfDublicate();
+  checkIfDuplicate(email, phone, contacts);
 
   const existingIds = Object.keys(contacts);
 
