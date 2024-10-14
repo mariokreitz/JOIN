@@ -122,11 +122,27 @@
   animation-fill-mode: forwards;
 }
 
+.contact-return-btn {
+  display: none;
+}
+
 @media (max-width: 1320px) {
+  .contact-main-container {
+    display: none;
+  }
+  .contact-return-btn {
+    display: block;
+    position: absolute;
+    right: 0;
+  }
+  .contact-main-heading-container {
+    position: relative;
+  }
+  .contact-main-heading-container,
+  .contact-main-view {
+    margin: 40px 20px 0;
+  }
 }
 
 @media (max-width: 768px) {
-  main {
-    padding-left: 0;
-  }
 }
