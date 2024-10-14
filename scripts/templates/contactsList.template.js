@@ -12,7 +12,7 @@
 
 function getContactTemplate(index, initials, color, fullName, email) {
   return /*html*/ `
-        <li onclick="toggleContactView(${index})" id="contact-item-${index}" class="contact-item">
+        <li onclick="toggleContactView(${index})" id="contact-item-${index}" class="contact-item" data-sorted-index="${index}">
             <span class="inter-extralight contact-initials" style="background-color: ${color}">${initials}</span>
             <div class="contact-info">
                 <p class="inter-extralight contact-name">${fullName}</p>
