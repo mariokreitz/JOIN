@@ -203,8 +203,10 @@ async function postData() {
 
   const newId = checkLastID(contacts);
 
+  const profileColor = profileColors[Math.floor(Math.random() * profileColors.length)];
+
   const newContact = {
-    color: "#222",
+    color: profileColor,
     contactSelect: false,
     createdAt: Date.now(),
     email: email,

@@ -5,6 +5,33 @@
 let contacts;
 
 /**
+ * An array of colors that can be used to color user profiles.
+ * @type {Array<string>}
+ */
+const profileColors = [
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+  "#9327FF",
+  "#00BEE8",
+  "#1FC7C1",
+  "#8B9467",
+  "#FF745E",
+  "#FFA35E",
+  "#FC71FF",
+  "#FFC701",
+  "#0038FF",
+  "#B22222",
+  "#C3FF2B",
+  "#FFE62B",
+  "#FF4646",
+  "#FFBB2B",
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+];
+
+/**
  * Initializes the page by loading the necessary components and rendering
  * the contact list.
  *
