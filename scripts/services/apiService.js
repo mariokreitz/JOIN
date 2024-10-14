@@ -113,6 +113,8 @@ async function postData() {
 
   const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
 
+  const existingIds = Object.keys(contacts);
+
   const newContact = {
     name: fullName,
     email: email,
