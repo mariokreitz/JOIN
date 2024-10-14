@@ -33,16 +33,16 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
             </div>
             <form id="contact-form" class="contact-form">
               <div class="input-container">
-                <input type="text" id="contact-name" name="name" placeholder="Name" value="${fullName}" />
-                <i class="icon-name"><img src="./assets/svg/person.svg" alt="" /></i>
+                <input type="text" id="contact-name" name="name" placeholder="Name" value="${fullName}" required />
+                <i class="icon-name"><img src="./assets/svg/person.svg" alt="person icon" /></i>
+              </div>
+              <div class="input-container"> 
+                <input type="email" id="contact-email" name="email" placeholder="Email" value="${email}" required />
+                <i class="icon-email"><img src="./assets/svg/mail.svg" alt="letter icon" /></i>
               </div>
               <div class="input-container">
-                <input type="email" id="contact-email" name="email" placeholder="Email" value="${email}" />
-                <i class="icon-email"><img src="./assets/svg/mail.svg" alt="" /></i>
-              </div>
-              <div class="input-container">
-                <input type="tel" id="contact-phone" name="phone" placeholder="Phone" value="${phone}"/>
-                <i class="icon-phone"><img src="./assets/svg/call.svg" alt="" /></i>
+                <input type="tel" id="contact-phone" name="phone" placeholder="Phone" value="${phone}" required />
+                <i class="icon-phone"><img src="./assets/svg/call.svg" alt="phone icon" /></i>
               </div>
               <div class="form-actions">
               ${
