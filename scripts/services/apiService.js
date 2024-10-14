@@ -148,22 +148,6 @@ async function postData() {
     email: email,
     phone: phone,
   };
-
-  const response = await fetch(`${API_URL}/contacts/${newId}.json`, {
-  const response = await fetch(`${API_URL}/contacts.json`, {
->>>>>>> Stashed changes
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newContact),
-  });
-
-  if (response.ok) {
-    alert("Kontakt erfolgreich hinzugefügt!");
-  } else {
-    alert("Fehler beim Hinzufügen des Kontakts.");
-  }
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
