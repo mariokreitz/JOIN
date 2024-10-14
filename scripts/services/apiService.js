@@ -49,6 +49,28 @@ async function getContactIndexByName(contactName) {
 
   return contacts?.findIndex((contact) => contact?.name === contactName);
 }
+
+/**
+ * Finds the latest created contact in the contacts array.
+ *
+ * @returns {Promise<Object>}
+ *   The latest created contact object, or undefined if not found.
+ *
+ * @throws {Error}
+ *   If the URL is invalid or the request failed.
+ */
+async function getLatestCreatedContact() {
+  const contacts = await getDataFromFirebase(API_URL);
+  if (!contacts) return;
+
+  return contacts.reduce((latest, current) => {
+    if (!latest || current.createdAt > latest.createdAt) {
+      return current;
+    }
+    return latest;
+  }, undefined);
+}
+
 /**
  * Fetches JSON data from the given URL in the Firebase Realtime Database.
  *
@@ -137,15 +159,18 @@ async function postData() {
   const email = document.getElementById("contact-email").value;
   const phone = document.getElementById("contact-phone").value;
 
-  const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
+  const contacts = await getDataFromFirebase(API_URL);
 
   if (await checkIfDuplicate(email, phone, contacts)) return;
 
   const newId = checkLastID(contacts);
 
   const newContact = {
-    name: fullName,
+    color: "#222",
+    contactSelect: false,
+    createdAt: Date.now(),
     email: email,
+    name: fullName,
     phone: phone,
   };
 
@@ -157,11 +182,9 @@ async function postData() {
     body: JSON.stringify(newContact),
   });
 
-  if (response.ok) {
-    alert("Kontakt erfolgreich hinzugefügt!");
-  } else {
-    alert("Fehler beim Hinzufügen des Kontakts.");
-  }
+  if (response.ok) return response;
+
+  return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
@@ -169,9 +192,7 @@ async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
     method: "DELETE",
   });
 
-  if (response.ok) {
-    return "Contact deleted successfully.";
-  } else {
-    return "Failed to delete contact.";
-  }
+  if (response.ok) return response;
+
+  return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }

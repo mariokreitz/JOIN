@@ -5,13 +5,25 @@
 let contacts;
 
 /**
- * Initializes the app by loading all necessary components and fetching data
- * from the Realtime Database.
+ * Initializes the page by loading the necessary components and rendering
+ * the contact list.
  *
- * @returns {Promise<void>}
+ * @returns {Promise<void>} A promise that resolves when the page has been
+ * initialized.
  */
 async function init() {
   loadComponents();
+  renderContactsPage();
+}
+
+/**
+ * Renders the contacts page by fetching data from the given URL and
+ * rendering the contact list.
+ *
+ * @returns {Promise<void>}
+ */
+
+async function renderContactsPage() {
   await getData(API_URL);
   renderContactList();
 }
@@ -106,6 +118,12 @@ function renderContactList() {
     })
     .join("");
   contactListElement.innerHTML = contactListHtml;
+}
+
+function removeContactView() {
+  const contactViewElement = document.getElementById("contact-view");
+  if (!contactViewElement) return;
+  contactViewElement.innerHTML = "";
 }
 
 /**
