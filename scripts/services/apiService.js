@@ -106,6 +106,16 @@ async function patchDataInFirebase(url, path, data, contactId) {
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
+function checkIfDublicate() {
+  const duplicateContact = Object.values(contacts).find(
+    (contact) => contact.email === email || contact.phone === phone
+  );
+  if (duplicateContact) {
+    alert("Kontakt mit der gleichen E-Mail oder Telefonnummer existiert bereits.");
+    return;
+  }
+}
+
 async function postData() {
   const fullName = document.getElementById("contact-name").value;
   const email = document.getElementById("contact-email").value;
@@ -145,8 +155,6 @@ async function postData() {
   } else {
     alert("Fehler beim Hinzufügen des Kontakts.");
   }
-
-  // this code works ! :D
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
