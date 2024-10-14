@@ -162,7 +162,6 @@ async function postData() {
   } else {
     alert("Fehler beim Hinzufügen des Kontakts.");
   }
->>>>>>> Stashed changes
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
