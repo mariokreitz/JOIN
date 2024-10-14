@@ -14,7 +14,8 @@ function openContactModal(type, name = "", email = "", phone = "", color = "") {
   applyAnimation("slide-in");
 }
 
-function closeContactModal() {
+function closeContactModal(event) {
+  event.preventDefault();
   const modal = document.getElementById("contact-modal");
   if (modal) {
     applyAnimation("slide-out");
@@ -114,7 +115,7 @@ async function createContact() {
 function validateFormdata() {
   const { name, email, phone } = getFormData();
 
-  const nameRegex = /^[A-Z][a-z]+ [A-Z][a-z]+$/;
+  const nameRegex = /^[A-Z][a-z]+(-[A-Z][a-z]+)* [A-Z][a-z]+$/;
   const emailRegex = /^\S+@\S+\.\S+$/;
   const phoneRegex = /^\+?\d{1,3}?[-.\s]?(\(?\d{1,5}?\)?[-.\s]?)?\d{5,12}$/;
 
