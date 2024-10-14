@@ -14,10 +14,11 @@
   position: relative;
   display: flex;
   border-radius: 20px;
-  max-width: 800px;
+  width: 800px;
   overflow: hidden;
   transform: translateX(100%);
   animation: slide-in 0.3s ease-out forwards;
+  margin: 10px;
 }
 
 @keyframes slide-in {
@@ -72,12 +73,15 @@
   padding: 80px 30px;
   position: relative;
   background-color: var(--background-white);
+  width: 100%;
+  flex-grow: 1;
 }
 
 .modal-right-content {
   display: flex;
   align-items: center;
   gap: 30px;
+  width: 100%;
 }
 
 .close-btn {
@@ -119,7 +123,7 @@
 }
 
 .contact-form {
-  min-width: 340px;
+  flex: 1;
 }
 
 .contact-form input {
@@ -213,4 +217,67 @@
 .input-container i img {
   height: 14px;
   vertical-align: top;
+}
+
+@media screen and (max-width: 690px) {
+  .modal-content {
+    flex-direction: column;
+    width: 100%;
+    max-height: calc(100vh - 200px);
+  }
+
+  .modal-left,
+  .modal-right {
+    flex: 1;
+    min-height: 300px;
+    padding: 40px 10px;
+  }
+
+  .modal-left {
+    justify-content: center;
+  }
+
+  .modal-content .logo-container {
+    display: none;
+  }
+
+  .modal-left {
+    padding: 40px 20px;
+  }
+
+  .modal-right {
+    padding: 40px 20px;
+  }
+
+  .modal-right-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .avatar {
+    align-self: center;
+    margin-top: -80px;
+    margin-bottom: 0px;
+  }
+
+  .contact-form {
+    width: 100%;
+  }
+
+  .form-actions {
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .input-container input {
+    padding: 10px 15px;
+  }
+
+  .close-btn {
+    top: -290px;
+    right: 10px;
+    filter: brightness(0) invert(1);
+  }
 }
