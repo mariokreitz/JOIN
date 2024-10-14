@@ -121,3 +121,12 @@
 #contact-view {
   animation-fill-mode: forwards;
 }
+
+@media (max-width: 1320px) {
+}
+
+@media (max-width: 768px) {
+  main {
+    padding-left: 0;
+  }
+}

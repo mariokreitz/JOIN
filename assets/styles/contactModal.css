@@ -228,7 +228,7 @@
   .modal-content {
     flex-direction: column;
     width: 100%;
-    max-height: calc(100vh - 200px);
+    max-height: 100vh;
   }
 
   .modal-left,
@@ -290,5 +290,11 @@
 
   .form-actions button {
     width: 100%;
+  }
+
+  .modal-left,
+  .modal-right {
+    flex: 1;
+    min-height: 200px;
   }
 }
