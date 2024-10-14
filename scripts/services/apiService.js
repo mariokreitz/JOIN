@@ -150,6 +150,8 @@ async function postData() {
   };
 
   const response = await fetch(`${API_URL}/contacts/${newId}.json`, {
+  const response = await fetch(`${API_URL}/contacts.json`, {
+>>>>>>> Stashed changes
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
