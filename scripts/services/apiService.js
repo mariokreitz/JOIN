@@ -117,17 +117,8 @@ async function checkIfDuplicate(email, phone, contacts) {
   return false;
 }
 
-async function postData() {
-  const fullName = document.getElementById("contact-name").value;
-  const email = document.getElementById("contact-email").value;
-  const phone = document.getElementById("contact-phone").value;
-
-  const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
-
-  if (await checkIfDuplicate(email, phone, contacts)) return;
-
+function checkLastID() {
   const existingIds = Object.keys(contacts);
-
   let newId = 0;
 
   if (existingIds.length > 0) {
@@ -138,6 +129,18 @@ async function postData() {
       }
     }
   }
+}
+
+async function postData() {
+  const fullName = document.getElementById("contact-name").value;
+  const email = document.getElementById("contact-email").value;
+  const phone = document.getElementById("contact-phone").value;
+
+  const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
+
+  if (await checkIfDuplicate(email, phone, contacts)) return;
+
+  checkLastID();
 
   const newContact = {
     name: fullName,
