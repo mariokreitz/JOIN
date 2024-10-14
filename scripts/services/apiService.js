@@ -106,10 +106,42 @@ async function patchDataInFirebase(url, path, data, contactId) {
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
+async function checkIfDuplicate(email, phone, contacts) {
+  const duplicateContact = Object.values(contacts).find(
+    (contact) => contact.email === email || contact.phone === phone
+  );
+  if (duplicateContact) {
+    alert("Kontakt mit der gleichen E-Mail oder Telefonnummer existiert bereits.");
+    return true;
+  }
+  return false;
+}
+
+function checkLastID(contacts) {
+  const existingIds = Object.keys(contacts);
+  let newId = 0;
+
+  if (existingIds.length > 0) {
+    for (let i = 0; i < existingIds.length; i++) {
+      const currentId = parseInt(existingIds[i]);
+      if (currentId >= newId) {
+        newId = currentId + 1;
+      }
+    }
+  }
+  return newId;
+}
+
 async function postData() {
   const fullName = document.getElementById("contact-name").value;
   const email = document.getElementById("contact-email").value;
   const phone = document.getElementById("contact-phone").value;
+
+  const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
+
+  if (await checkIfDuplicate(email, phone, contacts)) return;
+
+  const newId = checkLastID(contacts);
 
   const newContact = {
     name: fullName,
@@ -117,13 +149,19 @@ async function postData() {
     phone: phone,
   };
 
-  const response = await fetch(`${API_URL}/contacts.json`, {
-    method: "POST",
+  const response = await fetch(`${API_URL}/contacts/${newId}.json`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(newContact),
   });
+
+  if (response.ok) {
+    alert("Kontakt erfolgreich hinzugefügt!");
+  } else {
+    alert("Fehler beim Hinzufügen des Kontakts.");
+  }
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
