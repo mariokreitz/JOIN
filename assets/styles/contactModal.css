@@ -281,3 +281,13 @@
     filter: brightness(0) invert(1);
   }
 }
+
+@media screen and (max-width: 690px) {
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
