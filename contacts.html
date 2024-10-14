@@ -25,7 +25,8 @@
               onclick="openContactModal('add');"
               type="button"
               class="inter-medium btn btn-primary btn-primary-big">
-              Add new contact <img src="./assets/img/icons/person_add.png" alt="add icon" />
+              <span class="button-text">Add new contact</span>
+              <img src="./assets/img/icons/person_add.png" alt="add icon" />
             </button>
           </div>
           <ul id="contactList" class="contact-list"></ul>
@@ -36,6 +37,10 @@
           <h1 class="inter-medium contact-main-heading">Contacts</h1>
           <div class="contact-heading-vertical-seperator"></div>
           <p class="inter-extralight contact-main-subtext">Better with a team</p>
+          <div class="underline"></div>
+          <button onclick="toggleContactView(-1)" class="contact-return-btn">
+            <img src="./assets/svg/arrow-left.svg" />
+          </button>
         </div>
         <div id="contact-view" class="contact-main-view"></div>
       </div>

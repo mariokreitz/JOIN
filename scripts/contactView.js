@@ -9,10 +9,29 @@
  */
 function toggleContactView(contactId) {
   const contactItemElement = document.getElementById(`contact-item-${contactId}`);
-  if (!contactItemElement) return;
-
   const contactViewElement = document.getElementById("contact-view");
-  if (!contactViewElement) return;
+
+  if (contactId === -1) {
+    const contactListWrapper = document.querySelector(".contact-list-wrapper");
+    const contactMainContainer = document.querySelector(".contact-main-container");
+    const previouslySelectedElement = document.querySelector(".selected");
+    if (previouslySelectedElement) {
+      previouslySelectedElement.classList.remove("selected");
+      const previouslySelectedContact = contacts.find(
+        (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
+      );
+      if (previouslySelectedContact) {
+        previouslySelectedContact.contactSelect = false;
+      }
+    }
+
+    contactListWrapper.style.display = "block";
+    contactMainContainer.style.display = "none";
+    contactViewElement.innerHTML = "";
+    return;
+  }
+
+  if (!contactItemElement || !contactViewElement) return;
 
   const contactName = contactItemElement.querySelector(".contact-name").textContent;
   const contact = contacts.find((c) => c.name === contactName);
@@ -37,6 +56,14 @@ function toggleContactView(contactId) {
       applyAnimationToContactView("slide-in", contactViewElement);
     }
   }
+
+  if (window.innerWidth <= 1320) {
+    const contactListWrapper = document.querySelector(".contact-list-wrapper");
+    const contactMainContainer = document.querySelector(".contact-main-container");
+
+    contactListWrapper.style.display = contact.contactSelect ? "none" : "block";
+    contactMainContainer.style.display = contact.contactSelect ? "block" : "none";
+  }
 }
 
 /**
@@ -57,12 +84,15 @@ function toggleSelectedContactInList(selectedContact, contactItemElement) {
     contactItemElement.classList.add("selected");
     selectedContact.contactSelect = true;
   }
-  if (previouslySelectedElement) {
+
+  if (previouslySelectedElement && previouslySelectedElement !== contactItemElement) {
     previouslySelectedElement.classList.remove("selected");
     const previouslySelectedContact = contacts.find(
       (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
     );
-    previouslySelectedContact.contactSelect = false;
+    if (previouslySelectedContact) {
+      previouslySelectedContact.contactSelect = false;
+    }
   }
 }
 
