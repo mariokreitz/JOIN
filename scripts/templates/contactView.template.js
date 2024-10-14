@@ -39,5 +39,8 @@ function getContactViewTemplate(initials, { color, name, email, phone }) {
                 </div>
             </div>
         </div>
+        <div class="contact-main-controls-btn" onclick="toggleEditMenu()" id="menuButton">
+            <img src="./assets/svg/more-vert.svg" alt="">
+        </div>
     `;
 }
