@@ -15,7 +15,7 @@ function openContactModal(type, name = "", email = "", phone = "", color = "") {
 }
 
 function closeContactModal(event) {
-  event.preventDefault();
+  if (event) event.preventDefault();
   const modal = document.getElementById("contact-modal");
   if (modal) {
     applyAnimation("slide-out");
