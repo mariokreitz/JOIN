@@ -77,11 +77,35 @@ async function updateContact(contactName) {
     console.log(status);
 
     closeContactModal();
+    renderContactsPage();
   }
 }
 
 async function createContact() {
-  await postData();
+  const status = await postData();
+  console.log(status);
+
+  closeContactModal();
+  renderContactsPage();
+  await selectLatestCreatedContact();
+}
+
+/**
+ * Selects the latest created contact item in the contact list by toggling the
+ * contact view.
+ *
+ * @returns {Promise<void>} A promise that resolves when the contact view has been
+ * toggled.
+ */
+async function selectLatestCreatedContact() {
+  const latestContact = await getLatestCreatedContact();
+  const contactElements = [...document.querySelectorAll(".contact-item")];
+  const selectedContactElement = contactElements.find(
+    (contactElement) => contactElement.querySelector(".contact-name").textContent === latestContact.name
+  );
+  const index = selectedContactElement ? parseInt(selectedContactElement.dataset.sortedIndex) : null;
+
+  toggleContactView(index);
 }
 
 async function deleteContact(contactName) {
@@ -92,6 +116,8 @@ async function deleteContact(contactName) {
 
     console.log(status);
     closeContactModal();
+    removeContactView();
+    renderContactsPage();
   } else {
     console.error("Contact not found.");
   }
