@@ -139,6 +139,12 @@ async function postData() {
     },
     body: JSON.stringify(newContact),
   });
+
+  if (response.ok) {
+    alert("Kontakt erfolgreich hinzugefügt!");
+  } else {
+    alert("Fehler beim Hinzufügen des Kontakts.");
+  }
 }
 
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
