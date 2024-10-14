@@ -9,6 +9,12 @@ header {
   padding-left: 232px;
 }
 
+.header-respo-logo {
+  width: 32px;
+  display: none;
+  margin-left: 16px;
+}
+
 .heading-text {
   margin-left: 116px;
   font-size: 20px;
@@ -36,4 +42,36 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.profile-icon > span {
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  header {
+    padding-left: 0;
+    height: 80px;
+  }
+
+  .heading-text {
+    display: none;
+  }
+
+  .header-respo-logo {
+    display: block;
+  }
+
+  .header-right {
+    margin-right: 16px;
+  }
+
+  .header-right > :first-child {
+    display: none;
+  }
+
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+  }
 }
