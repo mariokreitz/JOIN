@@ -106,7 +106,7 @@ async function patchDataInFirebase(url, path, data, contactId) {
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
-function checkIfDublicate() {
+async function checkIfDublicate(email, phone, contacts) {
   const duplicateContact = Object.values(contacts).find(
     (contact) => contact.email === email || contact.phone === phone
   );
