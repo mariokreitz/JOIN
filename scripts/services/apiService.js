@@ -132,8 +132,8 @@ async function postData() {
     phone: phone,
   };
 
-  const response = await fetch(`${API_URL}/contacts.json`, {
-    method: "POST",
+  const response = await fetch(`${API_URL}/contacts/${newId}.json`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
