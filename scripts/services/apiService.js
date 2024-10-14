@@ -115,6 +115,17 @@ async function postData() {
 
   const existingIds = Object.keys(contacts);
 
+  let newId = 0;
+
+  if (existingIds.length > 0) {
+    for (let i = 0; i < existingIds.length; i++) {
+      const currentId = parseInt(existingIds[i]);
+      if (currentId >= newId) {
+        newId = currentId + 1;
+      }
+    }
+  }
+
   const newContact = {
     name: fullName,
     email: email,
