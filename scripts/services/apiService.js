@@ -141,7 +141,7 @@ async function postData() {
 
   if (await checkIfDuplicate(email, phone, contacts)) return;
 
-  checkLastID();
+  const newId = checkLastID(contacts);
 
   const newContact = {
     name: fullName,
