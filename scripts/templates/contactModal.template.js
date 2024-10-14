@@ -1,6 +1,6 @@
 function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "", color = "") {
   const isEdit = type === "edit";
-  const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal()" class="delete-btn">
+  const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal(event)" class="delete-btn">
     Cancel
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -20,7 +20,7 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
           <div class="underline"></div>
         </div>
         <div class="modal-right">
-          <button class="close-btn" onclick="closeContactModal()">
+          <button class="close-btn" onclick="closeContactModal(event)">
             <img src="./assets/svg/close.svg" alt="" />
           </button>
           <div class="modal-right-content">
