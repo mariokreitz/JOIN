@@ -192,4 +192,16 @@ nav {
     bottom: 80px;
     right: 20px;
   }
+  .contact-letter,
+  .contact-horizontal-seperator,
+  .contact-item {
+    width: 310px;
+  }
+  .contact-item {
+    padding: 15px 10px;
+    gap: 10px;
+  }
+  .contact-letter {
+    padding: 17px 22px;
+  }
 }
