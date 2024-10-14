@@ -124,7 +124,7 @@ async function postData() {
 
   const contacts = (await fetchData(`${API_URL}/contacts.json`)) || {};
 
-  checkIfDuplicate(email, phone, contacts);
+  if (await checkIfDuplicate(email, phone, contacts)) return;
 
   const existingIds = Object.keys(contacts);
 
