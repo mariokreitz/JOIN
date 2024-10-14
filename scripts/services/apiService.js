@@ -106,6 +106,26 @@ async function patchDataInFirebase(url, path, data, contactId) {
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
+async function postData() {
+  const fullName = document.getElementById("contact-name").value;
+  const email = document.getElementById("contact-email").value;
+  const phone = document.getElementById("contact-phone").value;
+
+  const newContact = {
+    name: fullName,
+    email: email,
+    phone: phone,
+  };
+
+  const response = await fetch(`${API_URL}/contacts.json`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newContact),
+  });
+}
+
 async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
   const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
     method: "DELETE",
