@@ -28,6 +28,10 @@ body {
   height: 100vh;
 }
 
+.d_none {
+  display: none;
+}
+
 .active {
   background-color: var(--active) !important;
   color: var(--text-secondary) !important;
