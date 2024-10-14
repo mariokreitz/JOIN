@@ -149,12 +149,17 @@
   gap: 20px;
   align-items: center;
   margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.form-actions button {
+  white-space: nowrap;
 }
 
 .delete-btn {
   color: var(--primary);
   border: 1px solid var(--primary);
-  padding: 10px 20px;
+  padding: 10px;
   cursor: pointer;
   border-radius: 8px;
 }
@@ -172,7 +177,7 @@
   background-color: var(--primary);
   color: white;
   border: 1px solid var(--primary);
-  padding: 10px 20px;
+  padding: 10px;
   cursor: pointer;
   border-radius: 8px;
 }
@@ -271,10 +276,6 @@
     justify-content: center;
   }
 
-  .input-container input {
-    padding: 10px 15px;
-  }
-
   .close-btn {
     top: -290px;
     right: 10px;
@@ -282,7 +283,7 @@
   }
 }
 
-@media screen and (max-width: 690px) {
+@media screen and (max-width: 360px) {
   .form-actions {
     flex-direction: column;
   }
