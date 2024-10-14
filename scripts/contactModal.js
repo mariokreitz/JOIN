@@ -29,28 +29,23 @@ function getInitials(fullName) {
 /**
  * Handles the save button click event.
  *
- * When the save button is clicked, it prevents the default event behavior, gets
- * the contact name from the contact main name element, and checks if the save
- * button's inner text includes the word "Save". If it does, it calls the
- * updateContact function with the contact name, passing the promise to the
- * caller. If it doesn't, it calls the createContact function, passing the
- * promise to the caller.
+ * If the button text is "Save", calls updateContact with the contact name.
+ * If the button text is "Add", calls createContact.
  *
- * @param {Event} event The save button click event.
- * @returns {Promise<void>} A promise that resolves when the contact has been
- * saved.
+ * @param {Event} event - The click event.
+ *
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
  */
 async function handleSaveClick(event) {
   event.preventDefault();
 
-  const contactNameElement = document.getElementById("contact-main-name");
   const saveButton = document.querySelector(".save-btn");
 
-  if (!saveButton || !contactNameElement) return;
-
-  const contactName = contactNameElement.innerText;
+  if (!saveButton) return;
 
   if (saveButton.innerText.includes("Save")) {
+    const contactNameElement = document.getElementById("contact-main-name");
+    const contactName = contactNameElement.innerText;
     await updateContact(contactName);
   } else {
     await createContact();

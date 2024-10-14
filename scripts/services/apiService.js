@@ -137,5 +137,3 @@ async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
     return "Failed to delete contact.";
   }
 }
-
-async function postData() {}
