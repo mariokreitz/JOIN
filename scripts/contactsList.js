@@ -189,3 +189,4 @@ function getInitialsFromContact({ name: fullName }) {
  * @returns {void}
  */
 window.addEventListener("resize", renderContactList);
+window.addEventListener("orientationchange", renderContactList);
