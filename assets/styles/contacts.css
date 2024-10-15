@@ -182,6 +182,11 @@ nav {
     right: 20px;
   }
 
+  .contact-list {
+    align-items: start;
+    padding-inline: 16px;
+  }
+
   .button-text {
     display: none;
   }
