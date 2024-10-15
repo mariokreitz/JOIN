@@ -184,7 +184,7 @@
 
 @media (max-width: 1320px) {
   .contact-main-view {
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .contact-main-container {
     display: flex;
