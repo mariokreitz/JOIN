@@ -104,6 +104,7 @@ body {
     font-size: 27px;
   }
   .help-main {
+<<<<<<< Updated upstream
     margin-left: 0px;
   }
   .help-below-section {
@@ -112,6 +113,16 @@ body {
 
   .help-head {
     margin-left: 0px;
+=======
+    margin-left: 16px;
+  }
+  .help-below-section {
+    margin-left: 16px;
+  }
+
+  .help-head {
+    margin-left: 16px;
+>>>>>>> Stashed changes
     margin-top: 0px;
   }
 

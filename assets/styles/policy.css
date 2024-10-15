@@ -25,9 +25,14 @@
 
 @media (max-width: 768px) {
   .policy-container {
+<<<<<<< Updated upstream
     margin-left: 0px;
     max-width: 100%;
     margin-left: 0px;
+=======
+    margin-left: 16px;
+    max-width: 100%;
+>>>>>>> Stashed changes
   }
   .policy-main h2 {
     font-size: 27px;
@@ -37,6 +42,11 @@
   }
 
   .policy-main h1 {
+<<<<<<< Updated upstream
     font-size: 47px;
+=======
+    font-size: 40px;
+    margin-left: 16px;
+>>>>>>> Stashed changes
   }
 }
