@@ -98,10 +98,7 @@ body {
   }
   .how-to-use-section h4 {
     font-size: 27px;
-<<<<<<< Updated upstream
-=======
     margin-bottom: 16px;
->>>>>>> Stashed changes
   }
 
   .how-to-use-section h3 {
@@ -121,14 +118,10 @@ body {
     margin-left: 16px;
   }
 
-<<<<<<< Updated upstream
-=======
   .how-to-use-container p {
     font-size: 15px;
-    margin-bottom: 16px;
   }
 
->>>>>>> Stashed changes
   .help-head {
     margin-left: 16px;
     margin-top: 0px;
@@ -138,13 +131,10 @@ body {
     max-width: 100%;
   }
 
-<<<<<<< Updated upstream
-=======
   .p-whats-join {
     margin-top: 16px;
   }
 
->>>>>>> Stashed changes
   .help-main {
     max-width: 100%;
   }
@@ -152,12 +142,9 @@ body {
   .how-to-use-section {
     max-width: 100%;
   }
-<<<<<<< Updated upstream
-=======
 
   .help-below-section p {
     margin-top: 32px;
     margin-bottom: 24px;
   }
->>>>>>> Stashed changes
 }
