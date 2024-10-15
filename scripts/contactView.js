@@ -124,13 +124,13 @@ function toggleSelectedContactInList(selectedContact, contactItemElement) {
  */
 function applyAnimationToContactView(animationType, element, callback) {
   const body = document.body;
-  body.style.overflowX = "hidden";
+  body.style.overflow = "hidden";
   element.style.animation = `${animationType} 0.3s ease-out forwards`;
   if (callback) {
     element.addEventListener(
       "animationend",
       () => {
-        body.style.overflowX = "";
+        body.style.overflow = "";
         callback();
       },
       { once: true }

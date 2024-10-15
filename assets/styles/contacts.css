@@ -207,6 +207,9 @@ nav {
     padding-left: 0;
     padding-block: 80px;
   }
+  main:has(.contact-main-container) {
+    overflow: hidden;
+  }
   .contacts {
     width: 100%;
   }

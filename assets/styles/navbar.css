@@ -75,6 +75,7 @@
     height: 80px;
     width: 100%;
     padding: unset;
+    position: absolute;
   }
 
   .navbar-logo-container {
