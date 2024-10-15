@@ -179,6 +179,12 @@
   pointer-events: auto; /* Allow interaction when shown */
 }
 
+@media (min-width: 1320px) {
+  .contact-edit-menu {
+    display: none;
+  }
+}
+
 @media (max-width: 1320px) {
   .contact-main-container {
     display: flex;

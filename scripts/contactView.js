@@ -152,8 +152,10 @@ function toggleEditMenu() {
 function closeEditMenu(event) {
   var menu = document.getElementById("contact-edit-menu");
   var button = document.getElementById("menuButton");
-  if (!menu.contains(event.target) && !button.contains(event.target)) {
-    menu.classList.remove("show");
-    document.removeEventListener("click", closeEditMenu);
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.classList.remove("show"); // Slide out
+      document.removeEventListener("click", closeEditMenu);
+    }
   }
 }
