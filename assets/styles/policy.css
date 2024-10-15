@@ -22,3 +22,21 @@
   margin-right: 40px;
   gap: 35px;
 }
+
+@media (max-width: 768px) {
+  .policy-container {
+    margin-left: 0px;
+    max-width: 100%;
+    margin-left: 0px;
+  }
+  .policy-main h2 {
+    font-size: 27px;
+  }
+  .policy-main p {
+    font-size: 16px;
+  }
+
+  .policy-main h1 {
+    font-size: 47px;
+  }
+}

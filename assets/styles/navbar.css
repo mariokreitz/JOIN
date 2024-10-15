@@ -66,3 +66,9 @@
 .gdpr:hover {
   background-color: var(--nav-hover);
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
