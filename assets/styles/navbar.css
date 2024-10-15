@@ -76,6 +76,7 @@
     width: 100%;
     padding: unset;
     position: absolute;
+    z-index: 1000;
   }
 
   .navbar-logo-container {

@@ -134,7 +134,7 @@
 }
 
 .contact-main-controls-btn {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   right: 0;
   width: 50px;
@@ -250,5 +250,25 @@
   }
   .contact-main-container .underline {
     width: 50px;
+  }
+  .contact-main-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .contact-main-view {
+    padding-bottom: 50px;
+    overflow: visible;
+  }
+  .contact-main-controls-btn,
+  .contact-edit-menu {
+    bottom: 90px;
+  }
+  .contact-main-controls-btn {
+    bottom: 90px;
+  }
+  #contact-edit-menu-placeholder {
+    position: relative;
+    width: 100%;
+    bottom: 80px;
   }
 }
