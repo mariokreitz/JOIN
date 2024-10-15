@@ -1,10 +1,28 @@
 .toast-message-box {
   box-shadow: 0px 0px 4px 0px #0000001a;
   background-color: var(--primary);
-  width: fit-content;
-  height: fit-content;
-  padding: 25px 30.5px;
+  width: 326px;
+  height: 74px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 20px;
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: slideIn 125ms ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 100px;
+    opacity: 1;
+  }
 }
 
 .toast-message-text {

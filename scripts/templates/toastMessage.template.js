@@ -4,7 +4,7 @@
  * @param {string} text - The text to be displayed in the toast message box.
  * @returns {string} An HTML string representing the toast message box.
  */
-function getToastMessage(text) {
+function getToastMessageTemplate(text) {
   return /*html*/ `
     <div id="toast-message" class="toast-message-box">
       <p class="toast-message-text inter-extralight">${text}</p>

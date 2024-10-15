@@ -93,7 +93,7 @@ async function updateContact(contactName) {
     };
 
     const status = await patchDataInFirebase(API_URL, "contacts", updatedContact, contactIndex);
-    console.log(status);
+    showToastMessage("update", status);
 
     closeContactModal();
     renderContactsPage();
@@ -110,7 +110,7 @@ async function updateContact(contactName) {
 async function createContact() {
   if (!validateFormdata()) return;
   const status = await postData();
-  console.log(status);
+  showToastMessage("create", status);
 
   closeContactModal();
   renderContactsPage();
@@ -245,7 +245,7 @@ async function deleteContact(contactName) {
   if (contactIndex >= 0) {
     const status = await deleteDataInFirebase(API_URL, "contacts", contactIndex);
 
-    console.log(status);
+    showToastMessage("delete", status);
     closeContactModal();
     removeContactView();
     renderContactsPage();
