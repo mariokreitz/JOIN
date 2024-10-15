@@ -13,13 +13,13 @@ function getNavbarTemplate(currentPage) {
       <ul>
         <li><a class="navigation navbar-link ${
           currentPage == "summary" ? "active" : ""
-        }" href="#"><img src="./assets/img/icons/summary.png" alt="Summary Icon">Summary</a></li>
+        }" href="./summary.html"><img src="./assets/img/icons/summary.png" alt="Summary Icon">Summary</a></li>
         <li><a class="navigation navbar-link ${
           currentPage == "add-task" ? "active" : ""
-        }" href="#"><img src="./assets/img/icons/add-task.png" alt="Add Task Icon">Add Task</a></li>
+        }" href="./add-task.html"><img src="./assets/img/icons/add-task.png" alt="Add Task Icon">Add Task</a></li>
         <li><a class="navigation navbar-link ${
           currentPage == "board" ? "active" : ""
-        }" href="#"><img src="./assets/img/icons/board.png" alt="Board Icon">Board</a></li>
+        }" href="./board.html"><img src="./assets/img/icons/board.png" alt="Board Icon">Board</a></li>
         <li><a class="navigation navbar-link ${
           currentPage == "contacts" ? "active" : ""
         }" href="./contacts.html"><img src="./assets/img/icons/contacts.png" alt="Contacts Icon">Contacts</a></li>

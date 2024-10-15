@@ -1,6 +1,19 @@
-function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "") {
+/**
+ * Given the type, full name, email, phone, initials, and color of a contact, returns an
+ * HTML string representing a single contact modal in the contact list.
+ *
+ * @param {string} type - The type of the contact modal, either "add" or "edit".
+ * @param {string} fullName - The full name of the contact.
+ * @param {string} email - The email of the contact.
+ * @param {string} phone - The phone of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} color - The color of the contact's avatar.
+ * @returns {string} An HTML string representing the contact modal.
+ */
+
+function getContactModalTemplate(type, fullName = "", email = "", phone = "", initials = "", color = "") {
   const isEdit = type === "edit";
-  const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal()" class="delete-btn">
+  const cancelButtonHtml = /*HTML*/ ` <button onclick="closeContactModal(event)" class="delete-btn">
     Cancel
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -20,11 +33,11 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
           <div class="underline"></div>
         </div>
         <div class="modal-right">
-          <button class="close-btn" onclick="closeContactModal()">
+          <button class="close-btn" onclick="closeContactModal(event)">
             <img src="./assets/svg/close.svg" alt="" />
           </button>
           <div class="modal-right-content">
-            <div class="avatar">
+            <div class="avatar" ${isEdit ? `style="background-color: ${color};"` : ""}>
               ${
                 isEdit
                   ? `<span id="avatar-initials">${initials}</span>`
@@ -33,16 +46,16 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
             </div>
             <form id="contact-form" class="contact-form">
               <div class="input-container">
-                <input type="text" id="contact-name" name="name" placeholder="Name" value="${fullName}" />
-                <i class="icon-name"><img src="./assets/svg/person.svg" alt="" /></i>
+                <input type="text" id="contact-name" name="name" placeholder="Name" value="${fullName}" required />
+                <i class="icon-name"><img src="./assets/svg/person.svg" alt="person icon" /></i>
+              </div>
+              <div class="input-container"> 
+                <input type="email" id="contact-email" name="email" placeholder="Email" value="${email}" required />
+                <i class="icon-email"><img src="./assets/svg/mail.svg" alt="letter icon" /></i>
               </div>
               <div class="input-container">
-                <input type="email" id="contact-email" name="email" placeholder="Email" value="${email}" />
-                <i class="icon-email"><img src="./assets/svg/mail.svg" alt="" /></i>
-              </div>
-              <div class="input-container">
-                <input type="tel" id="contact-phone" name="phone" placeholder="Phone" value="${phone}"/>
-                <i class="icon-phone"><img src="./assets/svg/call.svg" alt="" /></i>
+                <input type="tel" id="contact-phone" name="phone" placeholder="Phone" value="${phone}" required />
+                <i class="icon-phone"><img src="./assets/svg/call.svg" alt="phone icon" /></i>
               </div>
               <div class="form-actions">
               ${

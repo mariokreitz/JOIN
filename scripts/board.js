@@ -1,9 +1,11 @@
 /**
- * Initializes the page by loading the necessary components.
+ * Initializes the page by loading the necessary components and rendering
+ * the contact list.
  *
- * @returns {void}
+ * @returns {Promise<void>} A promise that resolves when the page has been
+ * initialized.
  */
-function init() {
+async function init() {
   loadComponents();
 }
 
@@ -39,5 +41,5 @@ function loadHeader() {
 function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
-  navbar.innerHTML = getNavbarTemplate("legal");
+  navbar.innerHTML = getNavbarTemplate("board");
 }

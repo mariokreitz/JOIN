@@ -1,0 +1,89 @@
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+main {
+  padding-bottom: 40px;
+}
+
+body {
+  height: unset;
+  min-height: 100vh;
+}
+
+.help-main h4 {
+  font-size: 27px;
+}
+
+.help-below-section {
+  max-width: 1014px;
+  margin-left: 328px;
+  margin-top: 32px;
+  margin-right: 40px;
+}
+
+.help-below-section span {
+  color: #29abe2;
+}
+
+.help-main span {
+  color: #29abe2;
+}
+
+.help-main {
+  margin-top: 24px;
+  margin-left: 328px;
+  margin-right: 40px;
+  max-width: 1014px;
+}
+
+.whats-join-section {
+  max-width: 1014px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.whats-join-section p {
+  line-height: 19.2px;
+}
+
+.how-to-use-head {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.how-to-use-p {
+  margin-bottom: 16px;
+}
+
+.how-to-use-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.how-to-use-section h3 {
+  font-size: 27px;
+  margin-right: 35px;
+}
+
+.how-to-use-section h4 {
+  font-size: 20px;
+}
+
+.how-to-use-section p {
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+.howto-heading-and-p {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.how-to-use-containers {
+  display: flex;
+}

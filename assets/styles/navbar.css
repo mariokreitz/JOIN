@@ -66,3 +66,74 @@
 .gdpr:hover {
   background-color: var(--nav-hover);
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    inset: unset;
+    left: 0;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    padding: unset;
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .navbar-logo-container {
+    display: none;
+  }
+
+  .navbar-link-container {
+    width: inherit;
+    height: inherit;
+    margin: 0;
+    flex-direction: row;
+    justify-content: unset;
+  }
+
+  .navbar-link-container > :last-child {
+    display: none;
+  }
+
+  .navbar-link-container > ul {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 16px;
+  }
+
+  .navbar-link-container > ul > li {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navigation {
+    padding: 0;
+    width: 76px;
+    height: 76px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 16px;
+    padding-inline: 8px;
+    font-size: 14px;
+    line-height: 16.8px;
+  }
+
+  .navbar-link > img {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  .navbar-link-container > ul {
+    padding-inline: 1px;
+  }
+
+  .navigation {
+    width: unset;
+  }
+}

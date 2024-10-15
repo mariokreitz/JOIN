@@ -1,35 +1,24 @@
-h1 {
+.policy-main h1 {
   font-size: 61px;
   line-height: 73.2px;
 }
 
-h2 {
+.policy-main h2 {
   font-size: 27px;
 }
 
-main img {
-  width: 32px;
-  height: 32px;
-}
-
-main p {
+.policy-main p {
   margin-top: 10px;
   line-height: 19.2px;
 }
 
-.head-and-arrow {
-  width: 1016px;
-  margin-top: 110px;
-  margin-left: 328px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .policy-container {
+  max-width: 1016px;
   display: flex;
   flex-direction: column;
-  width: 1016px;
+  max-width: 1016px;
   margin-top: 32px;
   margin-left: 328px;
+  margin-right: 40px;
   gap: 35px;
 }

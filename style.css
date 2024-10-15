@@ -28,6 +28,10 @@ body {
   height: 100vh;
 }
 
+.d_none {
+  display: none;
+}
+
 .active {
   background-color: var(--active) !important;
   color: var(--text-secondary) !important;
@@ -74,4 +78,23 @@ body {
   border-radius: 10px;
   border: 1px solid var(--primary);
   padding-block: 12px;
+}
+
+.head-and-arrow {
+  max-width: 1016px;
+  margin-top: 110px;
+  margin-left: 328px;
+  margin-right: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.head-and-arrow h1 {
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+.head-and-arrow img {
+  width: 32px;
+  height: 32px;
 }

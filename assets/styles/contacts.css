@@ -49,6 +49,10 @@ nav {
   padding-bottom: 22.5px;
 }
 
+.contact-list > :first-child {
+  padding: 41px 36px 17px 36px;
+}
+
 .contact-letter {
   width: 352px;
   padding: 17px 36px;
@@ -125,7 +129,6 @@ nav {
   margin-left: 55px;
   display: flex;
   align-items: center;
-  height: fit-content;
 }
 
 .contact-main-heading {
@@ -145,4 +148,96 @@ nav {
   font-size: 27px;
   line-height: 32.4px;
   color: var(--primary);
+}
+
+@media (min-width: 1320px) {
+  .contact-list-wrapper,
+  .contact-main-container {
+    display: block !important;
+  }
+}
+
+@media (max-width: 1320px) {
+  .contact-item {
+    width: 100%;
+  }
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    height: 100%;
+    padding-top: 96px;
+  }
+
+  .contacts {
+    width: 100%;
+  }
+
+  .contact-list-wrapper {
+    width: 100%;
+  }
+
+  .contact-control {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+  }
+
+  .contact-list {
+    align-items: start;
+    padding-inline: 16px;
+  }
+
+  .button-text {
+    display: none;
+  }
+
+  .contact-control .btn-primary {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    align-items: center;
+  }
+  .contact-horizontal-seperator {
+    width: 100%;
+  }
+  .contact-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    padding-left: 0;
+    padding-block: 80px;
+  }
+  main:has(.contact-main-container) {
+    overflow: hidden;
+  }
+  .contacts {
+    width: 100%;
+  }
+  .contact-control {
+    bottom: 80px;
+    right: 20px;
+  }
+  .contact-letter,
+  .contact-item {
+    width: 100%;
+  }
+
+  .contact-item {
+    padding: 15px 10px;
+    gap: 10px;
+  }
+  .contact-letter {
+    padding: 17px 22px;
+  }
+}
+
+@media (max-width: 375px) {
+  .contact-email {
+    font-size: 12px;
+  }
 }
