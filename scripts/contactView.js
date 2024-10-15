@@ -137,3 +137,23 @@ function applyAnimationToContactView(animationType, element, callback) {
     );
   }
 }
+
+function toggleEditMenu() {
+  var menu = document.getElementById("contact-edit-menu");
+  if (menu.classList.contains("show")) {
+    menu.classList.remove("show");
+    document.removeEventListener("click", closeEditMenu);
+  } else {
+    menu.classList.add("show");
+    document.addEventListener("click", closeEditMenu);
+  }
+}
+
+function closeEditMenu(event) {
+  var menu = document.getElementById("contact-edit-menu");
+  var button = document.getElementById("menuButton");
+  if (!menu.contains(event.target) && !button.contains(event.target)) {
+    menu.classList.remove("show");
+    document.removeEventListener("click", closeEditMenu);
+  }
+}

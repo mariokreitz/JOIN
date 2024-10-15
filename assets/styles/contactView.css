@@ -146,6 +146,37 @@
   justify-content: center;
   cursor: pointer;
   z-index: 100;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.contact-main-controls-btn:hover {
+  background-color: var(--secondary);
+}
+
+.contact-edit-menu {
+  display: flex;
+  background: white;
+  padding: 20px;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 20px 20px 0 20px;
+  max-width: 130px;
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+  z-index: 100;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* When the menu is shown */
+.contact-edit-menu.show {
+  opacity: 1;
+  transform: translateX(0); /* Slide in */
+  pointer-events: auto; /* Allow interaction when shown */
 }
 
 @media (max-width: 1320px) {
