@@ -40,11 +40,11 @@ function getContactViewTemplate(initials, { color, name, email, phone }) {
             <div class="contact-main-details">
                 <div class="contact-main-details-email">
                     <span class="inter-medium">Email</span>
-                    <span class="inter-extralight">${email}</span>
+                    <span class="inter-extralight"><a href="mailto:${email}">${email}</a></span>
                 </div>
                 <div class="contact-main-details-phone">
                     <span class="inter-medium">Phone</span>
-                    <span class="inter-extralight">${phone}</span>
+                    <span class="inter-extralight"><a href="tel:${phone}">+${phone}</a></span>
                 </div>
             </div>
         </div>
