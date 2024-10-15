@@ -297,6 +297,9 @@
     flex: 1;
     min-height: 150px;
   }
+  .modal-content:has(p) .close-btn {
+    top: -160px;
+  }
   .close-btn {
     top: -140px;
   }
