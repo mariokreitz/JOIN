@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -282,7 +283,7 @@
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 375px) {
   .form-actions {
     flex-direction: column;
   }
@@ -294,9 +295,12 @@
   .modal-left,
   .modal-right {
     flex: 1;
-    min-height: 200px;
+    min-height: 150px;
+  }
+  .modal-content:has(p) .close-btn {
+    top: -160px;
   }
   .close-btn {
-    top: -190px;
+    top: -140px;
   }
 }
