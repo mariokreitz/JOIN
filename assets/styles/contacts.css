@@ -207,9 +207,11 @@ nav {
     right: 20px;
   }
   .contact-letter,
-  .contact-horizontal-seperator,
   .contact-item {
-    width: 300px;
+    width: 100%;
+  }
+  .contact-horizontal-seperator {
+    width: calc(100% - 20px);
   }
   .contact-item {
     padding: 15px 10px;
