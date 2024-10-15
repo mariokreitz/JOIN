@@ -38,6 +38,21 @@ header {
   align-items: center;
 }
 
+<<<<<<< Updated upstream
+=======
+.profile-icon > span {
+  color: var(--secondary);
+}
+
+@media (max-width: 1320px) {
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+}
+
+>>>>>>> Stashed changes
 @media (max-width: 768px) {
   header {
     display: none;

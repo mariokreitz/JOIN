@@ -69,6 +69,20 @@
 
 @media (max-width: 768px) {
   .navbar {
+<<<<<<< Updated upstream
+=======
+    inset: unset;
+    left: 0;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    padding: unset;
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .navbar-logo-container {
+>>>>>>> Stashed changes
     display: none;
   }
 }

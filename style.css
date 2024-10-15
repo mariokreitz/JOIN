@@ -97,18 +97,35 @@ body {
 
 @media (max-width: 768px) {
   .head-and-arrow h1 {
+<<<<<<< Updated upstream
     font-size: 40px;
     line-height: 56px;
     margin-left: 0px;
   }
+=======
+    font-size: 47px;
+    line-height: 56px;
+    margin-left: 0px;
+    margin-top: 64px;
+  }
+
+>>>>>>> Stashed changes
   .head-and-arrow {
     margin-left: 16px;
     max-width: 100%;
     margin-top: 48px;
   }
+<<<<<<< Updated upstream
   .head-and-arrow img {
     width: 16px;
     height: 17px;
+=======
+
+  .head-and-arrow img {
+    width: 16px;
+    height: 17px;
+    margin-top: 72px;
+>>>>>>> Stashed changes
   }
 }
 
