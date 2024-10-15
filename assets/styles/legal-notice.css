@@ -66,20 +66,18 @@
     font-size: 16px;
   }
   .legal-main {
-<<<<<<< Updated upstream
-    margin-left: 0px;
-=======
     margin-left: 16px;
->>>>>>> Stashed changes
     max-width: 100%;
+    margin-right: 16px;
   }
 
   .imprint-section {
-<<<<<<< Updated upstream
     margin-left: 0px;
-=======
     margin-left: 16px;
->>>>>>> Stashed changes
-    width: 100%;
+    max-width: 100%;
+  }
+
+  .scope {
+    max-width: 100%;
   }
 }
