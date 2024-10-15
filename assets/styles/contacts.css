@@ -158,6 +158,9 @@ nav {
 }
 
 @media (max-width: 1320px) {
+  .contact-item {
+    width: 100%;
+  }
   body {
     overflow-x: hidden;
   }
@@ -197,6 +200,9 @@ nav {
     align-items: center;
   }
   .contact-horizontal-seperator {
+    width: 100%;
+  }
+  .contact-item {
     width: 100%;
   }
 }
