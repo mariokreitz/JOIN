@@ -197,6 +197,9 @@ nav {
     border-radius: 100%;
     align-items: center;
   }
+  .contact-horizontal-seperator {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -215,9 +218,7 @@ nav {
   .contact-item {
     width: 100%;
   }
-  .contact-horizontal-seperator {
-    width: calc(100% - 20px);
-  }
+
   .contact-item {
     padding: 15px 10px;
     gap: 10px;
@@ -229,6 +230,6 @@ nav {
 
 @media (max-width: 375px) {
   .contact-email {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
