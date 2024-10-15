@@ -259,13 +259,6 @@
     padding-bottom: 50px;
     overflow: visible;
   }
-  .contact-main-controls-btn,
-  .contact-edit-menu {
-    bottom: 90px;
-  }
-  .contact-main-controls-btn {
-    bottom: 90px;
-  }
   #contact-edit-menu-placeholder {
     position: relative;
     width: 100%;
