@@ -29,6 +29,14 @@ header {
   align-items: center;
 }
 
+.header-right > :first-child {
+  transition: transform 100ms ease-out;
+}
+
+.header-right > :first-child:hover {
+  transform: scale(1.2);
+}
+
 .qeustion-mark {
   width: 20px;
   height: 20px;
