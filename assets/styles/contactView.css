@@ -136,12 +136,12 @@
 .contact-main-controls-btn {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 0;
   width: 50px;
   height: 50px;
   background-color: var(--primary);
   border-radius: 50%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -149,8 +149,17 @@
 }
 
 @media (max-width: 1320px) {
+  .contact-main-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-main-controls-btn {
+    display: flex;
+    bottom: 20px;
+  }
   .contact-main-container,
-  .contact-heading-vertical-seperator {
+  .contact-heading-vertical-seperator,
+  .contact-main-controls {
     display: none;
   }
   .contact-main-container .underline {
@@ -170,6 +179,10 @@
   .contact-main-heading-container,
   .contact-main-view {
     margin: 40px 20px 0;
+  }
+  .contact-main-view {
+    width: unset;
+    height: 100%;
   }
   .contact-main-header {
     display: flex;

@@ -84,7 +84,7 @@ function adjustDisplayForScreenSize(contact) {
     const contactListWrapper = document.querySelector(".contact-list-wrapper");
     const contactMainContainer = document.querySelector(".contact-main-container");
     contactListWrapper.style.display = contact.contactSelect ? "none" : "block";
-    contactMainContainer.style.display = contact.contactSelect ? "block" : "none";
+    contactMainContainer.style.display = contact.contactSelect ? "flex" : "none";
   }
 }
 
