@@ -226,3 +226,9 @@ nav {
     padding: 17px 22px;
   }
 }
+
+@media (max-width: 375px) {
+  .contact-email {
+    font-size: 14px;
+  }
+}
