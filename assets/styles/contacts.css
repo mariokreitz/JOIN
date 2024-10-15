@@ -178,7 +178,7 @@ nav {
 
   .contact-control {
     position: fixed;
-    bottom: 20px;
+    bottom: 0;
     right: 20px;
   }
 

@@ -154,7 +154,7 @@ function closeEditMenu(event) {
   var button = document.getElementById("menuButton");
   if (menu && button) {
     if (!menu.contains(event.target) && !button.contains(event.target)) {
-      menu.classList.remove("show"); // Slide out
+      menu.classList.remove("show");
       document.removeEventListener("click", closeEditMenu);
     }
   }
