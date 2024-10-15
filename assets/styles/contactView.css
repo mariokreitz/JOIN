@@ -169,14 +169,11 @@
   opacity: 0;
   transform: translateX(100%);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
 }
 
-/* When the menu is shown */
 .contact-edit-menu.show {
   opacity: 1;
-  transform: translateX(0); /* Slide in */
-  pointer-events: auto; /* Allow interaction when shown */
+  transform: translateX(0);
 }
 
 @media (min-width: 1320px) {
@@ -186,6 +183,9 @@
 }
 
 @media (max-width: 1320px) {
+  .contact-main-view {
+    overflow: hidden;
+  }
   .contact-main-container {
     display: flex;
     flex-direction: column;
