@@ -96,6 +96,14 @@ function toggleSelectedContactInList(selectedContact, contactItemElement) {
   }
 }
 
+/**
+ * Applies the given animation to the given element, and when the animation ends,
+ * calls the given callback function. Sets overflowX to hidden on the body
+ * during the animation.
+ * @param {string} animationType - The name of the CSS animation to apply.
+ * @param {HTMLElement} element - The element the animation should be applied to.
+ * @param {function} [callback] - The function to call when the animation ends.
+ */
 function applyAnimationToContactView(animationType, element, callback) {
   const body = document.body;
   body.style.overflowX = "hidden";

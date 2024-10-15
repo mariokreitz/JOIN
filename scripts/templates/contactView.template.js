@@ -1,3 +1,12 @@
+/**
+ * Given the initials, color, name, email, and phone of a contact, returns an
+ * HTML string representing a single contact card in the contact view.
+ *
+ * @param {string} initials - The initials of the contact.
+ * @param {{ color: string, name: string, email: string, phone: string }} contactInfo
+ *   - An object containing the color, name, email, and phone of the contact.
+ * @returns {string} An HTML string representing the contact card.
+ */
 function getContactViewTemplate(initials, { color, name, email, phone }) {
   return /*html*/ `
         <div class="contact-main-card">

@@ -14,7 +14,13 @@ function openContactModal(type, name = "", email = "", phone = "", color = "") {
   applyAnimation("slide-in");
 }
 
-function closeContactModal() {
+/**
+ * Closes the contact modal, removing it from the DOM.
+ *
+ * @param {Event} [event] - Optional event.
+ */
+function closeContactModal(event) {
+  if (event) event.preventDefault();
   const modal = document.getElementById("contact-modal");
   if (modal) {
     applyAnimation("slide-out");
@@ -22,6 +28,11 @@ function closeContactModal() {
   }
 }
 
+/**
+ * Applies the given animation to the modal content element. The animation is
+ * applied by setting the animation CSS property on the element.
+ * @param {string} animationType - The type of animation to apply.
+ */
 function applyAnimation(animationType) {
   const modalContent = document.getElementById("modal-content");
   modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
@@ -114,7 +125,7 @@ async function createContact() {
 function validateFormdata() {
   const { name, email, phone } = getFormData();
 
-  const nameRegex = /^[A-Z][a-z]+ [A-Z][a-z]+$/;
+  const nameRegex = /^[A-Z][a-z]+(-[A-Z][a-z]+)* [A-Z][a-z]+$/;
   const emailRegex = /^\S+@\S+\.\S+$/;
   const phoneRegex = /^\+?\d{1,3}?[-.\s]?(\(?\d{1,5}?\)?[-.\s]?)?\d{5,12}$/;
 

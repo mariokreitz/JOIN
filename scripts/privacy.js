@@ -1,3 +1,8 @@
+/**
+ * Initializes the page by loading the necessary components.
+ *
+ * @returns {void}
+ */
 function init() {
   loadComponents();
 }
