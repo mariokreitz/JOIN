@@ -91,7 +91,6 @@
   margin-left: 296px;
   gap: 35px;
   max-width: 100%;
-  background-color: whitesmoke;
   font-size: 20px;
   align-items: center;
 }
@@ -125,6 +124,7 @@
 
 .board-await-feedback-head {
   display: flex;
+  align-items: center;
 }
 
 .board-await-feedback-head h4 {
