@@ -64,3 +64,42 @@ body {
   min-height: 24px;
   font-size: 21px;
 }
+
+.big-card-date {
+  margin-left: 40px;
+  width: 445px;
+  min-height: 24px;
+  display: flex;
+  font-size: 21px;
+  margin-top: 24px;
+}
+
+.user-creatAt-p {
+  margin-left: 25px;
+}
+
+.big-card-priority {
+  display: flex;
+  margin-left: 40px;
+  margin-top: 26px;
+  font-size: 21px;
+}
+
+.big-card-select-prio {
+  margin-left: 47px;
+}
+
+.select-prio-big-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* PRIO SELECT */
+.prio-img {
+  margin-left: 10px;
+  width: 17px;
+  height: 6.5px;
+  background-size: cover;
+  background-image: url(../img/icons/medium-prio.png);
+}
