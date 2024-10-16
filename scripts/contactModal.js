@@ -110,7 +110,12 @@ async function updateContact(contactName) {
 async function createContact() {
   if (!validateFormdata()) return;
   const status = await postData();
-  showToastMessage("create", status);
+  if (status) showToastMessage("create", status);
+  else {
+    closeContactModal();
+    showToastMessage("exists", { ok: true });
+    return;
+  }
 
   closeContactModal();
   renderContactsPage();
@@ -250,6 +255,6 @@ async function deleteContact(contactName) {
     removeContactView();
     renderContactsPage();
   } else {
-    console.error("Contact not found.");
+    showToastMessage("error", { ok: true });
   }
 }

@@ -1,7 +1,7 @@
 .contact-main-view {
   margin-top: 32px;
   margin-left: 62px;
-  height: fit-content;
+  height: calc(100% - 220px);
   width: fit-content;
 }
 
@@ -192,7 +192,6 @@
   }
   .contact-main-controls-btn {
     display: flex;
-    bottom: 20px;
   }
   .contact-main-container,
   .contact-heading-vertical-seperator,
@@ -219,7 +218,6 @@
   }
   .contact-main-view {
     width: unset;
-    height: 100%;
   }
   .contact-main-header {
     display: flex;
@@ -252,16 +250,28 @@
     width: 50px;
   }
   .contact-main-container {
-    overflow-y: scroll;
+    height: 100%;
+    overflow-y: auto;
     overflow-x: hidden;
   }
   .contact-main-view {
+    position: relative;
     padding-bottom: 50px;
     overflow: visible;
+  }
+
+  .contact-edit-menu {
+    bottom: 100px;
   }
   #contact-edit-menu-placeholder {
     position: relative;
     width: 100%;
     bottom: 80px;
+  }
+}
+
+@media (max-width: 376px) {
+  .contact-main-view {
+    height: unset;
   }
 }
