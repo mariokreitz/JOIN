@@ -1,0 +1,122 @@
+.task-card-small {
+  background-color: var(--background-white);
+  width: 252px;
+  border-radius: 24px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card-small-header {
+  border-radius: 8px;
+  background-color: #0038ff;
+  color: var(--text-secondary);
+  width: fit-content;
+  padding: 4px 16px;
+}
+
+.card-small-header > p {
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+.card-small-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-small-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-small-subheadline {
+  font-size: 16px;
+  line-height: 19.2px;
+  color: var(--primary);
+}
+
+.card-small-description {
+  font-size: 16px;
+  line-height: 19.2px;
+  color: var(--text-navbar-bottom);
+}
+
+.card-small-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-small-progress-bar-background {
+  width: 128px;
+  height: 8px;
+  background-color: var(--text-navbar-bottom);
+  border-radius: 8px;
+}
+
+.card-small-progress-bar-foreground {
+  height: 100%;
+  border-radius: 8px;
+  background-color: var(--progessbar);
+}
+
+.card-small-progress-bar-text {
+  font-size: 12px;
+  line-height: 14.4px;
+}
+
+.card-small-card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-small-assigned-members {
+  display: flex;
+}
+
+.card-mall-assigend-member-badge {
+  width: 32px;
+  height: 32px;
+  background-color: var(--background-white);
+  border-radius: 9999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 14.4px;
+  color: var(--text-secondary);
+  background-color: crimson;
+  border: 1px solid #ffffff;
+}
+
+.card-small-assigned-members > :nth-child(n + 2) {
+  position: relative;
+}
+
+.card-small-assigned-members > :nth-child(2) {
+  left: -8px;
+}
+.card-small-assigned-members > :nth-child(3) {
+  left: -16px;
+}
+.card-small-assigned-members > :nth-child(4) {
+  left: -24px;
+}
+.card-small-assigned-members > :nth-child(5) {
+  left: -32px;
+}
+.card-small-assigned-members > :nth-child(6) {
+  left: -40px;
+}
+.card-small-assigned-members > :nth-child(7) {
+  left: -48px;
+}
+
+.card-small-urgency-icon {
+  display: flex;
+}
