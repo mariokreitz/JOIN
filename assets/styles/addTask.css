@@ -1,0 +1,123 @@
+.task-main {
+  margin-left: 232px;
+  padding: 100px;
+  height: calc(100% - 96px);
+  display: flex;
+  width: calc(100% - 232px);
+}
+
+.task-left,
+.task-right {
+  flex: 1;
+}
+
+.task-seperator {
+  height: 100%;
+  width: 2px;
+  background-color: #d1d1d1;
+  margin: 0 40px;
+}
+
+.task-main h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.task-main__form-group {
+  margin-bottom: 20px;
+}
+
+.task-main label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.task-main input[type="text"],
+.task-main textarea,
+.task-main select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.task-main textarea {
+  height: 80px;
+  resize: none;
+}
+
+.task-main__required {
+  color: red;
+}
+
+.task-main__priority-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-main__prio {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+.task-main__urgent {
+  background-color: #ff6161;
+  color: white;
+}
+
+.task-main__medium {
+  background-color: #ffbe30;
+  color: white;
+}
+
+.task-main__low {
+  background-color: #9ae59a;
+  color: white;
+}
+
+.task-main__add-subtask {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-main__form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.task-main__clear-btn {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.task-main__create-task-btn {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 1320px) {
+  .task-main {
+    margin-top: 96px;
+  }
+}
