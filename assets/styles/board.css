@@ -1,0 +1,39 @@
+main {
+  padding-left: 232px;
+  height: calc(100% - 96px);
+}
+
+.board-content {
+  height: 100%;
+  display: flex;
+}
+
+.board-head {
+  height: 200px;
+  width: 100%;
+  background-color: grey;
+}
+
+@media (max-width: 1320px) {
+  main {
+    padding-top: 96px;
+    height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+  main {
+    padding-top: 80px;
+    padding-left: 0;
+    height: 100%;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    main {
+      padding-bottom: 160px;
+    }
+  }
+}
