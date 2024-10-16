@@ -89,7 +89,9 @@
 }
 
 .board-todo-heads {
+  display: flex;
   margin-top: 48px;
   margin-left: 232px;
   max-width: 100%;
+  background-color: #2a3647;
 }
