@@ -6,12 +6,17 @@ main {
 .board-content {
   height: 100%;
   display: flex;
+  flex-direction: column;
 }
 
 .board-head {
   height: 200px;
   width: 100%;
   background-color: grey;
+}
+
+.board-body {
+  flex: 1;
 }
 
 @media (max-width: 1320px) {
@@ -29,6 +34,10 @@ main {
     padding-top: 80px;
     padding-left: 0;
     height: 100%;
+  }
+
+  .board-body {
+    padding-bottom: 80px;
   }
 
   @supports (-webkit-touch-callout: none) {
