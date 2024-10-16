@@ -1,6 +1,12 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .big-card-modal {
-  max-width: 525px;
-  min-height: 525px;
+  width: 525px;
+  min-height: 700px;
   border: 1px solid black;
 }
 
@@ -12,6 +18,9 @@
   min-height: 36px;
   border: 1px solid black;
   font-size: 23px;
+  border-radius: 8px;
+  background-color: #0038ff;
+  color: white;
 }
 
 .big-card-modal img {
@@ -19,7 +28,7 @@
   height: 13.3px;
 }
 
-.big-card-close {
+.big-card-close-x {
   height: 32px;
   width: 32px;
   display: flex;
@@ -28,8 +37,30 @@
 }
 
 .catogory-close-container {
+  margin-left: 40px;
+  margin-top: 48px;
+  width: 445px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  max-width: 445px;
   min-height: 30px;
+}
+
+.big-card-head {
+  margin-top: 24px;
+  margin-left: 40px;
+  width: 445px;
+  min-height: 219px;
+  font-size: 31px;
+  line-height: 73px;
+}
+
+.big-card-description {
+  display: flex;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 24px;
+  width: 445px;
+  min-height: 24px;
+  font-size: 21px;
 }
