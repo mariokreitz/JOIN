@@ -20,6 +20,9 @@
 
   /* Navbar */
   --nav-hover: #2a3d59;
+
+  /* Progessbar */
+  --progessbar: #4589ff;
 }
 
 body {
