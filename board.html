@@ -17,7 +17,7 @@
     <nav id="navbar" class="navbar"></nav>
     <div class="head-searchbar-button-board">
       <div class="board-head">
-        <h1>Board</h1>
+        <h1 class="inter-medium">Board</h1>
       </div>
       <div class="board-searchbar-button">
         <div class="board-input-container">
@@ -25,14 +25,27 @@
           <i class="board-search-icon"><img src="./assets/img/icons/search-icon.png" alt="person icon" /></i>
         </div>
 
-        <button>Add Task <img class="board-add-task-img" src="./assets/img/icons/add.png" /></button>
+        <button class="inter-medium">
+          Add Task <img class="board-add-task-img" src="./assets/img/icons/add.png" />
+        </button>
       </div>
     </div>
     <div class="board-todo-heads">
-      <div class="board-todo-head"><h1>aa</h1></div>
-      <div class="board-in-progress-head"></div>
-      <div class="board-await-feedback-head"></div>
-      <div class="board-done-head"></div>
+      <div class="board-todo-head">
+        <h4 class="inter-medium">To do</h4>
+        <button>+</button>
+      </div>
+      <div class="board-in-progress-head">
+        <h4 class="inter-medium">in progress</h4>
+        <button>+</button>
+      </div>
+      <div class="board-await-feedback-head">
+        <h4 class="inter-medium">Await feedback</h4>
+        <button>+</button>
+      </div>
+      <div class="board-done-head">
+        <h4 class="inter-medium">Done</h4>
+      </div>
     </div>
 
     <script src="./scripts/templates/header.template.js"></script>

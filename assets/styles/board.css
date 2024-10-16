@@ -8,10 +8,6 @@
   font-size: 61px;
 }
 
-.board-input {
-  width: 312px;
-}
-
 .board-input-container {
   position: relative;
   display: inline-block;
@@ -27,6 +23,7 @@
 
 .board-searchbar-button button {
   display: flex;
+  justify-content: center;
   align-items: center;
   min-width: 160px;
   background-color: #2a3647;
@@ -90,8 +87,49 @@
 
 .board-todo-heads {
   display: flex;
-  margin-top: 48px;
-  margin-left: 232px;
+  margin-top: 40px;
+  margin-left: 296px;
+  gap: 35px;
   max-width: 100%;
-  background-color: #2a3647;
+  background-color: whitesmoke;
+  font-size: 20px;
+  align-items: center;
+}
+
+.board-todo-head {
+  display: flex;
+}
+
+.board-todo-head h4 {
+  margin-right: 166px;
+}
+
+.board-todo-heads button {
+  background-color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2a3647;
+  border: 3px solid #2a3647;
+}
+
+.board-in-progress-head {
+  display: flex;
+}
+
+.board-in-progress-head h4 {
+  margin-right: 109px;
+}
+
+.board-await-feedback-head {
+  display: flex;
+}
+
+.board-await-feedback-head h4 {
+  margin-right: 68px;
+}
+.board-done-head {
+  display: flex;
 }
