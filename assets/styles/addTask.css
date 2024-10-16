@@ -2,8 +2,11 @@
   margin-left: 232px;
   padding: 100px;
   height: calc(100% - 96px);
-  display: flex;
   width: calc(100% - 232px);
+}
+
+.task-form-container {
+  display: flex;
 }
 
 .task-left,
@@ -12,7 +15,6 @@
 }
 
 .task-seperator {
-  height: 100%;
   width: 2px;
   background-color: #d1d1d1;
   margin: 0 40px;

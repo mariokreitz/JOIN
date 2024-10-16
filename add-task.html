@@ -16,57 +16,59 @@
     <header id="header"></header>
     <nav id="navbar" class="navbar"></nav>
     <main class="task-main">
-      <div class="task-left">
-        <h1>Add Task</h1>
-        <div class="task-main__form-group">
-          <label for="title">Title<span class="task-main__required">*</span></label>
-          <input type="text" id="title" placeholder="Enter a title" required />
+      <h1>Add Task</h1>
+      <div class="task-form-container">
+        <div class="task-left">
+          <div class="task-main__form-group">
+            <label for="title">Title<span class="task-main__required">*</span></label>
+            <input type="text" id="title" placeholder="Enter a title" required />
+          </div>
+
+          <div class="task-main__form-group">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Enter a Description"></textarea>
+          </div>
+
+          <div class="task-main__form-group">
+            <label for="assigned">Assigned to</label>
+            <select id="assigned">
+              <option>Select contacts to assign</option>
+            </select>
+          </div>
         </div>
 
-        <div class="task-main__form-group">
-          <label for="description">Description</label>
-          <textarea id="description" placeholder="Enter a Description"></textarea>
-        </div>
+        <div class="task-seperator"></div>
 
-        <div class="task-main__form-group">
-          <label for="assigned">Assigned to</label>
-          <select id="assigned">
-            <option>Select contacts to assign</option>
-          </select>
-        </div>
-      </div>
+        <div class="task-right">
+          <div class="task-main__form-group">
+            <label for="due-date">Due date<span class="task-main__required">*</span></label>
+            <input type="text" id="due-date" placeholder="dd/mm/yyyy" required />
+          </div>
 
-      <div class="task-seperator"></div>
+          <div class="task-main__form-group task-main__priority-group">
+            <label>Prio</label>
+            <button type="button" class="task-main__prio task-main__urgent">Urgent</button>
+            <button type="button" class="task-main__prio task-main__medium">Medium</button>
+            <button type="button" class="task-main__prio task-main__low">Low</button>
+          </div>
 
-      <div class="task-right">
-        <div class="task-main__form-group">
-          <label for="due-date">Due date<span class="task-main__required">*</span></label>
-          <input type="text" id="due-date" placeholder="dd/mm/yyyy" required />
-        </div>
+          <div class="task-main__form-group">
+            <label for="category">Category<span class="task-main__required">*</span></label>
+            <select id="category">
+              <option>Select task category</option>
+            </select>
+          </div>
 
-        <div class="task-main__form-group task-main__priority-group">
-          <label>Prio</label>
-          <button type="button" class="task-main__prio task-main__urgent">Urgent</button>
-          <button type="button" class="task-main__prio task-main__medium">Medium</button>
-          <button type="button" class="task-main__prio task-main__low">Low</button>
-        </div>
+          <div class="task-main__form-group">
+            <label for="subtasks">Subtasks</label>
+            <input type="text" id="subtasks" placeholder="Add new subtask" />
+            <button type="button" class="task-main__add-subtask">+</button>
+          </div>
 
-        <div class="task-main__form-group">
-          <label for="category">Category<span class="task-main__required">*</span></label>
-          <select id="category">
-            <option>Select task category</option>
-          </select>
-        </div>
-
-        <div class="task-main__form-group">
-          <label for="subtasks">Subtasks</label>
-          <input type="text" id="subtasks" placeholder="Add new subtask" />
-          <button type="button" class="task-main__add-subtask">+</button>
-        </div>
-
-        <div class="task-main__form-actions">
-          <button type="button" class="task-main__clear-btn">Clear</button>
-          <button type="submit" class="task-main__create-task-btn">Create Task</button>
+          <div class="task-main__form-actions">
+            <button type="button" class="task-main__clear-btn">Clear</button>
+            <button type="submit" class="task-main__create-task-btn">Create Task</button>
+          </div>
         </div>
       </div>
     </main>
