@@ -87,3 +87,9 @@
   width: 1px;
   background-color: #d1d1d1;
 }
+
+.board-todo-heads {
+  margin-top: 48px;
+  margin-left: 232px;
+  max-width: 100%;
+}
