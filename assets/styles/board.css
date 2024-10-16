@@ -1,8 +1,60 @@
 .head-searchbar-button-board {
   margin-top: 75.5px;
   margin-left: 296px;
+  display: flex;
 }
 
 .head-searchbar-button-board h1 {
   font-size: 61px;
+}
+
+.board-input {
+  width: 312px;
+}
+
+.board-input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.board-searchbar-button input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  padding-right: 50px;
+  box-sizing: border-box;
+}
+
+.board-searchbar-button input:focus-visible {
+  outline: unset;
+  border: 1px solid var(--secondary);
+}
+
+.board-searchbar-button input::placeholder {
+  color: #d1d1d1;
+}
+
+.icon-name {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon-name img {
+  width: 20px;
+  height: 20px;
+}
+
+.board-input-container::before {
+  content: "";
+  position: absolute;
+  right: 50px;
+  top: 25%;
+  bottom: 25%;
+  width: 1px;
+  background-color: #d1d1d1;
 }
