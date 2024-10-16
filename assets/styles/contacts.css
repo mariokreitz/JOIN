@@ -208,6 +208,9 @@ nav {
 }
 
 @media (max-width: 768px) {
+  body {
+    overflow: hidden;
+  }
   main {
     padding-left: 0;
     padding-block: 80px;
