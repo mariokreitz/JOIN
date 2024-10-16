@@ -1,0 +1,35 @@
+.big-card-modal {
+  max-width: 525px;
+  min-height: 525px;
+  border: 1px solid black;
+}
+
+.big-card-catogory {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 164px;
+  min-height: 36px;
+  border: 1px solid black;
+  font-size: 23px;
+}
+
+.big-card-modal img {
+  width: 13.3px;
+  height: 13.3px;
+}
+
+.big-card-close {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.catogory-close-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 445px;
+  min-height: 30px;
+}
