@@ -149,7 +149,6 @@ async function checkIfDuplicate(email, phone, contacts) {
     (contact) => contact.email === email || contact.phone === phone
   );
   if (duplicateContact) {
-    alert("Kontakt mit der gleichen E-Mail oder Telefonnummer existiert bereits.");
     return true;
   }
   return false;

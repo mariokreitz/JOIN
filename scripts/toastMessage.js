@@ -33,18 +33,26 @@ const textContent = {
    * @type {string}
    */
   signUpSuccess: "You Signed Up successfully",
+  /**
+   * The text content for when something went wrong.
+   * @type {string}
+   */
+  error: "Something went wrong",
+  /**
+   * The text content for when a contact already exists.
+   * @type {string}
+   */
+  exists: "Email/Phone already exists",
 };
 
 /**
- * Shows a toast message to the user for a given operation and response object.
- * If the response status is 200, a success message is shown, otherwise an error
- * message is shown. The message is displayed for 1.6 seconds and then removed.
- * @param {string} operation - The name of the operation. Should match one of the
- *   properties of the textContent object.
- * @param {Response} response - The response object from the fetch call.
+ * Shows a toast message based on the operation type and the response.
+ * @param {string} operation - The type of operation.
+ * @param {Response} response - The response object from the fetch API.
+ * @returns {void}
  */
 function showToastMessage(operation, response) {
-  const message = response.ok ? textContent[operation] : "Something went wrong";
+  const message = response.ok ? textContent[operation] : textContent["error"];
   const toastMessageHTML = getToastMessageTemplate(message);
   document.body.insertAdjacentHTML("beforeend", toastMessageHTML);
   setTimeout(() => {
