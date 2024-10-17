@@ -105,6 +105,7 @@ select {
   display: flex;
   gap: 8px;
   margin-top: 8px;
+  min-height: 42px;
 }
 
 .bc-card-initial-circle {
@@ -117,4 +118,27 @@ select {
   background-color: #0038ff;
   color: white;
   font-size: 14px;
+}
+
+.bc-subtask-head {
+  margin-top: 20px;
+}
+
+.bc-subtask-input-container {
+  border: 1px solid black;
+  height: 48px;
+  border-radius: 15px;
+}
+
+.bc-end-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 24px;
+  margin-left: 396px;
+  margin-bottom: 32px;
+  background-color: #2a3647;
+  color: white;
+  padding: 16px;
+  border-radius: 15px;
 }
