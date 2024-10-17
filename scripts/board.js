@@ -1,12 +1,6 @@
-/**
- * Initializes the page by loading the necessary components and rendering
- * the contact list.
- *
- * @returns {Promise<void>} A promise that resolves when the page has been
- * initialized.
- */
 async function init() {
   loadComponents();
+  await getData(API_URL);
   loadDemo();
 }
 
@@ -43,6 +37,16 @@ function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
   navbar.innerHTML = getNavbarTemplate("board");
+}
+
+/**
+ * Fetches data from the given URL and sets the contacts array to the data in the contacts key.
+ * If the data does not have a contacts key, the contacts array is set to an empty array.
+ * @param {string} url - The URL to fetch from.
+ * @returns {Promise<void>} - A promise that resolves when the data has been fetched and the contacts array has been set.
+ */
+async function getData(url) {
+  contacts = await getDataFromFirebase(url);
 }
 
 const todoArray = [
