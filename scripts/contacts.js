@@ -7,6 +7,7 @@
  */
 async function init() {
   loadComponents();
+  await getContactsFromData(API_URL, "guest");
   renderContactsPage();
 }
 
@@ -18,7 +19,7 @@ async function init() {
  */
 
 async function renderContactsPage() {
-  await getData(API_URL, "guest");
+  await getContactsFromData(API_URL, "guest");
   renderContactList();
 }
 
@@ -58,17 +59,6 @@ function loadNavbar() {
 }
 
 /**
- * Fetches data from the given URL and sets the contacts array to the data in the contacts key.
- * If the data does not have a contacts key, the contacts array is set to an empty array.
- * @param {string} url - The URL to fetch from.
- * @returns {Promise<void>} - A promise that resolves when the data has been fetched and the contacts array has been set.
- */
-async function getData(url, user) {
-  const data = await getDataFromFirebase(url);
-  contacts = objectToArray(data[user].contacts);
-}
-
-/**
  * Renders the contact list by mapping the contacts array to an HTML string and
  * setting the innerHTML of the element with the id "contactList" to that string.
  *
@@ -84,7 +74,7 @@ function renderContactList() {
   const contactListElement = document.getElementById("contactList");
   if (!contactListElement) return;
 
-  if (contacts.length === 0) {
+  if (globalContacts.length === 0) {
     contactListElement.innerHTML = /*html*/ `
       <li class="no-contacts">
         <p>Add a contact to start growing your network!</p>
@@ -93,7 +83,7 @@ function renderContactList() {
     return;
   }
 
-  const contactsByLetter = contacts.reduce((categories, contact) => {
+  const contactsByLetter = globalContacts.reduce((categories, contact) => {
     const letter = contact.name.split(" ")[0].charAt(0).toUpperCase();
     if (!categories[letter]) {
       categories[letter] = [];

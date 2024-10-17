@@ -148,11 +148,14 @@ async function createContact() {
     phone: phone,
   };
   const status = await putDataInFirebase(newContact, "guest");
-  showToastMessage("create", status);
-
+  showToastMessage("exists", status);
   closeContactModal();
-  renderContactsPage();
-  await selectLatestCreatedContact();
+
+  if (status.status === 200) {
+    showToastMessage("create", status);
+    renderContactsPage();
+    await selectLatestCreatedContact();
+  }
 }
 
 /**
