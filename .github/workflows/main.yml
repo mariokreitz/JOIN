@@ -25,8 +25,8 @@ jobs:
       run: |
         echo "Checking for console errors..."
         
-        # Run your JavaScript files and check for console errors
-        for file in *.js; do
+        # Find and run all JavaScript files in the repository
+        find . -name '*.js' | while read file; do
           echo "Running $file"
           node "$file" 2>&1 | grep -i 'error' || true
         done
