@@ -34,3 +34,20 @@ body {
   width: 13.5px;
   height: 13.5px;
 }
+
+.bc-title-input {
+  height: 48px;
+  width: 445px;
+  border: 1px solid #d1d1d1;
+  border-radius: 15px;
+  margin-top: 8px;
+}
+
+input:focus {
+  border-color: #d1d1d1;
+  outline: none;
+}
+
+.bc-description-head {
+  margin-top: 18px;
+}
