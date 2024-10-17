@@ -115,6 +115,8 @@ main {
   margin-right: 64px;
   max-width: 100%;
   font-size: 20px;
+  height: 100%;
+  padding-bottom: 64px;
 }
 
 .board-todo-column {
@@ -161,12 +163,21 @@ main {
   display: flex;
 }
 
+.board-card-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 @media (max-width: 1475px) {
   .board-task-layout {
     flex-direction: column;
   }
   .board-content {
     height: unset;
+  }
+  .board-card-layout {
+    flex-direction: row;
   }
 }
 
@@ -190,7 +201,7 @@ main {
   .board-body {
     padding-bottom: 80px;
   }
-  
+
   @supports (-webkit-touch-callout: none) {
     main {
       padding-bottom: 160px;
