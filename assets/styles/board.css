@@ -1,6 +1,7 @@
 main {
   padding-left: 232px;
   height: calc(100% - 96px);
+  max-width: 1920px;
 }
 
 .board-content {
@@ -37,7 +38,6 @@ main {
   position: relative;
   display: inline-block;
   width: 100%;
-  margin-top: 8px;
 }
 
 .board-searchbar-button {
@@ -57,7 +57,6 @@ main {
   white-space: nowrap;
   margin-left: 32px;
   padding: 10px 24px;
-  margin-top: 8px;
 }
 
 .board-add-task-img {
@@ -109,25 +108,29 @@ main {
   background-color: #d1d1d1;
 }
 
-.board-todo-heads {
+.board-task-layout {
   display: flex;
-  margin-top: 40px;
-  margin-left: 296px;
   gap: 35px;
+  margin-left: 64px;
+  margin-right: 64px;
   max-width: 100%;
   font-size: 20px;
-  align-items: center;
+}
+
+.board-todo-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .board-todo-head {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 252px;
 }
 
-.board-todo-head h4 {
-  margin-right: 166px;
-}
-
-.board-todo-heads button {
+.board-todo-head button {
   background-color: white;
   width: 24px;
   height: 24px;
@@ -156,6 +159,15 @@ main {
 }
 .board-done-head {
   display: flex;
+}
+
+@media (max-width: 1475px) {
+  .board-task-layout {
+    flex-direction: column;
+  }
+  .board-content {
+    height: unset;
+  }
 }
 
 @media (max-width: 1320px) {
