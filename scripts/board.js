@@ -42,20 +42,42 @@ function loadNavbar() {
 
 async function loadDemo() {
   const todoColumn = document.getElementById("board-todo");
-  if (!todoColumn) return;
+  const progressColumn = document.getElementById("board-progress");
+  const feedbackColumn = document.getElementById("board-feedback");
+  const doneColumn = document.getElementById("board-done");
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
 
   globalTodos.forEach((todo, index) => {
-    const todoElement = getTaskCardSmallTemplate(index, todo.category, todo.title, todo.description, todo.priority);
-    todoColumn.insertAdjacentHTML("beforeend", todoElement);
+    const todoElement = getTaskCardSmallTemplate(index, todo);
+    switch (todo.state) {
+      case "todo":
+        todoColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+      case "progress":
+        progressColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+      case "feedback":
+        feedbackColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+      case "done":
+        doneColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+    }
 
     const assignedMembersElement = document.getElementById(`assigned-members-${index}`);
     if (!assignedMembersElement) return;
 
-    assignedMembersArr = objectToArray(todo.assigendMembers);
+    assignedMembersArr = objectToArray(todo.assignedMembers);
 
     assignedMembersArr.forEach((member) => {
       const initials = getInitialsFromContact({ name: member });
-      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(initials));
+      const foundMember = globalContacts.find((contact) => contact.name == member);
+
+      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(initials, foundMember.color));
     });
   });
 }
