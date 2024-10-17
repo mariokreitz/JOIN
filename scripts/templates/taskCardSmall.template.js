@@ -29,15 +29,17 @@ function getTaskCardSmallTemplate(index = 0, category = "N/A", title = "N/A", de
   `;
 }
 
-function getAssignedMemberTemplate(initials = "MK") {
-  /**
-   * Given the initials of a contact, returns an HTML string representing a single
-   * contact's avatar in the assigned members section of a task card.
-   *
-   * @param {string} [initials="MK"] - The initials of the contact.
-   * @returns {string} An HTML string representing the contact's avatar.
-   */
+/**
+ * Given the initials and color of a contact, returns an
+ * HTML string representing a single contact item in the assigned members section
+ * of a task card.
+ *
+ * @param {string} [initials="MK"] - The initials of the contact.
+ * @param {string} [color="red"] - The color of the contact's avatar.
+ * @returns {string} An HTML string representing the assigned member item.
+ */
+function getAssignedMemberTemplate(initials = "MK", color = "red") {
   return /*html*/ `
-    <div class="card-mall-assigend-member-badge">${initials}</div>
+    <div class="card-mall-assigend-member-badge" style="background-color: ${color}">${initials}</div>
   `;
 }
