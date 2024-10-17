@@ -55,8 +55,12 @@ input:focus {
   margin-top: 18px;
 }
 
-.bc-description-input {
+#bc-description-textarea {
   width: 445px;
   height: 120px;
   margin-top: 8px;
+  padding: 6px;
+  border-radius: 15px;
+  outline: none;
+  border-color: #d1d1d1;
 }
