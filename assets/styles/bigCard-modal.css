@@ -181,6 +181,9 @@ body {
   display: flex;
   margin-left: 290px;
   margin-top: 24px;
+  margin-bottom: 48px;
+  height: 32px;
+  gap: 16px;
 }
 
 .big-card-delete {
@@ -191,4 +194,10 @@ body {
 .big-card-edit {
   display: flex;
   gap: 12px;
+}
+
+.bigCard-edit-delete-divider {
+  height: 24px;
+  width: 1px;
+  border: 1px solid #d1d1d1;
 }
