@@ -84,6 +84,15 @@ function renderContactList() {
   const contactListElement = document.getElementById("contactList");
   if (!contactListElement) return;
 
+  if (contacts.length === 0) {
+    contactListElement.innerHTML = /*html*/ `
+      <li class="no-contacts">
+        <p>Add a contact to start growing your network!</p>
+      </li>
+    `;
+    return;
+  }
+
   const contactsByLetter = contacts.reduce((categories, contact) => {
     const letter = contact.name.split(" ")[0].charAt(0).toUpperCase();
     if (!categories[letter]) {
