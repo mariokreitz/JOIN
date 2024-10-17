@@ -100,3 +100,21 @@ select {
   border-radius: 10px;
   border-color: #d1d1d1;
 }
+
+.bc-show-selected-assigned {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bc-card-initial-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #0038ff;
+  color: white;
+  font-size: 14px;
+}
