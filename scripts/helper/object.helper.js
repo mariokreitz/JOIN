@@ -19,6 +19,9 @@ function objectToArray(obj) {
  * @returns {number} The number of key-value pairs in the object.
  */
 function getObjectLength(obj) {
+  if (!obj) {
+    return 0;
+  }
   return Object.keys(obj).length;
 }
 
