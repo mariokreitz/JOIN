@@ -7,6 +7,7 @@
  */
 async function init() {
   loadComponents();
+  loadDemo();
 }
 
 /**
@@ -42,4 +43,11 @@ function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
   navbar.innerHTML = getNavbarTemplate("board");
+}
+
+function loadDemo() {
+  const doneColumn = document.getElementById("board-todo");
+  if (!doneColumn) return;
+  doneColumn.insertAdjacentHTML("beforeend", getTaskCardSmallTemplate());
+  doneColumn.insertAdjacentHTML("beforeend", getTaskCardSmallTemplate());
 }
