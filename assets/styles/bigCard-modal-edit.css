@@ -1,0 +1,36 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bc-with {
+  max-width: 445px;
+}
+
+.bc-m-left {
+  margin-left: 40px;
+}
+
+.bc-head {
+  margin-top: 24px;
+}
+
+.bigc-main-container {
+  width: 525px;
+  min-height: 800px;
+  border: 1px solid black;
+  border-radius: 30px;
+  font-size: 21px;
+}
+
+.bc-close-container {
+  display: flex;
+  justify-content: end;
+  margin-top: 32px;
+}
+
+.bc-close-container img {
+  width: 13.5px;
+  height: 13.5px;
+}
