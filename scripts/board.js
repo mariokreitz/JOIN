@@ -45,9 +45,37 @@ function loadNavbar() {
   navbar.innerHTML = getNavbarTemplate("board");
 }
 
+const todoArray = [
+  {
+    category: "User Story",
+    title: "Task Card Small",
+    description: "complete the task-card-small template",
+    priority: "high",
+    assigendMembers: ["Mario Kreitz", "Christian Zala", "Murat Catili"],
+  },
+  {
+    category: "Technical Task",
+    title: "Board Drag & Drop",
+    description: "implement the drag and drop function",
+    priority: "high",
+    assigendMembers: ["Mario Kreitz", "Christian Zala", "Murat Catili"],
+  },
+];
+
 function loadDemo() {
-  const doneColumn = document.getElementById("board-todo");
-  if (!doneColumn) return;
-  doneColumn.insertAdjacentHTML("beforeend", getTaskCardSmallTemplate());
-  doneColumn.insertAdjacentHTML("beforeend", getTaskCardSmallTemplate());
+  const todoColumn = document.getElementById("board-todo");
+  if (!todoColumn) return;
+
+  todoArray.forEach((todo, index) => {
+    const todoElement = getTaskCardSmallTemplate(index, todo.category, todo.title, todo.description, todo.priority);
+    todoColumn.insertAdjacentHTML("beforeend", todoElement);
+
+    const assignedMembersElement = document.getElementById(`assigned-members-${index}`);
+    if (!assignedMembersElement) return;
+
+    todo.assigendMembers.forEach((member) => {
+      const initials = getInitialsFromContact({ name: member });
+      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(initials));
+    });
+  });
 }

@@ -1,12 +1,14 @@
-function getTaskCardSmallTemplate(title = "N/A", subheadline = "N/A", description = "N/A", priority = "high") {
+function getTaskCardSmallTemplate(index = 0, category = "N/A", title = "N/A", description = "N/A", priority = "high") {
   return /*html*/ `
     <div class="task-card-small">
-        <div class="card-small-header">
-            <p class="inter-extralight">${title}</p>
+        <div class="card-small-header"  style="background-color:${
+          category === "Technical Task" ? "#1FD7C1" : "#0038ff"
+        }">
+            <p class="inter-extralight">${category}</p>
         </div>
         <div class="card-small-body">
             <div class="card-small-info">
-            <p class="card-small-subheadline inter-medium">${subheadline}</p>
+            <p class="card-small-subheadline inter-medium">${title}</p>
             <p class="card-small-description inter-extralight">${description}</p>
             </div>
             <div class="card-small-progress-bar">
@@ -17,15 +19,25 @@ function getTaskCardSmallTemplate(title = "N/A", subheadline = "N/A", descriptio
             </div>
         </div>
         <div class="card-small-card-footer">
-            <div class="card-small-assigned-members">
-            <div class="card-mall-assigend-member-badge">MK</div>
-            <div class="card-mall-assigend-member-badge">CZ</div>
-            <div class="card-mall-assigend-member-badge">MC</div>
+            <div id="assigned-members-${index}" class="card-small-assigned-members">
             </div>
             <div class="card-small-urgency-icon">
                 ${priority === "high" ? highPriotiySVG() : priority === "medium" ? mediumPriotiySVG() : lowPriotiySVG()}
             </div>
         </div>
     </div>
+  `;
+}
+
+function getAssignedMemberTemplate(initials = "MK") {
+  /**
+   * Given the initials of a contact, returns an HTML string representing a single
+   * contact's avatar in the assigned members section of a task card.
+   *
+   * @param {string} [initials="MK"] - The initials of the contact.
+   * @returns {string} An HTML string representing the contact's avatar.
+   */
+  return /*html*/ `
+    <div class="card-mall-assigend-member-badge">${initials}</div>
   `;
 }
