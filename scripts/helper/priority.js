@@ -1,3 +1,6 @@
+/**
+ * This function returns an SVG element representing a high priority icon.
+ */
 function highPriotiySVG() {
   return /*html*/ `
   <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,6 +17,9 @@ function highPriotiySVG() {
   `;
 }
 
+/**
+ * This function returns an SVG element representing a medium priority icon.
+ */
 function mediumPriotiySVG() {
   return /*html*/ `
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,6 +42,9 @@ function mediumPriotiySVG() {
   `;
 }
 
+/**
+ * This function returns an SVG element representing a low priority icon.
+ */
 function lowPriotiySVG() {
   return /*html*/ `
   <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
