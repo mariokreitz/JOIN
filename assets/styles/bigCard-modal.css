@@ -103,3 +103,10 @@ body {
   background-size: cover;
   background-image: url(../img/icons/medium-prio.png);
 }
+
+.big-card-assigned-head {
+  width: 445px;
+  margin-left: 40px;
+  font-size: 21px;
+  margin-top: 24px;
+}
