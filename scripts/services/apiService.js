@@ -120,7 +120,6 @@ async function patchDataInFirebase(url, path, initials, contactId, data) {
 async function checkIfDuplicate(email, phone, contacts) {
   const duplicateContact = contacts.find((contact) => contact.email === email || contact.phone === phone);
   if (duplicateContact) {
-    alert("Kontakt mit der gleichen E-Mail oder Telefonnummer existiert bereits.");
     return true;
   }
   return false;

@@ -135,6 +135,7 @@ async function createContact() {
   const phone = document.getElementById("contact-phone").value;
 
   if (!validateFormdata()) return;
+
   const profileColor = profileColors[Math.floor(Math.random() * profileColors.length)];
   const createdAt = Date.now();
 
@@ -289,7 +290,6 @@ async function deleteContact(contactName) {
     renderContactsPage();
   } else {
     const status = await deleteDataInFirebase(API_URL, `guest/contacts/${contactIndex}`);
-
     showToastMessage("delete", status);
     closeContactModal();
     removeContactView();
