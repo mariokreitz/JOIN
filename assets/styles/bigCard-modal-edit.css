@@ -38,9 +38,12 @@ body {
 .bc-title-input {
   height: 48px;
   width: 445px;
+  margin-top: 8px;
+}
+
+input {
   border: 1px solid #d1d1d1;
   border-radius: 15px;
-  margin-top: 8px;
 }
 
 input:focus {
@@ -50,4 +53,10 @@ input:focus {
 
 .bc-description-head {
   margin-top: 18px;
+}
+
+.bc-description-input {
+  width: 445px;
+  height: 120px;
+  margin-top: 8px;
 }
