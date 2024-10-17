@@ -178,7 +178,7 @@ main {
   .board-body {
     padding-bottom: 80px;
   }
-
+  
   @supports (-webkit-touch-callout: none) {
     main {
       padding-bottom: 160px;
