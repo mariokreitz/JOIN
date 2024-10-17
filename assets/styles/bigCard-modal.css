@@ -116,3 +116,14 @@ body {
   margin-left: 40px;
   margin-top: 16px;
 }
+
+.b-card-initial-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #0038ff;
+  color: white;
+}
