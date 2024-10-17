@@ -11,7 +11,6 @@
 
 .card-small-header {
   border-radius: 8px;
-  background-color: #0038ff;
   color: var(--text-secondary);
   width: fit-content;
   padding: 4px 16px;
@@ -62,7 +61,7 @@
 .card-small-progress-bar-foreground {
   height: 100%;
   border-radius: 8px;
-  background-color: var(--progessbar);
+  background-color: var(--progressbar);
 }
 
 .card-small-progress-bar-text {
@@ -90,7 +89,6 @@
   font-size: 12px;
   line-height: 14.4px;
   color: var(--text-secondary);
-  background-color: crimson;
   border: 1px solid #ffffff;
 }
 
@@ -119,4 +117,6 @@
 
 .card-small-urgency-icon {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }

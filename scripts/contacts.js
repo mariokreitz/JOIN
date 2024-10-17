@@ -1,37 +1,4 @@
 /**
- * The array of contacts.
- * @type {Array<Object>}
- */
-let contacts;
-
-/**
- * An array of colors that can be used to color user profiles.
- * @type {Array<string>}
- */
-const profileColors = [
-  "#FF7A00",
-  "#FF5EB3",
-  "#6E52FF",
-  "#9327FF",
-  "#00BEE8",
-  "#1FC7C1",
-  "#8B9467",
-  "#FF745E",
-  "#FFA35E",
-  "#FC71FF",
-  "#FFC701",
-  "#0038FF",
-  "#B22222",
-  "#C3FF2B",
-  "#FFE62B",
-  "#FF4646",
-  "#FFBB2B",
-  "#FF7A00",
-  "#FF5EB3",
-  "#6E52FF",
-];
-
-/**
  * Initializes the page by loading the necessary components and rendering
  * the contact list.
  *
@@ -51,7 +18,7 @@ async function init() {
  */
 
 async function renderContactsPage() {
-  await getData(API_URL);
+  await getData(API_URL, "guest");
   renderContactList();
 }
 
@@ -96,8 +63,9 @@ function loadNavbar() {
  * @param {string} url - The URL to fetch from.
  * @returns {Promise<void>} - A promise that resolves when the data has been fetched and the contacts array has been set.
  */
-async function getData(url) {
-  contacts = await getDataFromFirebase(url);
+async function getData(url, user) {
+  const data = await getDataFromFirebase(url);
+  contacts = objectToArray(data[user].contacts);
 }
 
 /**
@@ -115,6 +83,15 @@ function renderContactList() {
   let index = -1;
   const contactListElement = document.getElementById("contactList");
   if (!contactListElement) return;
+
+  if (contacts.length === 0) {
+    contactListElement.innerHTML = /*html*/ `
+      <li class="no-contacts">
+        <p>Add a contact to start growing your network!</p>
+      </li>
+    `;
+    return;
+  }
 
   const contactsByLetter = contacts.reduce((categories, contact) => {
     const letter = contact.name.split(" ")[0].charAt(0).toUpperCase();
@@ -163,21 +140,6 @@ function removeContactView() {
   contactViewElement.innerHTML = "";
 }
 
-/**
- * Given a contact object, returns the contact's initials as a string. The
- * initials are determined by taking the first character of the first name and
- * the first character of the last name. If either the first or last name is not
- * present, the corresponding initial is an empty string.
- *
- * @param {object} contact - Contact object with a `name` property.
- * @returns {string} The contact's initials as a string.
- */
-function getInitialsFromContact({ name: fullName }) {
-  const [firstName, lastName] = fullName.split(" ");
-  const firstInitial = firstName ? firstName.charAt(0) : "";
-  const lastInitial = lastName ? lastName.charAt(0) : "";
-  return `${firstInitial}${lastInitial}`;
-}
 /**
  * Listens for the window resize event and re-renders the contact list when
  * fired.

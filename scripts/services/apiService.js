@@ -1,4 +1,10 @@
 /**
+ * The array of contacts.
+ * @type {Array<Object>}
+ */
+let contacts;
+
+/**
  * The URL of the Firebase Realtime Database.
  * @type {string}
  * @const
@@ -6,148 +12,113 @@
 const API_URL = firebaseConfig.apiKey;
 
 /**
- * Fetches data from the given URL and returns the response as JSON.
+ * Fetches data from the given URL and returns it as JSON.
  *
- * @param {string} url
- *   The URL to fetch from.
- *
- * @returns {Promise<Object>}
- *   Resolves with the parsed JSON data from the response.
- *
- * @throws {Error}
- *   If the URL is invalid or the request failed.
+ * @param {string} url - The URL to fetch from.
+ * @returns {Promise<Object>} A promise that resolves with the data from the URL as JSON.
+ * @throws {Error} If the URL is invalid or the response from the server was not OK.
  */
 async function fetchData(url) {
-  if (typeof url !== "string" || !url.trim().length) {
-    return Promise.reject(new Error("Invalid URL"));
-  }
+  if (typeof url !== "string" || !url.trim().length) return Promise.reject(new Error("Invalid URL"));
 
   const response = await fetch(url);
 
-  if (!response.ok) {
-    return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
-  }
+  if (!response.ok) return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 
   return response.json();
 }
 
 /**
- * Finds the index of the contact with the given name in the contacts array.
+ * Given a contact name, path, and initials, returns the index of the contact
+ * in the contacts object from the given path in the Firebase Realtime Database.
  *
- * @param {string} contactName
- *   The name of the contact to find.
- *
- * @returns {Promise<number>}
- *   The index of the contact in the contacts array, or undefined if not found.
- *
- * @throws {Error}
- *   If the URL is invalid or the request failed.
+ * @param {string} contactName - The name of the contact to find.
+ * @param {string} path - The path to the contacts object in the Firebase Realtime
+ *   Database.
+ * @param {string} initials - The initials of the contact to find.
+ * @returns {Promise<number>} A promise that resolves with the index of the contact
+ *   in the contacts object or undefined if the contact was not found.
+ * @throws {Error} If the URL is invalid or the response from the server was not OK.
  */
-async function getContactIndexByName(contactName) {
-  const contacts = await fetchData(`${API_URL}/contacts.json`);
-  if (!contacts) return;
+async function getContactIndexByName(contactName, path, initials) {
+  const contacts = await fetchData(`${API_URL}/${path}.json`);
 
-  return contacts?.findIndex((contact) => contact?.name === contactName);
+  if (!contacts) return;
+  return findKeyByName(contacts, contactName).replace(`${initials}`, "");
 }
 
 /**
- * Finds the latest created contact in the contacts array.
+ * Retrieves the latest created contact for a specified user from Firebase.
  *
- * @returns {Promise<Object>}
- *   The latest created contact object, or undefined if not found.
- *
- * @throws {Error}
- *   If the URL is invalid or the request failed.
+ * @param {string} user - The user whose contacts are to be retrieved.
+ * @returns {Promise<Object|undefined>} A promise that resolves with the latest created contact
+ * object or undefined if no contacts are found.
  */
-async function getLatestCreatedContact() {
-  const contacts = await getDataFromFirebase(API_URL);
-  if (!contacts) return;
+async function getLatestCreatedContact(user) {
+  const data = await getDataFromFirebase(API_URL);
+  if (!data) return;
 
-  return contacts.reduce((latest, current) => {
-    if (!latest || current.createdAt > latest.createdAt) {
-      return current;
+  const contacts = objectToArray(data[user].contacts);
+
+  return contacts.reduce((latestContact, currentContact) => {
+    if (!latestContact || currentContact.createdAt > latestContact.createdAt) {
+      return currentContact;
     }
-    return latest;
+    return latestContact;
   }, undefined);
 }
 
 /**
- * Fetches JSON data from the given URL in the Firebase Realtime Database.
+ * Fetches data from Firebase Realtime Database for the given URL.
  *
- * @param {string} url
- *   The URL of the Firebase Realtime Database.
- *
- * @returns {Promise<Object>}
- *   Resolves with the parsed JSON data from the response.
- *
- * @throws {Error}
- *   If the URL is invalid or the request failed.
+ * @param {string} url - The URL to fetch data from.
+ * @returns {Promise<Object|undefined>} A promise that resolves with the data
+ * from the URL as an object or undefined if the data is not found.
  */
 async function getDataFromFirebase(url) {
-  data = await fetchData(url + ".json");
-  return data.contacts.filter((el) => el != null);
+  const data = await fetchData(url + ".json");
+  if (!data) return;
+
+  return data;
 }
 
 /**
- * Patches data in the Firebase Realtime Database at the given path with the
- * given contact id.
+ * Patches a contact in the Firebase Realtime Database with the given data.
  *
- * @param {string} url
- *   The URL of the Firebase Realtime Database.
- *
- * @param {string} path
- *   The path in the Realtime Database to patch.
- *
- * @param {Object} data
- *   The data to patch into the Realtime Database.
- *
- * @param {number} contactId
- *   The id of the contact to patch.
- *
- * @returns {Promise<Object|undefined>}
- *   Resolves with the response from the server if the request was successful.
- *   Rejects with an error if the request failed or if the contact id was not
- *   found.
- *
- * @throws {Error}
- *   If the contact id was not found in the Realtime Database.
+ * @param {string} url - The URL of the Firebase Realtime Database.
+ * @param {string} path - The path to the contacts object in the Firebase Realtime
+ *   Database.
+ * @param {string} initials - The initials of the contact to patch.
+ * @param {number} contactId - The ID of the contact to patch.
+ * @param {Object} data - The data to patch the contact with.
+ * @returns {Promise<Response>} A promise that resolves with the response from the
+ *   server if the patch was successful, or rejects with an error if the response
+ *   from the server was not OK.
+ * @throws {Error} If the URL is invalid or the response from the server was not OK.
  */
-async function patchDataInFirebase(url, path, data, contactId) {
+async function patchDataInFirebase(url, path, initials, contactId, data) {
   if (contactId === -1) return Promise.reject(new Error(`No contact with id ${contactId} found in Firebase.`));
-
-  const response = await fetch(`${url}/${path}/${contactId}.json`, {
+  const response = await fetch(`${url}/${path}/${initials}${contactId}.json`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-
   if (response.ok) return response;
-
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
 /**
- * Checks if a contact with the same email or phone number already exists.
+ * Checks if a contact with the same email or phone number already exists in the contacts list.
  *
- * @param {string} email
- *   The email of the contact to check.
- *
- * @param {string} phone
- *   The phone number of the contact to check.
- *
- * @param {Object.<string, Object>} contacts
- *   The contacts to check against.
- *
- * @returns {Promise<boolean>}
- *   Resolves with true if a contact with the same email or phone number
- *   already exists, false otherwise.
+ * @param {string} email - The email to check for duplicates.
+ * @param {string} phone - The phone number to check for duplicates.
+ * @param {Array<Object>} contacts - The array of contact objects to check against.
+ * @returns {Promise<boolean>} A promise that resolves to true if a duplicate contact is found, otherwise false.
  */
 async function checkIfDuplicate(email, phone, contacts) {
-  const duplicateContact = Object.values(contacts).find(
-    (contact) => contact.email === email || contact.phone === phone
-  );
+  const duplicateContact = contacts.find((contact) => contact.email === email || contact.phone === phone);
   if (duplicateContact) {
     return true;
   }
@@ -155,99 +126,41 @@ async function checkIfDuplicate(email, phone, contacts) {
 }
 
 /**
- * Finds the last ID in the contacts object and returns the next one.
+ * Puts new contact data into the Firebase Realtime Database.
  *
- * @param {Object.<string, Object>} contacts
- *   The contacts object to find the last ID in.
- *
- * @returns {number}
- *   The next contact ID.
+ * @param {Object} newContact - The new contact data to be added.
+ * @param {string} user - The user to add the contact for.
+ * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
  */
-function checkLastID(contacts) {
-  const existingIds = Object.keys(contacts);
-  let newId = 0;
-
-  if (existingIds.length > 0) {
-    for (let i = 0; i < existingIds.length; i++) {
-      const currentId = parseInt(existingIds[i]);
-      if (currentId >= newId) {
-        newId = currentId + 1;
-      }
-    }
-  }
-  return newId;
-}
-
-/**
- * Posts the contact data in the contact form to the Firebase Realtime
- * Database.
- *
- * @returns {Promise<Object|undefined>}
- *   Resolves with the response from the server if the request was successful.
- *   Rejects with an error if the request failed or if a contact with the same
- *   email or phone number already exists.
- *
- * @throws {Error}
- *   If the request failed or if a contact with the same email or phone number
- *   already exists.
- */
-async function postData() {
-  const fullName = document.getElementById("contact-name").value;
-  const email = document.getElementById("contact-email").value;
-  const phone = document.getElementById("contact-phone").value;
-
-  const contacts = await getDataFromFirebase(API_URL);
-
-  if (await checkIfDuplicate(email, phone, contacts)) return;
-
-  const newId = checkLastID(contacts);
-
-  const profileColor = profileColors[Math.floor(Math.random() * profileColors.length)];
-
-  const newContact = {
-    color: profileColor,
-    contactSelect: false,
-    createdAt: Date.now(),
-    email: email,
-    name: fullName,
-    phone: phone,
-  };
-
-  const response = await fetch(`${API_URL}/contacts/${newId}.json`, {
+async function putDataInFirebase(newContact, user) {
+  const data = await getDataFromFirebase(API_URL);
+  if (!data) return;
+  const contacts = objectToArray(data[user].contacts);
+  if (await checkIfDuplicate(newContact.email, newContact.phone, contacts)) return;
+  const initials = getInitialsFromContact(newContact);
+  const response = await fetch(`${API_URL}/guest/contacts/${initials}${newContact.createdAt}.json`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(newContact),
   });
-
   if (response.ok) return response;
-
   return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 }
 
 /**
- * Deletes the contact with the given index from the given endpoint in the
- * Firebase Realtime Database.
+ * Deletes the data at the specified endpoint in the Firebase Realtime Database.
  *
- * @param {string} apiUrl
- *   The URL of the Firebase Realtime Database.
- *
- * @param {string} endpoint
- *   The endpoint in the Realtime Database to delete the contact from.
- *
- * @param {number} contactIndex
- *   The index of the contact to delete.
- *
- * @returns {Promise<Object>}
- *   Resolves with the response from the server if the request was successful.
- *   Rejects with an error if the request failed.
- *
- * @throws {Error}
- *   If the request failed or if the contact index was not found.
+ * @param {string} apiUrl - The URL of the Firebase Realtime Database.
+ * @param {string} endpoint - The path to the data to be deleted in the Firebase
+ *   Realtime Database.
+ * @returns {Promise<Response>} A promise that resolves with the response from the
+ *   server or rejects with an error if the response from the server was not OK.
+ * @throws {Error} If the URL is invalid or the response from the server was not OK.
  */
-async function deleteDataInFirebase(apiUrl, endpoint, contactIndex) {
-  const response = await fetch(`${apiUrl}/${endpoint}/${contactIndex}.json`, {
+async function deleteDataInFirebase(apiUrl, endpoint) {
+  const response = await fetch(`${apiUrl}/${endpoint}.json`, {
     method: "DELETE",
   });
 
