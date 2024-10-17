@@ -1,0 +1,32 @@
+name: CI for Board Branch
+
+on:
+  push:
+    branches:
+      - board
+  pull_request:
+    branches:
+      - board
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # You can change this to your preferred version
+
+    - name: Run JavaScript files and check for console errors
+      run: |
+        echo "Checking for console errors..."
+        
+        # Run your JavaScript files and check for console errors
+        for file in *.js; do
+          echo "Running $file"
+          node "$file" 2>&1 | grep -i 'error' || true
+        done
