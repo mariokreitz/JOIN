@@ -35,15 +35,12 @@ body {
   height: 13.5px;
 }
 
-.bc-title-input {
-  height: 48px;
-  width: 445px;
-  margin-top: 8px;
-}
-
 input {
   border: 1px solid #d1d1d1;
   border-radius: 15px;
+  width: 445px;
+  height: 48px;
+  margin-top: 8px;
 }
 
 input:focus {
