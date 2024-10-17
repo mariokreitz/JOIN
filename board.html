@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./assets/styles/header.css" />
     <link rel="stylesheet" href="./assets/styles/navbar.css" />
     <link rel="stylesheet" href="./assets/styles/board.css" />
-    <link rel="stylesheet" href="./assets/styles/task-card.css" />
+    <link rel="stylesheet" href="./assets/styles/task-card-small.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
@@ -36,29 +36,33 @@
         </div>
         <div class="board-body">
           <div class="board-task-layout">
-            <div id="board-todo" class="board-todo-column">
+            <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">To do</h4>
                 <button>+</button>
               </div>
+              <div id="board-todo" class="board-card-layout"></div>
             </div>
-            <div id="board-progress" class="board-todo-column">
+            <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">In Progress</h4>
                 <button>+</button>
               </div>
+              <div id="board-progress" class="board-card-layout"></div>
             </div>
-            <div id="board-feedback" class="board-todo-column">
+            <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Await Feedback</h4>
                 <button>+</button>
               </div>
+              <div id="board-feedback" class="board-card-layout"></div>
             </div>
-            <div id="board-done" class="board-todo-column">
+            <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Done</h4>
                 <button>+</button>
               </div>
+              <div id="board-done" class="board-card-layout"></div>
             </div>
           </div>
         </div>
@@ -69,6 +73,7 @@
     <script src="./scripts/helper/initials.helper.js"></script>
     <script src="./scripts/helper/priority.helper.js"></script>
     <script src="./scripts/helper/object.helper.js"></script>
+    <script src="./scripts/helper/taskcard.helper.js"></script>
     <script src="./scripts/templates/header.template.js"></script>
     <script src="./scripts/templates/navbar.template.js"></script>
     <script src="./scripts/templates/taskCardSmall.template.js"></script>
