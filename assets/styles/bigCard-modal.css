@@ -8,6 +8,7 @@ body {
   width: 525px;
   min-height: 700px;
   border: 1px solid black;
+  border-radius: 30px;
 }
 
 .big-card-catogory {
