@@ -110,3 +110,9 @@ body {
   font-size: 21px;
   margin-top: 24px;
 }
+
+.big-card-assigned-member {
+  width: 445px;
+  margin-left: 40px;
+  margin-top: 16px;
+}
