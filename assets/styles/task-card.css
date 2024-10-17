@@ -62,7 +62,7 @@
 .card-small-progress-bar-foreground {
   height: 100%;
   border-radius: 8px;
-  background-color: var(--progessbar);
+  background-color: var(--progressbar);
 }
 
 .card-small-progress-bar-text {
