@@ -64,3 +64,7 @@ input:focus {
   outline: none;
   border-color: #d1d1d1;
 }
+
+.bc-duedate-head {
+  margin-top: 32px;
+}
