@@ -1,10 +1,4 @@
 /**
- * The array of contacts.
- * @type {Array<Object>}
- */
-let contacts;
-
-/**
  * An array of colors that can be used to color user profiles.
  * @type {Array<string>}
  */

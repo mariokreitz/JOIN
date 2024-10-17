@@ -1,4 +1,10 @@
 /**
+ * The array of contacts.
+ * @type {Array<Object>}
+ */
+let contacts;
+
+/**
  * The URL of the Firebase Realtime Database.
  * @type {string}
  * @const
