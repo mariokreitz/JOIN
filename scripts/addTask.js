@@ -110,15 +110,32 @@ function removeSubtask(iconElement) {
 function editSubtask(iconElement) {
   const listItem = iconElement.closest("li");
   const subtaskTextElement = listItem.querySelector(".subtask-text");
+  const currentText = subtaskTextElement.textContent;
   const inputField = document.createElement("input");
   inputField.type = "text";
-  inputField.value = subtaskTextElement.textContent;
-  inputField.onblur = () => {
-    subtaskTextElement.textContent = inputField.value;
-    listItem.removeChild(inputField);
-  };
+  inputField.value = currentText;
+  listItem.replaceChild(inputField, subtaskTextElement);
+  const iconContainer = listItem.querySelector(".list-item-actions");
+  iconContainer.innerHTML = getAcceptAndDeleteIconsTemplate();
+}
 
-  listItem.insertBefore(inputField, subtaskTextElement);
-  listItem.removeChild(subtaskTextElement);
-  inputField.focus();
+function saveEdit(iconElement) {
+  const listItem = iconElement.closest("li");
+  const inputField = listItem.querySelector("input");
+  const newText = inputField.value.trim();
+  if (newText === "") {
+    alert("Subtask cannot be empty!");
+    return;
+  }
+  const subtaskTextElement = document.createElement("span");
+  subtaskTextElement.className = "subtask-text";
+  subtaskTextElement.textContent = newText;
+  listItem.replaceChild(subtaskTextElement, inputField);
+  const iconContainer = listItem.querySelector(".list-item-actions");
+  iconContainer.innerHTML = getEditAndDeleteIconsTemplate();
+}
+
+function removeSubtask(iconElement) {
+  const listItem = iconElement.closest("li");
+  listItem.remove();
 }

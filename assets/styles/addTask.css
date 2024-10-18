@@ -58,7 +58,8 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 }
 
 .add-task-content input:focus-visible,
-.add-task-content textarea:focus-visible {
+.add-task-content textarea:focus-visible,
+.add-task-content select:focus-visible {
   outline: unset;
   border: 1px solid var(--secondary);
 }
@@ -203,11 +204,6 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   border-radius: 10px;
 }
 
-.create-btn:hover {
-  background-color: var(--secondary);
-  border: 1px solid var(--secondary);
-}
-
 .check-mark {
   max-height: 10px;
   margin-left: 10px;
@@ -216,12 +212,14 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 .create-btn:hover {
   background-color: var(--secondary);
   border: 1px solid var(--secondary);
+  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .clear-btn:hover {
   border: 1px solid var(--secondary);
   color: var(--secondary);
   background: unset;
+  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .add-icon {
@@ -294,7 +292,6 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   padding: 5px 10px;
   border-radius: 8px;
   cursor: pointer;
-  display: flex;
   justify-content: space-between;
 }
 
@@ -305,10 +302,38 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 .list-item-actions {
   display: none;
   gap: 5px;
+  float: right;
 }
 
 #subtask-list li:hover .list-item-actions {
   display: flex;
+}
+
+#subtask-list li:has(input) {
+  padding: 0;
+  align-items: center;
+}
+
+#subtask-list li:has(input) .list-item-actions {
+  display: flex;
+  position: absolute;
+  right: 10px;
+}
+
+#subtask-list li:has(input) input {
+  padding: 0 10px;
+  border-radius: unset;
+  border: none;
+  height: 32px;
+  border-bottom: 1px solid var(--secondary);
+}
+
+.add-task-content option:disabled {
+  display: none;
+}
+
+.add-task-content option {
+  padding: 15px;
 }
 
 @media (max-width: 1320px) {
