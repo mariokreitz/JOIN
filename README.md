@@ -6,7 +6,7 @@ Welcome to **JOIN**!
 JOIN is a user-friendly and powerful project management tool that helps you keep track of your team's tasks, responsibilities, and progress. This tool was developed as part of a training program at the **Developer Academy** and is perfect for optimizing team collaboration and successfully managing projects.
 
 ---
-
+[![pages-build-deployment](https://github.com/mariokreitz/JOIN/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/mariokreitz/JOIN/actions/workflows/pages/pages-build-deployment)
 ## 🚀 **About the Project**
 
 **JOIN** provides everything you need to manage your tasks and projects clearly. With a real-time database, dynamic features, and a responsive design, it allows you to work efficiently and productively, whether you're working alone or as part of a team.
