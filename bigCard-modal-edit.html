@@ -73,24 +73,22 @@
           <div class="dropdown-item">
             <div class="bc-card-initial-circle-dropdown"><span>AM</span></div>
             <span class="name">Anna Müller</span>
-            <input type="checkbox" />
+            <input type="checkbox" onclick="handleSelection(this, 'AM', 'Anna Müller')" />
           </div>
           <div class="dropdown-item">
             <div class="bc-card-initial-circle-dropdown"><span>BM</span></div>
             <span class="name">Bernd Meyer</span>
-            <input type="checkbox" />
+            <input type="checkbox" onclick="handleSelection(this, 'BM', 'Bernd Meyer')" />
           </div>
           <div class="dropdown-item">
             <div class="bc-card-initial-circle-dropdown"><span>CM</span></div>
             <span class="name">Clara Meier</span>
-            <input type="checkbox" />
+            <input type="checkbox" onclick="handleSelection(this, 'CM', 'Clara Meier')" />
           </div>
         </div>
       </div>
-      <div class="bc-show-selected-assigned bc-m-left bc-with">
-        <div class="bc-card-initial-circle"><span>AM</span></div>
-        <div class="bc-card-initial-circle"><span>AM</span></div>
-      </div>
+
+      <div class="bc-show-selected-assigned bc-m-left bc-with" id="selected-assigned"></div>
       <div class="bc-subtask-head bc-m-left"><p>Subtasks</p></div>
 
       <div class="bc-input-container bc-m-left">

@@ -134,3 +134,16 @@ function closeDropdown(event) {
     }
   }
 }
+
+const handleSelection = (checkbox, initials) => {
+  const selectedAssignedContainer = document.getElementById("selected-assigned");
+  const existing = selectedAssignedContainer.querySelector(`[data-initials="${initials}"]`);
+
+  if (checkbox.checked) {
+    selectedAssignedContainer.innerHTML += `<div class="bc-card-initial-circle" data-initials="${initials}"><span>${initials}</span></div>`;
+  } else {
+    if (existing) {
+      existing.remove();
+    }
+  }
+};

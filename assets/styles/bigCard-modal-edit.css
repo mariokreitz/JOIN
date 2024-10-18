@@ -125,7 +125,7 @@ input:focus {
   align-items: center;
   width: 137.5px;
   height: 56px;
-  border: 1px solid black;
+  border: 1px solid #d1d1d1;
   border-radius: 10px;
   gap: 8px;
 }
@@ -224,6 +224,7 @@ select {
   margin-top: 16px;
   margin-left: 50px;
   min-height: 48px;
+  overflow-y: auto;
 }
 
 .bc-end-button {
