@@ -169,6 +169,19 @@ main {
   gap: 16px;
 }
 
+.board-column-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 48px;
+  color: var(--text-navbar-bottom);
+  background-color: #e7e7e7;
+  border: 2px dotted var(--text-navbar-bottom);
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+}
+
 @media (max-width: 1475px) {
   .board-task-layout {
     flex-direction: column;

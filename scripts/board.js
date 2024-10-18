@@ -103,9 +103,11 @@ function searchTodos(event) {
   if (searchTerm === "") {
     clearBoardColumns();
     renderTodos(globalTodos);
+    renderPlaceholder();
   } else {
     clearBoardColumns();
     renderTodos(filteredTodos);
+    renderPlaceholder();
   }
 }
 
@@ -116,6 +118,7 @@ function searchTodos(event) {
  */
 async function loadDemoData() {
   renderTodos(globalTodos);
+  renderPlaceholder();
 }
 
 /**
@@ -175,6 +178,26 @@ function renderAssignedMembers(index, todo) {
     const foundMember = globalContacts.find((contact) => contact.name === member);
 
     assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(initials, foundMember.color));
+  });
+}
+/**
+ * Renders a placeholder element in each column if the column is empty.
+ *
+ * @returns {void}
+ */
+function renderPlaceholder() {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
+  columns.forEach((column) => {
+    if (!column.innerHTML) {
+      column.insertAdjacentHTML(
+        "beforeend",
+        /*html*/ `
+        <div class="board-column-placeholder inter-extralight">
+          <p>No tasks To do</p>
+        </div>`
+      );
+    }
   });
 }
 
