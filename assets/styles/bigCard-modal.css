@@ -11,7 +11,7 @@ body {
   border-radius: 30px;
 }
 
-.big-card-catogory {
+.card-big-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,8 +20,15 @@ body {
   border: 1px solid black;
   font-size: 23px;
   border-radius: 8px;
-  background-color: #0038ff;
   color: white;
+}
+
+.technical-task {
+  background-color: #1fd7c1;
+}
+
+.user-story {
+  background-color: #0038ff;
 }
 
 .big-card-modal img {
@@ -99,10 +106,13 @@ body {
 /* PRIO SELECT */
 .prio-img {
   margin-left: 10px;
+  min-width: 17px;
+  min-height: 12.5px;
+}
+
+.prio-img svg {
   width: 17px;
-  height: 6.5px;
-  background-size: cover;
-  background-image: url(../img/icons/medium-prio.png);
+  height: 12px;
 }
 
 .big-card-assigned-head {
@@ -128,7 +138,6 @@ body {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background-color: #0038ff;
   color: white;
   margin-left: 16px;
   font-size: 14px;
