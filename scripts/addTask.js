@@ -73,7 +73,7 @@ function handleInputChange() {
 
 function showSubtaskActions(addIcon, subtaskActions) {
   addIcon.style.display = "none";
-  subtaskActions.style.display = "inline-flex";
+  subtaskActions.style.display = "flex";
 }
 
 function showAddIcon(addIcon, subtaskActions) {

@@ -284,6 +284,22 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   align-items: flex-end;
 }
 
+#subtask-list {
+  margin-top: 10px;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+#subtask-list li {
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#subtask-list li:hover {
+  background: #eee;
+}
+
 @media (max-width: 1320px) {
   .add-task-content {
     margin-top: 96px;
