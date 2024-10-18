@@ -29,7 +29,7 @@ function addSubtaskBC() {
   const subtask = inputRef.value.trim();
 
   if (subtask) {
-    subtaskRenderContainer.innerHTML += `<p>${subtask}</p>`;
+    subtaskRenderContainer.innerHTML += `<p>• ${subtask}</p>`;
     inputRef.value = "";
   }
 }
