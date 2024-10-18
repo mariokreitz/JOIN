@@ -89,6 +89,25 @@ input:focus {
   margin-top: 32px;
 }
 
+.bc-duedate-input-containr {
+  position: relative;
+  width: 445px;
+}
+
+#duedate-input {
+  width: 100%;
+  padding-right: 35px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.bc-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .bc-priority-head {
   margin-top: 40px;
 }
