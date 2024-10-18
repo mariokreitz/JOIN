@@ -43,3 +43,18 @@ function loadNavbar() {
   if (!navbar) return;
   navbar.innerHTML = getNavbarTemplate("add-task");
 }
+
+function handleButtonClick(event) {
+  const buttons = document.querySelectorAll(".priority-actions button");
+  const clickedButton = event.currentTarget;
+
+  if (clickedButton.classList.contains("active")) {
+    clickedButton.classList.remove("active");
+    console.log("No priority selected");
+  } else {
+    buttons.forEach((button) => button.classList.remove("active"));
+    clickedButton.classList.add("active");
+    const activeButton = clickedButton.textContent.trim();
+    console.log("Active priority:", activeButton);
+  }
+}

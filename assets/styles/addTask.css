@@ -1,6 +1,6 @@
-.task-main {
+.add-task-main {
   margin-left: 232px;
-  padding: 100px;
+  padding: 64px;
   height: calc(100% - 96px);
   width: calc(100% - 232px);
 }
@@ -15,77 +15,134 @@
 }
 
 .task-seperator {
-  width: 2px;
+  width: 1px;
   background-color: #d1d1d1;
   margin: 0 40px;
 }
 
-.task-main h1 {
-  font-size: 28px;
+.add-task-content h1 {
+  font-size: 61px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-.task-main__form-group {
+.add-task-content .form-group {
   margin-bottom: 20px;
 }
 
-.task-main label {
+.add-task-content label {
   display: block;
   margin-bottom: 5px;
-  font-weight: bold;
-  color: #333;
 }
 
-.task-main input[type="text"],
-.task-main textarea,
-.task-main select {
+.add-task-content input[type="text"],
+.add-task-content textarea,
+.add-task-content select {
   width: 100%;
   padding: 10px;
-  font-size: 14px;
+  height: 48px;
   border: 1px solid #d1d1d1;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
-.task-main textarea {
+.add-task-content input:focus-visible,
+.add-task-content textarea:focus-visible {
+  outline: unset;
+  border: 1px solid var(--secondary);
+}
+
+.add-task-content input::placeholder,
+.add-task-content textarea::placeholder {
+  color: #d1d1d1;
+}
+
+.add-task-content .form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.add-task-content .input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.add-task-content .input-container input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.add-task-content .input-container .icon {
+  position: absolute;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.add-task-content .subtask .icon:hover {
+  background: var(--background-lightGrey);
+  right: 11px;
+  width: 23px;
+  height: 23px;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.add-task-content textarea {
   height: 80px;
-  resize: none;
 }
 
-.task-main__required {
+.add-task-content .required {
   color: red;
 }
 
-.task-main__priority-group {
+.add-task-content .priority-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.priority-actions {
   display: flex;
   justify-content: space-between;
 }
 
-.task-main__prio {
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-  font-weight: bold;
+.priority-group button {
+  padding: 16px;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.task-main__urgent {
-  background-color: #ff6161;
-  color: white;
+.priority-group button:hover {
+  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
-.task-main__medium {
-  background-color: #ffbe30;
-  color: white;
+.priority-actions .urgent.active {
+  background-color: #ff3d00 !important;
 }
 
-.task-main__low {
-  background-color: #9ae59a;
-  color: white;
+.priority-actions .medium.active {
+  background-color: #ffa800 !important;
 }
 
-.task-main__add-subtask {
+.priority-actions .low.active {
+  background-color: #7ae229 !important;
+}
+
+.priority-actions .active {
+  box-shadow: none;
+}
+
+.priority-actions .active path {
+  fill: #fff;
+}
+
+.add-task-content .add-subtask {
   background-color: var(--primary);
   color: white;
   border: none;
@@ -94,22 +151,14 @@
   cursor: pointer;
 }
 
-.task-main__form-actions {
+.add-task-content .form-actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  gap: 20px;
 }
 
-.task-main__clear-btn {
-  background-color: transparent;
-  color: #333;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.task-main__create-task-btn {
+.add-task-content .create-task-btn {
   background-color: var(--primary);
   color: white;
   padding: 10px 20px;
@@ -118,8 +167,66 @@
   cursor: pointer;
 }
 
+.add-task-content select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url(../svg/arrow-dropdown.svg);
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  background-position: right 10px center;
+  cursor: pointer;
+}
+
+.clear-btn {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.clear-btn svg {
+  max-height: 10px;
+  margin-left: 5px;
+}
+
+.clear-btn:hover svg path {
+  fill: var(--secondary);
+}
+
+.create-btn {
+  background-color: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.create-btn:hover {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+}
+
+.check-mark {
+  max-height: 10px;
+  margin-left: 10px;
+}
+
+.create-btn:hover {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+}
+
+.clear-btn:hover {
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  background: unset;
+}
+
 @media (max-width: 1320px) {
-  .task-main {
+  .add-task-content {
     margin-top: 96px;
   }
 }
