@@ -30,7 +30,8 @@ jobs:
         find . -name '*.js' | while read file; do
           echo "Running $file"
           OUTPUT=$(node "$file" 2>&1)  # Capture output
-          
+          echo "$OUTPUT"  # Always print the output
+
           # Check if there were any errors
           if echo "$OUTPUT" | grep -i 'error'; then
             ERROR_FOUND=1
