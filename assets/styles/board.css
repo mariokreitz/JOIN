@@ -125,6 +125,18 @@ main {
   gap: 16px;
 }
 
+.drag-area {
+  background-color: var(--background-draggingarea);
+  border-radius: 24px;
+}
+
+.drag-area-hollow-placeholder {
+  border: 2px dotted var(--text-navbar-bottom);
+  border-radius: 30px;
+  height: 244px;
+  width: 250px;
+}
+
 .board-todo-head {
   display: flex;
   align-items: center;
@@ -167,6 +179,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%;
 }
 
 .board-column-placeholder {
