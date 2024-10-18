@@ -58,3 +58,16 @@ function handleButtonClick(event) {
     console.log("Active priority:", activeButton);
   }
 }
+
+document.getElementById("subtasks").addEventListener("input", function () {
+  const addIcon = document.querySelector(".add-icon");
+  const subtaskActions = document.querySelector(".subtask-actions");
+
+  if (this.value.trim() !== "") {
+    addIcon.style.display = "none";
+    subtaskActions.style.display = "flex";
+  } else {
+    addIcon.style.display = "block";
+    subtaskActions.style.display = "none";
+  }
+});

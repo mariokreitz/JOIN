@@ -2,7 +2,7 @@
   margin-left: 232px;
   padding: 64px;
   height: calc(100% - 96px);
-  width: calc(100% - 232px);
+  max-width: 1440px;
 }
 
 .task-form-container {
@@ -38,7 +38,7 @@
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
-  z-index: 1000;
+  z-index: 100000;
   cursor: pointer;
 }
 
@@ -89,29 +89,12 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   padding-right: 15px;
 }
 
-.add-task-content .input-container .icon {
-  position: absolute;
-  right: 15px;
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-}
-
-.add-task-content .subtask .icon:hover {
-  background: var(--background-lightGrey);
-  right: 11px;
-  width: 23px;
-  height: 23px;
-  padding: 4px;
-  border-radius: 50%;
-}
-
 .add-task-content textarea {
   height: 80px;
 }
 
 .add-task-content .required {
-  color: red;
+  color: #ff8190;
 }
 
 .add-task-content .priority-group {
@@ -239,6 +222,66 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   border: 1px solid var(--secondary);
   color: var(--secondary);
   background: unset;
+}
+
+.add-icon {
+  display: block;
+}
+
+.subtask-actions {
+  position: absolute;
+  right: 10px;
+  display: none;
+  width: 60px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.icon-seperator {
+  width: 1px;
+  height: 25px;
+  background-color: #d1d1d1;
+}
+
+.add-task-content .input-container .icon-container {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.add-task-content .subtask-actions .icon-container {
+  position: unset;
+}
+
+.add-task-content .input-container .subtask .icon {
+  position: unset;
+  height: 15px;
+  width: auto;
+}
+
+.add-task-content .input-container .subtask .icon:hover {
+  background: unset;
+  padding: 0;
+  border-radius: unset;
+}
+
+.icon-container {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-container:hover {
+  background: var(--background-lightGrey);
+  border-radius: 50%;
+}
+
+.form-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 @media (max-width: 1320px) {
