@@ -134,12 +134,30 @@ input:focus {
   box-shadow: 6px 14px 12px rgba(152, 148, 148, 0.2), 0 1px 3px rgba(118, 114, 114, 0.1);
 }
 
-.bc-prio-select.active {
+#bc-select-urgent.active {
   background-color: #ff3d00 !important;
   color: white;
 }
 
-.bc-prio-select.active svg path {
+#bc-select-medium.active {
+  background-color: #ffa800 !important;
+  color: white;
+}
+
+#bc-select-low.active {
+  background-color: #7ae229 !important;
+  color: white;
+}
+
+.bc-prio-urgent.active svg path {
+  fill: white;
+}
+
+.bc-prio-medium.active svg path {
+  fill: white;
+}
+
+.bc-prio-low.active svg path {
   fill: white;
 }
 

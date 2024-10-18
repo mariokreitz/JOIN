@@ -30,7 +30,7 @@
 
       <p class="bc-priority-head bc-m-left">Priority</p>
       <div class="bc-priority-select-container bc-m-left bc-with">
-        <div id="bc-select-urgent" class="bc-prio-select" onclick="toggleUrgentState()">
+        <div id="bc-select-urgent" class="bc-prio-select bc-prio-urgent" onclick="toggleUrgentState()">
           <span>Urgent</span>
           <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -41,7 +41,7 @@
               fill="#FF3D00" />
           </svg>
         </div>
-        <div id="bc-select-medium" class="bc-prio-select">
+        <div id="bc-select-medium" class="bc-prio-select bc-prio-medium" onclick="toggleMediumState()">
           <span>Medium</span
           ><svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -52,7 +52,7 @@
               fill="#FFA800" />
           </svg>
         </div>
-        <div id="bc-select-low" class="bc-prio-select">
+        <div id="bc-select-low" class="bc-prio-select bc-prio-low" onclick="toggleLowState()">
           <span>Low</span
           ><svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
