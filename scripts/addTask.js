@@ -97,9 +97,15 @@ function addSubtask() {
   }
 }
 
-function createSubtaskListItem(subtaskText) {
-  const subtaskList = document.getElementById("subtask-list");
-  const li = document.createElement("li");
-  li.textContent = subtaskText;
-  subtaskList.appendChild(li);
+function addSubtask() {
+  const inputField = document.getElementById("subtasks");
+  const subtaskText = inputField.value.trim();
+
+  if (subtaskText !== "") {
+    const subtaskList = document.getElementById("subtask-list");
+    const subtaskItem = createSubtaskListItem(subtaskText);
+    subtaskList.appendChild(subtaskItem);
+
+    inputField.value = "";
+  }
 }
