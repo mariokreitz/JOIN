@@ -33,7 +33,7 @@ body {
   background-clip: content-box;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   border-top: 100px solid transparent;
-  border-bottom: 460px solid transparent;
+  border-bottom: 400px solid transparent;
   border-radius: 50px;
 }
 
@@ -218,7 +218,7 @@ select {
 
 .bc-subtask-list {
   margin-top: 16px;
-  border: 1px solid beige;
+  margin-left: 50px;
   min-height: 48px;
 }
 
