@@ -130,6 +130,19 @@ input:focus {
   gap: 8px;
 }
 
+.bc-prio-select:hover {
+  box-shadow: 6px 14px 12px rgba(152, 148, 148, 0.2), 0 1px 3px rgba(118, 114, 114, 0.1);
+}
+
+.bc-prio-select.active {
+  background-color: #ff3d00 !important;
+  color: white;
+}
+
+.bc-prio-select.active svg path {
+  fill: white;
+}
+
 .bc-assigned-head {
   margin-top: 24px;
 }
