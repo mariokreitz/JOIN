@@ -2,7 +2,13 @@
  * The array of contacts.
  * @type {Array<Object>}
  */
-let contacts;
+let globalContacts;
+
+/**
+ * The array of todos.
+ * @type {Array<Object>}
+ */
+let globalTodos;
 
 /**
  * The URL of the Firebase Realtime Database.
@@ -26,6 +32,29 @@ async function fetchData(url) {
   if (!response.ok) return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
 
   return response.json();
+}
+
+/**
+ * Fetches data from the given URL and sets the contacts array to the data in the contacts key.
+ * If the data does not have a contacts key, the contacts array is set to an empty array.
+ * @param {string} url - The URL to fetch from.
+ * @returns {Promise<void>} - A promise that resolves when the data has been fetched and the contacts array has been set.
+ */
+async function getContactsFromData(url, user) {
+  const data = await getDataFromFirebase(url);
+  globalContacts = objectToArray(data[user].contacts);
+}
+
+/**
+ * Fetches data from the given URL and sets the todos array to the data in the todos key.
+ * If the data does not have a todos key, the todos array is set to an empty array.
+ * @param {string} url - The URL to fetch from.
+ * @param {string} user - The user whose todos are to be retrieved.
+ * @returns {Promise<void>} - A promise that resolves when the data has been fetched and the todos array has been set.
+ */
+async function getTodosFromData(url, user) {
+  const data = await getDataFromFirebase(url);
+  globalTodos = objectToArray(data[user].todos);
 }
 
 /**
@@ -136,7 +165,9 @@ async function putDataInFirebase(newContact, user) {
   const data = await getDataFromFirebase(API_URL);
   if (!data) return;
   const contacts = objectToArray(data[user].contacts);
-  if (await checkIfDuplicate(newContact.email, newContact.phone, contacts)) return;
+  if (await checkIfDuplicate(newContact.email, newContact.phone, contacts)) {
+    return { status: 400, ok: true, statusText: "Duplicate contact found." };
+  }
   const initials = getInitialsFromContact(newContact);
   const response = await fetch(`${API_URL}/guest/contacts/${initials}${newContact.createdAt}.json`, {
     method: "PUT",
@@ -146,7 +177,7 @@ async function putDataInFirebase(newContact, user) {
     body: JSON.stringify(newContact),
   });
   if (response.ok) return response;
-  return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
+  return response;
 }
 
 /**
@@ -166,5 +197,5 @@ async function deleteDataInFirebase(apiUrl, endpoint) {
 
   if (response.ok) return response;
 
-  return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
+  return response;
 }
