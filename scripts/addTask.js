@@ -109,3 +109,26 @@ function addSubtask() {
     inputField.value = "";
   }
 }
+
+function removeSubtask(iconElement) {
+  const listItem = iconElement.closest("li");
+  if (listItem) {
+    listItem.remove();
+  }
+}
+
+function editSubtask(iconElement) {
+  const listItem = iconElement.closest("li");
+  const subtaskTextElement = listItem.querySelector(".subtask-text");
+  const inputField = document.createElement("input");
+  inputField.type = "text";
+  inputField.value = subtaskTextElement.textContent;
+  inputField.onblur = () => {
+    subtaskTextElement.textContent = inputField.value;
+    listItem.removeChild(inputField);
+  };
+
+  listItem.insertBefore(inputField, subtaskTextElement);
+  listItem.removeChild(subtaskTextElement);
+  inputField.focus();
+}
