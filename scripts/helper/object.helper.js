@@ -35,3 +35,18 @@ function getObjectLength(obj) {
 function findKeyByName(obj, name) {
   return Object.keys(obj).find((key) => obj[key].name === name);
 }
+
+/**
+ * Converts an array of objects back to an object, using the 'createdAt' property as the key.
+ *
+ * @param {Array<Object>} arr - The input array to convert to an object.
+ * @returns {Object} An object where each key is the 'createdAt' value of the corresponding item in the array.
+ */
+function arrayToObject(arr) {
+  return arr.reduce((acc, item) => {
+    if (item.createdAt) {
+      acc[`TODO${item.createdAt}`] = item;
+    }
+    return acc;
+  }, {});
+}
