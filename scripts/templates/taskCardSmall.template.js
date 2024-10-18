@@ -43,7 +43,7 @@ function getTaskCardSmallTemplate(index, { category, description, priority, titl
  * @param {string} [color="red"] - The color of the contact's avatar.
  * @returns {string} An HTML string representing the assigned member item.
  */
-function getAssignedMemberTemplate(initials = "MK", color = "red") {
+function getAssignedMemberTemplate(color = "red", initials = "?") {
   return /*html*/ `
     <div class="card-mall-assigend-member-badge" style="background-color: ${color}">${initials}</div>
   `;
