@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./assets/styles/bigCard-modal-edit.css" />
   </head>
-  <body>
+  <body onload="render()" id="rendern">
     <div class="bigc-main-container">
       <div class="bc-close-container bc-with bc-m-left">
         <button><img src="./assets/img/icons/close.png" /></button>
@@ -79,7 +79,7 @@
 
       <div class="bc-input-container bc-m-left">
         <input id="input-subtask-bc" class="bc-input-subtask" type="text" placeholder="Aufgabe hinzufügen" />
-        <span onclick="addSubTaskBC()" class="bc-icon">+</span>
+        <span onclick="addSubtaskBC()" class="bc-icon">+</span>
       </div>
       <div class="bc-subtask-list bc-with bc-m-left" id="show-subtask-bc"></div>
       <button class="bc-end-button">
