@@ -59,15 +59,47 @@ function handleButtonClick(event) {
   }
 }
 
-document.getElementById("subtasks").addEventListener("input", function () {
+function handleInputChange() {
+  const inputField = document.getElementById("subtasks");
   const addIcon = document.querySelector(".add-icon");
   const subtaskActions = document.querySelector(".subtask-actions");
 
-  if (this.value.trim() !== "") {
-    addIcon.style.display = "none";
-    subtaskActions.style.display = "flex";
+  if (inputField.value.trim() !== "") {
+    showSubtaskActions(addIcon, subtaskActions);
   } else {
-    addIcon.style.display = "block";
-    subtaskActions.style.display = "none";
+    showAddIcon(addIcon, subtaskActions);
   }
-});
+}
+
+function showSubtaskActions(addIcon, subtaskActions) {
+  addIcon.style.display = "none";
+  subtaskActions.style.display = "inline-flex";
+}
+
+function showAddIcon(addIcon, subtaskActions) {
+  addIcon.style.display = "block";
+  subtaskActions.style.display = "none";
+}
+
+function clearInputField() {
+  const inputField = document.getElementById("subtasks");
+  inputField.value = "";
+  inputField.dispatchEvent(new Event("input"));
+}
+
+function addSubtask() {
+  const inputField = document.getElementById("subtasks");
+  const inputValue = inputField.value.trim();
+
+  if (inputValue !== "") {
+    createSubtaskListItem(inputValue);
+    clearInputField();
+  }
+}
+
+function createSubtaskListItem(subtaskText) {
+  const subtaskList = document.getElementById("subtask-list");
+  const li = document.createElement("li");
+  li.textContent = subtaskText;
+  subtaskList.appendChild(li);
+}
