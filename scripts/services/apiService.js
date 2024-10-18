@@ -199,3 +199,25 @@ async function deleteDataInFirebase(apiUrl, endpoint) {
 
   return response;
 }
+
+/**
+ * Patches the todos object in the Firebase Realtime Database with the given data.
+ *
+ * @param {Object} todosObject - The data to patch the todos object with.
+ * @param {string} user - The user whose todos object is to be patched.
+ * @returns {Promise<Response>} A promise that resolves with the response from the
+ *   server if the patch was successful, or rejects with an error if the response
+ *   from the server was not OK.
+ * @throws {Error} If the URL is invalid or the response from the server was not OK.
+ */
+async function updateTodosInFirebase(todosObject, user) {
+  const response = await fetch(`${API_URL}/${user}/todos/.json`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(todosObject),
+  });
+  if (response.ok) return response;
+  return response;
+}
