@@ -29,7 +29,14 @@ jobs:
         # Find and run all JavaScript files in the repository
         find . -name '*.js' | while read file; do
           echo "Running $file"
-          node "$file" 2>&1 | grep -i 'error' && ERROR_FOUND=1
+          OUTPUT=$(node "$file" 2>&1)  # Capture output
+          
+          # Check if there were any errors
+          if echo "$OUTPUT" | grep -i 'error'; then
+            ERROR_FOUND=1
+            echo "Error in $file:"
+            echo "$OUTPUT"  # Print the entire output
+          fi
         done
         
         if [ $ERROR_FOUND -ne 0 ]; then
