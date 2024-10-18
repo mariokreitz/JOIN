@@ -22,3 +22,12 @@ function resetAllStates() {
     container.classList.remove("active");
   });
 }
+
+function addSubtaskBC() {
+  const inputRef = document.getElementById("input-subtask-bc");
+  const subtaskRenderContainer = document.getElementById("show-subtask-bc");
+  const subtask = inputRef.value;
+
+  subtaskRenderContainer.innerHTML += <li>${subtask}</li>;
+  subtask = "";
+}

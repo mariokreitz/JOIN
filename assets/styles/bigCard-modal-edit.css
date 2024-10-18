@@ -216,6 +216,12 @@ select {
   color: #555;
 }
 
+.bc-subtask-list {
+  margin-top: 16px;
+  border: 1px solid beige;
+  min-height: 48px;
+}
+
 .bc-end-button {
   display: flex;
   align-items: center;
