@@ -65,12 +65,28 @@
         </div>
       </div>
       <p class="bc-assigned-head bc-m-left">Assigned to</p>
-      <select class="bc-m-left bc-with" id="auswahl">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="option4">Option 4</option>
-      </select>
+      <div class="dropdown-container">
+        <div class="dropdown" id="dropdown" onclick="toggleAssignedDropdown()">
+          <span>Bitte wählen</span>
+        </div>
+        <div class="dropdown-content" id="dropdown-content">
+          <div class="dropdown-item">
+            <div class="bc-card-initial-circle-dropdown"><span>AM</span></div>
+            <span class="name">Anna Müller</span>
+            <input type="checkbox" />
+          </div>
+          <div class="dropdown-item">
+            <div class="bc-card-initial-circle-dropdown"><span>BM</span></div>
+            <span class="name">Bernd Meyer</span>
+            <input type="checkbox" />
+          </div>
+          <div class="dropdown-item">
+            <div class="bc-card-initial-circle-dropdown"><span>CM</span></div>
+            <span class="name">Clara Meier</span>
+            <input type="checkbox" />
+          </div>
+        </div>
+      </div>
       <div class="bc-show-selected-assigned bc-m-left bc-with">
         <div class="bc-card-initial-circle"><span>AM</span></div>
         <div class="bc-card-initial-circle"><span>AM</span></div>
