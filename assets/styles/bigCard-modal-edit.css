@@ -146,10 +146,24 @@ select {
   margin-top: 20px;
 }
 
-.bc-subtask-input-container {
-  border: 1px solid black;
-  height: 48px;
-  border-radius: 15px;
+.bc-input-container {
+  position: relative;
+  margin-right: 40px;
+}
+
+.bc-input-subtask {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.bc-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
 }
 
 .bc-end-button {
