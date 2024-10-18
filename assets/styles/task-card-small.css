@@ -7,6 +7,16 @@
   flex-direction: column;
   gap: 24px;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 75ms ease-out;
+}
+
+.task-card-small:hover {
+  cursor: pointer;
+}
+
+.task-card-small[draggable="true"]:active {
+  transform: rotate(5deg);
+  cursor: grab;
 }
 
 .card-small-header {
@@ -52,10 +62,12 @@
 }
 
 .card-small-progress-bar-background {
+  position: relative;
   width: 128px;
   height: 8px;
   background-color: var(--text-navbar-bottom);
   border-radius: 8px;
+  cursor: help;
 }
 
 .card-small-progress-bar-foreground {
@@ -119,4 +131,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.card-small-progress-bar-background .tooltip {
+  position: absolute;
+  width: 120px;
+  font-size: 12px;
+  line-height: 14.2px;
+  border: solid 1px lightgray;
+  background-color: #1f1f1f;
+  color: #c8cecd;
+  text-align: center;
+  padding: 5px 0;
+  z-index: 1;
 }

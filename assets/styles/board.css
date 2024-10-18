@@ -115,12 +115,26 @@ main {
   margin-right: 64px;
   max-width: 100%;
   font-size: 20px;
+  height: 100%;
+  padding-bottom: 64px;
 }
 
 .board-todo-column {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.drag-area {
+  background-color: var(--background-draggingarea);
+  border-radius: 24px;
+}
+
+.drag-area-hollow-placeholder {
+  border: 2px dotted var(--text-navbar-bottom);
+  border-radius: 30px;
+  height: 244px;
+  width: 250px;
 }
 
 .board-todo-head {
@@ -161,12 +175,35 @@ main {
   display: flex;
 }
 
+.board-card-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.board-column-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 48px;
+  color: var(--text-navbar-bottom);
+  background-color: #e7e7e7;
+  border: 2px dotted var(--text-navbar-bottom);
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+}
+
 @media (max-width: 1475px) {
   .board-task-layout {
     flex-direction: column;
   }
   .board-content {
     height: unset;
+  }
+  .board-card-layout {
+    flex-direction: row;
   }
 }
 
@@ -190,7 +227,7 @@ main {
   .board-body {
     padding-bottom: 80px;
   }
-  
+
   @supports (-webkit-touch-callout: none) {
     main {
       padding-bottom: 160px;

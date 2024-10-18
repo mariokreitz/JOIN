@@ -3,6 +3,7 @@
   --secondary: #29abe2;
   --background-white: #ffffff;
   --background-lightGrey: #f6f7f8;
+  --background-draggingarea: rgba(226, 226, 226, 0.25);
 
   /* Text Color */
   --text-primary: #000000;
