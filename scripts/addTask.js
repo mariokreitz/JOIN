@@ -89,16 +89,6 @@ function clearInputField() {
 
 function addSubtask() {
   const inputField = document.getElementById("subtasks");
-  const inputValue = inputField.value.trim();
-
-  if (inputValue !== "") {
-    createSubtaskListItem(inputValue);
-    clearInputField();
-  }
-}
-
-function addSubtask() {
-  const inputField = document.getElementById("subtasks");
   const subtaskText = inputField.value.trim();
 
   if (subtaskText !== "") {
