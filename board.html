@@ -41,28 +41,48 @@
                 <h4 class="inter-medium">To do</h4>
                 <button>+</button>
               </div>
-              <div id="board-todo" class="board-card-layout"></div>
+              <div
+                id="board-todo"
+                class="board-card-layout"
+                ondrop="onDrop('todo')"
+                ondragleave="removeDragAreaHighlighting()"
+                ondragover="allowDrop(event); addDragAreaHighlight( 'board-todo')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">In Progress</h4>
                 <button>+</button>
               </div>
-              <div id="board-progress" class="board-card-layout"></div>
+              <div
+                id="board-progress"
+                class="board-card-layout"
+                ondrop="onDrop('progress')"
+                ondragleave="removeDragAreaHighlighting()"
+                ondragover="allowDrop(event); addDragAreaHighlight('board-progress')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Await Feedback</h4>
                 <button>+</button>
               </div>
-              <div id="board-feedback" class="board-card-layout"></div>
+              <div
+                id="board-feedback"
+                class="board-card-layout"
+                ondrop="onDrop('feedback')"
+                ondragleave="removeDragAreaHighlighting()"
+                ondragover="allowDrop(event); addDragAreaHighlight('board-feedback')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Done</h4>
                 <button>+</button>
               </div>
-              <div id="board-done" class="board-card-layout"></div>
+              <div
+                id="board-done"
+                class="board-card-layout"
+                ondrop="onDrop('done')"
+                ondragleave="removeDragAreaHighlighting()"
+                ondragover="allowDrop(event); addDragAreaHighlight('board-done')"></div>
             </div>
           </div>
         </div>
