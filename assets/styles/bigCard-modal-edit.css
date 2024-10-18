@@ -158,8 +158,8 @@ select {
 
 .bc-icon {
   position: absolute;
-  right: 10px;
-  top: 50%;
+  right: 15px;
+  top: 55%;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 20px;
