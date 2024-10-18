@@ -6,6 +6,13 @@
 let searchTaskRef;
 
 /**
+ * Reference to the currently dragged element.
+ *
+ * @type {number}
+ */
+let currentlyDraggedElement;
+
+/**
  * Destructures the columns from the DOM elements.
  *
  * @type {Object}
@@ -231,4 +238,70 @@ function getBoardColumns() {
   const feedbackColumn = document.getElementById("board-feedback");
   const doneColumn = document.getElementById("board-done");
   return { todoColumn, progressColumn, feedbackColumn, doneColumn };
+}
+
+function onDragStart(id) {
+  currentlyDraggedElement = id;
+}
+
+function onDrop(state) {
+  globalTodos[currentlyDraggedElement].state = state;
+  clearBoardColumns();
+  renderTodos(globalTodos);
+  renderPlaceholder();
+  removeDragAreaHighlighting();
+}
+
+/**
+ * Allows an element to be dropped by preventing the default behavior.
+ *
+ * This function is used as an event handler for the `ondragover` event,
+ * enabling drag-and-drop functionality on an element.
+ *
+ * @param {Event} event - The dragover event object.
+ */
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function addDragAreaHighlight(elementId) {
+  const element = document.getElementById(elementId);
+  element.classList.add("drag-area");
+  if (hasHollowPlaceholder(element)) return;
+  addHollowPlaceholder(element);
+}
+
+/**
+ * Adds a hollow placeholder to the given element.
+ *
+ * The hollow placeholder is a div with the class "drag-area-hollow-placeholder" that is appended to the element.
+ * The hollow placeholder is used to visually indicate where the user can drop an element.
+ * @param {HTMLElement} element - The element to add the hollow placeholder to.
+ */
+
+function addHollowPlaceholder(element) {
+  const hollowPlaceholder = document.createElement("div");
+  hollowPlaceholder.classList.add("drag-area-hollow-placeholder");
+  element.appendChild(hollowPlaceholder);
+}
+
+/**
+ * Checks if the given element has a child with the class "drag-area-hollow-placeholder".
+ *
+ * @param {HTMLElement} element - The element to check for the presence of the child.
+ * @returns {boolean} - Returns true if the element has a child with the class "drag-area-hollow-placeholder", false otherwise.
+ */
+function hasHollowPlaceholder(element) {
+  return Array.from(element.children).some((child) => child.classList.contains("drag-area-hollow-placeholder"));
+}
+
+function removeDragAreaHighlighting() {
+  const dragAreas = document.querySelectorAll(".drag-area");
+  if (!dragAreas) return;
+  dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
+}
+
+function removeHollowPlaceholders() {
+  const hollowPlaceholders = document.querySelectorAll(".drag-area-hollow-placeholder");
+  hollowPlaceholders.forEach((hollowPlaceholder) => hollowPlaceholder.remove());
 }
