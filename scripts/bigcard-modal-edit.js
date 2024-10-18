@@ -12,3 +12,10 @@ function toggleLowState() {
   const container = document.getElementById("bc-select-low");
   container.classList.toggle("active");
 }
+
+function resetAllStates() {
+  const containers = document.querySelectorAll(".bc-prio-select");
+  containers.forEach((container) => {
+    container.classList.remove("active");
+  });
+}
