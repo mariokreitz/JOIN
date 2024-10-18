@@ -24,9 +24,17 @@ jobs:
     - name: Run JavaScript files and check for console errors
       run: |
         echo "Checking for console errors..."
+        ERROR_FOUND=0
         
         # Find and run all JavaScript files in the repository
         find . -name '*.js' | while read file; do
           echo "Running $file"
-          node "$file" 2>&1 | grep -i 'error' || true
+          node "$file" 2>&1 | grep -i 'error' && ERROR_FOUND=1
         done
+        
+        if [ $ERROR_FOUND -ne 0 ]; then
+          echo "Errors were found in the JavaScript files."
+          exit 1  # Exit with a non-zero status to fail the job
+        else
+          echo "No errors found."
+        fi
