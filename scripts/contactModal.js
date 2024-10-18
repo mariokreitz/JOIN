@@ -1,4 +1,31 @@
 /**
+ * An array of colors that can be used to color user profiles.
+ * @type {Array<string>}
+ */
+const profileColors = [
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+  "#9327FF",
+  "#00BEE8",
+  "#1FC7C1",
+  "#8B9467",
+  "#FF745E",
+  "#FFA35E",
+  "#FC71FF",
+  "#FFC701",
+  "#0038FF",
+  "#B22222",
+  "#C3FF2B",
+  "#FFE62B",
+  "#FF4646",
+  "#FFBB2B",
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+];
+
+/**
  * Timeout in milliseconds that is used for how long the warning in the form
  * validation is shown.
  * @constant {number}
@@ -6,7 +33,7 @@
 const TIMEOUT = 2000;
 
 function openContactModal(type, name = "", email = "", phone = "", color = "") {
-  const initials = type === "edit" ? getInitials(name) : "";
+  const initials = type === "edit" ? getInitialsFromContact({ name: name }) : "";
   const modalHtml = getContactModalTemplate(type, name, email, phone, initials, color);
   let modalElement = document.getElementById("contact-modal");
   if (modalElement) modalElement.remove();
@@ -36,12 +63,6 @@ function closeContactModal(event) {
 function applyAnimation(animationType) {
   const modalContent = document.getElementById("modal-content");
   modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
-}
-
-function getInitials(fullName) {
-  const nameParts = fullName.split(" ");
-  const initials = nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : "");
-  return initials.toUpperCase();
 }
 
 /**
@@ -81,7 +102,8 @@ async function handleSaveClick(event) {
 async function updateContact(contactName) {
   const contactForm = document.getElementById("contact-form");
 
-  const contactIndex = await getContactIndexByName(contactName);
+  const initials = getInitialsFromContact({ name: contactName });
+  const contactIndex = await getContactIndexByName(contactName, "guest/contacts", initials);
 
   if (contactForm && contactIndex >= 0 && validateFormdata()) {
     const formData = new FormData(contactForm);
@@ -92,7 +114,7 @@ async function updateContact(contactName) {
       phone: formData.get("phone"),
     };
 
-    const status = await patchDataInFirebase(API_URL, "contacts", updatedContact, contactIndex);
+    const status = await patchDataInFirebase(API_URL, "guest/contacts", initials, contactIndex, updatedContact);
     showToastMessage("update", status);
 
     closeContactModal();
@@ -108,13 +130,32 @@ async function updateContact(contactName) {
  * created.
  */
 async function createContact() {
-  if (!validateFormdata()) return;
-  const status = await postData();
-  showToastMessage("create", status);
+  const fullName = document.getElementById("contact-name").value;
+  const email = document.getElementById("contact-email").value;
+  const phone = document.getElementById("contact-phone").value;
 
+  if (!validateFormdata()) return;
+
+  const profileColor = profileColors[Math.floor(Math.random() * profileColors.length)];
+  const createdAt = Date.now();
+
+  const newContact = {
+    color: profileColor,
+    contactSelect: false,
+    createdAt,
+    email: email,
+    name: fullName,
+    phone: phone,
+  };
+  const status = await putDataInFirebase(newContact, "guest");
+  showToastMessage("exists", status);
   closeContactModal();
-  renderContactsPage();
-  await selectLatestCreatedContact();
+
+  if (status.status === 200) {
+    showToastMessage("create", status);
+    renderContactsPage();
+    await selectLatestCreatedContact();
+  }
 }
 
 /**
@@ -229,7 +270,7 @@ function showPhoneWarning() {
  * toggled.
  */
 async function selectLatestCreatedContact() {
-  const latestContact = await getLatestCreatedContact();
+  const latestContact = await getLatestCreatedContact("guest");
   const contactElements = [...document.querySelectorAll(".contact-item")];
   const selectedContactElement = contactElements.find(
     (contactElement) => contactElement.querySelector(".contact-name").textContent === latestContact.name
@@ -240,16 +281,21 @@ async function selectLatestCreatedContact() {
 }
 
 async function deleteContact(contactName) {
-  const contactIndex = await getContactIndexByName(contactName);
+  const initials = getInitialsFromContact({ name: contactName });
+  const contactIndex = await getContactIndexByName(contactName, "guest/contacts", initials);
 
   if (contactIndex >= 0) {
-    const status = await deleteDataInFirebase(API_URL, "contacts", contactIndex);
+    const status = await deleteDataInFirebase(API_URL, `guest/contacts/${initials}${contactIndex}`);
 
     showToastMessage("delete", status);
     closeContactModal();
     removeContactView();
     renderContactsPage();
   } else {
-    console.error("Contact not found.");
+    const status = await deleteDataInFirebase(API_URL, `guest/contacts/${contactIndex}`);
+    showToastMessage("delete", status);
+    closeContactModal();
+    removeContactView();
+    renderContactsPage();
   }
 }
