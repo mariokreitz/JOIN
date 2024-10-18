@@ -312,13 +312,13 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 #subtask-list li:has(input) {
   padding: 0;
   align-items: center;
+  display: flex;
 }
 
 #subtask-list li:has(input) .list-item-actions {
   display: flex;
   position: absolute;
   right: 10px;
-  top: 4px;
 }
 
 #subtask-list li:has(input) input {
@@ -327,12 +327,6 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   border: none;
   height: 32px;
   border-bottom: 1px solid var(--secondary);
-  position: absolute;
-  left: 0;
-}
-
-#subtask-list:has(input) {
-  position: relative;
 }
 
 .add-task-content option:disabled {
@@ -340,7 +334,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 }
 
 .add-task-content option {
-  padding: 15px;
+  padding: 10px;
 }
 
 @media (max-width: 1320px) {
