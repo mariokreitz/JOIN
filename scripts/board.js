@@ -302,11 +302,10 @@ function removeDragAreaHighlighting() {
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
 }
 
-// TEST FUNKTION
 function bigCard(index) {
   const todo = globalTodos[index];
   const renderC = document.getElementById("board-content");
-  renderC.innerHTML += getTaskCardBigTemplate(todo);
+  renderC.innerHTML += getTaskCardBigTemplate(todo, index);
 }
 
 function openBigCardModalEdit() {
@@ -327,6 +326,16 @@ function closeTaskCardBig() {
 
 function getAssignedMemberColor(assignedMemberName) {
   const contact = globalContacts.find((contact) => contact.name === assignedMemberName);
-
   return contact ? contact.color : undefined;
+}
+
+function doneSubTask(index) {
+  const checkImage = "./assets/img/icons/subtask-non-checked.png";
+  const img = document.getElementById(`subTaskImageChecked${index}`);
+
+  if (img.src === window.location.origin + checkImage) {
+    img.src = "./assets/img/icons/subtask-checked.png";
+  } else {
+    img.src = "./assets/img/icons/subtask-non-checked.png";
+  }
 }
