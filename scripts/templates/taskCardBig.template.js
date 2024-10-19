@@ -5,7 +5,7 @@ function getTaskCardBigTemplate(todo) {
       const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
       return `
         <div class="bigCard-subtask">
-          <img src="./assets/img/icons/${isChecked}" />
+          <img onclick="doneSubTask()" src="./assets/img/icons/${isChecked}" />
           <p>${subTask.text}</p>
         </div>`;
     })
