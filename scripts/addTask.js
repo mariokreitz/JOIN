@@ -54,17 +54,24 @@ function handleButtonClick(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
 
+  const priorityMap = {
+    Urgent: "high",
+    Medium: "medium",
+    High: "high",
+  };
+
   if (clickedButton.classList.contains("active")) {
     clickedButton.classList.remove("active");
     priority = "";
   } else {
     buttons.forEach((button) => button.classList.remove("active"));
     clickedButton.classList.add("active");
-    priority = clickedButton.textContent.trim();
+
+    priority = priorityMap[clickedButton.textContent.trim()] || "";
   }
 }
 
-function handleInputChange() {
+function handlePrioChange() {
   const inputField = document.getElementById("subtasks");
   const addIcon = document.querySelector(".add-icon");
   const subtaskActions = document.querySelector(".subtask-actions");
@@ -104,7 +111,6 @@ function addSubtask(addIcon, subtaskActions) {
     subtaskList.appendChild(subtaskItem);
 
     subTasks[subtaskId] = {
-      id: subtaskId,
       state: false,
       text: subtaskText,
     };
