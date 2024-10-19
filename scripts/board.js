@@ -301,3 +301,26 @@ function removeDragAreaHighlighting() {
   if (!dragAreas) return;
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
 }
+
+// TEST FUNKTION
+function bigCard(index) {
+  const todo = globalTodos[index];
+  const renderC = document.getElementById("board-content");
+  renderC.innerHTML += getTaskCardBigTemplate(todo);
+}
+
+function openBigCardModalEdit() {
+  const renderC = document.getElementById("board-content");
+  renderC.innerHTML -= getTaskCardBigTemplate();
+  renderC.innerHTML += getTaskCardBigEdit();
+}
+
+function closeBigCardEdit() {
+  closeContainer = document.getElementById("closeEditContainer");
+  closeContainer.style.display = "none";
+}
+
+function closeTaskCardBig() {
+  const taskCardBig = document.getElementById("big-card-modal");
+  taskCardBig.style.display = "none";
+}

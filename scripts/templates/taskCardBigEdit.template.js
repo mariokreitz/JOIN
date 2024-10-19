@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/styles/font.css" />
-    <link rel="stylesheet" href="./assets/styles/reset.css" />
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./assets/styles/bigCard-modal-edit.css" />
-  </head>
-  <body onload="render()" id="rendern">
-    <div class="bigc-main-container">
+function getTaskCardBigEdit() {
+  return `<div id="closeEditContainer" class="bigc-main-container">
       <div class="bc-close-container bc-with bc-m-left">
-        <button><img src="./assets/img/icons/close.png" /></button>
+        <button onclick="closeBigCardEdit()"><img src="./assets/img/icons/close.png" /></button>
       </div>
       <div class="bc-head bc-m-left"><p>Title</p></div>
       <input class="bc-m-left bc-title-input" type="text" />
@@ -27,7 +16,6 @@
             fill="#2A3647" />
         </svg>
       </div>
-
       <p class="bc-priority-head bc-m-left">Priority</p>
       <div class="bc-priority-select-container bc-m-left bc-with">
         <div id="bc-select-urgent" class="bc-prio-select bc-prio-urgent" onclick="toggleUrgentState()">
@@ -103,8 +91,5 @@
             fill="white" />
         </svg>
       </button>
-    </div>
-
-    <script src="./scripts/bigcard-modal-edit.js"></script>
-  </body>
-</html>
+    </div>`;
+}

@@ -1,14 +1,15 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.big-card-modal {
+#big-card-modal {
   width: 525px;
-  min-height: 700px;
+  min-height: 900px;
   border: 1px solid black;
   border-radius: 30px;
+  transform: scale(0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  background-color: white;
 }
 
 .card-big-header {
@@ -81,6 +82,9 @@ body {
   font-size: 21px;
   margin-top: 24px;
 }
+.big-card-date p {
+  margin-right: 25px;
+}
 
 .user-creatAt-p {
   margin-left: 25px;
@@ -138,6 +142,7 @@ body {
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  background-color: #0038ff;
   color: white;
   margin-left: 16px;
   font-size: 14px;
@@ -204,6 +209,9 @@ body {
 .big-card-edit {
   display: flex;
   gap: 12px;
+}
+.big-card-edit:hover {
+  cursor: pointer;
 }
 
 .bigCard-edit-delete-divider {

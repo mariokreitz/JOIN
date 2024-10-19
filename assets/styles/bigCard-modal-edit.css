@@ -1,9 +1,3 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .bc-with {
   max-width: 445px;
 }

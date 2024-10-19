@@ -70,3 +70,7 @@ function setProgressBarTooltip(taskIndex, taskSubTasks) {
     }, 1500);
   });
 }
+
+function formatDueDate(dueDate) {
+  return new Date(dueDate).toLocaleDateString();
+}
