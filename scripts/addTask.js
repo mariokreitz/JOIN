@@ -163,14 +163,12 @@ function renderContactDropdown() {
     return;
   }
 
-  globalContacts.sort((a, b) => a.name.localeCompare(b.name));
-
   const contactListHtml = globalContacts
     .map((contact) => {
       const initials = getInitialsFromContact(contact);
       index++;
       return /*html*/ `
-        <li onclick="selectOption(this)" data-id="${contact.id || index}">
+        <li onclick="selectOption(this)" data-id="${index}">
           <span class="badge" style="background-color: ${contact.color}">${initials}</span>
           ${contact.name}
           <input type="checkbox" class="checkbox" />
@@ -217,10 +215,6 @@ function selectOption(option) {
   var checkbox = option.querySelector(".checkbox");
   var initials = option.querySelector(".badge").innerText.trim();
   var id = option.dataset.id;
-  if (!id) {
-    console.error("Contact ID not found for option: ", option);
-    return;
-  }
   checkbox.checked = !checkbox.checked;
   if (checkbox.checked) {
     option.classList.add("selected");
