@@ -87,7 +87,7 @@ function clearInputField() {
   inputField.dispatchEvent(new Event("input"));
 }
 
-function addSubtask() {
+function addSubtask(addIcon, subtaskActions) {
   const inputField = document.getElementById("subtasks");
   const subtaskText = inputField.value.trim();
 
@@ -95,7 +95,6 @@ function addSubtask() {
     const subtaskList = document.getElementById("subtask-list");
     const subtaskItem = createSubtaskListItem(subtaskText);
     subtaskList.appendChild(subtaskItem);
-
     inputField.value = "";
   }
 }

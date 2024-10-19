@@ -1,7 +1,10 @@
+body:has(.add-task-main) {
+  height: unset;
+}
 .add-task-main {
   margin-left: 232px;
   padding: 64px;
-  height: calc(100% - 96px);
+  min-height: calc(100vh - 96px);
   max-width: 1440px;
 }
 
