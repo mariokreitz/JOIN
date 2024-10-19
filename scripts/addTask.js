@@ -103,11 +103,11 @@ function addSubtask(addIcon, subtaskActions) {
 
     subtaskList.appendChild(subtaskItem);
 
-    subTasks.push({
+    subTasks[subtaskId] = {
       id: subtaskId,
       state: false,
       text: subtaskText,
-    });
+    };
 
     inputField.value = "";
     checkScrollbar();
@@ -307,7 +307,7 @@ function clearForm() {
   subTasks = [];
 }
 
-function createTodo() {
+async function createTodo() {
   const id = "TODO" + Date.now();
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
   const title = document.getElementById("title").value;
@@ -315,20 +315,33 @@ function createTodo() {
   const dueDate = document.getElementById("due-date").value;
   const category = document.getElementById("category").value;
 
+  const subTasksObject = Object.keys(subTasks).reduce((acc, key) => {
+    acc[key] = subTasks[key];
+    return acc;
+  }, {});
+
   const todos = {
-    id: id,
-    assignedMembers: assignedMembers,
-    category: category,
-    createdAt: Date.now(),
-    date: dueDate,
-    description: description,
-    priority: priority,
-    state: "To do",
-    subTasks: subTasks,
-    title: title,
+    [id]: {
+      assignedMembers: assignedMembers,
+      category: category,
+      createdAt: Date.now(),
+      date: dueDate,
+      description: description,
+      priority: priority,
+      state: "To do",
+      subTasks: subTasksObject,
+      title: title,
+    },
   };
 
   console.log(todos);
+
+  try {
+    const newTodo = await addTodoToFirebase(todos);
+    console.log("Todo added successfully:", newTodo);
+  } catch (error) {
+    console.error(error.message);
+  }
 
   clearForm();
 }
