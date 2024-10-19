@@ -99,7 +99,7 @@ function clearInputField() {
   inputField.dispatchEvent(new Event("input"));
 }
 
-function addSubtask(addIcon, subtaskActions) {
+function addSubtask() {
   const inputField = document.getElementById("subtasks");
   const subtaskText = inputField.value.trim();
 
