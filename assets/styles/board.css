@@ -1,3 +1,8 @@
+body {
+  height: unset;
+  min-height: 100vh;
+}
+
 main {
   padding-left: 232px;
   height: calc(100% - 96px);
@@ -135,6 +140,7 @@ main {
   border-radius: 30px;
   height: 244px;
   width: 250px;
+  pointer-events: none;
 }
 
 .board-todo-head {
@@ -190,9 +196,18 @@ main {
   height: 48px;
   color: var(--text-navbar-bottom);
   background-color: #e7e7e7;
-  border: 2px dotted var(--text-navbar-bottom);
+  border: 1px dashed var(--text-navbar-bottom);
   border-radius: 10px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  pointer-events: none;
+}
+
+.technical-task {
+  background-color: #1fd7c1;
+}
+
+.user-story {
+  background-color: #0038ff;
 }
 
 @media (max-width: 1475px) {
@@ -215,9 +230,6 @@ main {
 }
 
 @media (max-width: 768px) {
-  body {
-    overflow: hidden;
-  }
   main {
     padding-top: 80px;
     padding-left: 0;

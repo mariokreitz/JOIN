@@ -4,6 +4,7 @@
   --background-white: #ffffff;
   --background-lightGrey: #f6f7f8;
   --background-draggingarea: rgba(226, 226, 226, 0.25);
+  --deleted-user: #c7c7c7;
 
   /* Text Color */
   --text-primary: #000000;
