@@ -14,9 +14,8 @@
   cursor: pointer;
 }
 
-.task-card-small[draggable="true"]:active {
+.dragging {
   transform: rotate(5deg);
-  cursor: grab;
 }
 
 .card-small-header {
