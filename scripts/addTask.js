@@ -223,8 +223,26 @@ function getInitialsFromContact(contact) {
 function toggleDropdown() {
   var dropdown = document.getElementById("dropdown-options");
   var icon = document.getElementById("dropdown-icon");
-  dropdown.classList.toggle("show");
+  var isDropdownOpen = dropdown.classList.toggle("show");
   icon.classList.toggle("rotated");
+
+  if (isDropdownOpen) {
+    document.addEventListener("click", outsideClickListener);
+  } else {
+    document.removeEventListener("click", outsideClickListener);
+  }
+}
+
+function outsideClickListener(event) {
+  var dropdown = document.getElementById("dropdown-options");
+  var icon = document.getElementById("dropdown-icon");
+  var input = document.getElementById("search");
+
+  if (!dropdown.contains(event.target) && !icon.contains(event.target) && !input.contains(event.target)) {
+    dropdown.classList.remove("show");
+    icon.classList.remove("rotated");
+    document.removeEventListener("click", outsideClickListener);
+  }
 }
 
 function filterOptions() {
