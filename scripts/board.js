@@ -13,6 +13,14 @@ let searchTaskRef;
 let currentlyDraggedElement;
 
 /**
+ * The current target element being interacted with, used to determine
+ * whether to highlight a drag area or not.
+ *
+ * @type {HTMLElement|null}
+ */
+let currentTarget = null;
+
+/**
  * Destructures the columns from the DOM elements.
  *
  * @type {Object}
@@ -36,17 +44,6 @@ async function init() {
   await getContactsFromData(API_URL, "guest");
   await getTodosFromData(API_URL, "guest");
   loadDemoData();
-}
-
-/**
- * Retrieves the column elements from the DOM and assigns them to the corresponding variables.
- * The todo, progress, feedback, and done column elements are obtained using their respective IDs.
- *
- * @returns {void}
- */
-function getBoardColumnsFromDOM() {
-  searchTaskRef = document.getElementById("search-task");
-  ({ todoColumn, progressColumn, feedbackColumn, doneColumn } = getBoardColumns());
 }
 
 /**
@@ -82,6 +79,172 @@ function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
   navbar.innerHTML = getNavbarTemplate("board");
+}
+
+/**
+ * Retrieves the column elements from the DOM and assigns them to the corresponding variables.
+ * The todo, progress, feedback, and done column elements are obtained using their respective IDs.
+ *
+ * @returns {void}
+ */
+function getBoardColumnsFromDOM() {
+  searchTaskRef = document.getElementById("search-task");
+  ({ todoColumn, progressColumn, feedbackColumn, doneColumn } = getBoardColumns());
+}
+
+/**
+ * Retrieves the column elements from the DOM by their IDs and returns them as an object.
+ *
+ * @returns {Object} An object containing references to the todo, progress, feedback, and done column elements.
+ * @property {HTMLElement} todoColumn - The todo column element.
+ * @property {HTMLElement} progressColumn - The progress column element.
+ * @property {HTMLElement} feedbackColumn - The feedback column element.
+ * @property {HTMLElement} doneColumn - The done column element.
+ */
+function getBoardColumns() {
+  const todoColumn = document.getElementById("board-todo");
+  const progressColumn = document.getElementById("board-progress");
+  const feedbackColumn = document.getElementById("board-feedback");
+  const doneColumn = document.getElementById("board-done");
+  return { todoColumn, progressColumn, feedbackColumn, doneColumn };
+}
+
+/**
+ * Loads demo data by rendering the global list of todos onto the board.
+ *
+ * @returns {void}
+ */
+async function loadDemoData() {
+  renderTodos(globalTodos);
+  renderAllPlaceholder();
+}
+
+/**
+ * Renders a list of todos on the board by inserting the corresponding HTML elements
+ * into the todo, progress, feedback, or done columns based on the state of each todo.
+ * Additionally, this function sets the tooltip for the progress bar of each todo and
+ * renders the assigned members for each todo.
+ *
+ * @param {Todo[]} todos The list of todos to be rendered.
+ *
+ * @returns {void}
+ */
+function renderTodos(todos) {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  todos.forEach((todo, index) => {
+    const todoElement = getTaskCardSmallTemplate(index, todo);
+    switch (todo.state) {
+      case "todo":
+        todoColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+      case "progress":
+        progressColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+      case "feedback":
+        feedbackColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+      case "done":
+        doneColumn.insertAdjacentHTML("beforeend", todoElement);
+        setProgressBarTooltip(index, todo.subTasks);
+        break;
+    }
+    renderAssignedMembers(index, todo);
+    handleDragEvents();
+  });
+}
+
+/**
+ * Given the index and todo object, renders the assigned members of the todo
+ * card element at that index. The assigned members are retrieved from the
+ * todo object and rendered as individual contact items using the
+ * getAssignedMemberTemplate function.
+ *
+ * @param {number} index - The index of the todo element to render the assigned
+ *   members for.
+ * @param {Object} todo - The todo object containing the assigned members.
+ * @returns {void}
+ */
+function renderAssignedMembers(index, todo) {
+  const assignedMembersElement = document.getElementById(`assigned-members-${index}`);
+  if (!assignedMembersElement) return;
+
+  const assignedMembersArr = objectToArray(todo.assignedMembers);
+
+  assignedMembersArr.forEach((member) => {
+    const foundMember = globalContacts.find((contact) => contact.name === member);
+    if (foundMember) {
+      const initials = getInitialsFromContact(foundMember);
+      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(foundMember.color, initials));
+    } else {
+      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate("#c7c7c7"));
+    }
+  });
+}
+
+/**
+ * Attaches event listeners to each todo item to set its cursor style based on whether the left mouse button is being
+ * pressed or not. This is necessary because the CSS `:active` pseudo-class does not work when the element is being
+ * dragged.
+ *
+ * @returns {void}
+ */
+function handleDragEvents() {
+  document.querySelectorAll(".task-card-small").forEach((element) => {
+    element.addEventListener("mousedown", (event) => {
+      if (event.button === 0) {
+        element.style.cursor = "grab";
+      }
+    });
+    element.addEventListener("mouseup", (event) => {
+      if (event.button === 0) {
+        element.style.cursor = "pointer";
+      }
+    });
+  });
+}
+
+/**
+ * Renders all placeholder elements on the board, including the regular placeholder and the hollow drag area placeholder.
+ */
+function renderAllPlaceholder() {
+  renderPlaceholder();
+  renderHollowPlaceholder();
+}
+
+/**
+ * Renders a placeholder element in each column if the column is empty.
+ *
+ * @returns {void}
+ */
+function renderPlaceholder() {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
+  columns.forEach((column) => {
+    if (!column.innerHTML) {
+      column.insertAdjacentHTML(
+        "beforeend",
+        /*html*/ `
+        <div class="board-column-placeholder inter-extralight">
+          <p>${getPlaceholderText(column)}</p>
+        </div>`
+      );
+    }
+  });
+}
+
+/**
+ * Renders a hollow drag area placeholder in each column, which is used to
+ * indicate a place where a task card can be dragged to.
+ *
+ * @returns {void}
+ */
+function renderHollowPlaceholder() {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
+  columns.forEach((column) => column.insertAdjacentHTML("beforeend", getDragAreaHollowPlaceholder()));
 }
 
 /**
@@ -121,130 +284,40 @@ function searchTodos(event) {
 }
 
 /**
- * Loads demo data by rendering the global list of todos onto the board.
+ * Handles the drop event of a todo card being dragged to a new column.
  *
+ * Calls updateTodo to update the state of the todo in the global todos array
+ * and patches the todos object in the Firebase Realtime Database.
+ *
+ * Then, it clears all columns on the board and renders all todos again. Finally,
+ * it calls renderAllPlaceholder to render all placeholder elements and
+ * removeAllHighlights to remove any highlights from the board.
+ *
+ * @param {string} state - The new state of the todo.
  * @returns {void}
  */
-async function loadDemoData() {
+function onDrop(state) {
+  updateTodo(state);
+  clearBoardColumns();
   renderTodos(globalTodos);
   renderAllPlaceholder();
-}
-
-function renderTodos(todos) {
-  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
-  todos.forEach((todo, index) => {
-    const todoElement = getTaskCardSmallTemplate(index, todo);
-    switch (todo.state) {
-      case "todo":
-        todoColumn.insertAdjacentHTML("beforeend", todoElement);
-        setProgressBarTooltip(index, todo.subTasks);
-        break;
-      case "progress":
-        progressColumn.insertAdjacentHTML("beforeend", todoElement);
-        setProgressBarTooltip(index, todo.subTasks);
-        break;
-      case "feedback":
-        feedbackColumn.insertAdjacentHTML("beforeend", todoElement);
-        setProgressBarTooltip(index, todo.subTasks);
-        break;
-      case "done":
-        doneColumn.insertAdjacentHTML("beforeend", todoElement);
-        setProgressBarTooltip(index, todo.subTasks);
-        break;
-    }
-    renderAssignedMembers(index, todo);
-    handleDragEvents();
-  });
+  removeAllHighlights();
 }
 
 /**
- * Attaches event listeners to each todo item to set its cursor style based on whether the left mouse button is being
- * pressed or not. This is necessary because the CSS `:active` pseudo-class does not work when the element is being
- * dragged.
+ * Updates a todo in the global todos array and patches the todos object in the Firebase Realtime Database.
  *
- * @returns {void}
+ * @param {string} state - The new state of the todo.
+ * @returns {Promise<void>} - A promise that resolves when the update is complete.
  */
-function handleDragEvents() {
-  document.querySelectorAll(".task-card-small").forEach((element) => {
-    element.addEventListener("mousedown", (event) => {
-      if (event.button === 0) {
-        element.style.cursor = "grab";
-      }
-    });
-    element.addEventListener("mouseup", (event) => {
-      if (event.button === 0) {
-        element.style.cursor = "pointer";
-      }
-    });
-  });
-}
+async function updateTodo(state) {
+  globalTodos[currentlyDraggedElement].state = state;
+  const todosObject = arrayToObject(globalTodos);
+  const response = await updateTodosInFirebase(todosObject, "guest");
 
-/**
- * Given the index and todo object, renders the assigned members of the todo
- * card element at that index. The assigned members are retrieved from the
- * todo object and rendered as individual contact items using the
- * getAssignedMemberTemplate function.
- *
- * @param {number} index - The index of the todo element to render the assigned
- *   members for.
- * @param {Object} todo - The todo object containing the assigned members.
- * @returns {void}
- */
-function renderAssignedMembers(index, todo) {
-  const assignedMembersElement = document.getElementById(`assigned-members-${index}`);
-  if (!assignedMembersElement) return;
-
-  const assignedMembersArr = objectToArray(todo.assignedMembers);
-
-  assignedMembersArr.forEach((member) => {
-    const foundMember = globalContacts.find((contact) => contact.name === member);
-    if (foundMember) {
-      const initials = getInitialsFromContact(foundMember);
-      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(foundMember.color, initials));
-    } else {
-      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate("#c7c7c7"));
-    }
-  });
-}
-/**
- * Renders a placeholder element in each column if the column is empty.
- *
- * @returns {void}
- */
-function renderPlaceholder() {
-  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
-  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
-  columns.forEach((column) => {
-    if (!column.innerHTML) {
-      column.insertAdjacentHTML(
-        "beforeend",
-        /*html*/ `
-        <div class="board-column-placeholder inter-extralight">
-          <p>${getPlaceholderText(column)}</p>
-        </div>`
-      );
-    }
-  });
-}
-
-/**
- * Renders a hollow drag area placeholder in each column, which is used to
- * indicate a place where a task card can be dragged to.
- *
- * @returns {void}
- */
-function renderHollowPlaceholder() {
-  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
-  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
-  columns.forEach((column) => column.insertAdjacentHTML("beforeend", getDragAreaHollowPlaceholder()));
-}
-
-/**
- * Renders all placeholder elements on the board, including the regular placeholder and the hollow drag area placeholder.
- */
-function renderAllPlaceholder() {
-  renderPlaceholder();
-  renderHollowPlaceholder();
+  if (response.status === 400) {
+    showToastMessage("error", response);
+  }
 }
 
 /**
@@ -260,23 +333,6 @@ function clearBoardColumns() {
   progressColumn.innerHTML = "";
   feedbackColumn.innerHTML = "";
   doneColumn.innerHTML = "";
-}
-
-/**
- * Retrieves the column elements from the DOM by their IDs and returns them as an object.
- *
- * @returns {Object} An object containing references to the todo, progress, feedback, and done column elements.
- * @property {HTMLElement} todoColumn - The todo column element.
- * @property {HTMLElement} progressColumn - The progress column element.
- * @property {HTMLElement} feedbackColumn - The feedback column element.
- * @property {HTMLElement} doneColumn - The done column element.
- */
-function getBoardColumns() {
-  const todoColumn = document.getElementById("board-todo");
-  const progressColumn = document.getElementById("board-progress");
-  const feedbackColumn = document.getElementById("board-feedback");
-  const doneColumn = document.getElementById("board-done");
-  return { todoColumn, progressColumn, feedbackColumn, doneColumn };
 }
 
 /**
@@ -305,27 +361,6 @@ function startDraggingTodo(todoId) {
 }
 
 /**
- * Handles the drop event of a todo card being dragged to a new column.
- *
- * Calls updateTodo to update the state of the todo in the global todos array
- * and patches the todos object in the Firebase Realtime Database.
- *
- * Then, it clears all columns on the board and renders all todos again. Finally,
- * it calls renderAllPlaceholder to render all placeholder elements and
- * removeAllHighlights to remove any highlights from the board.
- *
- * @param {string} state - The new state of the todo.
- * @returns {void}
- */
-function onDrop(state) {
-  updateTodo(state);
-  clearBoardColumns();
-  renderTodos(globalTodos);
-  renderAllPlaceholder();
-  removeAllHighlights();
-}
-
-/**
  * Allows an element to be dropped by preventing the default behavior.
  *
  * This function is used as an event handler for the `ondragover` event,
@@ -336,30 +371,6 @@ function onDrop(state) {
 function allowDrop(event) {
   event.preventDefault();
 }
-
-/**
- * Updates a todo in the global todos array and patches the todos object in the Firebase Realtime Database.
- *
- * @param {string} state - The new state of the todo.
- * @returns {Promise<void>} - A promise that resolves when the update is complete.
- */
-async function updateTodo(state) {
-  globalTodos[currentlyDraggedElement].state = state;
-  const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase(todosObject, "guest");
-
-  if (response.status === 400) {
-    showToastMessage("error", response);
-  }
-}
-
-/**
- * The current target element being interacted with, used to determine
- * whether to highlight a drag area or not.
- *
- * @type {HTMLElement|null}
- */
-let currentTarget = null;
 
 /**
  * Highlights the drag area element identified by the given elementId by adding
@@ -376,27 +387,25 @@ function addDragAreaHighlighting(elementId) {
 
   dragAreaElement.classList.add("drag-area");
   togglePlaceholder(elementId);
-  toggleHollowPlaceholder(elementId);
+  addHollowPlaceholder(elementId);
   currentTarget = dragAreaElement;
 }
 
 /**
- * Removes the highlighting from the drag area element identified by the given elementId.
- * If the target task card element is within the drag area, the highlighting is not removed.
- *
- * @param {Event} event - The event object triggering the removal of highlighting.
+ * Removes the highlighting from the drag area element with the given elementId
+ * by removing the "drag-area" class from it. Also toggles the placeholder
+ * element for the given elementId. If the element is already highlighted or
+ * does not exist, the function does nothing.
  * @param {string} elementId - The id of the drag area element to remove highlighting from.
  */
-function removeDragAreaHighlighting(event, elementId) {
+function removeDragAreaHighlighting(elementId) {
   const dragAreaElement = document.getElementById(elementId);
-  const targetTaskCard = event.target.closest(".task-card-small");
 
   if (!dragAreaElement) return;
-  if (targetTaskCard && dragAreaElement.contains(targetTaskCard.parentElement)) return;
 
   dragAreaElement.classList.remove("drag-area");
   togglePlaceholder(elementId);
-  toggleHollowPlaceholder(elementId);
+  removeHollowPlaceholder(elementId);
   currentTarget = null;
 }
 /**
@@ -407,6 +416,7 @@ function removeDragAreaHighlighting(event, elementId) {
  */
 function removeAllHighlights() {
   const dragAreas = document.querySelectorAll(".drag-area");
+  if (!dragAreas) return;
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
 }
 
@@ -422,9 +432,28 @@ function togglePlaceholder(elementId) {
   placeholder.classList.toggle("d_none");
 }
 
-function toggleHollowPlaceholder(elementId) {
+/**
+ * Makes the hollow drag area placeholder within the specified column
+ * visible by removing the "d_none" class from it.
+ *
+ * @param {string} elementId - The ID of the column element in which to show the hollow placeholder.
+ */
+function addHollowPlaceholder(elementId) {
   const element = document.getElementById(elementId);
   const placeholder = element.querySelector(".drag-area-hollow-placeholder");
   if (!placeholder) return;
-  placeholder.classList.toggle("d_none");
+  placeholder.classList.remove("d_none");
+}
+
+/**
+ * Hides the hollow drag area placeholder within the specified column
+ * by adding the "d_none" class to it.
+ *
+ * @param {string} elementId - The ID of the column element in which to hide the hollow placeholder.
+ */
+function removeHollowPlaceholder(elementId) {
+  const element = document.getElementById(elementId);
+  const placeholder = element.querySelector(".drag-area-hollow-placeholder");
+  if (!placeholder) return;
+  placeholder.classList.add("d_none");
 }
