@@ -111,10 +111,12 @@ function searchTodos(event) {
     clearBoardColumns();
     renderTodos(globalTodos);
     renderPlaceholder();
+    renderHollowPlaceholder();
   } else {
     clearBoardColumns();
     renderTodos(filteredTodos);
     renderPlaceholder();
+    renderHollowPlaceholder();
   }
 }
 
@@ -125,18 +127,9 @@ function searchTodos(event) {
  */
 async function loadDemoData() {
   renderTodos(globalTodos);
-  renderPlaceholder();
+  renderAllPlaceholder();
 }
 
-/**
- * Renders a list of todo items into their respective columns based on their state.
- *
- * @param {Array<Object>} todos - An array of todo objects to be rendered. Each todo
- *                                object should contain a `state` property indicating
- *                                its current status, such as "todo", "progress",
- *                                "feedback", or "done".
- * @returns {void}
- */
 function renderTodos(todos) {
   if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
   todos.forEach((todo, index) => {
@@ -160,6 +153,29 @@ function renderTodos(todos) {
         break;
     }
     renderAssignedMembers(index, todo);
+    handleDragEvents();
+  });
+}
+
+/**
+ * Attaches event listeners to each todo item to set its cursor style based on whether the left mouse button is being
+ * pressed or not. This is necessary because the CSS `:active` pseudo-class does not work when the element is being
+ * dragged.
+ *
+ * @returns {void}
+ */
+function handleDragEvents() {
+  document.querySelectorAll(".task-card-small").forEach((element) => {
+    element.addEventListener("mousedown", (event) => {
+      if (event.button === 0) {
+        element.style.cursor = "grab";
+      }
+    });
+    element.addEventListener("mouseup", (event) => {
+      if (event.button === 0) {
+        element.style.cursor = "pointer";
+      }
+    });
   });
 }
 
@@ -204,11 +220,31 @@ function renderPlaceholder() {
         "beforeend",
         /*html*/ `
         <div class="board-column-placeholder inter-extralight">
-          <p>No tasks To do</p>
+          <p>${getPlaceholderText(column)}</p>
         </div>`
       );
     }
   });
+}
+
+/**
+ * Renders a hollow drag area placeholder in each column, which is used to
+ * indicate a place where a task card can be dragged to.
+ *
+ * @returns {void}
+ */
+function renderHollowPlaceholder() {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
+  columns.forEach((column) => column.insertAdjacentHTML("beforeend", getDragAreaHollowPlaceholder()));
+}
+
+/**
+ * Renders all placeholder elements on the board, including the regular placeholder and the hollow drag area placeholder.
+ */
+function renderAllPlaceholder() {
+  renderPlaceholder();
+  renderHollowPlaceholder();
 }
 
 /**
@@ -244,23 +280,49 @@ function getBoardColumns() {
 }
 
 /**
- * Called when a task card is dragged.
+ * Sets the currently dragged element to the given todoId and adds the "dragging"
+ * class to the corresponding task card element.
  *
- * Sets the currentlyDraggedElement variable to the id of the dragged element.
- *
- * @param {number} id The id of the dragged element.
+ * @param {number} todoId - The ID of the todo element that is being dragged.
  * @returns {void}
  */
-function onDragStart(id) {
-  currentlyDraggedElement = id;
+function startDraggingTodo(todoId) {
+  currentlyDraggedElement = todoId;
+  const todoCardElement = document.getElementById(`task-card-small-${todoId}`);
+
+  if (!todoCardElement) return;
+
+  todoCardElement.classList.add("dragging");
+
+  document.addEventListener(
+    "dragend",
+    () => {
+      todoCardElement.classList.remove("dragging");
+      document.body.style.cursor = "";
+    },
+    { once: true }
+  );
 }
 
+/**
+ * Handles the drop event of a todo card being dragged to a new column.
+ *
+ * Calls updateTodo to update the state of the todo in the global todos array
+ * and patches the todos object in the Firebase Realtime Database.
+ *
+ * Then, it clears all columns on the board and renders all todos again. Finally,
+ * it calls renderAllPlaceholder to render all placeholder elements and
+ * removeAllHighlights to remove any highlights from the board.
+ *
+ * @param {string} state - The new state of the todo.
+ * @returns {void}
+ */
 function onDrop(state) {
   updateTodo(state);
   clearBoardColumns();
   renderTodos(globalTodos);
-  renderPlaceholder();
-  removeDragAreaHighlighting();
+  renderAllPlaceholder();
+  removeAllHighlights();
 }
 
 /**
@@ -291,13 +353,78 @@ async function updateTodo(state) {
   }
 }
 
-function addDragAreaHighlight(elementId) {
-  const element = document.getElementById(elementId);
-  element.classList.add("drag-area");
+/**
+ * The current target element being interacted with, used to determine
+ * whether to highlight a drag area or not.
+ *
+ * @type {HTMLElement|null}
+ */
+let currentTarget = null;
+
+/**
+ * Highlights the drag area element identified by the given elementId by adding
+ * the "drag-area" class to it. Also toggles the placeholder element for the
+ * given elementId. If the element is already highlighted or does not exist,
+ * the function does nothing.
+ *
+ * @param {string} elementId - The id of the drag area element to highlight.
+ */
+function addDragAreaHighlighting(elementId) {
+  const dragAreaElement = document.getElementById(elementId);
+
+  if (!dragAreaElement || currentTarget === dragAreaElement) return;
+
+  dragAreaElement.classList.add("drag-area");
+  togglePlaceholder(elementId);
+  toggleHollowPlaceholder(elementId);
+  currentTarget = dragAreaElement;
 }
 
-function removeDragAreaHighlighting() {
+/**
+ * Removes the highlighting from the drag area element identified by the given elementId.
+ * If the target task card element is within the drag area, the highlighting is not removed.
+ *
+ * @param {Event} event - The event object triggering the removal of highlighting.
+ * @param {string} elementId - The id of the drag area element to remove highlighting from.
+ */
+function removeDragAreaHighlighting(event, elementId) {
+  const dragAreaElement = document.getElementById(elementId);
+  const targetTaskCard = event.target.closest(".task-card-small");
+
+  if (!dragAreaElement) return;
+  if (targetTaskCard && dragAreaElement.contains(targetTaskCard.parentElement)) return;
+
+  dragAreaElement.classList.remove("drag-area");
+  togglePlaceholder(elementId);
+  toggleHollowPlaceholder(elementId);
+  currentTarget = null;
+}
+/**
+ * Removes the "drag-area" class from all elements, effectively removing
+ * the highlighting from all drag areas on the board.
+ *
+ * @returns {void}
+ */
+function removeAllHighlights() {
   const dragAreas = document.querySelectorAll(".drag-area");
-  if (!dragAreas) return;
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
+}
+
+/**
+ * Toggles the visibility of the placeholder element within the specified column.
+ *
+ * @param {string} elementId - The ID of the column element in which to toggle the placeholder.
+ */
+function togglePlaceholder(elementId) {
+  const element = document.getElementById(elementId);
+  const placeholder = element.querySelector(".board-column-placeholder");
+  if (!placeholder) return;
+  placeholder.classList.toggle("d_none");
+}
+
+function toggleHollowPlaceholder(elementId) {
+  const element = document.getElementById(elementId);
+  const placeholder = element.querySelector(".drag-area-hollow-placeholder");
+  if (!placeholder) return;
+  placeholder.classList.toggle("d_none");
 }
