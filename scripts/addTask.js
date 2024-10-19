@@ -47,6 +47,8 @@ function loadNavbar() {
 }
 
 let selectedOptions = [];
+let subTasks = [];
+let priority = "";
 
 function handleButtonClick(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
@@ -54,12 +56,11 @@ function handleButtonClick(event) {
 
   if (clickedButton.classList.contains("active")) {
     clickedButton.classList.remove("active");
-    console.log("No priority selected");
+    priority = "";
   } else {
     buttons.forEach((button) => button.classList.remove("active"));
     clickedButton.classList.add("active");
-    const activeButton = clickedButton.textContent.trim();
-    console.log("Active priority:", activeButton);
+    priority = clickedButton.textContent.trim();
   }
 }
 
@@ -96,12 +97,29 @@ function addSubtask(addIcon, subtaskActions) {
   const subtaskText = inputField.value.trim();
 
   if (subtaskText !== "") {
+    const subtaskId = "SUBTODO" + Date.now();
     const subtaskList = document.getElementById("subtask-list");
-    const subtaskItem = createSubtaskListItem(subtaskText);
+    const subtaskItem = createSubtaskListItem(subtaskText, subtaskId);
+
     subtaskList.appendChild(subtaskItem);
+
+    subTasks.push({
+      id: subtaskId,
+      state: false,
+      text: subtaskText,
+    });
+
     inputField.value = "";
     checkScrollbar();
   }
+}
+
+function createSubtaskListItem(subtaskText, subtaskId) {
+  const listItem = document.createElement("li");
+  listItem.innerText = subtaskText;
+  listItem.setAttribute("data-id", subtaskId);
+  listItem.classList.add("subtask-item");
+  return listItem;
 }
 
 function editSubtask(iconElement) {
@@ -114,30 +132,38 @@ function editSubtask(iconElement) {
   listItem.replaceChild(inputField, subtaskTextElement);
   const iconContainer = listItem.querySelector(".list-item-actions");
   iconContainer.innerHTML = getAcceptAndDeleteIconsTemplate();
+  const subtaskId = listItem.dataset.id;
+  inputField.setAttribute("data-id", subtaskId);
 }
 
 function saveEdit(iconElement) {
   const listItem = iconElement.closest("li");
   const inputField = listItem.querySelector("input");
   const newText = inputField.value.trim();
-  if (newText === "") {
-    alert("Subtask cannot be empty!");
-    return;
+  const subtaskId = inputField.getAttribute("data-id");
+  const subtaskIndex = subTasks.findIndex((subtask) => subtask.id === subtaskId);
+  if (subtaskIndex !== -1) {
+    subTasks[subtaskIndex].text = newText;
   }
+
   const subtaskTextElement = document.createElement("span");
   subtaskTextElement.className = "subtask-text";
   subtaskTextElement.textContent = newText;
   listItem.replaceChild(subtaskTextElement, inputField);
+
   const iconContainer = listItem.querySelector(".list-item-actions");
   iconContainer.innerHTML = getEditAndDeleteIconsTemplate();
 }
 
 function removeSubtask(iconElement) {
   const listItem = iconElement.closest("li");
+  const subtaskId = listItem.dataset.id;
+
+  subTasks = subTasks.filter((subtask) => subtask.id !== subtaskId);
+
   listItem.remove();
   checkScrollbar();
 }
-
 function checkScrollbar() {
   var subtaskList = document.getElementById("subtask-list");
   var isOverflowing = subtaskList.scrollHeight > subtaskList.clientHeight;
@@ -258,4 +284,32 @@ function removeOption(id) {
     option.classList.remove("selected");
   }
   removeBadge(id);
+}
+
+function createTodo() {
+  const id = "TODO" + Date.now();
+  const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
+  const title = document.getElementById("title").value;
+  const description = document.getElementById("description").value;
+  const dueDate = document.getElementById("due-date").value;
+  const category = document.getElementById("category").value;
+
+  const todos = {
+    id: id,
+    assignedMembers: assignedMembers,
+    category: category,
+    createdAt: Date.now(),
+    date: dueDate,
+    description: description,
+    priority: priority,
+    state: "To do",
+    subTasks: subTasks,
+    title: title,
+  };
+
+  console.log(todos);
+
+  subTasks = [];
+  selectedOptions = [];
+  priority = "";
 }
