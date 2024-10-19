@@ -330,8 +330,5 @@ function createTodo() {
 
   console.log(todos);
 
-  subTasks = [];
-  selectedOptions = [];
-  priority = "";
   clearForm();
 }
