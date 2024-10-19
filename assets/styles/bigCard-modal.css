@@ -74,6 +74,10 @@
   font-size: 21px;
 }
 
+.big-card-close-x:hover {
+  cursor: pointer;
+}
+
 .big-card-date {
   margin-left: 40px;
   width: 445px;

@@ -11,6 +11,18 @@ function getTaskCardBigTemplate(todo) {
     })
     .join("");
 
+  const assignedMembersHtml = Object.keys(todo.assignedMembers)
+    .map((key) => {
+      const member = todo.assignedMembers[key];
+      const initials = getInitialsFromContact({ name: member });
+      return `
+        <div class="assigned-member-initial-wrapper">
+          <div class="b-card-initial-circle"><span>${initials}</span></div>
+          <div class="big-card-assigned-name"><p>${member}</p></div>
+        </div>`;
+    })
+    .join("");
+
   return `
     <div id="big-card-modal">
       <div class="catogory-close-container">
@@ -51,19 +63,14 @@ function getTaskCardBigTemplate(todo) {
         <div class="big-card-assigned-member">
           <div class="assigned-member-wrapper">
             <div class="assigned-member-initial-wrapper">
-              <div class="b-card-initial-circle"><span>AM</span></div>
-              <div class="big-card-assigned-name"><p>Alias Malias</p></div>
-            </div>
-            <div class="assigned-member-initial-wrapper">
-              <div class="b-card-initial-circle"><span>AM</span></div>
-              <div class="big-card-assigned-name"><p>Alias Malias</p></div>
+            ${assignedMembersHtml} <--- FÜR EIGENE DOKU HIER DIE MEMBERS -->
             </div>
           </div>
         </div>
       </div>
       <div class="bigCard-subtask-head"><p>Subtasks</p></div>
       <div class="bigCard-subtasks-container">
-        ${subTasksHtml}  <!-- Subtasks hier dynamisch eingefügt -->
+        ${subTasksHtml} 
       </div>
       <div class="bigCard-delete-edit-container">
         <div class="big-card-delete">
