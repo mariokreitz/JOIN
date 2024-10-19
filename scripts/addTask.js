@@ -163,6 +163,8 @@ function renderContactDropdown() {
     return;
   }
 
+  // globalContacts.sort((a, b) => a.name.localeCompare(b.name));
+
   const contactListHtml = globalContacts
     .map((contact) => {
       const initials = getInitialsFromContact(contact);
