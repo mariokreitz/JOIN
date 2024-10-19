@@ -43,28 +43,7 @@
                   <img src="./assets/svg/arrow-dropdown.svg" alt="dropdown icon" class="icon" id="dropdown-icon" />
                 </div>
               </div>
-              <ul id="dropdown-options" class="options">
-                <li onclick="selectOption(this)" data-id="1">
-                  <span class="badge" style="background-color: #00bcd4">SM</span> Sofia Müller (You)
-                  <input type="checkbox" class="checkbox" />
-                </li>
-                <li onclick="selectOption(this)" data-id="2">
-                  <span class="badge" style="background-color: #ff9800">AM</span> Anton Mayer
-                  <input type="checkbox" class="checkbox" />
-                </li>
-                <li onclick="selectOption(this)" data-id="3">
-                  <span class="badge" style="background-color: #9c27b0">AS</span> Anja Schulz
-                  <input type="checkbox" class="checkbox" />
-                </li>
-                <li onclick="selectOption(this)" data-id="4">
-                  <span class="badge" style="background-color: #673ab7">BZ</span> Benedikt Ziegler
-                  <input type="checkbox" class="checkbox" />
-                </li>
-                <li onclick="selectOption(this)" data-id="5">
-                  <span class="badge" style="background-color: #e91e63">DE</span> David Eisenberg
-                  <input type="checkbox" class="checkbox" />
-                </li>
-              </ul>
+              <ul id="dropdown-options" class="options"></ul>
               <div id="selected-badges" class="selected-badges"></div>
             </div>
           </div>
@@ -170,8 +149,15 @@
         </div>
       </div>
     </main>
+    <script src="./scripts/helper/object.helper.js"></script>
+    <script src="./scripts/helper/initials.helper.js"></script>
     <script src="./scripts/templates/header.template.js"></script>
     <script src="./scripts/templates/navbar.template.js"></script>
+    <script src="./scripts/templates/toastMessage.template.js"></script>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/contacts.js"></script>
+    <script src="./scripts/toastMessage.js"></script>
     <script src="./scripts/addTask.js"></script>
     <script src="./scripts/templates/subtaskListItem.template.js"></script>
   </body>

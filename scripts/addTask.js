@@ -7,6 +7,8 @@
  */
 async function init() {
   loadComponents();
+  await getContactsFromData(API_URL, "guest");
+  renderContactDropdown();
 }
 
 /**
@@ -147,10 +149,48 @@ function checkScrollbar() {
   }
 }
 
+function renderContactDropdown() {
+  let index = -1;
+  const dropdownOptions = document.getElementById("dropdown-options");
+  if (!dropdownOptions) return;
+
+  if (globalContacts.length === 0) {
+    dropdownOptions.innerHTML = /*html*/ `
+      <li class="no-contacts">
+        <p>No contacts available to assign.</p>
+      </li>
+    `;
+    return;
+  }
+
+  globalContacts.sort((a, b) => a.name.localeCompare(b.name));
+
+  const contactListHtml = globalContacts
+    .map((contact) => {
+      const initials = getInitialsFromContact(contact);
+      index++;
+      return /*html*/ `
+        <li onclick="selectOption(this)" data-id="${contact.id || index}">
+          <span class="badge" style="background-color: ${contact.color}">${initials}</span>
+          ${contact.name}
+          <input type="checkbox" class="checkbox" />
+        </li>
+      `;
+    })
+    .join("");
+
+  dropdownOptions.innerHTML = contactListHtml;
+}
+
+function getInitialsFromContact(contact) {
+  const nameParts = contact.name.split(" ");
+  const initials = nameParts.map((part) => part.charAt(0).toUpperCase()).join("");
+  return initials;
+}
+
 function toggleDropdown() {
   var dropdown = document.getElementById("dropdown-options");
   var icon = document.getElementById("dropdown-icon");
-
   dropdown.classList.toggle("show");
   icon.classList.toggle("rotated");
 }
@@ -175,29 +215,31 @@ function filterOptions() {
 
 function selectOption(option) {
   var checkbox = option.querySelector(".checkbox");
-  var badgeSpan = option.querySelector(".badge");
-  var optionText = badgeSpan.innerText.trim();
-  var badgeColor = badgeSpan.style.backgroundColor;
+  var initials = option.querySelector(".badge").innerText.trim();
+  var id = option.dataset.id;
+  if (!id) {
+    console.error("Contact ID not found for option: ", option);
+    return;
+  }
   checkbox.checked = !checkbox.checked;
-
   if (checkbox.checked) {
     option.classList.add("selected");
-    addBadge(option.dataset.id, optionText, badgeColor);
+    addBadge(id, initials, option.querySelector(".badge").style.backgroundColor);
   } else {
     option.classList.remove("selected");
-    removeBadge(option.dataset.id);
+    removeBadge(id);
   }
 }
 
-function addBadge(id, text, color) {
+function addBadge(id, initials, color) {
   if (!selectedOptions.includes(id)) {
     selectedOptions.push(id);
     var badgeContainer = document.getElementById("selected-badges");
     var badge = document.createElement("div");
     badge.classList.add("selected-badge");
     badge.setAttribute("data-id", id);
-    badge.innerHTML = text;
     badge.style.backgroundColor = color;
+    badge.innerHTML = `<span>${initials}</span>`;
     badgeContainer.appendChild(badge);
   }
 }
@@ -206,6 +248,7 @@ function removeBadge(id) {
   selectedOptions = selectedOptions.filter((optionId) => optionId !== id);
   var badgeContainer = document.getElementById("selected-badges");
   var badge = badgeContainer.querySelector(`.selected-badge[data-id="${id}"]`);
+
   if (badge) {
     badge.remove();
   }
