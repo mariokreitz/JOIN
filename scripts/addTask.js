@@ -307,7 +307,7 @@ function clearForm() {
   subTasks = [];
 }
 
-async function createTodo() {
+async function createTodo(user = "guest") {
   const id = "TODO" + Date.now();
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
   const title = document.getElementById("title").value;
@@ -328,7 +328,7 @@ async function createTodo() {
       date: dueDate,
       description: description,
       priority: priority,
-      state: "To do",
+      state: "todo",
       subTasks: subTasksObject,
       title: title,
     },
@@ -337,8 +337,8 @@ async function createTodo() {
   console.log(todos);
 
   try {
-    const newTodo = await addTodoToFirebase(todos);
-    console.log("Todo added successfully:", newTodo);
+    await updateTodosInFirebase(todos, user);
+    console.log("Todo updated successfully for user:", user);
   } catch (error) {
     console.error(error.message);
   }
