@@ -187,6 +187,7 @@
   height: 16px;
   margin-top: 4px;
   margin-left: 16px;
+  cursor: pointer;
 }
 
 .bigCard-subtask {
