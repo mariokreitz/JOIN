@@ -49,7 +49,7 @@ body {
 
 .task-seperator {
   width: 1px;
-  background-color: #d1d1d1;
+  background-color: var(--line);
   margin: 0 40px;
 }
 
@@ -76,7 +76,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 input[type="date"]:invalid::-webkit-datetime-edit {
-  color: #d1d1d1;
+  color: var(--line);
 }
 
 .add-task-content input[type="text"],
@@ -86,7 +86,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   width: 100%;
   padding: 10px;
   height: 48px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid var(--line);
   border-radius: 8px;
 }
 
@@ -99,7 +99,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 
 .add-task-content input::placeholder,
 .add-task-content textarea::placeholder {
-  color: #d1d1d1;
+  color: var(--line);
 }
 
 .add-task-content .form-group {
@@ -271,7 +271,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 .icon-seperator {
   width: 1px;
   height: 25px;
-  background-color: #d1d1d1;
+  background-color: var(--line);
 }
 
 .add-task-content .input-container .icon-container {
