@@ -62,11 +62,10 @@ function getTaskCardBigTemplate(todo) {
         <div class="big-card-assigned-head"><p>Assigned to:</p></div>
         <div class="big-card-assigned-member">
           <div class="assigned-member-wrapper">
-            ${assignedMembersHtml}
+            ${assignedMembersHtml} 
             </div>
           </div>
         </div>
-      </div>
       <div class="bigCard-subtask-head"><p>Subtasks</p></div>
       <div class="bigCard-subtasks-container">
         ${subTasksHtml} 
