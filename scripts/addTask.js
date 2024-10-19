@@ -286,6 +286,27 @@ function removeOption(id) {
   removeBadge(id);
 }
 
+function clearForm() {
+  document.getElementById("title").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("due-date").value = "";
+  document.getElementById("category").value = "Select task category";
+  document.getElementById("selected-badges").innerHTML = "";
+  document.getElementById("dropdown-options").innerHTML = "";
+
+  selectedOptions = [];
+
+  const priorityButtons = document.querySelectorAll(".priority-actions button");
+  priorityButtons.forEach((priorityButtons) => priorityButtons.classList.remove("active"));
+  priority = "";
+
+  const subtasksContainer = document.getElementById("subtask-list");
+  if (subtasksContainer) {
+    subtasksContainer.innerHTML = "";
+  }
+  subTasks = [];
+}
+
 function createTodo() {
   const id = "TODO" + Date.now();
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
@@ -312,4 +333,5 @@ function createTodo() {
   subTasks = [];
   selectedOptions = [];
   priority = "";
+  clearForm();
 }
