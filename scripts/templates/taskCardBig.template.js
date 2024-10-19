@@ -18,7 +18,7 @@ function getTaskCardBigTemplate(todo) {
       const color = getAssignedMemberColor(member);
       return `
         <div class="assigned-member-initial-wrapper">
-          <div class="b-card-initial-circle style="background-color: ${color};"><span>${initials}</span></div>
+          <div class="b-card-initial-circle" style="background-color: ${color};"><span>${initials}</span></div>
           <div class="big-card-assigned-name"><p>${member}</p></div>
         </div>`;
     })
