@@ -1,6 +1,36 @@
 body:has(.add-task-main) {
   height: unset;
 }
+
+body {
+  --sb-track-color: var(--line);
+  --sb-thumb-color: var(--primary);
+  --sb-size: 10px;
+  --sb-radius: 3px;
+  --sb-margin: 5px;
+}
+
+#subtask-list::-webkit-scrollbar {
+  width: var(--sb-size);
+  border-left: solid 10px transparent;
+}
+
+#subtask-list::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: var(--sb-radius);
+}
+
+#subtask-list::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: var(--sb-radius);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
 .add-task-main {
   margin-left: 232px;
   padding: 64px;
@@ -289,6 +319,8 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   margin-top: 10px;
   list-style-type: disc;
   list-style-position: inside;
+  max-height: 140px;
+  overflow: auto;
 }
 
 #subtask-list li {
@@ -316,6 +348,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   padding: 0;
   align-items: center;
   display: flex;
+  position: relative;
 }
 
 #subtask-list li:has(input) .list-item-actions {

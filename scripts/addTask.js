@@ -96,13 +96,7 @@ function addSubtask(addIcon, subtaskActions) {
     const subtaskItem = createSubtaskListItem(subtaskText);
     subtaskList.appendChild(subtaskItem);
     inputField.value = "";
-  }
-}
-
-function removeSubtask(iconElement) {
-  const listItem = iconElement.closest("li");
-  if (listItem) {
-    listItem.remove();
+    checkScrollbar();
   }
 }
 
@@ -137,4 +131,16 @@ function saveEdit(iconElement) {
 function removeSubtask(iconElement) {
   const listItem = iconElement.closest("li");
   listItem.remove();
+  checkScrollbar();
+}
+
+function checkScrollbar() {
+  var subtaskList = document.getElementById("subtask-list");
+  var isOverflowing = subtaskList.scrollHeight > subtaskList.clientHeight;
+
+  if (isOverflowing) {
+    subtaskList.style.paddingRight = "10px";
+  } else {
+    subtaskList.style.paddingRight = "0";
+  }
 }
