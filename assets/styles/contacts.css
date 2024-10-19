@@ -218,6 +218,7 @@ nav {
 @media (max-width: 768px) {
   body {
     overflow: hidden;
+    height: 100dvh;
   }
 
   main {
