@@ -3,24 +3,29 @@ body:has(.add-task-main) {
 }
 
 body {
-  --sb-track-color: var(--line);
-  --sb-thumb-color: var(--primary);
+  --sb-track-color: var(--background-lightGrey);
+  --sb-thumb-color: var(--line);
   --sb-size: 10px;
   --sb-radius: 3px;
-  --sb-margin: 5px;
 }
 
-#subtask-list::-webkit-scrollbar {
+#subtask-list::-webkit-scrollbar,
+.custom-dropdown .options::-webkit-scrollbar {
   width: var(--sb-size);
-  border-left: solid 10px transparent;
 }
 
-#subtask-list::-webkit-scrollbar-track {
+#subtask-list::-webkit-scrollbar-track,
+.custom-dropdown .options::-webkit-scrollbar-track {
   background: var(--sb-track-color);
   border-radius: var(--sb-radius);
 }
 
-#subtask-list::-webkit-scrollbar-thumb {
+.custom-dropdown .options::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+#subtask-list::-webkit-scrollbar-thumb,
+.custom-dropdown .options::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: var(--sb-radius);
 }
@@ -371,6 +376,93 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 
 .add-task-content option {
   padding: 10px;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown input::placeholder {
+  color: var(--text-primary);
+}
+
+.custom-dropdown .options {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  background-color: #fff;
+}
+
+.custom-dropdown .options.show {
+  display: block;
+}
+
+.custom-dropdown .options li {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 8px;
+  margin-bottom: 2px;
+}
+
+.custom-dropdown .options li:hover {
+  background-color: #eee;
+}
+
+.custom-dropdown .badge {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.custom-dropdown input:focus + .options {
+  display: block;
+}
+
+.custom-dropdown .icon {
+  transition: transform 0.3s ease;
+}
+
+.custom-dropdown .icon.rotated {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown .options li input.checkbox {
+  margin-left: auto;
+}
+
+.custom-dropdown .options li.selected {
+  background-color: var(--primary);
+}
+
+.selected-badges {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.selected-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: white;
+  border-radius: 50%;
+  position: relative;
 }
 
 @media (max-width: 1320px) {

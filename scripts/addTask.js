@@ -44,6 +44,8 @@ function loadNavbar() {
   navbar.innerHTML = getNavbarTemplate("add-task");
 }
 
+let selectedOptions = [];
+
 function handleButtonClick(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
@@ -143,4 +145,78 @@ function checkScrollbar() {
   } else {
     subtaskList.style.paddingRight = "0";
   }
+}
+
+function toggleDropdown() {
+  var dropdown = document.getElementById("dropdown-options");
+  var icon = document.getElementById("dropdown-icon");
+
+  dropdown.classList.toggle("show");
+  icon.classList.toggle("rotated");
+}
+
+function filterOptions() {
+  var input = document.getElementById("search");
+  var filter = input.value.toLowerCase();
+  var ul = document.getElementById("dropdown-options");
+  var li = ul.getElementsByTagName("li");
+
+  ul.classList.add("show");
+
+  for (var i = 0; i < li.length; i++) {
+    var text = li[i].textContent || li[i].innerText;
+    if (text.toLowerCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+function selectOption(option) {
+  var checkbox = option.querySelector(".checkbox");
+  var badgeSpan = option.querySelector(".badge");
+  var optionText = badgeSpan.innerText.trim();
+  var badgeColor = badgeSpan.style.backgroundColor;
+  checkbox.checked = !checkbox.checked;
+
+  if (checkbox.checked) {
+    option.classList.add("selected");
+    addBadge(option.dataset.id, optionText, badgeColor);
+  } else {
+    option.classList.remove("selected");
+    removeBadge(option.dataset.id);
+  }
+}
+
+function addBadge(id, text, color) {
+  if (!selectedOptions.includes(id)) {
+    selectedOptions.push(id);
+    var badgeContainer = document.getElementById("selected-badges");
+    var badge = document.createElement("div");
+    badge.classList.add("selected-badge");
+    badge.setAttribute("data-id", id);
+    badge.innerHTML = text;
+    badge.style.backgroundColor = color;
+    badgeContainer.appendChild(badge);
+  }
+}
+
+function removeBadge(id) {
+  selectedOptions = selectedOptions.filter((optionId) => optionId !== id);
+  var badgeContainer = document.getElementById("selected-badges");
+  var badge = badgeContainer.querySelector(`.selected-badge[data-id="${id}"]`);
+  if (badge) {
+    badge.remove();
+  }
+}
+
+function removeOption(id) {
+  var option = document.querySelector(`li[data-id="${id}"]`);
+  if (option) {
+    var checkbox = option.querySelector(".checkbox");
+    checkbox.checked = false;
+    option.classList.remove("selected");
+  }
+  removeBadge(id);
 }
