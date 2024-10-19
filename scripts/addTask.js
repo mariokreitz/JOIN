@@ -170,6 +170,7 @@ function removeSubtask(iconElement) {
   listItem.remove();
   checkScrollbar();
 }
+
 function checkScrollbar() {
   var subtaskList = document.getElementById("subtask-list");
   var isOverflowing = subtaskList.scrollHeight > subtaskList.clientHeight;
@@ -212,12 +213,6 @@ function renderContactDropdown() {
     .join("");
 
   dropdownOptions.innerHTML = contactListHtml;
-}
-
-function getInitialsFromContact(contact) {
-  const nameParts = contact.name.split(" ");
-  const initials = nameParts.map((part) => part.charAt(0).toUpperCase()).join("");
-  return initials;
 }
 
 function toggleDropdown() {
