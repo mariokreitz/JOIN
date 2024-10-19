@@ -324,3 +324,9 @@ function closeTaskCardBig() {
   const taskCardBig = document.getElementById("big-card-modal");
   taskCardBig.style.display = "none";
 }
+
+function getAssignedMemberColor(assignedMemberName) {
+  const contact = globalContacts.find((contact) => contact.name === assignedMemberName);
+
+  return contact ? contact.color : undefined;
+}
