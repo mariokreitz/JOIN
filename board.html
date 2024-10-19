@@ -45,9 +45,9 @@
               <div
                 id="board-todo"
                 class="board-card-layout"
-                ondrop="onDrop('todo')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight( 'board-todo')"></div>
+                ondrop="onDrop('todo'); removeDragAreaHighlighting(event,'board-todo')"
+                ondragleave="removeDragAreaHighlighting(event,'board-todo')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-todo')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
@@ -57,9 +57,9 @@
               <div
                 id="board-progress"
                 class="board-card-layout"
-                ondrop="onDrop('progress')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight('board-progress')"></div>
+                ondrop="onDrop('progress'); removeDragAreaHighlighting(event,'board-progress')"
+                ondragleave="removeDragAreaHighlighting(event,'board-progress')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-progress')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
@@ -69,9 +69,9 @@
               <div
                 id="board-feedback"
                 class="board-card-layout"
-                ondrop="onDrop('feedback')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight('board-feedback')"></div>
+                ondrop="onDrop('feedback'); removeDragAreaHighlighting(event,'board-feedback')"
+                ondragleave="removeDragAreaHighlighting(event,'board-feedback')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-feedback')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
@@ -81,9 +81,9 @@
               <div
                 id="board-done"
                 class="board-card-layout"
-                ondrop="onDrop('done')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight('board-done')"></div>
+                ondrop="onDrop('done'); removeDragAreaHighlighting(event,'board-done')"
+                ondragleave="removeDragAreaHighlighting(event,'board-done')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-done')"></div>
             </div>
           </div>
         </div>
