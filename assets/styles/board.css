@@ -1,3 +1,8 @@
+body {
+  height: unset;
+  min-height: 100vh;
+}
+
 main {
   padding-left: 232px;
   height: calc(100% - 96px);
@@ -225,9 +230,6 @@ main {
 }
 
 @media (max-width: 768px) {
-  body {
-    overflow: hidden;
-  }
   main {
     padding-top: 80px;
     padding-left: 0;
