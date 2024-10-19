@@ -62,8 +62,7 @@ function getTaskCardBigTemplate(todo) {
         <div class="big-card-assigned-head"><p>Assigned to:</p></div>
         <div class="big-card-assigned-member">
           <div class="assigned-member-wrapper">
-            <div class="assigned-member-initial-wrapper">
-            ${assignedMembersHtml} <--- FÜR EIGENE DOKU HIER DIE MEMBERS -->
+            ${assignedMembersHtml}
             </div>
           </div>
         </div>
