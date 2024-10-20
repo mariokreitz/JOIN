@@ -55,9 +55,6 @@ function loadNavbar() {
 let selectedOptions = [];
 let subTasks = [];
 let priority = "";
-const inputField = document.getElementById("subtasks");
-const addIcon = document.getElementById("add-icon");
-const subtaskActions = document.getElementById("subtask-actions");
 
 function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
@@ -78,16 +75,26 @@ function toggleElementVisibility(element, isVisible) {
 }
 
 function handleSubtaskIcons() {
-  toggleElementVisibility(addIcon, inputField.value.trim() === "");
-  toggleElementVisibility(subtaskActions, inputField.value.trim() !== "");
+  const inputField = document.getElementById("subtasks");
+  const addIcon = document.getElementById("add-icon");
+  const subtaskActions = document.getElementById("subtask-actions");
+
+  if (inputField && addIcon && subtaskActions) {
+    toggleElementVisibility(addIcon, inputField.value.trim() === "");
+    toggleElementVisibility(subtaskActions, inputField.value.trim() !== "");
+  }
 }
 
 function clearInputField() {
-  inputField.value = "";
-  inputField.dispatchEvent(new Event("input"));
+  const inputField = document.getElementById("subtasks");
+  if (inputField) {
+    inputField.value = "";
+    inputField.dispatchEvent(new Event("input"));
+  }
 }
 
 function addSubtask() {
+  const inputField = document.getElementById("subtasks");
   const subtaskText = inputField.value.trim();
 
   if (subtaskText !== "") {
