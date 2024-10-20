@@ -428,7 +428,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   color: white;
   margin-right: 10px;
   font-size: 8px;
-  border: 1px solid #ffffff;
+  border: 2px solid #ffffff;
   justify-content: center;
   align-items: center;
 }

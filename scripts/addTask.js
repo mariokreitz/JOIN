@@ -49,15 +49,18 @@ function loadNavbar() {
 let selectedOptions = [];
 let subTasks = [];
 let priority = "";
+const inputField = document.getElementById("subtasks");
+const addIcon = document.getElementById("add-icon");
+const subtaskActions = document.getElementById("subtask-actions");
 
-function handleButtonClick(event) {
+function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
 
   const priorityMap = {
     Urgent: "high",
     Medium: "medium",
-    High: "high",
+    Low: "low",
   };
 
   if (clickedButton.classList.contains("active")) {
@@ -70,36 +73,32 @@ function handleButtonClick(event) {
   }
 }
 
-function handlePrioChange() {
-  const inputField = document.getElementById("subtasks");
-  const addIcon = document.querySelector(".add-icon");
-  const subtaskActions = document.querySelector(".subtask-actions");
-
-  if (inputField.value.trim() !== "") {
-    showSubtaskActions(addIcon, subtaskActions);
+function handleSubtaskIcons() {
+  if (inputField.value.trim() === "") {
+    showAddIcon();
   } else {
-    showAddIcon(addIcon, subtaskActions);
+    showSubtaskActions();
   }
 }
 
-function showSubtaskActions(addIcon, subtaskActions) {
+inputField.addEventListener("input", handleSubtaskIcons);
+
+function showSubtaskActions() {
   addIcon.style.display = "none";
   subtaskActions.style.display = "flex";
 }
 
-function showAddIcon(addIcon, subtaskActions) {
+function showAddIcon() {
   addIcon.style.display = "block";
   subtaskActions.style.display = "none";
 }
 
 function clearInputField() {
-  const inputField = document.getElementById("subtasks");
   inputField.value = "";
   inputField.dispatchEvent(new Event("input"));
 }
 
 function addSubtask() {
-  const inputField = document.getElementById("subtasks");
   const subtaskText = inputField.value.trim();
 
   if (subtaskText !== "") {
@@ -114,7 +113,7 @@ function addSubtask() {
       text: subtaskText,
     };
 
-    inputField.value = "";
+    clearInputField();
     checkScrollbar();
   }
 }
@@ -137,8 +136,7 @@ function editSubtask(iconElement) {
   listItem.replaceChild(inputField, subtaskTextElement);
   const iconContainer = listItem.querySelector(".list-item-actions");
   iconContainer.innerHTML = getAcceptAndDeleteIconsTemplate();
-  const subtaskId = listItem.dataset.id;
-  inputField.setAttribute("data-id", subtaskId);
+  inputField.setAttribute("data-id", listItem.dataset.id);
 }
 
 function saveEdit(iconElement) {
@@ -172,21 +170,13 @@ function removeSubtask(iconElement) {
 }
 
 function checkScrollbar() {
-  var subtaskList = document.getElementById("subtask-list");
-  var isOverflowing = subtaskList.scrollHeight > subtaskList.clientHeight;
-
-  if (isOverflowing) {
-    subtaskList.style.paddingRight = "10px";
-  } else {
-    subtaskList.style.paddingRight = "0";
-  }
+  const subtaskList = document.getElementById("subtask-list");
+  subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "10px" : "0";
 }
 
 function renderContactDropdown() {
   const dropdownOptions = document.getElementById("dropdown-options");
   if (!dropdownOptions) return;
-
-  // globalContacts.sort((a, b) => a.name.localeCompare(b.name));
 
   const contactListHtml = generateContactListHtml(globalContacts);
   dropdownOptions.innerHTML = contactListHtml;

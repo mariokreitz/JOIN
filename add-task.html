@@ -76,7 +76,7 @@
                       fill="#FF3D00" />
                   </svg>
                 </button>
-                <button onclick="handleButtonClick(event)" type="button" class="prio medium">
+                <button onclick="handlePrioChange(event)" type="button" class="prio medium">
                   Medium
                   <svg width="21" height="8" viewBox="0 0 21 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -87,7 +87,7 @@
                       fill="#FFA800" />
                   </svg>
                 </button>
-                <button onclick="handleButtonClick(event)" type="button" class="prio low">
+                <button onclick="handlePrioChange(event)" type="button" class="prio low">
                   Low
                   <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -118,11 +118,11 @@
                   type="text"
                   id="subtasks"
                   placeholder="Add new subtask"
-                  oninput="handlePrioChange()" />
+                  oninput="handleSubtaskIcons()" />
                 <div class="icon-container">
-                  <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" />
+                  <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
                 </div>
-                <div class="subtask-actions">
+                <div class="subtask-actions" id="subtask-actions">
                   <div class="icon-container" onclick="clearInputField()">
                     <img src="./assets/svg/close.svg" alt="cancel icon" class="icon cancel-icon" />
                   </div>
