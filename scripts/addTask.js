@@ -11,6 +11,7 @@ let isContactDropdownOpen = false;
 async function init() {
   loadComponents();
   await getContactsFromData(API_URL, "guest");
+  document.getElementById("add-task-main").innerHTML = getAddTaskTemplate();
   renderContactDropdown();
 }
 
