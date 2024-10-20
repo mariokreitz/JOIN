@@ -66,7 +66,6 @@ function handleButtonClick(event) {
   } else {
     buttons.forEach((button) => button.classList.remove("active"));
     clickedButton.classList.add("active");
-
     priority = priorityMap[clickedButton.textContent.trim()] || "";
   }
 }
@@ -147,25 +146,26 @@ function saveEdit(iconElement) {
   const inputField = listItem.querySelector("input");
   const newText = inputField.value.trim();
   const subtaskId = inputField.getAttribute("data-id");
-  const subtaskIndex = subTasks.findIndex((subtask) => subtask.id === subtaskId);
-  if (subtaskIndex !== -1) {
-    subTasks[subtaskIndex].text = newText;
+
+  if (subTasks[subtaskId]) {
+    subTasks[subtaskId].text = newText;
   }
 
   const subtaskTextElement = document.createElement("span");
   subtaskTextElement.className = "subtask-text";
   subtaskTextElement.textContent = newText;
   listItem.replaceChild(subtaskTextElement, inputField);
-
   const iconContainer = listItem.querySelector(".list-item-actions");
   iconContainer.innerHTML = getEditAndDeleteIconsTemplate();
 }
 
 function removeSubtask(iconElement) {
   const listItem = iconElement.closest("li");
-  const subtaskId = listItem.dataset.id;
+  const subtaskId = listItem.getAttribute("data-id");
 
-  subTasks = subTasks.filter((subtask) => subtask.id !== subtaskId);
+  if (subTasks[subtaskId]) {
+    delete subTasks[subtaskId];
+  }
 
   listItem.remove();
   checkScrollbar();
@@ -335,7 +335,9 @@ async function createTodo(user = "guest") {
   const category = document.getElementById("category").value;
 
   const subTasksObject = Object.keys(subTasks).reduce((acc, key) => {
-    acc[key] = subTasks[key];
+    if (subTasks[key]) {
+      acc[key] = subTasks[key];
+    }
     return acc;
   }, {});
 
