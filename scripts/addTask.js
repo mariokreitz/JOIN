@@ -248,21 +248,29 @@ function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   document.getElementById("due-date").value = "";
+  document.getElementById("subtasks").value = "";
   document.getElementById("category").value = "Select task category";
   document.getElementById("selected-badges").innerHTML = "";
-  document.getElementById("dropdown-options").innerHTML = "";
-
-  selectedOptions = [];
-  priority = "";
 
   const priorityButtons = document.querySelectorAll(".priority-actions button");
   priorityButtons.forEach((button) => button.classList.remove("active"));
-  const subtasksContainer = document.getElementById("subtask-list");
 
+  const subtasksContainer = document.getElementById("subtask-list");
   if (subtasksContainer) {
     subtasksContainer.innerHTML = "";
   }
 
+  const dropdownOptions = document.querySelectorAll("#dropdown-options li");
+  dropdownOptions.forEach((option) => {
+    const checkbox = option.querySelector(".checkbox");
+    if (checkbox) {
+      checkbox.checked = false;
+      option.classList.remove("selected");
+    }
+  });
+
+  selectedOptions = [];
+  priority = "";
   subTasks = {};
   checkScrollbar();
 }
