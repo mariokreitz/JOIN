@@ -302,10 +302,26 @@ function removeDragAreaHighlighting() {
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
 }
 
+function toggleCardModal() {
+  const modalBackground = document.getElementById("big-card-modal-background");
+  modalBackground.classList.toggle("d_none");
+}
+
+function updateSubTasksDisplay(index) {
+  const todo = globalTodos[index];
+  const renderC = document.getElementById("big-card-modal-background");
+
+  renderC.innerHTML = "";
+  renderC.innerHTML += getTaskCardBigTemplate(todo, index);
+}
+
 function bigCard(index) {
   const todo = globalTodos[index];
-  const renderC = document.getElementById("board-content");
+  const renderC = document.getElementById("big-card-modal-background");
+  renderC.innerHTML = "";
   renderC.innerHTML += getTaskCardBigTemplate(todo, index);
+  toggleCardModal();
+
   console.log(globalTodos);
 }
 
@@ -321,8 +337,7 @@ function closeBigCardEdit() {
 }
 
 function closeTaskCardBig() {
-  const taskCardBig = document.getElementById("big-card-modal");
-  taskCardBig.style.display = "none";
+  toggleCardModal();
 }
 
 function getAssignedMemberColor(assignedMemberName) {
@@ -341,14 +356,12 @@ async function doneSubTask(index, subTaskKey) {
   }
 
   const todosObject = arrayToObject(globalTodos);
-
   const response = await updateTodosInFirebase(todosObject, "guest");
 
   if (response.ok) {
     console.log("aktualisiert");
+    updateSubTasksDisplay(index);
   } else {
     console.error("Fehler", response);
   }
-
-  bigCard(index);
 }
