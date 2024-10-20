@@ -65,7 +65,7 @@
             <div class="form-group priority-group">
               <label>Prio</label>
               <div class="priority-actions">
-                <button onclick="handleButtonClick(event)" type="button" class="prio urgent">
+                <button data-priority="high" onclick="handlePrioChange(event)" type="button" class="prio urgent">
                   Urgent
                   <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -76,7 +76,7 @@
                       fill="#FF3D00" />
                   </svg>
                 </button>
-                <button onclick="handlePrioChange(event)" type="button" class="prio medium">
+                <button data-priority="medium" onclick="handlePrioChange(event)" type="button" class="prio medium">
                   Medium
                   <svg width="21" height="8" viewBox="0 0 21 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -87,7 +87,7 @@
                       fill="#FFA800" />
                   </svg>
                 </button>
-                <button onclick="handlePrioChange(event)" type="button" class="prio low">
+                <button data-priority="low" onclick="handlePrioChange(event)" type="button" class="prio low">
                   Low
                   <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

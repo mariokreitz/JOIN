@@ -9,6 +9,12 @@ async function init() {
   loadComponents();
   await getContactsFromData(API_URL, "guest");
   renderContactDropdown();
+
+  const inputField = document.getElementById("subtasks");
+
+  if (inputField) {
+    inputField.addEventListener("input", handleSubtaskIcons);
+  }
 }
 
 /**
@@ -57,40 +63,23 @@ function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
 
-  const priorityMap = {
-    Urgent: "high",
-    Medium: "medium",
-    Low: "low",
-  };
-
   if (clickedButton.classList.contains("active")) {
     clickedButton.classList.remove("active");
     priority = "";
   } else {
     buttons.forEach((button) => button.classList.remove("active"));
     clickedButton.classList.add("active");
-    priority = priorityMap[clickedButton.textContent.trim()] || "";
+    priority = clickedButton.getAttribute("data-priority");
   }
+}
+
+function toggleElementVisibility(element, isVisible) {
+  element.style.display = isVisible ? "flex" : "none";
 }
 
 function handleSubtaskIcons() {
-  if (inputField.value.trim() === "") {
-    showAddIcon();
-  } else {
-    showSubtaskActions();
-  }
-}
-
-inputField.addEventListener("input", handleSubtaskIcons);
-
-function showSubtaskActions() {
-  addIcon.style.display = "none";
-  subtaskActions.style.display = "flex";
-}
-
-function showAddIcon() {
-  addIcon.style.display = "block";
-  subtaskActions.style.display = "none";
+  toggleElementVisibility(addIcon, inputField.value.trim() === "");
+  toggleElementVisibility(subtaskActions, inputField.value.trim() !== "");
 }
 
 function clearInputField() {
@@ -120,9 +109,9 @@ function addSubtask() {
 
 function createSubtaskListItem(subtaskText, subtaskId) {
   const listItem = document.createElement("li");
-  listItem.innerText = subtaskText;
+  listItem.className = "subtask-item";
   listItem.setAttribute("data-id", subtaskId);
-  listItem.classList.add("subtask-item");
+  listItem.innerText = subtaskText;
   return listItem;
 }
 
@@ -208,20 +197,16 @@ function outsideClickListener(event) {
 }
 
 function filterOptions() {
-  var input = document.getElementById("search");
-  var filter = input.value.toLowerCase();
-  var ul = document.getElementById("dropdown-options");
-  var li = ul.getElementsByTagName("li");
+  const input = document.getElementById("search");
+  const filter = input.value.toLowerCase();
+  const ul = document.getElementById("dropdown-options");
+  const li = ul.getElementsByTagName("li");
 
   ul.classList.add("show");
 
-  for (var i = 0; i < li.length; i++) {
-    var text = li[i].textContent || li[i].innerText;
-    if (text.toLowerCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
+  for (let i = 0; i < li.length; i++) {
+    const text = li[i].textContent || li[i].innerText;
+    li[i].style.display = text.toLowerCase().includes(filter) ? "" : "none";
   }
 }
 
@@ -328,7 +313,7 @@ async function createTodo(user = "guest") {
     await updateTodosInFirebase(todos, user);
     console.log("Todo updated successfully for user:", user);
   } catch (error) {
-    console.error(error.message);
+    alert(`Failed to create a new task: ${error.message}`);
   }
 
   clearForm();
