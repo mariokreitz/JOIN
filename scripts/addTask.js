@@ -1,17 +1,12 @@
 /**
- * Initializes the page by loading the necessary components and rendering
- * the contact list.
- *
- * @returns {Promise<void>} A promise that resolves when the page has been
- * initialized.
+ * Initializes the page by loading components and rendering the contact list.
+ * @returns {Promise<void>} A promise that resolves when the page has been initialized.
  */
 async function init() {
   loadComponents();
   await getContactsFromData(API_URL, "guest");
   renderContactDropdown();
-
   const inputField = document.getElementById("subtasks");
-
   if (inputField) {
     inputField.addEventListener("input", handleSubtaskIcons);
   }
@@ -19,8 +14,6 @@ async function init() {
 
 /**
  * Loads all necessary components into the page.
- *
- * Currently, this function only loads the header and navbar components.
  * @returns {void}
  */
 function loadComponents() {
@@ -30,85 +23,80 @@ function loadComponents() {
 
 /**
  * Loads the header component into the element with the id "header".
- * If no element with that id exists, this function does nothing.
  * @returns {void}
  */
 function loadHeader() {
   const header = document.getElementById("header");
-  if (!header) return;
-
-  header.innerHTML = getHeaderTemplate();
+  if (header) {
+    header.innerHTML = getHeaderTemplate();
+  }
 }
 
 /**
  * Loads the navbar component into the element with the id "navbar".
- * If no element with that id exists, this function does nothing.
- *
  * @returns {void}
  */
 function loadNavbar() {
   const navbar = document.getElementById("navbar");
-  if (!navbar) return;
-  navbar.innerHTML = getNavbarTemplate("add-task");
+  if (navbar) {
+    navbar.innerHTML = getNavbarTemplate("add-task");
+  }
 }
 
 let selectedOptions = [];
-let subTasks = [];
+let subTasks = {};
 let priority = "";
 
 function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
 
-  if (clickedButton.classList.contains("active")) {
-    clickedButton.classList.remove("active");
-    priority = "";
-  } else {
-    buttons.forEach((button) => button.classList.remove("active"));
-    clickedButton.classList.add("active");
-    priority = clickedButton.getAttribute("data-priority");
-  }
-}
-
-function toggleElementVisibility(element, isVisible) {
-  element.style.display = isVisible ? "flex" : "none";
+  buttons.forEach((button) => button.classList.remove("active"));
+  clickedButton.classList.toggle("active");
+  priority = clickedButton.classList.contains("active") ? clickedButton.getAttribute("data-priority") : "";
 }
 
 function handleSubtaskIcons() {
   const inputField = document.getElementById("subtasks");
   const addIcon = document.getElementById("add-icon");
   const subtaskActions = document.getElementById("subtask-actions");
+  const isEmpty = inputField.value.trim() === "";
 
-  if (inputField && addIcon && subtaskActions) {
-    toggleElementVisibility(addIcon, inputField.value.trim() === "");
-    toggleElementVisibility(subtaskActions, inputField.value.trim() !== "");
+  toggleElementVisibility(addIcon, isEmpty);
+  toggleElementVisibility(subtaskActions, !isEmpty);
+}
+
+function toggleElementVisibility(element, isVisible) {
+  if (element) {
+    element.style.display = isVisible ? "flex" : "none";
   }
 }
 
 function clearInputField() {
   const inputField = document.getElementById("subtasks");
+
   if (inputField) {
     inputField.value = "";
     inputField.dispatchEvent(new Event("input"));
   }
 }
 
+function checkScrollbar() {
+  const subtaskList = document.getElementById("subtask-list");
+
+  subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "10px" : "0";
+}
+
 function addSubtask() {
   const inputField = document.getElementById("subtasks");
   const subtaskText = inputField.value.trim();
 
-  if (subtaskText !== "") {
+  if (subtaskText) {
     const subtaskId = "SUBTODO" + Date.now();
-    const subtaskList = document.getElementById("subtask-list");
     const subtaskItem = createSubtaskListItem(subtaskText, subtaskId);
-
+    const subtaskList = document.getElementById("subtask-list");
     subtaskList.appendChild(subtaskItem);
-
-    subTasks[subtaskId] = {
-      state: false,
-      text: subtaskText,
-    };
-
+    subTasks[subtaskId] = { state: false, text: subtaskText };
     clearInputField();
     checkScrollbar();
   }
@@ -129,10 +117,10 @@ function editSubtask(iconElement) {
   const inputField = document.createElement("input");
   inputField.type = "text";
   inputField.value = currentText;
+  inputField.setAttribute("data-id", listItem.dataset.id);
   listItem.replaceChild(inputField, subtaskTextElement);
   const iconContainer = listItem.querySelector(".list-item-actions");
   iconContainer.innerHTML = getAcceptAndDeleteIconsTemplate();
-  inputField.setAttribute("data-id", listItem.dataset.id);
 }
 
 function saveEdit(iconElement) {
@@ -165,36 +153,29 @@ function removeSubtask(iconElement) {
   checkScrollbar();
 }
 
-function checkScrollbar() {
-  const subtaskList = document.getElementById("subtask-list");
-  subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "10px" : "0";
-}
-
 function renderContactDropdown() {
   const dropdownOptions = document.getElementById("dropdown-options");
-  if (!dropdownOptions) return;
 
-  const contactListHtml = generateContactListHtml(globalContacts);
-  dropdownOptions.innerHTML = contactListHtml;
-}
+  if (dropdownOptions) {
+    const contactListHtml = generateContactListHtml(globalContacts);
 
-function toggleDropdown() {
-  var dropdown = document.getElementById("dropdown-options");
-  var icon = document.getElementById("dropdown-icon");
-  var isDropdownOpen = dropdown.classList.toggle("show");
-  icon.classList.toggle("rotated");
-
-  if (isDropdownOpen) {
-    document.addEventListener("click", outsideClickListener);
-  } else {
-    document.removeEventListener("click", outsideClickListener);
+    dropdownOptions.innerHTML = contactListHtml;
   }
 }
 
+function toggleDropdown() {
+  const dropdown = document.getElementById("dropdown-options");
+  const icon = document.getElementById("dropdown-icon");
+  const isDropdownOpen = dropdown.classList.toggle("show");
+
+  icon.classList.toggle("rotated");
+  document[isDropdownOpen ? "addEventListener" : "removeEventListener"]("click", outsideClickListener);
+}
+
 function outsideClickListener(event) {
-  var dropdown = document.getElementById("dropdown-options");
-  var icon = document.getElementById("dropdown-icon");
-  var input = document.getElementById("search");
+  const dropdown = document.getElementById("dropdown-options");
+  const icon = document.getElementById("dropdown-icon");
+  const input = document.getElementById("search");
 
   if (!dropdown.contains(event.target) && !icon.contains(event.target) && !input.contains(event.target)) {
     dropdown.classList.remove("show");
@@ -211,31 +192,29 @@ function filterOptions() {
 
   ul.classList.add("show");
 
-  for (let i = 0; i < li.length; i++) {
-    const text = li[i].textContent || li[i].innerText;
-    li[i].style.display = text.toLowerCase().includes(filter) ? "" : "none";
+  for (let item of li) {
+    const text = item.textContent || item.innerText;
+    item.style.display = text.toLowerCase().includes(filter) ? "" : "none";
   }
 }
 
 function selectOption(option) {
-  var checkbox = option.querySelector(".checkbox");
-  var initials = option.querySelector(".badge").innerText.trim();
-  var id = option.dataset.id;
+  const checkbox = option.querySelector(".checkbox");
+  const initials = option.querySelector(".badge").innerText.trim();
+  const id = option.dataset.id;
+
   checkbox.checked = !checkbox.checked;
-  if (checkbox.checked) {
-    option.classList.add("selected");
-    addBadge(id, initials, option.querySelector(".badge").style.backgroundColor);
-  } else {
-    option.classList.remove("selected");
-    removeBadge(id);
-  }
+  option.classList.toggle("selected", checkbox.checked);
+  checkbox.checked ? addBadge(id, initials, option.querySelector(".badge").style.backgroundColor) : removeBadge(id);
 }
 
 function addBadge(id, initials, color) {
   if (!selectedOptions.includes(id)) {
     selectedOptions.push(id);
-    var badgeContainer = document.getElementById("selected-badges");
-    var badge = document.createElement("div");
+
+    const badgeContainer = document.getElementById("selected-badges");
+    const badge = document.createElement("div");
+
     badge.classList.add("selected-badge");
     badge.setAttribute("data-id", id);
     badge.style.backgroundColor = color;
@@ -246,21 +225,22 @@ function addBadge(id, initials, color) {
 
 function removeBadge(id) {
   selectedOptions = selectedOptions.filter((optionId) => optionId !== id);
-  var badgeContainer = document.getElementById("selected-badges");
-  var badge = badgeContainer.querySelector(`.selected-badge[data-id="${id}"]`);
 
-  if (badge) {
-    badge.remove();
-  }
+  const badgeContainer = document.getElementById("selected-badges");
+  const badge = badgeContainer.querySelector(`.selected-badge[data-id="${id}"]`);
+
+  if (badge) badge.remove();
 }
 
 function removeOption(id) {
-  var option = document.querySelector(`li[data-id="${id}"]`);
+  const option = document.querySelector(`li[data-id="${id}"]`);
+
   if (option) {
-    var checkbox = option.querySelector(".checkbox");
+    const checkbox = option.querySelector(".checkbox");
     checkbox.checked = false;
     option.classList.remove("selected");
   }
+
   removeBadge(id);
 }
 
@@ -273,16 +253,18 @@ function clearForm() {
   document.getElementById("dropdown-options").innerHTML = "";
 
   selectedOptions = [];
-
-  const priorityButtons = document.querySelectorAll(".priority-actions button");
-  priorityButtons.forEach((priorityButtons) => priorityButtons.classList.remove("active"));
   priority = "";
 
+  const priorityButtons = document.querySelectorAll(".priority-actions button");
+  priorityButtons.forEach((button) => button.classList.remove("active"));
   const subtasksContainer = document.getElementById("subtask-list");
+
   if (subtasksContainer) {
     subtasksContainer.innerHTML = "";
   }
-  subTasks = [];
+
+  subTasks = {};
+  checkScrollbar();
 }
 
 async function createTodo(user = "guest") {
