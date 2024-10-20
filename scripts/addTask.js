@@ -183,35 +183,12 @@ function checkScrollbar() {
 }
 
 function renderContactDropdown() {
-  let index = -1;
   const dropdownOptions = document.getElementById("dropdown-options");
   if (!dropdownOptions) return;
 
-  if (globalContacts.length === 0) {
-    dropdownOptions.innerHTML = /*html*/ `
-      <li class="no-contacts">
-        <p>No contacts available to assign.</p>
-      </li>
-    `;
-    return;
-  }
-
   // globalContacts.sort((a, b) => a.name.localeCompare(b.name));
 
-  const contactListHtml = globalContacts
-    .map((contact) => {
-      const initials = getInitialsFromContact(contact);
-      index++;
-      return /*html*/ `
-        <li onclick="selectOption(this)" data-id="${index}">
-          <span class="badge" style="background-color: ${contact.color}">${initials}</span>
-          ${contact.name}
-          <input type="checkbox" class="checkbox" />
-        </li>
-      `;
-    })
-    .join("");
-
+  const contactListHtml = generateContactListHtml(globalContacts);
   dropdownOptions.innerHTML = contactListHtml;
 }
 
