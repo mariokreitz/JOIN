@@ -341,8 +341,8 @@ async function doneSubTask(index, subTaskKey) {
   }
 
   const todosObject = arrayToObject(globalTodos);
-  const guest = "/guest";
-  const response = await updateTodosInFirebase(todosObject, guest);
+
+  const response = await updateTodosInFirebase(todosObject, "guest");
 
   if (response.ok) {
     console.log("aktualisiert");
