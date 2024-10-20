@@ -205,15 +205,21 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   cursor: pointer;
 }
 
-.add-task-content select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url(../svg/arrow-dropdown.svg);
-  background-repeat: no-repeat;
-  background-size: auto auto;
-  background-position: right 10px center;
+.custom-dropdown .select-category {
+  padding: 10px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   cursor: pointer;
+  width: 100%;
+  background: #fff;
+}
+
+.custom-dropdown .select-category:hover .icon-container {
+  background: var(--background-lightGrey);
 }
 
 .clear-btn {
