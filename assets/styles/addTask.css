@@ -116,6 +116,8 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   position: relative;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .add-task-content .input-container input {
@@ -492,6 +494,19 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   position: relative;
   border: 2px solid #fff;
   font-size: 12px;
+}
+
+.warning-text {
+  color: red;
+  font-size: 12px;
+  display: block;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
+
+.add-task-content .form-group:has(.warning-text) {
+  margin-bottom: 25px;
 }
 
 @media (max-width: 1320px) {

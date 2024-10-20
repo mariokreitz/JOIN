@@ -281,6 +281,52 @@ function removeBadge(id) {
   if (badge) badge.remove();
 }
 
+function validateTodoForm() {
+  const titleField = document.getElementById("title");
+  const dueDateField = document.getElementById("due-date");
+  const categoryField = document.getElementById("select-category");
+  let isValid = true;
+  clearWarnings();
+
+  if (!titleField.value.trim()) {
+    isValid = false;
+    showWarning(titleField, "Title is required.");
+  }
+
+  if (!dueDateField.value) {
+    isValid = false;
+    showWarning(dueDateField, "Due date is required.");
+  }
+
+  if (categoryField.textContent.trim() === "Select task category") {
+    isValid = false;
+    showWarning(categoryField, "Category is required.");
+  }
+
+  return isValid;
+}
+
+function showWarning(inputField, message) {
+  if (inputField.tagName === "INPUT") {
+    inputField.style.borderColor = "red";
+    inputField.insertAdjacentHTML("afterend", `<p class="warning-text">${message}</p>`);
+  } else if (inputField.tagName === "DIV") {
+    inputField.style.borderColor = "red";
+    const parentElement = inputField.parentNode;
+    parentElement.insertAdjacentHTML("afterend", `<p class="warning-text">${message}</p>`);
+  }
+
+  setTimeout(() => {
+    inputField.style.borderColor = "";
+    clearWarnings();
+  }, 3000);
+}
+
+function clearWarnings() {
+  const warnings = document.querySelectorAll(".warning-text");
+  warnings.forEach((warning) => warning.remove());
+}
+
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
@@ -316,6 +362,10 @@ function clearForm() {
 }
 
 async function createTodo(user = "guest") {
+  if (!validateTodoForm()) {
+    return;
+  }
+
   const id = "TODO" + Date.now();
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
   const title = document.getElementById("title").value;
