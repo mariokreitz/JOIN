@@ -14,7 +14,7 @@ function generateContactListHtml(contacts) {
         <li onclick="selectOption(this)" data-id="${index}">
           <span class="badge" style="background-color: ${contact.color}">${initials}</span>
           ${contact.name}
-          <input type="checkbox" class="checkbox" />
+          <input type="checkbox" class="checkbox" /><span class="custom-checkbox"></span>
         </li>
       `;
     })

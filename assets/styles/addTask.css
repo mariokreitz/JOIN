@@ -453,6 +453,21 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   background-color: var(--primary);
 }
 
+.custom-dropdown input[type="checkbox"] {
+  display: none;
+}
+
+.custom-dropdown .custom-checkbox {
+  background: url("../svg/checkbox-unselected.svg") no-repeat left center;
+  height: 30px;
+  width: 20px;
+  margin-left: auto;
+}
+
+.custom-dropdown input[type="checkbox"]:checked + .custom-checkbox {
+  background-image: url("../svg/checkbox-selected.svg");
+}
+
 .selected-badges {
   margin-top: 10px;
   display: flex;
