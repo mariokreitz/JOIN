@@ -306,6 +306,7 @@ function bigCard(index) {
   const todo = globalTodos[index];
   const renderC = document.getElementById("board-content");
   renderC.innerHTML += getTaskCardBigTemplate(todo, index);
+  console.log(globalTodos);
 }
 
 function openBigCardModalEdit() {
@@ -329,13 +330,25 @@ function getAssignedMemberColor(assignedMemberName) {
   return contact ? contact.color : undefined;
 }
 
-function doneSubTask(index) {
-  const checkImage = "./assets/img/icons/subtask-non-checked.png";
-  const img = document.getElementById(`subTaskImageChecked${index}`);
+async function doneSubTask(index, subTaskKey) {
+  const currentTodo = globalTodos[index];
 
-  if (img.src === window.location.origin + checkImage) {
-    img.src = "./assets/img/icons/subtask-checked.png";
-  } else {
-    img.src = "./assets/img/icons/subtask-non-checked.png";
+  if (!currentTodo.subTasks) return;
+
+  const subTask = currentTodo.subTasks[subTaskKey];
+  if (subTask) {
+    subTask.state = !subTask.state;
   }
+
+  const todosObject = arrayToObject(globalTodos);
+  const guest = "/guest";
+  const response = await updateTodosInFirebase(todosObject, guest);
+
+  if (response.ok) {
+    console.log("aktualisiert");
+  } else {
+    console.error("Fehler", response);
+  }
+
+  bigCard(index);
 }
