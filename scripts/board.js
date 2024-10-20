@@ -318,17 +318,17 @@ function updateSubTasksDisplay(index) {
 function bigCard(index) {
   const todo = globalTodos[index];
   const renderC = document.getElementById("big-card-modal-background");
+
   renderC.innerHTML = "";
   renderC.innerHTML += getTaskCardBigTemplate(todo, index);
   toggleCardModal();
-
-  console.log(globalTodos);
 }
 
-function openBigCardModalEdit() {
-  const renderC = document.getElementById("board-content");
-  renderC.innerHTML -= getTaskCardBigTemplate();
-  renderC.innerHTML += getTaskCardBigEdit();
+function openBigCardModalEdit(index) {
+  const todo = globalTodos[index];
+  const renderC = document.getElementById("big-card-modal-background");
+  renderC.innerHTML = "";
+  renderC.innerHTML += getTaskCardBigEdit(todo, index);
 }
 
 function closeBigCardEdit() {
