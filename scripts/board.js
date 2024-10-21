@@ -365,3 +365,34 @@ async function doneSubTask(index, subTaskKey) {
     console.error("Fehler", response);
   }
 }
+
+async function editBigCard(index) {
+  const currentTodo = globalTodos[index];
+
+  if (!currentTodo) {
+    console.error(`Todo mit Index ${index} nicht gefunden.`);
+    return;
+  }
+
+  const newTitle = document.getElementById("bc-todo-titel").value;
+  const newDescription = document.getElementById("bc-description-textarea").value;
+  const newDueDate = document.getElementById("bc-duedate-input").value;
+
+  if (!newTitle || !newDescription || !newDueDate) {
+    console.error("Eingaben sind ungültig oder leer.");
+    return;
+  }
+
+  currentTodo.title = newTitle;
+  currentTodo.description = newDescription;
+  currentTodo.date = newDueDate;
+
+  const todosObject = arrayToObject(globalTodos);
+  const response = await updateTodosInFirebase(todosObject, "guest");
+
+  if (response.ok) {
+    console.log("Todo erfolgreich aktualisiert");
+  } else {
+    console.error("Fehler beim Aktualisieren", response);
+  }
+}
