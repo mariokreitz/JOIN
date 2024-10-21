@@ -329,6 +329,19 @@ function openBigCardModalEdit(index) {
   const renderC = document.getElementById("big-card-modal-background");
   renderC.innerHTML = "";
   renderC.innerHTML += getTaskCardBigEdit(todo, index);
+
+  const currentTodo = globalTodos[index];
+  document.getElementById("bc-select-urgent").classList.remove("active");
+  document.getElementById("bc-select-medium").classList.remove("active");
+  document.getElementById("bc-select-low").classList.remove("active");
+
+  if (currentTodo.priority === "high") {
+    document.getElementById("bc-select-urgent").classList.add("active");
+  } else if (currentTodo.priority === "medium") {
+    document.getElementById("bc-select-medium").classList.add("active");
+  } else if (currentTodo.priority === "low") {
+    document.getElementById("bc-select-low").classList.add("active");
+  }
 }
 
 function closeBigCardEdit() {
