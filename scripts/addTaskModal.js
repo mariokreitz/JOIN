@@ -32,10 +32,30 @@ function openAddTaskModal() {
   });
 }
 
-function closeAddTaskModal() {
+function closeAddTaskModal(event) {
+  if (event) event.preventDefault();
+
   const modal = document.getElementById("add-task-modal");
   if (modal) {
-    modal.remove();
+    applyAnimation("slide-out");
+
+    modal.addEventListener("animationend", () => {
+      modal.remove();
+
+      const scriptsToUnload = [
+        "./scripts/addTask.js",
+        "./scripts/templates/subtaskListItem.js",
+        "./scripts/templates/contactlistDropdown.template.js",
+        "./scripts/templates/addTask.template.js",
+      ];
+
+      scriptsToUnload.forEach((src) => {
+        const existingScript = document.querySelector(`script[src="${src}"]`);
+        if (existingScript) {
+          existingScript.parentNode.removeChild(existingScript);
+        }
+      });
+    });
   }
 }
 
