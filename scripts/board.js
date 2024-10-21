@@ -374,6 +374,21 @@ async function editBigCard(index) {
     return;
   }
 
+  const isUrgentSelected = document.getElementById("bc-select-urgent").classList.contains("active");
+  const isMediumSelected = document.getElementById("bc-select-medium").classList.contains("active");
+  const isLowSelected = document.getElementById("bc-select-low").classList.contains("active");
+
+  if (isUrgentSelected) {
+    currentTodo.priority = "high";
+  } else if (isMediumSelected) {
+    currentTodo.priority = "medium";
+  } else if (isLowSelected) {
+    currentTodo.priority = "low";
+  } else {
+    console.error("Keine Priorität ausgewählt");
+    return;
+  }
+
   const newTitle = document.getElementById("bc-todo-titel").value;
   const newDescription = document.getElementById("bc-description-textarea").value;
   const newDueDate = document.getElementById("bc-duedate-input").value;
