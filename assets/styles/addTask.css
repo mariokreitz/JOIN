@@ -408,6 +408,9 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 
 .custom-dropdown .options.show {
   display: block;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
 }
 
 .custom-dropdown .options li {

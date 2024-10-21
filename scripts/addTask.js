@@ -399,6 +399,12 @@ async function createTodo(user = "guest") {
   try {
     await updateTodosInFirebase(todos, user);
     console.log("Todo updated successfully for user:", user);
+
+    // Check if the modal is open and close it if it is
+    const modal = document.getElementById("add-task-modal");
+    if (modal) {
+      closeAddTaskModal();
+    }
   } catch (error) {
     alert(`Failed to create a new task: ${error.message}`);
   }
