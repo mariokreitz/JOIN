@@ -423,3 +423,22 @@ async function editBigCard(index) {
     console.error("Fehler beim Aktualisieren", response);
   }
 }
+
+async function deleteTaskCard(index) {
+  const currentTodo = globalTodos[index];
+
+  if (!currentTodo) {
+    console.error(`${index} nicht gefunden.`);
+    return;
+  }
+
+  globalTodos.splice(index, 1);
+  const todosObject = arrayToObject(globalTodos);
+  const response = await updateTodosInFirebase(todosObject, "guest");
+
+  if (response.ok) {
+    console.log("erfolgreich gelöscht");
+  } else {
+    console.error("Fehler", response);
+  }
+}
