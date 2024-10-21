@@ -345,8 +345,7 @@ function openBigCardModalEdit(index) {
 }
 
 function closeBigCardEdit() {
-  closeContainer = document.getElementById("closeEditContainer");
-  closeContainer.style.display = "none";
+  toggleCardModal();
 }
 
 function closeTaskCardBig() {

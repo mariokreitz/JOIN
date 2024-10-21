@@ -1,4 +1,16 @@
 function getTaskCardBigEdit(todo, index) {
+  const assignedMembersHtml = Object.keys(todo.assignedMembers)
+    .map((key) => {
+      const member = todo.assignedMembers[key];
+      const initials = getInitialsFromContact({ name: member });
+      const color = getAssignedMemberColor(member);
+      return `
+      <div class="assigned-member-initial-wrapper">
+        <div class="bc-card-initial-circle" style="background-color: ${color};"><span>${initials}</span></div>
+      </div>`;
+    })
+    .join("");
+
   return ` <div id="closeEditContainer" class="bigc-main-container">
       <div class="bc-close-container bc-with bc-m-left">
         <button onclick="closeBigCardEdit()"><img src="./assets/img/icons/close.png" /></button>
@@ -55,7 +67,7 @@ function getTaskCardBigEdit(todo, index) {
       <p class="bc-assigned-head bc-m-left">Assigned to</p>
       <div class="dropdown-container">
         <div class="dropdown" id="dropdown" onclick="toggleAssignedDropdown()">
-          <span>Bitte wählen</span>
+          <span>Select contacts to assign</span>
         </div>
         <div class="dropdown-content" id="dropdown-content">
           <div class="dropdown-item">
@@ -76,14 +88,17 @@ function getTaskCardBigEdit(todo, index) {
         </div>
       </div>
 
-      <div class="bc-show-selected-assigned bc-m-left bc-with" id="selected-assigned"></div>
+      <div class="bc-show-selected-assigned bc-m-left bc-with" id="selected-assigned">
+      ${assignedMembersHtml} 
+      </div>
       <div class="bc-subtask-head bc-m-left"><p>Subtasks</p></div>
 
       <div class="bc-input-container bc-m-left">
         <input id="input-subtask-bc" class="bc-input-subtask" type="text" placeholder="Aufgabe hinzufügen" />
         <span onclick="addSubtaskBC()" class="bc-icon">+</span>
       </div>
-      <div class="bc-subtask-list bc-with" id="show-subtask-bc"></div>
+      <div class="bc-subtask-list bc-with" id="show-subtask-bc">
+      </div>
       <button onclick="editBigCard(${index})" class="bc-end-button">
         Ok<svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
