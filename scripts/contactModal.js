@@ -65,16 +65,7 @@ function applyAnimation(animationType) {
   modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
 }
 
-/**
- * Handles the save button click event.
- *
- * If the button text is "Save", calls updateContact with the contact name.
- * If the button text is "Add", calls createContact.
- *
- * @param {Event} event - The click event.
- *
- * @returns {Promise<void>} - A promise that resolves when the operation is complete.
- */
+//TODO: refactore
 async function handleSaveClick(event) {
   event.preventDefault();
 
@@ -91,14 +82,7 @@ async function handleSaveClick(event) {
   }
 }
 
-/**
- * Updates a contact in Firebase Realtime Database.
- *
- * @param {string} contactName The name of the contact to update.
- *
- * @returns {Promise<void>} A promise that resolves when the contact has been
- * updated.
- */
+//TODO: refactore
 async function updateContact(contactName) {
   const contactForm = document.getElementById("contact-form");
 
@@ -114,21 +98,17 @@ async function updateContact(contactName) {
       phone: formData.get("phone"),
     };
 
-    const status = await patchDataInFirebase(API_URL, "guest/contacts", initials, contactIndex, updatedContact);
+    const status = await patchDataInFirebase("guest/contacts", initials, contactIndex, updatedContact);
     showToastMessage("update", status);
 
     closeContactModal();
     renderContactsPage();
+    //TODO: refactore
     await selectLatestCreatedContact();
   }
 }
 
-/**
- * Creates a new contact in Firebase Realtime Database.
- *
- * @returns {Promise<void>} A promise that resolves when the contact has been
- * created.
- */
+//TODO: refactore
 async function createContact() {
   const fullName = document.getElementById("contact-name").value;
   const email = document.getElementById("contact-email").value;
@@ -262,13 +242,7 @@ function showPhoneWarning() {
   }, TIMEOUT);
 }
 
-/**
- * Selects the latest created contact item in the contact list by toggling the
- * contact view.
- *
- * @returns {Promise<void>} A promise that resolves when the contact view has been
- * toggled.
- */
+//TODO: refactore
 async function selectLatestCreatedContact() {
   const latestContact = await getLatestCreatedContact("guest");
   const contactElements = [...document.querySelectorAll(".contact-item")];
@@ -280,6 +254,7 @@ async function selectLatestCreatedContact() {
   toggleContactView(index);
 }
 
+//TODO: refactore
 async function deleteContact(contactName) {
   const initials = getInitialsFromContact({ name: contactName });
   const contactIndex = await getContactIndexByName(contactName, "guest/contacts", initials);
