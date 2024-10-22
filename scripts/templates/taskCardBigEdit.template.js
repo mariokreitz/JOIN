@@ -1,19 +1,21 @@
-function getTaskCardBigEdit(todo, index) {
-  const assignedMembersHtml = Object.keys(todo.assignedMembers)
-    .map((key) => {
-      const member = todo.assignedMembers[key];
-      const initials = getInitialsFromContact({ name: member });
-      const color = getAssignedMemberColor(member);
-      return `
+function getTaskCardBigEditTemplate(todo, index) {
+  const assignedMembersHtml = todo.assignedMembers
+    ? Object.keys(todo.assignedMembers)
+        .map((key) => {
+          const member = todo.assignedMembers[key];
+          const initials = getInitialsFromContact({ name: member });
+          const color = getAssignedMemberColor(member);
+          return `
       <div class="assigned-member-initial-wrapper">
         <div class="bc-card-initial-circle" style="background-color: ${color};"><span>${initials}</span></div>
       </div>`;
-    })
-    .join("");
+        })
+        .join("")
+    : "";
 
   return ` <div id="closeEditContainer" class="bigc-main-container">
       <div class="bc-close-container bc-with bc-m-left">
-        <button onclick="closeBigCardEdit()"><img src="./assets/img/icons/close.png" /></button>
+        <button onclick="openBigCardModal(${index})"><img src="./assets/img/icons/close.png" /></button>
       </div>
       <div class="bc-head bc-m-left"><p>Title</p></div>
       <input id="bc-todo-titel" class="bc-m-left bc-title-input" type="text" value="${todo.title}" />
@@ -21,7 +23,7 @@ function getTaskCardBigEdit(todo, index) {
       <textarea class="bc-m-left" name="" id="bc-description-textarea">${todo.description}</textarea>
       <p class="bc-duedate-head bc-m-left">Due date:</p>
       <div class="bc-duedate-input-containr bc-with bc-m-left">
-        <input id="bc-duedate-input" type="text" value="${formatDueDate(todo.date)}" />
+        <input id="bc-duedate-input" type="date" value="${todo.date}" />
         <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="bc-icon">
           <path
             d="M12.1821 16.3967C11.4821 16.3967 10.8905 16.1551 10.4071 15.6717C9.9238 15.1884 9.68213 14.5967 9.68213 13.8967C9.68213 13.1967 9.9238 12.6051 10.4071 12.1217C10.8905 11.6384 11.4821 11.3967 12.1821 11.3967C12.8821 11.3967 13.4738 11.6384 13.9571 12.1217C14.4405 12.6051 14.6821 13.1967 14.6821 13.8967C14.6821 14.5967 14.4405 15.1884 13.9571 15.6717C13.4738 16.1551 12.8821 16.3967 12.1821 16.3967ZM2.68213 20.3967C2.13213 20.3967 1.6613 20.2009 1.26963 19.8092C0.877962 19.4176 0.682129 18.9467 0.682129 18.3967V4.39673C0.682129 3.84673 0.877962 3.3759 1.26963 2.98423C1.6613 2.59256 2.13213 2.39673 2.68213 2.39673H3.68213V1.39673C3.68213 1.1134 3.77796 0.875895 3.96963 0.684229C4.1613 0.492562 4.3988 0.396729 4.68213 0.396729C4.96546 0.396729 5.20296 0.492562 5.39463 0.684229C5.5863 0.875895 5.68213 1.1134 5.68213 1.39673V2.39673H13.6821V1.39673C13.6821 1.1134 13.778 0.875895 13.9696 0.684229C14.1613 0.492562 14.3988 0.396729 14.6821 0.396729C14.9655 0.396729 15.203 0.492562 15.3946 0.684229C15.5863 0.875895 15.6821 1.1134 15.6821 1.39673V2.39673H16.6821C17.2321 2.39673 17.703 2.59256 18.0946 2.98423C18.4863 3.3759 18.6821 3.84673 18.6821 4.39673V18.3967C18.6821 18.9467 18.4863 19.4176 18.0946 19.8092C17.703 20.2009 17.2321 20.3967 16.6821 20.3967H2.68213ZM2.68213 18.3967H16.6821V8.39673H2.68213V18.3967ZM2.68213 6.39673H16.6821V4.39673H2.68213V6.39673Z"
