@@ -486,7 +486,7 @@ async function doneSubTask(index, subTaskKey) {
   }
 
   const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase(todosObject, "guest");
+  const response = await updateTodosInFirebase("guest", todosObject);
 
   if (response.ok) {
     console.log("aktualisiert");
@@ -533,7 +533,7 @@ async function editBigCard(index) {
   currentTodo.date = newDueDate;
 
   const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase(todosObject, "guest");
+  const response = await updateTodosInFirebase("guest", todosObject);
 
   if (response.ok) {
     console.log("Todo erfolgreich aktualisiert");
