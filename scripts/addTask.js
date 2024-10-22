@@ -1,9 +1,3 @@
-let selectedOptions = [];
-let subTasks = {};
-let priority = "";
-let isCategoryDropdownOpen = false;
-let isContactDropdownOpen = false;
-
 /**
  * Initializes the page by loading components and rendering the contact dropdown.
  * @returns {Promise<void>} A promise that resolves when the page has been initialized.
