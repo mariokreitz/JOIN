@@ -352,7 +352,7 @@ function clearForm() {
     subtasksContainer.innerHTML = "";
   }
 
-  const dropdownOptions = document.querySelectorAll("#dropdown-options li");
+  const dropdownOptions = document.querySelectorAll("#contact-dropdown-options li");
   dropdownOptions.forEach((option) => {
     const checkbox = option.querySelector(".checkbox");
     if (checkbox) {
