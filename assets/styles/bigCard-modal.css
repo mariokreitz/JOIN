@@ -94,8 +94,8 @@
 .big-card-description {
   display: flex;
   margin-top: 24px;
-  margin-bottom: 24px;
   margin-left: 40px;
+  margin-bottom: 16px;
   margin-right: 40px;
   max-width: 445px;
   min-height: 24px;
