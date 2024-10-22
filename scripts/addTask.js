@@ -4,7 +4,7 @@
  */
 async function init() {
   loadComponents();
-  await getContactsFromData(API_URL, "guest");
+  await getContactsFromData("guest");
   document.getElementById("add-task-main").innerHTML = getAddTaskTemplate();
   renderContactDropdown();
 }
@@ -391,11 +391,11 @@ async function createTodo(user = "guest") {
   console.log(todos);
 
   try {
-    await updateTodosInFirebase(todos, user);
+    await updateTodosInFirebase(user, todos);
     console.log("Todo updated successfully for user:", user);
     const modal = document.getElementById("add-task-modal");
     if (modal) {
-      await getTodosFromData(API_URL, "guest");
+      await getTodosFromData("guest");
       clearBoardColumns();
       renderTodos(globalTodos);
       renderAllPlaceholder();
