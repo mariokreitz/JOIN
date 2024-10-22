@@ -556,6 +556,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   .priority-actions {
     flex-direction: column;
   }
+
   .priority-group button {
     justify-content: center;
   }
@@ -565,16 +566,20 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   .priority-actions {
     flex-direction: row;
   }
+
   .priority-group button {
     justify-content: start;
   }
+
   .task-form-container {
     flex-direction: column;
     gap: 0px;
   }
+
   .task-seperator {
     display: none;
   }
+
   .task-left,
   .task-right {
     max-width: unset;
@@ -586,9 +591,11 @@ input[type="date"]:invalid::-webkit-datetime-edit {
     margin-left: 0;
     padding: 20px;
   }
+
   .add-task-content {
-    margin-bottom: 140px;
+    margin-bottom: 160px;
   }
+
   .form-actions-container {
     position: fixed;
     bottom: 80px;
@@ -598,18 +605,25 @@ input[type="date"]:invalid::-webkit-datetime-edit {
     background: var(--background-lightGrey);
     box-shadow: 0px -4px 4px 0px #0000001a;
   }
+
   .add-task-content .form-actions {
     margin-top: 0px;
   }
 }
 
 @media (max-width: 465px) {
+  .add-task-content {
+    margin-bottom: 170px;
+  }
+
   .clear-btn {
     display: none;
   }
+
   .create-btn {
     font-size: 21px;
   }
+
   .check-mark {
     max-height: unset;
     margin-left: 5px;
@@ -621,12 +635,18 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   .priority-actions {
     flex-direction: column;
   }
+
   .priority-group button {
     justify-content: center;
   }
+
   .form-actions-container {
     align-items: center;
     flex-direction: column-reverse;
     gap: 10px;
+  }
+
+  .add-task-content {
+    margin-bottom: 190px;
   }
 }
