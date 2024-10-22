@@ -44,7 +44,7 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">To do</h4>
-                <button>+</button>
+                <button onclick="openAddTaskModal('todo')">+</button>
               </div>
               <div
                 id="board-todo"
@@ -56,7 +56,7 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">In Progress</h4>
-                <button>+</button>
+                <button onclick="openAddTaskModal('progress')">+</button>
               </div>
               <div
                 id="board-progress"
@@ -68,7 +68,7 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Await Feedback</h4>
-                <button>+</button>
+                <button onclick="openAddTaskModal('feedback')">+</button>
               </div>
               <div
                 id="board-feedback"
@@ -80,7 +80,6 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Done</h4>
-                <button>+</button>
               </div>
               <div
                 id="board-done"
