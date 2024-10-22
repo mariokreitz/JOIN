@@ -27,7 +27,7 @@ const textContent = {
    * The text content for the task added operation.
    * @type {string}
    */
-  taskAdded: "Task added to board",
+  taskAdded: `Task added to board <img src="./assets/svg/board-icon.svg">`,
   /**
    * The text content for the sign up success operation.
    * @type {string}

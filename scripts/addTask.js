@@ -416,8 +416,9 @@ async function createTodo() {
   };
 
   try {
-    await updateTodosInFirebase("guest", todos);
+    const status = await updateTodosInFirebase("guest", todos);
     const modal = document.getElementById("add-task-modal");
+    showToastMessage("taskAdded", status);
     if (modal) {
       await getTodosFromData("guest");
       clearBoardColumns();
@@ -426,7 +427,9 @@ async function createTodo() {
       closeAddTaskModal();
     }
   } catch (error) {
-    alert(`Failed to create a new task: ${error.message}`);
+    const response = await updateTodosInFirebase("guest", todos);
+    showToastMessage("error", response);
+    console.log(`Failed to create a new task: ${error.message}`);
   }
 
   clearForm();
