@@ -22,10 +22,10 @@ function openAddTaskModal() {
   document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
 
   const scriptsToLoad = [
-    "../scripts/addTask.js",
-    "../scripts/templates/subtaskListItem.js",
-    "../scripts/templates/contactlistDropdown.template.js",
-    "../scripts/templates/addTask.template.js",
+    "./scripts/addTask.js",
+    "./scripts/templates/subtaskListItem.js",
+    "./scripts/templates/contactlistDropdown.template.js",
+    "./scripts/templates/addTask.template.js",
   ];
 
   loadScripts(scriptsToLoad, () => {
@@ -56,10 +56,10 @@ function closeAddTaskModal(event) {
       modal.remove();
 
       const scriptsToUnload = [
-        "../scripts/addTask.js",
-        "../scripts/templates/subtaskListItem.js",
-        "../scripts/templates/contactlistDropdown.template.js",
-        "../scripts/templates/addTask.template.js",
+        "./scripts/addTask.js",
+        "./scripts/templates/subtaskListItem.js",
+        "./scripts/templates/contactlistDropdown.template.js",
+        "./scripts/templates/addTask.template.js",
       ];
 
       scriptsToUnload.forEach((src) => {
