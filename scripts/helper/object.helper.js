@@ -19,16 +19,34 @@ function objectToArray(obj) {
  * @returns {number} The number of key-value pairs in the object.
  */
 function getObjectLength(obj) {
+  if (!obj) {
+    return 0;
+  }
   return Object.keys(obj).length;
 }
 
 /**
- * Finds the key of the object that contains the given name from the param.
+ * Finds the key in an object whose associated value has a specific 'createdAt' property value.
  *
- * @param {Object} obj - The input object to search in.
- * @param {string} name - The name to search for.
- * @returns {string} The key of the object that contains the given name.
+ * @param {Object} obj - The input object to search through.
+ * @param {string|number} createdAt - The 'createdAt' value to match against the object's values.
+ * @returns {string|undefined} The key in the object whose value has the matching 'createdAt' value, or undefined if not found.
  */
-function findKeyByName(obj, name) {
-  return Object.keys(obj).find((key) => obj[key].name === name);
+function findKeyByCreatedAt(obj, createdAt) {
+  return Object.keys(obj).find((key) => obj[key].createdAt == createdAt);
+}
+
+/**
+ * Converts an array of objects back to an object, using the 'createdAt' property as the key.
+ *
+ * @param {Array<Object>} arr - The input array to convert to an object.
+ * @returns {Object} An object where each key is the 'createdAt' value of the corresponding item in the array.
+ */
+function arrayToObject(arr) {
+  return arr.reduce((acc, item) => {
+    if (item.createdAt) {
+      acc[`TODO${item.createdAt}`] = item;
+    }
+    return acc;
+  }, {});
 }
