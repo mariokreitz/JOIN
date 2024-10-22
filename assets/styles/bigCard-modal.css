@@ -1,0 +1,234 @@
+#big-card-modal {
+  width: 525px;
+  min-height: 900px;
+  border: 1px solid black;
+  border-radius: 30px;
+  transform: scale(0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  background-color: white;
+}
+
+#big-card-modal-background {
+  width: 100%;
+  height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.card-big-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 164px;
+  min-height: 36px;
+  border: 1px solid black;
+  font-size: 23px;
+  border-radius: 8px;
+  color: white;
+}
+
+.technical-task {
+  background-color: #1fd7c1;
+}
+
+.user-story {
+  background-color: #0038ff;
+}
+
+.big-card-modal img {
+  width: 13.3px;
+  height: 13.3px;
+}
+
+.big-card-close-x {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.catogory-close-container {
+  margin-left: 40px;
+  margin-top: 48px;
+  width: 445px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30px;
+}
+
+.big-card-head {
+  margin-top: 24px;
+  margin-left: 40px;
+  width: 445px;
+  min-height: 219px;
+  font-size: 31px;
+  line-height: 73px;
+}
+
+.big-card-description {
+  display: flex;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 24px;
+  width: 445px;
+  min-height: 24px;
+  font-size: 21px;
+}
+
+.big-card-close-x:hover {
+  cursor: pointer;
+}
+
+.big-card-date {
+  margin-left: 40px;
+  width: 445px;
+  min-height: 24px;
+  display: flex;
+  font-size: 21px;
+  margin-top: 24px;
+}
+.big-card-date p {
+  margin-right: 25px;
+}
+
+.user-creatAt-p {
+  margin-left: 25px;
+}
+
+.big-card-priority {
+  display: flex;
+  margin-left: 40px;
+  margin-top: 26px;
+  font-size: 21px;
+}
+
+.big-card-select-prio {
+  margin-left: 47px;
+}
+
+.select-prio-big-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* PRIO SELECT */
+.prio-img {
+  margin-left: 10px;
+  min-width: 17px;
+  min-height: 12.5px;
+}
+
+.prio-img svg {
+  width: 17px;
+  height: 12px;
+}
+
+.big-card-assigned-head {
+  width: 445px;
+  margin-left: 40px;
+  font-size: 21px;
+  margin-top: 24px;
+}
+
+.big-card-assigned-member {
+  display: flex;
+  align-items: center;
+  width: 445px;
+  margin-left: 40px;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.b-card-initial-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: white;
+  margin-left: 16px;
+  font-size: 14px;
+}
+
+.big-card-assigned-name {
+  font-size: 19px;
+}
+
+.assigned-member-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.assigned-member-initial-wrapper {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.bigCard-subtask-head {
+  margin-left: 40px;
+  margin-top: 24px;
+  font-size: 21px;
+}
+
+.bigCard-subtasks-container {
+  width: 445px;
+  margin-left: 40px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+.bigCard-subtasks-container img {
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.bigCard-subtask {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.bigCard-delete-edit-container {
+  display: flex;
+  margin-left: 290px;
+  margin-top: 24px;
+  margin-bottom: 48px;
+  height: 32px;
+  gap: 16px;
+}
+
+.big-card-delete {
+  display: flex;
+  gap: 12px;
+}
+
+.big-card-edit {
+  display: flex;
+  gap: 12px;
+}
+.big-card-edit:hover {
+  cursor: pointer;
+}
+
+.bigCard-edit-delete-divider {
+  height: 24px;
+  width: 1px;
+  border: 1px solid #d1d1d1;
+}

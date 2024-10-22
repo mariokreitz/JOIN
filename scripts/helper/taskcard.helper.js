@@ -71,6 +71,10 @@ function setProgressBarTooltip(taskIndex, taskSubTasks) {
   });
 }
 
+
+function formatDueDate(dueDate) {
+  return new Date(dueDate).toLocaleDateString();
+
 /**
  * Returns a placeholder text for a given column element.
  *

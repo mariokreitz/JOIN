@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="./assets/styles/board.css" />
     <link rel="stylesheet" href="./assets/styles/task-card-small.css" />
     <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
+    <link rel="stylesheet" href="./assets/styles/bigCard-modal-edit.css" />
+    <link rel="stylesheet" href="./assets/styles/bigCard-modal.css" />
     <link rel="stylesheet" href="./assets/styles/addTask.css" />
     <link rel="stylesheet" href="./assets/styles/addTaskModal.css" />
   </head>
@@ -90,7 +92,12 @@
           </div>
         </div>
       </div>
+
+      <div id="big-card-modal-background" class="d_none"></div>
     </main>
+    <script src="./scripts/bigcard-modal-edit.js"></script>
+    <script src="./scripts/templates/taskCardBig.template.js"></script>
+    <script src="./scripts/templates/taskCardBigEdit.template.js"></script>
     <script src="./scripts/config/firebaseConfig.js"></script>
     <script src="./scripts/services/apiService.js"></script>
     <script src="./scripts/helper/initials.helper.js"></script>

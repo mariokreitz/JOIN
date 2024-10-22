@@ -196,3 +196,14 @@ async function updateTodosInFirebase(user, todosObject) {
   });
   return response;
 }
+
+async function deleteTodosInFirebase(user, todoID) {
+  const response = await fetch(`${API_URL}/${user}/todos/${todoID}.json`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) return response;
+  return response;
+}

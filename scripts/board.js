@@ -420,6 +420,145 @@ function removeAllHighlights() {
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
 }
 
+function toggleCardModal() {
+  const modalBackground = document.getElementById("big-card-modal-background");
+  modalBackground.classList.toggle("d_none");
+}
+
+function updateSubTasksDisplay(index) {
+  const todo = globalTodos[index];
+  const renderC = document.getElementById("big-card-modal-background");
+
+  renderC.innerHTML = "";
+  renderC.innerHTML += getTaskCardBigTemplate(todo, index);
+}
+
+function bigCard(index) {
+  const todo = globalTodos[index];
+  const renderC = document.getElementById("big-card-modal-background");
+
+  renderC.innerHTML = "";
+  renderC.innerHTML += getTaskCardBigTemplate(todo, index);
+  toggleCardModal();
+}
+
+function openBigCardModalEdit(index) {
+  const todo = globalTodos[index];
+  const renderC = document.getElementById("big-card-modal-background");
+  renderC.innerHTML = "";
+  renderC.innerHTML += getTaskCardBigEdit(todo, index);
+
+  const currentTodo = globalTodos[index];
+  document.getElementById("bc-select-urgent").classList.remove("active");
+  document.getElementById("bc-select-medium").classList.remove("active");
+  document.getElementById("bc-select-low").classList.remove("active");
+
+  if (currentTodo.priority === "high") {
+    document.getElementById("bc-select-urgent").classList.add("active");
+  } else if (currentTodo.priority === "medium") {
+    document.getElementById("bc-select-medium").classList.add("active");
+  } else if (currentTodo.priority === "low") {
+    document.getElementById("bc-select-low").classList.add("active");
+  }
+}
+
+function closeBigCardEdit() {
+  toggleCardModal();
+}
+
+function closeTaskCardBig() {
+  toggleCardModal();
+}
+
+function getAssignedMemberColor(assignedMemberName) {
+  const contact = globalContacts.find((contact) => contact.name === assignedMemberName);
+  return contact ? contact.color : undefined;
+}
+
+async function doneSubTask(index, subTaskKey) {
+  const currentTodo = globalTodos[index];
+
+  if (!currentTodo.subTasks) return;
+
+  const subTask = currentTodo.subTasks[subTaskKey];
+  if (subTask) {
+    subTask.state = !subTask.state;
+  }
+
+  const todosObject = arrayToObject(globalTodos);
+  const response = await updateTodosInFirebase(todosObject, "guest");
+
+  if (response.ok) {
+    console.log("aktualisiert");
+    updateSubTasksDisplay(index);
+  } else {
+    console.error("Fehler", response);
+  }
+}
+
+async function editBigCard(index) {
+  const currentTodo = globalTodos[index];
+
+  if (!currentTodo) {
+    console.error(`Todo mit Index ${index} nicht gefunden.`);
+    return;
+  }
+
+  const isUrgentSelected = document.getElementById("bc-select-urgent").classList.contains("active");
+  const isMediumSelected = document.getElementById("bc-select-medium").classList.contains("active");
+  const isLowSelected = document.getElementById("bc-select-low").classList.contains("active");
+
+  if (isUrgentSelected) {
+    currentTodo.priority = "high";
+  } else if (isMediumSelected) {
+    currentTodo.priority = "medium";
+  } else if (isLowSelected) {
+    currentTodo.priority = "low";
+  } else {
+    console.error("Keine Priorität ausgewählt");
+    return;
+  }
+
+  const newTitle = document.getElementById("bc-todo-titel").value;
+  const newDescription = document.getElementById("bc-description-textarea").value;
+  const newDueDate = document.getElementById("bc-duedate-input").value;
+
+  if (!newTitle || !newDescription || !newDueDate) {
+    console.error("Eingaben sind ungültig oder leer.");
+    return;
+  }
+
+  currentTodo.title = newTitle;
+  currentTodo.description = newDescription;
+  currentTodo.date = newDueDate;
+
+  const todosObject = arrayToObject(globalTodos);
+  const response = await updateTodosInFirebase(todosObject, "guest");
+
+  if (response.ok) {
+    console.log("Todo erfolgreich aktualisiert");
+  } else {
+    console.error("Fehler beim Aktualisieren", response);
+  }
+}
+
+async function deleteTaskCard(index) {
+  const currentTodo = globalTodos[index];
+
+  if (!currentTodo) {
+    console.error(`${index} nicht gefunden.`);
+    return;
+  }
+
+  const todoID = `TODO${currentTodo.createdAt}`;
+
+  const response = await deleteTodosInFirebase("guest", todoID);
+
+  if (response.ok) {
+    console.log("erfolgreich gelöscht");
+  } else {
+    console.error("Fehler", response);
+  }
 /**
  * Toggles the visibility of the placeholder element within the specified column.
  *
@@ -456,4 +595,5 @@ function removeHollowPlaceholder(elementId) {
   const placeholder = element.querySelector(".drag-area-hollow-placeholder");
   if (!placeholder) return;
   placeholder.classList.add("d_none");
+
 }
