@@ -1,5 +1,6 @@
 .task-card-small {
   background-color: var(--background-white);
+  min-width: 252px;
   width: 252px;
   border-radius: 24px;
   padding: 16px;

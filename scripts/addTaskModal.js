@@ -18,7 +18,8 @@ function loadScripts(scripts, callback) {
   });
 }
 
-function openAddTaskModal() {
+function openAddTaskModal(state = "todo") {
+  globalState = state;
   document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
 
   const scriptsToLoad = [

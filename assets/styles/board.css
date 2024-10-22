@@ -50,30 +50,42 @@ main {
 .board-searchbar-button {
   display: flex;
   align-items: center;
+  gap: 32px;
 }
 
 .board-searchbar-button button {
+  color: var(--text-secondary);
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.board-searchbar-button button div {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 160px;
-  background-color: #2a3647;
-  color: white;
-  font-size: 21px;
-  border-radius: 10px;
-  white-space: nowrap;
-  margin-left: 32px;
-  padding: 10px 24px;
+  width: 32px;
+  height: 32px;
 }
 
-.board-add-task-img {
-  margin-left: 16px;
-  margin-bottom: 2px;
+.board-searchbar-button .button-add-text {
+  white-space: nowrap;
+  flex: 1;
+  font-size: 21px;
+  line-height: 25.2px;
+}
+
+.button-add-svg {
+  height: 19px;
+  width: 19px;
 }
 
 .board-searchbar-button input {
-  width: 100%;
-  height: 48px;
+  width: 312px;
+
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #d1d1d1;
@@ -108,7 +120,7 @@ main {
 .board-input-container::before {
   content: "";
   position: absolute;
-  right: 50px;
+  right: 66px;
   top: 25%;
   bottom: 25%;
   width: 1px;
@@ -152,6 +164,9 @@ main {
 }
 
 .board-todo-head button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   width: 24px;
   height: 24px;
@@ -216,11 +231,39 @@ main {
   .board-task-layout {
     flex-direction: column;
   }
+
   .board-content {
     height: unset;
   }
+
   .board-card-layout {
+    overflow-x: auto;
+    scrollbar-width: none;
     flex-direction: row;
+    padding: 10px;
+  }
+
+  .board-card-layout::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  .board-searchbar-button {
+    margin-left: 32px;
+  }
+
+  .board-searchbar-button button {
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+  }
+
+  .board-searchbar-button .button-add-text {
+    display: none;
+  }
+
+  .board-body {
+    display: block;
   }
 }
 
@@ -228,6 +271,42 @@ main {
   main {
     padding-top: 96px;
     height: 100%;
+  }
+}
+
+@media (max-width: 950px) {
+  .board-head {
+    display: flex;
+    width: 100%;
+  }
+
+  .board-head > h1 {
+    font-size: 47px;
+    line-height: 56.4px;
+  }
+
+  .head-searchbar-button-board {
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .board-searchbar-button button {
+    position: absolute;
+    top: -51px;
+    right: 0;
+  }
+
+  .board-searchbar-button {
+    position: relative;
+    width: 100%;
+  }
+
+  .board-searchbar-button input {
+    width: 100%;
+  }
+
+  .board-searchbar-button {
+    margin: 0;
   }
 }
 
@@ -242,9 +321,14 @@ main {
     padding-bottom: 80px;
   }
 
-  @supports (-webkit-touch-callout: none) {
-    main {
-      padding-bottom: 160px;
-    }
+  .head-searchbar-button-board {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .board-task-layout {
+    margin-left: 16px;
+    margin-right: 16px;
+    gap: 26px;
   }
 }
