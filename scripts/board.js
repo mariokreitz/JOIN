@@ -43,7 +43,7 @@ async function init() {
   getBoardColumnsFromDOM();
   await getContactsFromData("guest");
   await getTodosFromData("guest");
-  loadDemoData();
+  initRender();
 }
 
 /**
@@ -110,11 +110,13 @@ function getBoardColumns() {
 }
 
 /**
- * Loads demo data by rendering the global list of todos onto the board.
+ * Initializes the rendering of the board page by rendering all todos
+ * and placeholder elements. This function is called once, when the page
+ * is loaded.
  *
  * @returns {void}
  */
-async function loadDemoData() {
+function initRender() {
   renderTodos(globalTodos);
   renderAllPlaceholder();
 }
