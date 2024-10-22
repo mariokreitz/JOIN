@@ -316,6 +316,14 @@ function showWarning(inputField, message) {
   }, 3000);
 }
 
+const outsideClickListenerWrapper = (event) => {
+  outsideClickListener(event, "contact-dropdown-options", "dropdown-icon");
+};
+
+const outsideClickListenerWrapperCategory = (event) => {
+  outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
+};
+
 function clearWarnings() {
   const warnings = document.querySelectorAll(".warning-text");
   warnings.forEach((warning) => warning.remove());

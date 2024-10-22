@@ -59,6 +59,9 @@ function closeAddTaskModal(event) {
         }
       });
     });
+
+    document.removeEventListener("click", outsideClickListenerWrapper);
+    document.removeEventListener("click", outsideClickListenerWrapperCategory);
   }
 }
 
