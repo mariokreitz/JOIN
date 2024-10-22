@@ -5,7 +5,7 @@ body {
 
 main {
   padding-left: 232px;
-  height: calc(100% - 96px);
+  height: calc(100vh - 96px);
   max-width: 1920px;
 }
 
