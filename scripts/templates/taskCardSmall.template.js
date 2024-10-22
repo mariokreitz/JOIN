@@ -1,6 +1,6 @@
 function getTaskCardSmallTemplate(index, { category, description, priority, title, subTasks }) {
   return /*html*/ `
-  <div class="task-card-small" id="task-card-small-${index}" draggable="true" ondragstart="startDraggingTodo(${index})">
+  <div class="task-card-small" id="task-card-small-${index}" onclick="bigCard(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">
     <div class="card-small-header ${category === "Technical Task" ? "technical-task" : "user-story"}">
       <p class="inter-extralight">${category}</p>
     </div>
