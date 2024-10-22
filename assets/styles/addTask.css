@@ -346,6 +346,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   display: flex;
   padding-left: 25px;
   min-height: 35px;
+  position: relative;
 }
 
 #subtask-list li::before {
