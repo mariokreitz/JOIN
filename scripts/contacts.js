@@ -7,7 +7,7 @@
  */
 async function init() {
   loadComponents();
-  await getContactsFromData(API_URL, "guest");
+  await getContactsFromData("guest");
   renderContactsPage();
 }
 
@@ -19,7 +19,7 @@ async function init() {
  */
 
 async function renderContactsPage() {
-  await getContactsFromData(API_URL, "guest");
+  await getContactsFromData("guest");
   renderContactList();
 }
 
