@@ -1,23 +1,30 @@
+body {
+  height: unset;
+  min-height: 100vh;
+}
+
 main {
   padding-left: 232px;
   height: calc(100% - 96px);
+  min-height: calc(100vh - 96px);
   max-width: 1920px;
 }
 
 .board-content {
-  height: 100%;
+  height: inherit;
+  min-height: inherit;
   display: flex;
   flex-direction: column;
 }
 
 .board-header {
   display: flex;
-
   height: 200px;
   width: 100%;
 }
 
 .board-body {
+  display: flex;
   flex: 1;
 }
 
@@ -115,7 +122,6 @@ main {
   margin-right: 64px;
   max-width: 100%;
   font-size: 20px;
-  height: 100%;
   padding-bottom: 64px;
 }
 
@@ -135,6 +141,7 @@ main {
   border-radius: 30px;
   height: 244px;
   width: 250px;
+  pointer-events: none;
 }
 
 .board-todo-head {
@@ -190,9 +197,19 @@ main {
   height: 48px;
   color: var(--text-navbar-bottom);
   background-color: #e7e7e7;
-  border: 2px dotted var(--text-navbar-bottom);
+  border: 1px dashed var(--text-navbar-bottom);
   border-radius: 10px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  pointer-events: none;
+  touch-action: none;
+}
+
+.technical-task {
+  background-color: #1fd7c1;
+}
+
+.user-story {
+  background-color: #0038ff;
 }
 
 @media (max-width: 1475px) {
@@ -215,9 +232,6 @@ main {
 }
 
 @media (max-width: 768px) {
-  body {
-    overflow: hidden;
-  }
   main {
     padding-top: 80px;
     padding-left: 0;

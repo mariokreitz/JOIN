@@ -71,6 +71,18 @@ function setProgressBarTooltip(taskIndex, taskSubTasks) {
   });
 }
 
+
 function formatDueDate(dueDate) {
   return new Date(dueDate).toLocaleDateString();
+
+/**
+ * Returns a placeholder text for a given column element.
+ *
+ * @param {Object} columnElement - A column element from the board.
+ * @param {string} columnElement.id - The id of the column element.
+ *
+ * @returns {string} The placeholder text for the column.
+ */
+function getPlaceholderText({ id }) {
+  return `No tasks in ${id.split("-")[1].charAt(0).toUpperCase() + id.split("-")[1].slice(1)}`;
 }

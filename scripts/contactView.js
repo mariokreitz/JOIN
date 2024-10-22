@@ -8,7 +8,6 @@
  * @returns {void}
  */
 function toggleContactView(contactId) {
-  const { deviceType, browserType } = getBrowserInformation();
   const contactItemElement = document.getElementById(`contact-item-${contactId}`);
   const contactViewElement = document.getElementById("contact-view");
   if (contactId === -1) {
@@ -29,140 +28,6 @@ function toggleContactView(contactId) {
     displayContactView(contactViewElement, initials, contact);
   }
   adjustDisplayForScreenSize(contact);
-  setButtonPositionForMobileDevices(deviceType, browserType);
-}
-
-/**
- * Returns an object containing the type of device and browser. The device type
- * can be "ios", "android", "windows", or "other". The browser type can be
- * "chrome", "firefox", "edge", "ie", "safari", or "other".
- *
- * @returns {{ deviceType: string, browserType: string }}
- */
-function getBrowserInformation() {
-  const deviceType = determineDeviceType();
-  const browserType = getBrowserType(deviceType);
-  return { deviceType, browserType };
-}
-
-/**
- * Sets the position of the menu button on mobile devices based on the type of
- * device and browser. This is a workaround for the position: fixed bug in
- * mobile devices, where the position: fixed element is not placed correctly on
- * the screen.
- *
- * @param {string} deviceType - The type of the device. Should be "ios", "android", "windows", or "other".
- * @param {string} browserType - The type of the browser. Should be "safari", "chrome", or "other".
- * @returns {void}
- */
-function setButtonPositionForMobileDevices(deviceType, browserType) {
-  switch (deviceType) {
-    case "ios":
-      setButtonPositionForIOS(deviceType, browserType);
-      break;
-    case "android":
-      setButtonPositionForAndroid(deviceType, browserType);
-      break;
-  }
-}
-
-/**
- * Adjusts the position of the menu button on iOS devices based on the type of browser.
- * This is a workaround for the position: fixed bug in iOS devices, where the
- * position: fixed element is not placed correctly on the screen.
- *
- * @param {string} deviceType - The type of the device. Should be "ios", "android", "windows", or "other".
- * @param {string} browserType - The type of the browser. Should be "safari", "chrome", or "other".
- * @returns {void}
- */
-function setButtonPositionForIOS(deviceType, browserType) {
-  const menuButton = document.getElementById("menuButton");
-
-  if (deviceType === "ios" && browserType === "safari") {
-    menuButton.style.bottom = "100px";
-  }
-
-  if (deviceType === "ios" && browserType === "chrome") {
-    menuButton.style.bottom = "120px";
-  }
-}
-
-/**
- * Adjusts the position of the menu button on Android devices based on the type of
- * browser. This is a workaround for the position: fixed bug in Android devices,
- * where the position: fixed element is not placed correctly on the screen.
- *
- * @param {string} deviceType - The type of the device. Should be "ios",
- *   "android", "windows", or "other".
- * @param {string} browserType - The type of the browser. Should be "chrome" or
- *   "other".
- * @returns {void}
- */
-function setButtonPositionForAndroid(deviceType, browser) {
-  const menuButton = document.getElementById("menuButton");
-
-  if (deviceType === "android") {
-    menuButton.style.bottom = "80px";
-  }
-}
-
-/**
- * Determines the device type by checking the user agent string.
- *
- * @returns {string} The type of the device. Can be "ios", "android", "windows", or "other".
- */
-function determineDeviceType() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  let deviceType;
-
-  if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
-    deviceType = "ios";
-  } else if (userAgent.match(/Android/i)) {
-    deviceType = "android";
-  } else if (userAgent.match(/Windows Phone/i) || userAgent.match(/Windows/i) || userAgent.match(/Win/i)) {
-    deviceType = "windows";
-  } else {
-    deviceType = "other";
-  }
-
-  return deviceType;
-}
-
-function getBrowserType(deviceType) {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  let browserType;
-
-  if (deviceType === "ios") {
-    if (userAgent.match(/CriOS/i)) {
-      browserType = "chrome";
-    } else if (userAgent.match(/FxiOS/i)) {
-      browserType = "firefox";
-    } else {
-      browserType = "safari";
-    }
-  } else if (deviceType === "android") {
-    if (userAgent.match(/Chrome/i)) {
-      browserType = "chrome";
-    } else if (userAgent.match(/Firefox/i)) {
-      browserType = "firefox";
-    } else {
-      browserType = "android";
-    }
-  } else if (deviceType === "windows") {
-    if (userAgent.match(/Edge/i)) {
-      browserType = "edge";
-    } else if (userAgent.match(/Trident/i)) {
-      browserType = "ie";
-    } else if (userAgent.match(/MSIE/i)) {
-      browserType = "ie";
-    } else {
-      browserType = "windows";
-    }
-  } else {
-    browserType = "other";
-  }
-
-  return browserType;
 }
 
 /**
@@ -174,7 +39,7 @@ function deselectContact(contactViewElement) {
   const previouslySelectedElement = document.querySelector(".selected");
   if (previouslySelectedElement) {
     previouslySelectedElement.classList.remove("selected");
-    const previouslySelectedContact = contacts.find(
+    const previouslySelectedContact = globalContacts.find(
       (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
     );
     if (previouslySelectedContact) {

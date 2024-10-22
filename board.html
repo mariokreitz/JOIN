@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
     <link rel="stylesheet" href="./assets/styles/bigCard-modal-edit.css" />
     <link rel="stylesheet" href="./assets/styles/bigCard-modal.css" />
+    <link rel="stylesheet" href="./assets/styles/addTask.css" />
+    <link rel="stylesheet" href="./assets/styles/addTaskModal.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
@@ -31,7 +33,7 @@
                 <input onkeyup="searchTodos(event)" type="text" id="search-task" placeholder="Find Task" />
                 <i class="board-search-icon"><img src="./assets/img/icons/search-icon.png" alt="person icon" /></i>
               </div>
-              <button class="inter-medium">
+              <button class="inter-medium" onclick="openAddTaskModal()">
                 Add Task <img class="board-add-task-img" src="./assets/img/icons/add.png" />
               </button>
             </div>
@@ -47,9 +49,9 @@
               <div
                 id="board-todo"
                 class="board-card-layout"
-                ondrop="onDrop('todo')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight( 'board-todo')"></div>
+                ondrop="onDrop('todo'); removeDragAreaHighlighting('board-todo')"
+                ondragleave="removeDragAreaHighlighting('board-todo')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-todo')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
@@ -59,9 +61,9 @@
               <div
                 id="board-progress"
                 class="board-card-layout"
-                ondrop="onDrop('progress')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight('board-progress')"></div>
+                ondrop="onDrop('progress'); removeDragAreaHighlighting('board-progress')"
+                ondragleave="removeDragAreaHighlighting('board-progress')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-progress')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
@@ -71,9 +73,9 @@
               <div
                 id="board-feedback"
                 class="board-card-layout"
-                ondrop="onDrop('feedback')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight('board-feedback')"></div>
+                ondrop="onDrop('feedback'); removeDragAreaHighlighting('board-feedback')"
+                ondragleave="removeDragAreaHighlighting('board-feedback')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-feedback')"></div>
             </div>
             <div class="board-todo-column">
               <div class="board-todo-head">
@@ -83,9 +85,9 @@
               <div
                 id="board-done"
                 class="board-card-layout"
-                ondrop="onDrop('done')"
-                ondragleave="removeDragAreaHighlighting()"
-                ondragover="allowDrop(event); addDragAreaHighlight('board-done')"></div>
+                ondrop="onDrop('done'); removeDragAreaHighlighting('board-done')"
+                ondragleave="removeDragAreaHighlighting('board-done')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-done')"></div>
             </div>
           </div>
         </div>
@@ -108,5 +110,8 @@
     <script src="./scripts/templates/toastMessage.template.js"></script>
     <script src="./scripts/board.js"></script>
     <script src="./scripts/toastMessage.js"></script>
+    <script src="./scripts/addTaskGlobals.js"></script>
+    <script src="./scripts/templates/addTaskModal.template.js"></script>
+    <script src="./scripts/addTaskModal.js"></script>
   </body>
 </html>

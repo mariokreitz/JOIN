@@ -1,7 +1,7 @@
 function getTaskCardSmallTemplate(index, { category, description, priority, title, subTasks }) {
   return /*html*/ `
-  <div class="task-card-small" draggable="true" ondragstart="onDragStart(${index})" onclick="bigCard(${index})">
-    <div class="card-small-header" style="background-color:${category === "Technical Task" ? "#1FD7C1" : "#0038ff"}">
+  <div class="task-card-small" id="task-card-small-${index}" draggable="true" ondragstart="startDraggingTodo(${index})">
+    <div class="card-small-header ${category === "Technical Task" ? "technical-task" : "user-story"}">
       <p class="inter-extralight">${category}</p>
     </div>
       <div class="card-small-body">
@@ -46,5 +46,17 @@ function getTaskCardSmallTemplate(index, { category, description, priority, titl
 function getAssignedMemberTemplate(color = "red", initials = "?") {
   return /*html*/ `
     <div class="card-mall-assigend-member-badge" style="background-color: ${color}">${initials}</div>
+  `;
+}
+
+/**
+ * Returns an HTML string representing a hollow drag area placeholder, used to
+ * indicate a place where a task card can be dragged to.
+ *
+ * @returns {string} An HTML string representing the hollow drag area placeholder.
+ */
+function getDragAreaHollowPlaceholder() {
+  return /*html*/ `
+    <div class="drag-area-hollow-placeholder d_none"></div>
   `;
 }
