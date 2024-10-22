@@ -43,8 +43,22 @@ function closeAddTaskModal(event) {
     applyAnimation("slide-out");
 
     modal.addEventListener("animationend", () => {
+      // Remove event listeners related to dropdowns
+      document.removeEventListener("click", outsideClickListenerWrapper);
+      document.removeEventListener("click", outsideClickListenerWrapperCategory);
+
+      // Remove the outside click listener if needed
+      document.removeEventListener("click", (e) =>
+        outsideClickListener(e, "contact-dropdown-options", "dropdown-icon")
+      );
+      document.removeEventListener("click", (e) =>
+        outsideClickListener(e, "category-dropdown-options", "category-dropdown-icon")
+      );
+
+      // Remove the modal from the DOM
       modal.remove();
 
+      // Unload scripts
       const scriptsToUnload = [
         "../scripts/addTask.js",
         "../scripts/templates/subtaskListItem.js",
@@ -59,9 +73,6 @@ function closeAddTaskModal(event) {
         }
       });
     });
-
-    document.removeEventListener("click", outsideClickListenerWrapper);
-    document.removeEventListener("click", outsideClickListenerWrapperCategory);
   }
 }
 

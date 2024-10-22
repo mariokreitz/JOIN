@@ -164,13 +164,15 @@ function toggleContactListDropdown(event) {
   const dropdown = document.getElementById("contact-dropdown-options");
   const icon = document.getElementById("dropdown-icon");
 
-  dropdown.classList.toggle("show");
-  icon.classList.toggle("rotated");
+  if (dropdown && icon) {
+    dropdown.classList.toggle("show");
+    icon.classList.toggle("rotated");
 
-  if (dropdown.classList.contains("show")) {
-    document.addEventListener("click", outsideClickListenerWrapper);
-  } else {
-    document.removeEventListener("click", outsideClickListenerWrapper);
+    if (dropdown.classList.contains("show")) {
+      document.addEventListener("click", outsideClickListenerWrapper);
+    } else {
+      document.removeEventListener("click", outsideClickListenerWrapper);
+    }
   }
 
   function outsideClickListenerWrapper(event) {
@@ -202,11 +204,21 @@ function outsideClickListener(event, dropdownId, iconId) {
   var icon = document.getElementById(iconId);
   var input = document.getElementById("search");
 
-  if (!dropdown.contains(event.target) && !icon.contains(event.target) && !input.contains(event.target)) {
-    dropdown.classList.remove("show");
-    icon.classList.remove("rotated");
-    document.removeEventListener("click", (e) => outsideClickListener(e, dropdownId, iconId));
+  if (dropdown && icon) {
+    if (!dropdown.contains(event.target) && !icon.contains(event.target) && !input.contains(event.target)) {
+      dropdown.classList.remove("show");
+      icon.classList.remove("rotated");
+      document.removeEventListener("click", (e) => outsideClickListener(e, dropdownId, iconId));
+    }
   }
+}
+
+function outsideClickListenerWrapper(event) {
+  outsideClickListener(event, "contact-dropdown-options", "dropdown-icon");
+}
+
+function outsideClickListenerWrapperCategory(event) {
+  outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
 }
 
 function filterOptions() {
@@ -315,14 +327,6 @@ function showWarning(inputField, message) {
     clearWarnings();
   }, 3000);
 }
-
-const outsideClickListenerWrapper = (event) => {
-  outsideClickListener(event, "contact-dropdown-options", "dropdown-icon");
-};
-
-const outsideClickListenerWrapperCategory = (event) => {
-  outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
-};
 
 function clearWarnings() {
   const warnings = document.querySelectorAll(".warning-text");
