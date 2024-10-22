@@ -432,9 +432,9 @@ async function deleteTaskCard(index) {
     return;
   }
 
-  globalTodos.splice(index, 1);
-  const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase(todosObject, "guest");
+  const todoID = `TODO${currentTodo.createdAt}`;
+
+  const response = await deleteTodosInFirebase("guest", todoID);
 
   if (response.ok) {
     console.log("erfolgreich gelöscht");
