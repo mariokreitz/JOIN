@@ -41,8 +41,8 @@ let { todoColumn, progressColumn, feedbackColumn, doneColumn } = {};
 async function init() {
   loadComponents();
   getBoardColumnsFromDOM();
-  await getContactsFromData(API_URL, "guest");
-  await getTodosFromData(API_URL, "guest");
+  await getContactsFromData("guest");
+  await getTodosFromData("guest");
   loadDemoData();
 }
 
