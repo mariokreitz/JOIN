@@ -387,7 +387,8 @@ async function createTodo() {
     return;
   }
 
-  const id = "TODO" + Date.now();
+  const dateNow = Date.now();
+  const id = "TODO" + dateNow;
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;
@@ -405,7 +406,7 @@ async function createTodo() {
     [id]: {
       assignedMembers: assignedMembers,
       category: category,
-      createdAt: Date.now(),
+      createdAt: dateNow,
       date: dueDate,
       description: description,
       priority: priority,
