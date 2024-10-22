@@ -127,6 +127,11 @@ function saveEdit(iconElement) {
   const newText = inputField.value.trim();
   const subtaskId = inputField.getAttribute("data-id");
 
+  if (!newText) {
+    removeSubtask(iconElement);
+    return;
+  }
+
   if (subTasks[subtaskId]) {
     subTasks[subtaskId].text = newText;
   }
