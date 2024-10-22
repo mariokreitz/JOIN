@@ -1,3 +1,19 @@
+/**
+ * Returns a string of HTML for a small task card with the given parameters.
+ *
+ * The returned HTML will be a div with the class "task-card-small" and the given index as its ID.
+ * It will have a header with the category, a body with the title, description, and a progress bar
+ * if there are subtasks, and a footer with the assigned members and a priority icon.
+ *
+ * @param {number} index - The index of the task card in the global todos array.
+ * @param {object} task - The task object from the global todos array.
+ * @param {string} task.category - The category of the task, either "Technical Task" or "User Story".
+ * @param {string} task.description - The description of the task.
+ * @param {string} task.priority - The priority of the task, either "high", "medium", or "low".
+ * @param {string} task.title - The title of the task.
+ * @param {object} task.subTasks - The subtasks object of the task.
+ * @returns {string} - The HTML string for the small task card.
+ */
 function getTaskCardSmallTemplate(index, { category, description, priority, title, subTasks }) {
   return /*html*/ `
   <div class="task-card-small" id="task-card-small-${index}" onclick="openBigCardModal(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">

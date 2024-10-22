@@ -197,6 +197,13 @@ async function updateTodosInFirebase(user, todosObject) {
   return response;
 }
 
+/**
+ * Deletes the todo with the given todoID from the Firebase Realtime Database.
+ *
+ * @param {string} user - The user whose todo is to be deleted.
+ * @param {string} todoID - The ID of the todo to be deleted.
+ * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
+ */
 async function deleteTodosInFirebase(user, todoID) {
   const response = await fetch(`${API_URL}/${user}/todos/${todoID}.json`, {
     method: "DELETE",
