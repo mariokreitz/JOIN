@@ -26,14 +26,14 @@ function getObjectLength(obj) {
 }
 
 /**
- * Finds the key of the object that contains the given name from the param.
+ * Finds the key in an object whose associated value has a specific 'createdAt' property value.
  *
- * @param {Object} obj - The input object to search in.
- * @param {string} name - The name to search for.
- * @returns {string} The key of the object that contains the given name.
+ * @param {Object} obj - The input object to search through.
+ * @param {string|number} createdAt - The 'createdAt' value to match against the object's values.
+ * @returns {string|undefined} The key in the object whose value has the matching 'createdAt' value, or undefined if not found.
  */
-function findKeyByName(obj, name) {
-  return Object.keys(obj).find((key) => obj[key].name === name);
+function findKeyByCreatedAt(obj, createdAt) {
+  return Object.keys(obj).find((key) => obj[key].createdAt == createdAt);
 }
 
 /**

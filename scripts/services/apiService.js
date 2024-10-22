@@ -56,12 +56,19 @@ async function getTodosFromData(user) {
   globalTodos = objectToArray(data[user].todos);
 }
 
-//TODO: refactore
-async function getContactIndexByName(contactName, path, initials) {
-  const contacts = await fetchData(`${API_URL}/${path}.json`);
-
+/**
+ * Given the 'createdAt' property of a contact and a user, returns the
+ * id of the contact in the Firebase Realtime Database.
+ *
+ * @param {string|number} createdAt - The 'createdAt' property of the contact.
+ * @param {string} user - The user whose contacts are to be searched.
+ * @returns {Promise<string|undefined>} A promise that resolves with the
+ * id of the contact if found, or undefined if not found.
+ */
+async function getContactIdByCreatedAt(user, createdAt) {
+  const contacts = await fetchData(`${API_URL}/${user}/contacts.json`);
   if (!contacts) return;
-  return findKeyByName(contacts, contactName).replace(`${initials}`, "");
+  return findKeyByCreatedAt(contacts, createdAt);
 }
 
 /**
@@ -98,18 +105,23 @@ async function getDataFromFirebase() {
   return data;
 }
 
-//TODO: refactore
-async function patchDataInFirebase(path, initials, contactId, data) {
-  if (contactId === -1) return Promise.reject(new Error(`No contact with id ${contactId} found in Firebase.`));
-  const response = await fetch(`${API_URL}/${path}/${initials}${contactId}.json`, {
+/**
+ * Updates the data of a specific contact in the Firebase Realtime Database.
+ *
+ * @param {string} user - The user whose contact data is being updated.
+ * @param {string} contactID - The ID of the contact to be updated.
+ * @param {Object} data - The new data to be patched into the contact.
+ * @returns {Promise<Response>} A promise that resolves with the response from the patch request.
+ */
+async function updateContactInDatabase(user, contactID, data) {
+  const response = await fetch(`${API_URL}/${user}/contacts/${contactID}.json`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-  if (response.ok) return response;
-  return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
+  return response;
 }
 
 /**
@@ -135,7 +147,7 @@ async function checkIfDuplicate(email, phone, contacts) {
  * @param {string} user - The user to add the contact for.
  * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
  */
-async function putDataInFirebase(newContact, user) {
+async function createContactInDatabase(user, newContact) {
   const data = await getDataFromFirebase();
   if (!data) return;
   const contacts = objectToArray(data[user].contacts);
@@ -150,41 +162,31 @@ async function putDataInFirebase(newContact, user) {
     },
     body: JSON.stringify(newContact),
   });
-  if (response.ok) return response;
   return response;
 }
 
 /**
- * Deletes the data at the specified endpoint in the Firebase Realtime Database.
+ * Deletes the contact with the given contactID from the Firebase Realtime Database.
  *
- * @param {string} apiUrl - The URL of the Firebase Realtime Database.
- * @param {string} endpoint - The path to the data to be deleted in the Firebase
- *   Realtime Database.
- * @returns {Promise<Response>} A promise that resolves with the response from the
- *   server or rejects with an error if the response from the server was not OK.
- * @throws {Error} If the URL is invalid or the response from the server was not OK.
+ * @param {string} user - The user whose contact is to be deleted.
+ * @param {string} contactID - The ID of the contact to be deleted.
+ * @returns {Promise<Response>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
  */
-async function deleteDataInFirebase(apiUrl, endpoint) {
-  const response = await fetch(`${apiUrl}/${endpoint}.json`, {
+async function deleteContactFromDatabase(user, contactID) {
+  const response = await fetch(`${API_URL}/${user}/contacts/${contactID}.json`, {
     method: "DELETE",
   });
-
-  if (response.ok) return response;
-
   return response;
 }
 
 /**
- * Patches the todos object in the Firebase Realtime Database with the given data.
+ * Patches the todos object in the Firebase Realtime Database.
  *
- * @param {Object} todosObject - The data to patch the todos object with.
- * @param {string} user - The user whose todos object is to be patched.
- * @returns {Promise<Response>} A promise that resolves with the response from the
- *   server if the patch was successful, or rejects with an error if the response
- *   from the server was not OK.
- * @throws {Error} If the URL is invalid or the response from the server was not OK.
+ * @param {Object} todosObject - The object containing the todos to be updated.
+ * @param {string} user - The user whose todos are to be updated.
+ * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
  */
-async function updateTodosInFirebase(todosObject, user) {
+async function updateTodosInFirebase(user, todosObject) {
   const response = await fetch(`${API_URL}/${user}/todos/.json`, {
     method: "PATCH",
     headers: {
@@ -192,6 +194,5 @@ async function updateTodosInFirebase(todosObject, user) {
     },
     body: JSON.stringify(todosObject),
   });
-  if (response.ok) return response;
   return response;
 }
