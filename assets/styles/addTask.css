@@ -587,12 +587,33 @@ input[type="date"]:invalid::-webkit-datetime-edit {
     padding: 20px;
   }
   .add-task-content {
-    margin-bottom: 100px;
+    margin-bottom: 140px;
   }
   .form-actions-container {
-    align-items: center;
-    flex-direction: column-reverse;
-    gap: 20px;
+    position: fixed;
+    bottom: 80px;
+    width: 100%;
+    left: 0;
+    padding: 20px;
+    background: var(--background-lightGrey);
+    box-shadow: 0px -4px 4px 0px #0000001a;
+  }
+  .add-task-content .form-actions {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 465px) {
+  .clear-btn {
+    display: none;
+  }
+  .create-btn {
+    font-size: 21px;
+  }
+  .check-mark {
+    max-height: unset;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 }
 
@@ -602,5 +623,10 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   }
   .priority-group button {
     justify-content: center;
+  }
+  .form-actions-container {
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 10px;
   }
 }
