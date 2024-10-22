@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: clamp(280px, 90%, 525px);
-  height: clamp(350px, 85%, 750px);
+  height: clamp(350px, 90%, 850px);
   box-shadow: 0px 0px 4px 0px #00000029;
   border-radius: 30px;
   position: absolute;
@@ -11,7 +11,7 @@
   transform: translate(-50%, -50%);
   z-index: 99;
   background-color: white;
-  gap: 24px;
+  gap: 18px;
 }
 
 #big-card-modal-background {
@@ -75,12 +75,14 @@
 .big-card-head {
   margin-left: 40px;
   margin-right: 20px;
+  margin-top: 24px;
+  margin-bottom: 24px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 445px;
-  min-height: 48px;
-  font-size: 31px;
-  line-height: 73px;
+  min-height: 36px;
+  font-size: 26px;
+  line-height: 50px;
 }
 
 .big-card-head h1 {
@@ -91,6 +93,8 @@
 
 .big-card-description {
   display: flex;
+  margin-top: 24px;
+  margin-bottom: 24px;
   margin-left: 40px;
   margin-right: 40px;
   max-width: 445px;
@@ -189,7 +193,7 @@
 
 .bigCard-subtask-head {
   margin-left: 40px;
-  margin-top: 24px;
+  margin-top: 18px;
   font-size: 21px;
 }
 
@@ -197,7 +201,6 @@
   max-width: 445px;
   margin-left: 40px;
   margin-top: 8px;
-
   display: flex;
   flex-direction: column;
   font-size: 18px;
