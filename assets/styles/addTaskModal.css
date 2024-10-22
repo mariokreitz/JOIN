@@ -47,6 +47,10 @@
   max-height: 180px;
 }
 
+#add-task-modal input {
+  margin-top: unset;
+}
+
 @keyframes slide-in {
   from {
     transform: translateX(100%);

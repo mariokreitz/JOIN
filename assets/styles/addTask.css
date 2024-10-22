@@ -400,6 +400,10 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   border-bottom: 1px solid var(--secondary);
 }
 
+#subtask-list li:has(input):hover {
+  background: unset;
+}
+
 .add-task-content option:disabled {
   display: none;
 }
