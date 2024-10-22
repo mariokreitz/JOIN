@@ -1,9 +1,10 @@
 #big-card-modal {
-  width: 525px;
-  min-height: 900px;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  width: clamp(280px, 90%, 525px);
+  height: clamp(600px, 85%, 750px);
+  box-shadow: 0px 0px 4px 0px #00000029;
   border-radius: 30px;
-  transform: scale(0.5);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -14,7 +15,7 @@
 
 #big-card-modal-background {
   width: 100%;
-  height: 100dvh;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -25,12 +26,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 164px;
+  text-align: start;
+  min-width: 164px;
   min-height: 36px;
-  border: 1px solid black;
+  text-wrap: nowrap;
   font-size: 23px;
   border-radius: 8px;
   color: white;
+}
+
+.card-big-header h4 {
+  padding-right: 25px;
+  padding-left: 25px;
 }
 
 .technical-task {
@@ -57,7 +64,7 @@
 .catogory-close-container {
   margin-left: 40px;
   margin-top: 48px;
-  width: 445px;
+  max-width: 445px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -67,10 +74,19 @@
 .big-card-head {
   margin-top: 24px;
   margin-left: 40px;
-  width: 445px;
-  min-height: 219px;
+  margin-right: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 445px;
+  min-height: 48px;
   font-size: 31px;
   line-height: 73px;
+}
+
+.big-card-head h1 {
+  word-break: break-word;
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .big-card-description {
@@ -78,7 +94,7 @@
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 24px;
-  width: 445px;
+  max-width: 445px;
   min-height: 24px;
   font-size: 21px;
 }
@@ -89,7 +105,7 @@
 
 .big-card-date {
   margin-left: 40px;
-  width: 445px;
+  max-width: 445px;
   min-height: 24px;
   display: flex;
   font-size: 21px;
@@ -122,14 +138,11 @@
 
 /* PRIO SELECT */
 .prio-img {
+  display: flex;
+  align-items: center;
   margin-left: 10px;
   min-width: 17px;
   min-height: 12.5px;
-}
-
-.prio-img svg {
-  width: 17px;
-  height: 12px;
 }
 
 .big-card-assigned-head {
@@ -142,7 +155,7 @@
 .big-card-assigned-member {
   display: flex;
   align-items: center;
-  width: 445px;
+  max-width: 445px;
   margin-left: 40px;
   margin-top: 16px;
   gap: 16px;
@@ -183,9 +196,10 @@
 }
 
 .bigCard-subtasks-container {
-  width: 445px;
+  max-width: 445px;
   margin-left: 40px;
   margin-top: 8px;
+
   display: flex;
   flex-direction: column;
   font-size: 18px;
@@ -207,9 +221,10 @@
 
 .bigCard-delete-edit-container {
   display: flex;
-  margin-left: 290px;
+  margin-left: clamp(35%, 55%, 65%);
   margin-top: 24px;
-  margin-bottom: 48px;
+  margin-bottom: clamp(28px, 32px, 48px);
+
   height: 32px;
   gap: 16px;
 }
@@ -217,6 +232,7 @@
 .big-card-delete {
   display: flex;
   gap: 12px;
+  cursor: pointer;
 }
 
 .big-card-edit {
@@ -231,4 +247,18 @@
   height: 24px;
   width: 1px;
   border: 1px solid #d1d1d1;
+}
+
+.b-gray-color {
+  color: #42526e;
+}
+
+@media (max-width: 768px) {
+  .big-card-head h1 {
+    font-size: 40px;
+  }
+
+  #big-card-modal p {
+    font-size: 18px;
+  }
 }

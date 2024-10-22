@@ -27,7 +27,7 @@ function getTaskCardBigTemplate(todo, index) {
   return `
     <div id="big-card-modal" onclick="event.stopPropagation()">
       <div class="catogory-close-container">
-        <div class="card-big-header" style="background-color: ${
+        <div class="card-big-header inter-extralight" style="background-color: ${
           todo.category === "Technical Task" ? "#1FD7C1" : "#0038ff"
         }">
           <h4 class="inter-extralight">${todo.category}</h4>
@@ -36,19 +36,19 @@ function getTaskCardBigTemplate(todo, index) {
           <img onclick="closeTaskCardBig()" src="./assets/img/icons/close.png" />
         </div>
       </div>
-      <div class="big-card-head">
+      <div class="big-card-head inter-medium">
         <h1>${todo.title}</h1>
       </div>
-      <div class="big-card-description">
+      <div class="big-card-description inter-extralight">
         <p>${todo.description}</p>
       </div>
       <div class="big-card-creatAT">
-        <div class="big-card-date">
-          <p>Due date:</p>
+        <div class="big-card-date inter-extralight">
+          <p class="b-gray-color">Due date:</p>
           <p class="user-createdAt-p">${formatDueDate(todo.date)}</p>
         </div>
-        <div class="big-card-priority">
-          <p>Priority:</p>
+        <div class="big-card-priority inter-extralight">
+          <p class="b-gray-color">Priority:</p>
           <div class="select-prio-big-card">
             <span class="big-card-select-prio">${todo.priority}</span>
             <div class="prio-img">${
@@ -60,18 +60,18 @@ function getTaskCardBigTemplate(todo, index) {
             }</div>
           </div>
         </div>
-      <div class="big-card-assigned-head"><p>Assigned to:</p></div>
+      <div class="big-card-assigned-head b-gray-color inter-extralight"><p>Assigned to:</p></div>
         <div class="big-card-assigned-member">
-          <div class="assigned-member-wrapper">
+          <div class="assigned-member-wrapper inter-extralight">
             ${assignedMembersHtml} 
             </div>
           </div>
         </div>
-      <div class="bigCard-subtask-head"><p>Subtasks</p></div>
-      <div class="bigCard-subtasks-container">
+      <div class="bigCard-subtask-head"><p class="b-gray-color">Subtasks</p></div>
+      <div class="bigCard-subtasks-container inter-extralight">
         ${subTasksHtml} 
       </div>
-      <div class="bigCard-delete-edit-container">
+      <div class="bigCard-delete-edit-container inter-extralight">
         <div onclick="deleteTaskCard(${index})" class="big-card-delete">
           <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
