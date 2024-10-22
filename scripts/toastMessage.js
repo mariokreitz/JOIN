@@ -43,6 +43,16 @@ const textContent = {
    * @type {string}
    */
   exists: "Email/Phone already exists",
+  /**
+   * The text content for the todo deleted operation.
+   * @type {string}
+   */
+  todoDeleted: "Todo successfully deleted",
+  /**
+   * The text content for the todo updated operation.
+   * @type {string}
+   */
+  todoUpdated: "Todo successfully updated",
 };
 
 /**
