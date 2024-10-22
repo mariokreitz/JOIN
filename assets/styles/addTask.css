@@ -563,6 +563,10 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 }
 
 @media (max-width: 920px) {
+  .add-task-content h1 {
+    font-size: 47px;
+  }
+
   .priority-actions {
     flex-direction: row;
   }
