@@ -367,7 +367,7 @@ function clearForm() {
   checkScrollbar();
 }
 
-async function createTodo(user = "guest") {
+async function createTodo() {
   if (!validateTodoForm()) {
     return;
   }
@@ -394,14 +394,14 @@ async function createTodo(user = "guest") {
       date: dueDate,
       description: description,
       priority: priority,
-      state: "todo",
+      state: globalState,
       subTasks: subTasksObject,
       title: title,
     },
   };
 
   try {
-    await updateTodosInFirebase(user, todos);
+    await updateTodosInFirebase("guest", todos);
     const modal = document.getElementById("add-task-modal");
     if (modal) {
       await getTodosFromData("guest");
