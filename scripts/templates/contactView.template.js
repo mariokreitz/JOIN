@@ -7,7 +7,7 @@
  *   - An object containing the color, name, email, and phone of the contact.
  * @returns {string} An HTML string representing the contact card.
  */
-function getContactViewTemplate(initials, { color, name, email, phone }) {
+function getContactViewTemplate(initials, { createdAt, color, name, email, phone }) {
   return /*html*/ `
         <div class="contact-main-card">
             <div class="contact-main-header">
@@ -22,7 +22,7 @@ function getContactViewTemplate(initials, { color, name, email, phone }) {
                             <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.5 17H3.9L12.525 8.375L11.125 6.975L2.5 15.6V17ZM16.8 6.925L12.55 2.725L13.95 1.325C14.3333 0.941667 14.8042 0.75 15.3625 0.75C15.9208 0.75 16.3917 0.941667 16.775 1.325L18.175 2.725C18.5583 3.10833 18.7583 3.57083 18.775 4.1125C18.7917 4.65417 18.6083 5.11667 18.225 5.5L16.8 6.925ZM15.35 8.4L4.75 19H0.5V14.75L11.1 4.15L15.35 8.4Z" fill="#29ABE2"/>
                             </svg>Edit</button>
-                        <button onclick="deleteContact('${name}')"
+                        <button onclick="deleteContact()"
                         class="inter-extralight contact-main-control-btn"
                         type="button">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,6 +46,7 @@ function getContactViewTemplate(initials, { color, name, email, phone }) {
                     <span class="inter-medium">Phone</span>
                     <span class="inter-extralight"><a href="tel:${phone}">+${phone}</a></span>
                 </div>
+                <span id="createdAt" data-createdAt="${createdAt}"></span>
             </div>
         </div>
         <div class="contact-main-controls-btn" onclick="toggleEditMenu()" id="menuButton">
@@ -59,7 +60,7 @@ function getContactViewTemplate(initials, { color, name, email, phone }) {
                 <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 6px;">
                     <path d="M2.5 17H3.9L12.525 8.375L11.125 6.975L2.5 15.6V17ZM16.8 6.925L12.55 2.725L13.95 1.325C14.3333 0.941667 14.8042 0.75 15.3625 0.75C15.9208 0.75 16.3917 0.941667 16.775 1.325L18.175 2.725C18.5583 3.10833 18.7583 3.57083 18.775 4.1125C18.7917 4.65417 18.6083 5.11667 18.225 5.5L16.8 6.925ZM15.35 8.4L4.75 19H0.5V14.75L11.1 4.15L15.35 8.4Z" fill="#29ABE2"/>
                 </svg>Edit</button>
-            <button onclick="deleteContact('${name}')"
+            <button onclick="deleteContact()"
             class="inter-extralight contact-main-control-btn"
             type="button">
             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">

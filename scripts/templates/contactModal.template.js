@@ -60,7 +60,7 @@ function getContactModalTemplate(type, fullName = "", email = "", phone = "", in
               <div class="form-actions">
               ${
                 isEdit
-                  ? `<button class="delete-btn" onclick="event.preventDefault(); deleteContact('${fullName}')">Delete</button>`
+                  ? `<button class="delete-btn" onclick="event.preventDefault(); deleteContact()">Delete</button>`
                   : cancelButtonHtml
               }
                 <button onclick="handleSaveClick(event)" type="submit" class="save-btn">
