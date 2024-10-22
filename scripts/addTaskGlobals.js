@@ -1,6 +1,6 @@
 let selectedOptions = [];
 let subTasks = {};
-let priority = "";
+let priority = "medium";
 let isCategoryDropdownOpen = false;
 let isContactDropdownOpen = false;
 let globalState = "todo";

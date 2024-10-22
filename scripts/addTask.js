@@ -7,6 +7,7 @@ async function init() {
   await getContactsFromData("guest");
   document.getElementById("add-task-main").innerHTML = getAddTaskTemplate();
   renderContactDropdown();
+  setDefaultPriority();
 }
 
 /**
@@ -43,16 +44,16 @@ function loadNavbar() {
 function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
-  const isActive = clickedButton.classList.contains("active");
 
   buttons.forEach((button) => button.classList.remove("active"));
+  clickedButton.classList.add("active");
+  priority = clickedButton.getAttribute("data-priority");
+}
 
-  if (!isActive) {
-    clickedButton.classList.add("active");
-    priority = clickedButton.getAttribute("data-priority");
-  } else {
-    priority = "";
-  }
+function setDefaultPriority() {
+  const mediumButton = document.querySelector('button[data-priority="medium"]');
+  mediumButton.classList.add("active");
+  priority = "medium";
 }
 
 function handleSubtaskIcons() {
@@ -346,6 +347,7 @@ function clearForm() {
 
   const priorityButtons = document.querySelectorAll(".priority-actions button");
   priorityButtons.forEach((button) => button.classList.remove("active"));
+  setDefaultPriority();
 
   const subtasksContainer = document.getElementById("subtask-list");
   if (subtasksContainer) {
