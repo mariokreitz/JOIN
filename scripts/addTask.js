@@ -400,11 +400,8 @@ async function createTodo(user = "guest") {
     },
   };
 
-  console.log(todos);
-
   try {
     await updateTodosInFirebase(user, todos);
-    console.log("Todo updated successfully for user:", user);
     const modal = document.getElementById("add-task-modal");
     if (modal) {
       await getTodosFromData("guest");
