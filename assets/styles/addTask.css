@@ -1,5 +1,6 @@
 body:has(.add-task-main) {
   height: unset;
+  min-height: 100vh;
 }
 
 body {
@@ -7,6 +8,11 @@ body {
   --sb-thumb-color: var(--line);
   --sb-size: 10px;
   --sb-radius: 3px;
+}
+
+header,
+nav {
+  z-index: 1000;
 }
 
 #subtask-list::-webkit-scrollbar,
@@ -148,6 +154,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 .priority-actions {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .priority-group button {
@@ -542,5 +549,58 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 @media (max-width: 1320px) {
   .add-task-content {
     margin-top: 96px;
+  }
+}
+
+@media (max-width: 1115px) {
+  .priority-actions {
+    flex-direction: column;
+  }
+  .priority-group button {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 920px) {
+  .priority-actions {
+    flex-direction: row;
+  }
+  .priority-group button {
+    justify-content: start;
+  }
+  .task-form-container {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .task-seperator {
+    display: none;
+  }
+  .task-left,
+  .task-right {
+    max-width: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .add-task-main {
+    margin-left: 0;
+    padding: 20px;
+  }
+  .add-task-content {
+    margin-bottom: 100px;
+  }
+  .form-actions-container {
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 385px) {
+  .priority-actions {
+    flex-direction: column;
+  }
+  .priority-group button {
+    justify-content: center;
   }
 }

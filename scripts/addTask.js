@@ -101,11 +101,18 @@ function addSubtask() {
 }
 
 function createSubtaskListItem(subtaskText, subtaskId) {
-  const listItem = document.createElement("li");
-  listItem.className = "subtask-item";
-  listItem.setAttribute("data-id", subtaskId);
-  listItem.innerText = subtaskText;
-  return listItem;
+  const li = document.createElement("li");
+
+  // Call the function to create the inner HTML
+  li.innerHTML = subtaskListTemplate(subtaskText);
+
+  li.setAttribute("data-id", subtaskId);
+
+  li.addEventListener("dblclick", function () {
+    editSubtask(li);
+  });
+
+  return li;
 }
 
 function editSubtask(iconElement) {
@@ -154,6 +161,19 @@ function removeSubtask(iconElement) {
 
   listItem.remove();
   checkScrollbar();
+}
+
+function generateContactListHtml(contacts) {
+  if (contacts.length === 0) {
+    return noContactsTemplate();
+  }
+
+  return contacts
+    .map((contact, index) => {
+      const initials = getInitialsFromContact(contact);
+      return contactListItemTemplate(contact, index, initials);
+    })
+    .join("");
 }
 
 function renderContactDropdown() {
