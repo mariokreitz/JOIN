@@ -559,6 +559,8 @@ async function deleteTaskCard(index) {
   } else {
     console.error("Fehler", response);
   }
+}
+
 /**
  * Toggles the visibility of the placeholder element within the specified column.
  *
@@ -595,5 +597,4 @@ function removeHollowPlaceholder(elementId) {
   const placeholder = element.querySelector(".drag-area-hollow-placeholder");
   if (!placeholder) return;
   placeholder.classList.add("d_none");
-
 }
