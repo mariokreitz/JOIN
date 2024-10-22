@@ -2,16 +2,19 @@ function loadScripts(scripts, callback) {
   let loadedScripts = 0;
 
   scripts.forEach((src) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => {
+    if (!document.querySelector(`script[src="${src}"]`)) {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        loadedScripts++;
+        if (loadedScripts === scripts.length) {
+          callback();
+        }
+      };
+      document.head.appendChild(script);
+    } else {
       loadedScripts++;
-
-      if (loadedScripts === scripts.length) {
-        callback();
-      }
-    };
-    document.head.appendChild(script);
+    }
   });
 }
 
@@ -19,10 +22,10 @@ function openAddTaskModal() {
   document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
 
   const scriptsToLoad = [
-    "./scripts/addTask.js",
-    "./scripts/templates/subtaskListItem.js",
-    "./scripts/templates/contactlistDropdown.template.js",
-    "./scripts/templates/addTask.template.js",
+    "../scripts/addTask.js",
+    "../scripts/templates/subtaskListItem.js",
+    "../scripts/templates/contactlistDropdown.template.js",
+    "../scripts/templates/addTask.template.js",
   ];
 
   loadScripts(scriptsToLoad, () => {
@@ -43,10 +46,10 @@ function closeAddTaskModal(event) {
       modal.remove();
 
       const scriptsToUnload = [
-        "./scripts/addTask.js",
-        "./scripts/templates/subtaskListItem.js",
-        "./scripts/templates/contactlistDropdown.template.js",
-        "./scripts/templates/addTask.template.js",
+        "../scripts/addTask.js",
+        "../scripts/templates/subtaskListItem.js",
+        "../scripts/templates/contactlistDropdown.template.js",
+        "../scripts/templates/addTask.template.js",
       ];
 
       scriptsToUnload.forEach((src) => {

@@ -16,6 +16,7 @@
   display: flex;
   border-radius: 20px;
   width: 1000px;
+  max-height: calc(100vh - 20px);
   overflow: hidden;
   transform: translateX(100%);
   animation: slide-in 0.3s ease-out forwards;
