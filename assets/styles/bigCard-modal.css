@@ -260,3 +260,9 @@
     font-size: 18px;
   }
 }
+
+@media (max-width: 575px) {
+  .catogory-close-container {
+    margin-right: 5%;
+  }
+}
