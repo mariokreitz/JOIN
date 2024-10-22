@@ -1,6 +1,6 @@
 function getTaskCardSmallTemplate(index, { category, description, priority, title, subTasks }) {
   return /*html*/ `
-  <div class="task-card-small" id="task-card-small-${index}" onclick="bigCard(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">
+  <div class="task-card-small" id="task-card-small-${index}" onclick="openBigCardModal(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">
     <div class="card-small-header ${category === "Technical Task" ? "technical-task" : "user-story"}">
       <p class="inter-extralight">${category}</p>
     </div>
@@ -39,7 +39,7 @@ function getTaskCardSmallTemplate(index, { category, description, priority, titl
  * HTML string representing a single contact item in the assigned members section
  * of a task card.
  *
- * @param {string} [initials="MK"] - The initials of the contact.
+ * @param {string} [initials="?"] - The initials of the contact.
  * @param {string} [color="red"] - The color of the contact's avatar.
  * @returns {string} An HTML string representing the assigned member item.
  */
