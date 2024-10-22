@@ -339,6 +339,14 @@ function clearWarnings() {
   warnings.forEach((warning) => warning.remove());
 }
 
+function openDatePicker(event) {
+  event.stopPropagation();
+
+  var dateInput = document.getElementById("due-date");
+  dateInput.focus();
+  dateInput.click();
+}
+
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
