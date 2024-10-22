@@ -313,7 +313,7 @@ function onDrop(state) {
 async function updateTodo(state) {
   globalTodos[currentlyDraggedElement].state = state;
   const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase(todosObject, "guest");
+  const response = await updateTodosInFirebase("guest", todosObject);
 
   if (response.status === 400) {
     showToastMessage("error", response);
