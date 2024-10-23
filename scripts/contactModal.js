@@ -32,6 +32,21 @@ const profileColors = [
  */
 const TIMEOUT = 2000;
 
+/**
+ * Opens the contact modal and inserts it into the DOM.
+ *
+ * Depending on the type, the modal will either be in "add" or "edit" mode.
+ * If in "edit" mode, the initials are derived from the provided name.
+ * The contact modal is created using the provided name, email, phone, and color,
+ * and then inserted into the body of the document.
+ * The function also applies a "slide-in" animation to the modal.
+ *
+ * @param {string} type - The type of the modal, either "add" or "edit".
+ * @param {string} [name=""] - The name of the contact.
+ * @param {string} [email=""] - The email of the contact.
+ * @param {string} [phone=""] - The phone number of the contact.
+ * @param {string} [color=""] - The color associated with the contact.
+ */
 function openContactModal(type, name = "", email = "", phone = "", color = "") {
   const initials = type === "edit" ? getInitialsFromContact({ name: name }) : "";
   const modalHtml = getContactModalTemplate(type, name, email, phone, initials, color);

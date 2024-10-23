@@ -10,7 +10,7 @@
   margin-top: 24px;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 7px;
   height: 5px;
 }
@@ -29,7 +29,7 @@
   border-top: 100px solid transparent;
   border-bottom: 400px solid transparent;
   border-radius: 50px;
-}
+}*/
 
 .bigc-main-container {
   width: 525px;
@@ -131,7 +131,7 @@ input:focus {
 
 .bc-prio-select:hover {
   box-shadow: 6px 14px 12px rgba(152, 148, 148, 0.2), 0 6px 12px rgba(118, 114, 114, 0.15);
-  cursor: grabbing;
+  cursor: pointer;
 }
 
 #bc-select-urgent.active {

@@ -1,7 +1,5 @@
-function createSubtaskListItem(subtaskText, subtaskId) {
-  const li = document.createElement("li");
-
-  li.innerHTML = /* HTML */ `
+function subtaskListTemplate(subtaskText) {
+  return /* HTML */ `
     <span class="subtask-text">${subtaskText}</span>
     <div class="list-item-actions">
       <div class="icon-container" onclick="editSubtask(this)">
@@ -13,14 +11,6 @@ function createSubtaskListItem(subtaskText, subtaskId) {
       </div>
     </div>
   `;
-
-  li.setAttribute("data-id", subtaskId);
-
-  li.addEventListener("dblclick", function () {
-    editSubtask(li);
-  });
-
-  return li;
 }
 
 function getAcceptAndDeleteIconsTemplate() {

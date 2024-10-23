@@ -47,6 +47,10 @@
   max-height: 180px;
 }
 
+#add-task-modal input {
+  margin-top: unset;
+}
+
 @keyframes slide-in {
   from {
     transform: translateX(100%);
@@ -62,5 +66,66 @@
   }
   to {
     transform: translateX(200%);
+  }
+}
+
+@media (max-width: 1320px) {
+  .modal-content .add-task-content {
+    margin-top: unset;
+  }
+}
+
+@media (max-width: 1115px) {
+  .priority-actions {
+    flex-direction: unset;
+  }
+}
+
+@media (max-width: 1000px) {
+  .modal-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 920px) {
+  .modal-content {
+    padding: 40px;
+    overflow: auto;
+  }
+  .modal-content .close-btn {
+    top: 40px;
+    right: 40px;
+  }
+
+  .modal-content .add-task-content {
+    height: 100%;
+  }
+  .task-form-container {
+    flex-direction: unset;
+    gap: 20px;
+  }
+  .task-seperator {
+    display: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  #add-task-modal,
+  .add-task-modal {
+    display: none;
+  }
+
+  .modal-content .form-actions-container {
+    position: unset;
+    bottom: unset;
+    width: unset;
+    left: unset;
+    padding: unset;
+    background: unset;
+    box-shadow: unset;
+  }
+
+  .add-task-content {
+    margin-bottom: unset;
   }
 }

@@ -1,5 +1,6 @@
 .task-card-small {
   background-color: var(--background-white);
+  min-width: 252px;
   width: 252px;
   border-radius: 24px;
   padding: 16px;
@@ -19,15 +20,61 @@
 }
 
 .card-small-header {
-  border-radius: 8px;
-  color: var(--text-secondary);
-  width: fit-content;
-  padding: 4px 16px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .card-small-header > p {
   font-size: 16px;
   line-height: 19.2px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  padding: 4px 16px;
+}
+
+.btn-custom-more {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-custom-more > img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+}
+
+.btn-custom-more:hover,
+.btn-custom-more:focus,
+.btn-custom-more:active {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.card-switch-state-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 130px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background: white;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  z-index: 100;
+}
+
+.card-switch-state-menu > button {
+  font-size: 14px;
+  text-align: start;
+}
+
+.card-switch-state-menu > p {
+  font-size: 16px;
 }
 
 .card-small-body {
@@ -143,4 +190,10 @@
   text-align: center;
   padding: 5px 0;
   z-index: 1;
+}
+
+@media (max-width: 1367px) {
+  .btn-custom-more {
+    display: flex;
+  }
 }

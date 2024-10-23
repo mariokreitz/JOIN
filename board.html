@@ -33,8 +33,15 @@
                 <input onkeyup="searchTodos(event)" type="text" id="search-task" placeholder="Find Task" />
                 <i class="board-search-icon"><img src="./assets/img/icons/search-icon.png" alt="person icon" /></i>
               </div>
-              <button class="inter-medium" onclick="openAddTaskModal()">
-                Add Task <img class="board-add-task-img" src="./assets/img/icons/add.png" />
+              <button type="button" class="inter-medium" onclick="openAddTaskModal()">
+                <span class="inter-medium button-add-text">Add Task</span>
+                <div>
+                  <svg class="button-add-svg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8.66602 11.3327H0.666016V8.66602H8.66602V0.666016H11.3327V8.66602H19.3327V11.3327H11.3327V19.3327H8.66602V11.3327Z"
+                      fill="white" />
+                  </svg>
+                </div>
               </button>
             </div>
           </div>
@@ -44,7 +51,7 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">To do</h4>
-                <button>+</button>
+                <button type="button" onclick="openAddTaskModal('todo')">+</button>
               </div>
               <div
                 id="board-todo"
@@ -56,7 +63,7 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">In Progress</h4>
-                <button>+</button>
+                <button type="button" onclick="openAddTaskModal('progress')">+</button>
               </div>
               <div
                 id="board-progress"
@@ -68,7 +75,7 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Await Feedback</h4>
-                <button>+</button>
+                <button type="button" onclick="openAddTaskModal('feedback')">+</button>
               </div>
               <div
                 id="board-feedback"
@@ -80,7 +87,6 @@
             <div class="board-todo-column">
               <div class="board-todo-head">
                 <h4 class="inter-medium">Done</h4>
-                <button>+</button>
               </div>
               <div
                 id="board-done"
