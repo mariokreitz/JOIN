@@ -1,7 +1,7 @@
 function outsideClickListener(event, dropdownId, iconId) {
-  const dropdown = document.getElementById(dropdownId);
-  const icon = document.getElementById(iconId);
-  const input = document.getElementById("search");
+  var dropdown = document.getElementById(dropdownId);
+  var icon = document.getElementById(iconId);
+  var input = document.getElementById("search");
 
   if (dropdown && icon) {
     if (
@@ -15,4 +15,12 @@ function outsideClickListener(event, dropdownId, iconId) {
       document.removeEventListener("click", outsideClickListenerWrapper);
     }
   }
+}
+
+function outsideClickListenerWrapper(event) {
+  outsideClickListener(event, "contact-dropdown-options", "dropdown-icon");
+}
+
+function outsideClickListenerWrapperCategory(event) {
+  outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
 }
