@@ -94,3 +94,16 @@ function formatDueDate(dueDate) {
 function getPlaceholderText({ id }) {
   return `No tasks in ${id.split("-")[1].charAt(0).toUpperCase() + id.split("-")[1].slice(1)}`;
 }
+
+/**
+ * Given a description string, returns a shortened version of it, if it
+ * exceeds a certain maximum length.
+ *
+ * @param {string} description - The description string to be shortened.
+ * @returns {string} The shortened description string, or the original
+ * string if it does not exceed the maximum length.
+ */
+function getShortDescription(description) {
+  const maxLength = 50;
+  return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
+}
