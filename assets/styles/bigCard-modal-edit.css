@@ -485,7 +485,7 @@ select {
     max-width: unset;
   }
 
-  .bc-priority-select-container {
+  .priority-actions {
     flex-wrap: wrap;
     flex-direction: column;
     max-width: 375px;
