@@ -23,7 +23,10 @@
   border-radius: 30px;
   font-size: 21px;
   background-color: white;
-  padding: 40px;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 20px;
+  padding-bottom: 25px;
 }
 
 .bc-close-container {
