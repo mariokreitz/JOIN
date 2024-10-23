@@ -13,7 +13,7 @@ function getTaskCardBigEditTemplate(todo, index) {
         .join("")
     : "";
 
-  return ` <div id="closeEditContainer" class="bigc-main-container">
+  return ` <div id="closeEditContainer" class="bigc-main-container inter-extralight">
       <div class="bc-close-container bc-with bc-m-left">
         <button onclick="openBigCardModal(${index})"><img src="./assets/img/icons/close.png" /></button>
       </div>
