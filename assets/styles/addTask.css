@@ -366,6 +366,10 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   padding: 0 10px;
 }
 
+#subtask-list li:has(input)::before {
+  display: none;
+}
+
 #subtask-list li:hover {
   background: #eee;
 }
@@ -401,7 +405,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 }
 
 #subtask-list li:has(input) input {
-  padding: 0 75px 0 25px;
+  padding: 0 75px 0 10px;
   border-radius: unset;
   border: none;
   height: 32px;
