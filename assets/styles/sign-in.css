@@ -41,7 +41,14 @@
   border: none;
 }
 
+.blue-arrow-sign {
+  position: absolute;
+  top: 60px;
+  left: 50px;
+}
+
 .login-login-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 552px;
@@ -53,6 +60,18 @@
   margin-top: 59px;
   margin-bottom: 190px;
   box-shadow: 0px 0px 14px 3px #0000000a;
+}
+
+.sign-privacy-blue {
+  color: #29abe2;
+}
+
+.sign-accept-agb-container {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: auto;
+  margin-top: 26px;
 }
 
 .login-login-head {
