@@ -1,4 +1,20 @@
 /**
+ * An object representing the different states a task can be in.
+ *
+ * @type {Object}
+ * @property {string} todo - Represents tasks that are to be done.
+ * @property {string} progress - Represents tasks that are in progress.
+ * @property {string} feedback - Represents tasks awaiting feedback.
+ * @property {string} done - Represents tasks that are completed.
+ */
+const todoStates = {
+  todo: "Todo",
+  progress: "In Progress",
+  feedback: "Awaiting Feedback",
+  done: "Done",
+};
+
+/**
  * Reference to the search task input element.
  *
  * @type {HTMLInputElement}
@@ -154,8 +170,61 @@ function renderTodos(todos) {
         break;
     }
     renderAssignedMembers(index, todo);
+    addMobileMenu(index, todo);
+
     handleDragEvents();
   });
+}
+
+/**
+ * Adds a dropdown menu to the bottom of the card for switching between todo states
+ * on mobile devices. The menu shows all states except for the current one.
+ *
+ * @param {number} index The index of the todo in `globalTodos`.
+ * @param {Todo} todo The todo object to be rendered.
+ *
+ * @returns {void}
+ */
+function addMobileMenu(index, todo) {
+  const cardElement = document.getElementById(`card-switch-state-${index}`);
+  const stateButtonElements = Object.entries(todoStates)
+    .filter(([state]) => state !== todo.state)
+    .map(([state, label]) => {
+      const buttonElement = document.createElement("button");
+      buttonElement.classList.add("inter-medium");
+      buttonElement.textContent = label;
+      buttonElement.onclick = (event) => {
+        event.stopPropagation();
+        updateTodoMobile(index, state);
+      };
+      return buttonElement;
+    });
+  cardElement.append(...stateButtonElements);
+}
+
+/**
+ * Updates the state of a todo item in the global todos array and patches the updated todos object
+ * in the Firebase Realtime Database. If the update is successful, a success toast message is shown
+ * and the board is re-rendered. If there is an error, an error toast message is displayed.
+ *
+ * @param {number} index - The index of the todo item to update.
+ * @param {string} newState - The new state to set for the todo item.
+ * @returns {Promise<void>} - A promise that resolves when the update operation is complete.
+ */
+async function updateTodoMobile(index, newState) {
+  const updatedTodos = [...globalTodos];
+  updatedTodos[index].state = newState;
+
+  try {
+    const response = await updateTodosInFirebase("guest", arrayToObject(updatedTodos));
+
+    if (response.ok) {
+      showToastMessage("todoUpdated", response);
+      triggerRender();
+    } else showToastMessage("error", response);
+  } catch (error) {
+    showToastMessage("error", error);
+  }
 }
 
 /**
@@ -283,6 +352,44 @@ function searchTodos(event) {
     renderPlaceholder();
     renderHollowPlaceholder();
   }
+}
+
+/**
+ * Opens the state change menu for a specific todo card, allowing the user to select a new state
+ * for the todo. The menu is anchored to the todo card and remains open until a click outside the
+ * menu is detected. Once an outside click is detected, the menu is closed and the original
+ * onclick event for the todo card is restored.
+ *
+ * @param {Event} event - The event object from the click event that triggered the menu opening.
+ * @param {number} todoIndex - The index of the todo card for which the state change menu should be opened.
+ * @returns {void}
+ */
+function openStateChangeMenu(event, todoIndex) {
+  event.stopPropagation();
+
+  const stateChangeMenu = document.getElementById(`card-switch-state-${todoIndex}`);
+  stateChangeMenu.classList.remove("d_none");
+
+  const todoCard = document.getElementById(`task-card-small-${todoIndex}`);
+  todoCard.onclick = null;
+
+  /**
+   * Handles an outside click event by closing the state change menu, removing the
+   * outside click event listener, and restoring the original onclick event for the
+   * todo card.
+   *
+   * @param {{ target: HTMLElement }} event - The event object from the click event
+   * @returns {void}
+   */
+  const handleOutsideClick = ({ target }) => {
+    if (!stateChangeMenu.contains(target)) {
+      stateChangeMenu.classList.add("d_none");
+      document.removeEventListener("click", handleOutsideClick);
+      todoCard.onclick = () => openBigCardModal(todoIndex);
+    }
+  };
+
+  document.addEventListener("click", handleOutsideClick);
 }
 
 /**
