@@ -491,10 +491,13 @@ select {
 
 @media (max-width: 375px) {
   .bc-prio-select {
+    width: 100%;
+    max-width: unset;
   }
+
   .bc-priority-select-container {
     flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     max-width: 375px;
   }
 }
