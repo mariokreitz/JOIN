@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: clamp(300px, 90%, 525px);
-  height: clamp(450px, 90%, 850px);
+  max-height: calc(99dvh - 20px);
   box-shadow: 0px 0px 4px 0px #00000029;
   border-radius: 30px;
   position: absolute;
@@ -13,6 +13,9 @@
   background-color: white;
   gap: 18px;
   padding: 40px;
+  overflow: auto;
+
+  z-index: 120;
 }
 
 #big-card-modal-background {
@@ -73,29 +76,22 @@
 .big-card-head {
   display: flex;
   text-align: start;
-  margin-bottom: 24px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 445px;
-  min-height: 36px;
   font-size: 26px;
   line-height: 50px;
 }
 
 .big-card-head h1 {
   word-break: break-word;
-  hyphens: auto;
-  overflow-wrap: anywhere;
 }
 
 .big-card-description {
-  display: flex;
-  margin-top: 24px;
-
-  margin-bottom: 16px;
-
   max-width: 445px;
-  font-size: 21px;
+  word-wrap: break-word;
+
+  font-size: 20px;
 }
 
 .big-card-close-x:hover {
@@ -104,12 +100,9 @@
 
 .big-card-date {
   max-width: 445px;
-  min-height: 24px;
   display: flex;
+  gap: 25px;
   font-size: 21px;
-}
-.big-card-date p {
-  margin-right: 25px;
 }
 
 .user-creatAt-p {
@@ -194,7 +187,6 @@
 .bigCard-subtasks-container {
   max-width: 445px;
 
-  margin-top: 8px;
   display: flex;
   flex-direction: column;
   font-size: 18px;
@@ -216,9 +208,8 @@
 
 .bigCard-delete-edit-container {
   display: flex;
-  margin-left: clamp(35%, 55%, 65%);
-
-  margin-bottom: clamp(24px, 7%, 7%);
+  align-items: end;
+  justify-content: end;
 
   height: 32px;
   gap: 16px;
