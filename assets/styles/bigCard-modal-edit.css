@@ -488,3 +488,13 @@ select {
     gap: 8px;
   }
 }
+
+@media (max-width: 375px) {
+  .bc-prio-select {
+  }
+  .bc-priority-select-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 375px;
+  }
+}
