@@ -78,7 +78,7 @@ function getTaskCardBigEditTemplate(todo, index) {
       </div>
 
       <div class="form-group custom-dropdown contact-dropdown">
-        <label for="search">Assigned to</label>
+        <label>Assigned to</label>
         <div class="input-container">
           <input
             autocomplete="off"
