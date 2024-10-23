@@ -3,7 +3,7 @@ body:has(.add-task-main) {
   min-height: 100vh;
 }
 
-body {
+body:has(.add-task-main) {
   --sb-track-color: var(--background-lightGrey);
   --sb-thumb-color: var(--line);
   --sb-size: 10px;
