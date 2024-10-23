@@ -7,6 +7,7 @@ async function init() {
   await getContactsFromData("guest");
   document.getElementById("add-task-main").innerHTML = getAddTaskTemplate();
   renderContactDropdown();
+  setDefaultPriority();
 }
 
 /**
@@ -43,16 +44,16 @@ function loadNavbar() {
 function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
-  const isActive = clickedButton.classList.contains("active");
 
   buttons.forEach((button) => button.classList.remove("active"));
+  clickedButton.classList.add("active");
+  priority = clickedButton.getAttribute("data-priority");
+}
 
-  if (!isActive) {
-    clickedButton.classList.add("active");
-    priority = clickedButton.getAttribute("data-priority");
-  } else {
-    priority = "";
-  }
+function setDefaultPriority() {
+  const mediumButton = document.querySelector('button[data-priority="medium"]');
+  mediumButton.classList.add("active");
+  priority = "medium";
 }
 
 function handleSubtaskIcons() {
@@ -100,11 +101,14 @@ function addSubtask() {
 }
 
 function createSubtaskListItem(subtaskText, subtaskId) {
-  const listItem = document.createElement("li");
-  listItem.className = "subtask-item";
-  listItem.setAttribute("data-id", subtaskId);
-  listItem.innerText = subtaskText;
-  return listItem;
+  const li = document.createElement("li");
+  li.innerHTML = subtaskListTemplate(subtaskText);
+  li.setAttribute("data-id", subtaskId);
+  li.addEventListener("dblclick", function () {
+    editSubtask(li);
+  });
+
+  return li;
 }
 
 function editSubtask(iconElement) {
@@ -125,6 +129,11 @@ function saveEdit(iconElement) {
   const inputField = listItem.querySelector("input");
   const newText = inputField.value.trim();
   const subtaskId = inputField.getAttribute("data-id");
+
+  if (!newText) {
+    removeSubtask(iconElement);
+    return;
+  }
 
   if (subTasks[subtaskId]) {
     subTasks[subtaskId].text = newText;
@@ -150,11 +159,28 @@ function removeSubtask(iconElement) {
   checkScrollbar();
 }
 
+function generateContactListHtml(contacts, filter = "") {
+  const filteredContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()));
+
+  if (filteredContacts.length === 0) {
+    return noContactsTemplate();
+  }
+
+  return filteredContacts
+    .map((contact, index) => {
+      const initials = getInitialsFromContact(contact);
+      return contactListItemTemplate(contact, index, initials);
+    })
+    .join("");
+}
+
 function renderContactDropdown() {
   const dropdownOptions = document.getElementById("contact-dropdown-options");
+  const input = document.getElementById("search");
+  const filter = input.value;
 
   if (dropdownOptions) {
-    const contactListHtml = generateContactListHtml(globalContacts);
+    const contactListHtml = generateContactListHtml(globalContacts, filter);
     dropdownOptions.innerHTML = contactListHtml;
   }
 }
@@ -164,20 +190,29 @@ function toggleContactListDropdown(event) {
   const dropdown = document.getElementById("contact-dropdown-options");
   const icon = document.getElementById("dropdown-icon");
 
-  if (dropdown && icon) {
-    dropdown.classList.toggle("show");
-    icon.classList.toggle("rotated");
+  if (event.target.id === "dropdown-icon-container" || event.target.id === "dropdown-icon") {
+    if (dropdown && icon) {
+      dropdown.classList.toggle("show");
+      icon.classList.toggle("rotated");
 
-    if (dropdown.classList.contains("show")) {
+      if (dropdown.classList.contains("show")) {
+        document.addEventListener("click", outsideClickListenerWrapper);
+      } else {
+        document.removeEventListener("click", outsideClickListenerWrapper);
+      }
+    }
+  } else {
+    if (dropdown && !dropdown.classList.contains("show")) {
+      dropdown.classList.add("show");
+      icon.classList.add("rotated");
       document.addEventListener("click", outsideClickListenerWrapper);
-    } else {
-      document.removeEventListener("click", outsideClickListenerWrapper);
     }
   }
+}
 
-  function outsideClickListenerWrapper(event) {
-    outsideClickListener(event, "contact-dropdown-options", "dropdown-icon");
-  }
+function filterOptions() {
+  const input = document.getElementById("search");
+  renderContactDropdown();
 }
 
 function toggleCategoryDropdown(event) {
@@ -205,10 +240,15 @@ function outsideClickListener(event, dropdownId, iconId) {
   var input = document.getElementById("search");
 
   if (dropdown && icon) {
-    if (!dropdown.contains(event.target) && !icon.contains(event.target) && !input.contains(event.target)) {
+    if (
+      !dropdown.contains(event.target) &&
+      !icon.contains(event.target) &&
+      !input.contains(event.target) &&
+      input.value.trim() === ""
+    ) {
       dropdown.classList.remove("show");
       icon.classList.remove("rotated");
-      document.removeEventListener("click", (e) => outsideClickListener(e, dropdownId, iconId));
+      document.removeEventListener("click", outsideClickListenerWrapper);
     }
   }
 }
@@ -219,18 +259,6 @@ function outsideClickListenerWrapper(event) {
 
 function outsideClickListenerWrapperCategory(event) {
   outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
-}
-
-function filterOptions() {
-  const input = document.getElementById("search");
-  const filter = input.value.toLowerCase();
-  const ul = document.getElementById("contact-dropdown-options");
-  const li = ul.getElementsByTagName("li");
-
-  for (let item of li) {
-    const text = item.textContent || item.innerText;
-    item.style.display = text.toLowerCase().includes(filter) ? "" : "none";
-  }
 }
 
 function selectCategory(event, category) {
@@ -333,11 +361,20 @@ function clearWarnings() {
   warnings.forEach((warning) => warning.remove());
 }
 
+function openDatePicker(event) {
+  event.stopPropagation();
+
+  var dateInput = document.getElementById("due-date");
+  dateInput.focus();
+  dateInput.click();
+}
+
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   document.getElementById("due-date").value = "";
   document.getElementById("subtasks").value = "";
+  document.getElementById("search").value = "";
 
   const selectedCategory = document.getElementById("select-category");
   selectedCategory.textContent = "Select task category";
@@ -346,6 +383,7 @@ function clearForm() {
 
   const priorityButtons = document.querySelectorAll(".priority-actions button");
   priorityButtons.forEach((button) => button.classList.remove("active"));
+  setDefaultPriority();
 
   const subtasksContainer = document.getElementById("subtask-list");
   if (subtasksContainer) {
@@ -372,7 +410,8 @@ async function createTodo() {
     return;
   }
 
-  const id = "TODO" + Date.now();
+  const dateNow = Date.now();
+  const id = "TODO" + dateNow;
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;
@@ -390,7 +429,7 @@ async function createTodo() {
     [id]: {
       assignedMembers: assignedMembers,
       category: category,
-      createdAt: Date.now(),
+      createdAt: dateNow,
       date: dueDate,
       description: description,
       priority: priority,
@@ -401,8 +440,9 @@ async function createTodo() {
   };
 
   try {
-    await updateTodosInFirebase("guest", todos);
+    const status = await updateTodosInFirebase("guest", todos);
     const modal = document.getElementById("add-task-modal");
+    showToastMessage("taskAdded", status);
     if (modal) {
       await getTodosFromData("guest");
       clearBoardColumns();
@@ -411,7 +451,9 @@ async function createTodo() {
       closeAddTaskModal();
     }
   } catch (error) {
-    alert(`Failed to create a new task: ${error.message}`);
+    const response = await updateTodosInFirebase("guest", todos);
+    showToastMessage("error", response);
+    console.log(`Failed to create a new task: ${error.message}`);
   }
 
   clearForm();

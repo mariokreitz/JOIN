@@ -15,7 +15,7 @@ let subTasks = {};
  * The current priority of the task being added.
  * @type {string}
  */
-let priority = "";
+let priority = "medium";
 
 /**
  * Whether the category dropdown is currently open.

@@ -1,12 +1,18 @@
 body:has(.add-task-main) {
   height: unset;
+  min-height: 100vh;
 }
 
-body {
+body:has(.add-task-content) {
   --sb-track-color: var(--background-lightGrey);
   --sb-thumb-color: var(--line);
   --sb-size: 10px;
   --sb-radius: 3px;
+}
+
+header,
+nav {
+  z-index: 1000;
 }
 
 #subtask-list::-webkit-scrollbar,
@@ -32,7 +38,7 @@ body {
 
 @supports not selector(::-webkit-scrollbar) {
   body {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
   }
 }
 
@@ -45,17 +51,19 @@ body {
 
 .task-form-container {
   display: flex;
+  justify-content: space-between;
+  gap: 40px;
 }
 
 .task-left,
 .task-right {
   flex: 1;
+  max-width: calc(50% - 40.5px);
 }
 
 .task-seperator {
   width: 1px;
   background-color: var(--line);
-  margin: 0 40px;
 }
 
 .add-task-content h1 {
@@ -122,7 +130,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 
 .add-task-content .input-container input {
   width: 100%;
-  padding-right: 40px;
+  padding-right: 70px;
   box-sizing: border-box;
 }
 
@@ -146,6 +154,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 .priority-actions {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .priority-group button {
@@ -341,10 +350,34 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   border-radius: 8px;
   cursor: pointer;
   justify-content: space-between;
+  display: flex;
+  padding-left: 25px;
+  min-height: 35px;
+  position: relative;
+}
+
+#subtask-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+  line-height: 25px;
+  color: black;
+  padding: 0 10px;
+}
+
+#subtask-list li:has(input)::before {
+  display: none;
 }
 
 #subtask-list li:hover {
   background: #eee;
+}
+
+.subtask-text {
+  max-width: calc(100% - 70px);
+  text-wrap: pretty;
+  word-wrap: break-word;
 }
 
 .list-item-actions {
@@ -355,6 +388,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 
 #subtask-list li:hover .list-item-actions {
   display: flex;
+  align-items: center;
 }
 
 #subtask-list li:has(input) {
@@ -365,17 +399,21 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 }
 
 #subtask-list li:has(input) .list-item-actions {
-  display: flex;
   position: absolute;
   right: 10px;
+  display: flex;
 }
 
 #subtask-list li:has(input) input {
-  padding: 0 10px;
+  padding: 0 75px 0 10px;
   border-radius: unset;
   border: none;
   height: 32px;
   border-bottom: 1px solid var(--secondary);
+}
+
+#subtask-list li:has(input):hover {
+  background: unset;
 }
 
 .add-task-content option:disabled {
@@ -429,6 +467,11 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 
 .custom-dropdown .options li:hover {
   background-color: #eee;
+}
+
+.custom-dropdown .options li.no-contacts:hover {
+  background-color: unset;
+  cursor: auto;
 }
 
 .custom-dropdown .badge {
@@ -515,5 +558,108 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 @media (max-width: 1320px) {
   .add-task-content {
     margin-top: 96px;
+  }
+}
+
+@media (max-width: 1115px) {
+  .priority-actions {
+    flex-direction: column;
+  }
+
+  .priority-group button {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 920px) {
+  .add-task-content h1 {
+    font-size: 47px;
+  }
+
+  .priority-actions {
+    flex-direction: row;
+  }
+
+  .priority-group button {
+    justify-content: start;
+  }
+
+  .task-form-container {
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .task-seperator {
+    display: none;
+  }
+
+  .task-left,
+  .task-right {
+    max-width: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .add-task-main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .add-task-content {
+    margin-bottom: 160px;
+  }
+
+  .form-actions-container {
+    position: fixed;
+    bottom: 80px;
+    width: 100%;
+    left: 0;
+    padding: 20px;
+    background: var(--background-lightGrey);
+    box-shadow: 0px -4px 4px 0px #0000001a;
+  }
+
+  .add-task-content .form-actions {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 465px) {
+  .add-task-content {
+    margin-bottom: 170px;
+  }
+
+  .clear-btn {
+    display: none;
+  }
+
+  .create-btn {
+    font-size: 21px;
+  }
+
+  .check-mark {
+    max-height: unset;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 385px) {
+  .priority-actions {
+    flex-direction: column;
+  }
+
+  .priority-group button {
+    justify-content: center;
+  }
+
+  .form-actions-container {
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .add-task-content {
+    margin-bottom: 190px;
   }
 }

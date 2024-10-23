@@ -19,21 +19,26 @@ function loadScripts(scripts, callback) {
 }
 
 function openAddTaskModal(state = "todo") {
-  globalState = state;
-  document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
+  if (window.innerWidth <= 768) {
+    window.location.href = "/add-task.html";
+  } else {
+    globalState = state;
+    document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
 
-  const scriptsToLoad = [
-    "./scripts/addTask.js",
-    "./scripts/templates/subtaskListItem.js",
-    "./scripts/templates/contactlistDropdown.template.js",
-    "./scripts/templates/addTask.template.js",
-  ];
+    const scriptsToLoad = [
+      "./scripts/addTask.js",
+      "./scripts/templates/subtaskListItem.js",
+      "./scripts/templates/contactlistDropdown.template.js",
+      "./scripts/templates/addTask.template.js",
+    ];
 
-  loadScripts(scriptsToLoad, () => {
-    document.getElementById("modal-content").innerHTML += getAddTaskTemplate();
-    renderContactDropdown();
-    applyAnimation("slide-in");
-  });
+    loadScripts(scriptsToLoad, () => {
+      document.getElementById("modal-content").innerHTML += getAddTaskTemplate();
+      setDefaultPriority();
+      renderContactDropdown();
+      applyAnimation("slide-in");
+    });
+  }
 }
 
 function closeAddTaskModal(event) {
