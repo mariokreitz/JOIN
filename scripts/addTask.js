@@ -159,12 +159,14 @@ function removeSubtask(iconElement) {
   checkScrollbar();
 }
 
-function generateContactListHtml(contacts) {
-  if (contacts.length === 0) {
+function generateContactListHtml(contacts, filter = "") {
+  const filteredContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()));
+
+  if (filteredContacts.length === 0) {
     return noContactsTemplate();
   }
 
-  return contacts
+  return filteredContacts
     .map((contact, index) => {
       const initials = getInitialsFromContact(contact);
       return contactListItemTemplate(contact, index, initials);
@@ -174,9 +176,11 @@ function generateContactListHtml(contacts) {
 
 function renderContactDropdown() {
   const dropdownOptions = document.getElementById("contact-dropdown-options");
+  const input = document.getElementById("search");
+  const filter = input.value;
 
   if (dropdownOptions) {
-    const contactListHtml = generateContactListHtml(globalContacts);
+    const contactListHtml = generateContactListHtml(globalContacts, filter);
     dropdownOptions.innerHTML = contactListHtml;
   }
 }
@@ -204,6 +208,11 @@ function toggleContactListDropdown(event) {
       document.addEventListener("click", outsideClickListenerWrapper);
     }
   }
+}
+
+function filterOptions() {
+  const input = document.getElementById("search");
+  renderContactDropdown();
 }
 
 function toggleCategoryDropdown(event) {
@@ -250,18 +259,6 @@ function outsideClickListenerWrapper(event) {
 
 function outsideClickListenerWrapperCategory(event) {
   outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
-}
-
-function filterOptions() {
-  const input = document.getElementById("search");
-  const filter = input.value.toLowerCase();
-  const ul = document.getElementById("contact-dropdown-options");
-  const li = ul.getElementsByTagName("li");
-
-  for (let item of li) {
-    const text = item.textContent || item.innerText;
-    item.style.display = text.toLowerCase().includes(filter) ? "" : "none";
-  }
 }
 
 function selectCategory(event, category) {

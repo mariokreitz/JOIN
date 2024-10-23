@@ -1,7 +1,7 @@
 function noContactsTemplate() {
   return /*html*/ `
     <li class="no-contacts">
-      <p>No contacts available to assign.</p>
+      <p>No contact was found.</p>
     </li>
   `;
 }

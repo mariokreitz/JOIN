@@ -469,6 +469,11 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   background-color: #eee;
 }
 
+.custom-dropdown .options li.no-contacts:hover {
+  background-color: unset;
+  cursor: auto;
+}
+
 .custom-dropdown .badge {
   display: flex;
   width: 25px;
