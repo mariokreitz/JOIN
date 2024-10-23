@@ -627,6 +627,18 @@ function openBigCardModalEdit(index) {
     default:
       break;
   }
+
+  const scriptsToLoad = [
+    "./scripts/subtask.js",
+    "./scripts/contactDropDown.js",
+    "./scripts/utility.js",
+    "./scripts/templates/subtaskListItem.js",
+    "./scripts/templates/contactlistDropdown.template.js",
+  ];
+
+  loadScripts(scriptsToLoad, () => {
+    renderContactDropdown();
+  });
 }
 
 /**
@@ -764,7 +776,7 @@ function getNewDescription() {
  * representing the new due date in the format "TT.mm.jjjj".
  */
 function getNewDueDate() {
-  return document.getElementById("bc-duedate-input").value;
+  return document.getElementById("due-date").value;
 }
 
 /**

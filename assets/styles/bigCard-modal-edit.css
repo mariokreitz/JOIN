@@ -32,20 +32,11 @@
 .bc-close-container {
   display: flex;
   justify-content: end;
-  margin-top: 32px;
 }
 
 .bc-close-container img {
   width: 13.5px;
   height: 13.5px;
-}
-
-input {
-  border: 1px solid #d1d1d1;
-  border-radius: 15px;
-  max-width: 445px;
-  height: 48px;
-  margin-top: 8px;
 }
 
 input:focus {
@@ -58,13 +49,7 @@ input:focus {
 }
 
 #bc-description-textarea {
-  max-width: 445px;
   min-height: 120px;
-  margin-top: 8px;
-  padding: 6px;
-  border-radius: 15px;
-  outline: none;
-  border-color: #d1d1d1;
 }
 
 .bc-duedate-head {
@@ -219,11 +204,13 @@ select {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: 24px;
   background-color: #2a3647;
   color: white;
   padding: 16px;
   border-radius: 15px;
+  max-width: 80px;
+  justify-content: center;
+  margin-left: auto;
 }
 
 .dropdown-container {
