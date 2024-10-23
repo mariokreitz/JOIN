@@ -22,7 +22,7 @@ function getTaskCardBigEditTemplate(todo, index) {
       <p class="bc-description-head bc-m-left">Description</p>
       <textarea class="bc-m-left" name="" id="bc-description-textarea">${todo.description}</textarea>
       <p class="bc-duedate-head bc-m-left">Due date:</p>
-      <div class="bc-duedate-input-containr bc-with bc-m-left">
+      <div class="bc-duedate-input-containr bc-with">
         <input id="bc-duedate-input" type="date" value="${todo.date}" />
         <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="bc-icon">
           <path
