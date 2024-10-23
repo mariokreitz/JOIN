@@ -55,6 +55,7 @@ function setProgressBarTooltip(taskIndex, taskSubTasks) {
 
   progressBar.title = `${subtasksText} done`;
   progressBar.addEventListener("click", (event) => {
+    event.stopPropagation();
     if (isTooltipVisible) return;
     const tooltip = document.createElement("div");
     tooltip.classList.add("tooltip");

@@ -17,8 +17,14 @@
 function getTaskCardSmallTemplate(index, { category, description, priority, title, subTasks }) {
   return /*html*/ `
   <div class="task-card-small" id="task-card-small-${index}" onclick="openBigCardModal(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">
-    <div class="card-small-header ${category === "Technical Task" ? "technical-task" : "user-story"}">
-      <p class="inter-extralight">${category}</p>
+    <div class="card-small-header">
+      <p class="inter-extralight ${category === "Technical Task" ? "technical-task" : "user-story"}">${category}</p>
+      <button onclick="openStateChangeMenu(event, ${index})" type="button" class="btn btn-custom-more">
+        <img src="./assets/svg/more-vert.svg" alt="More Icon">
+      </button>
+      <div id="card-switch-state-${index}" class="card-switch-state-menu d_none">
+        <p class="inter-medium">Move to:</p>
+      </div>
     </div>
       <div class="card-small-body">
         <div class="card-small-info">
