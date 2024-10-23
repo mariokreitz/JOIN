@@ -75,6 +75,12 @@
   }
 }
 
+@media (max-width: 1115px) {
+  .priority-actions {
+    flex-direction: unset;
+  }
+}
+
 @media (max-width: 1000px) {
   .modal-content {
     width: 100%;
@@ -93,6 +99,13 @@
 
   .modal-content .add-task-content {
     height: 100%;
+  }
+  .task-form-container {
+    flex-direction: unset;
+    gap: 20px;
+  }
+  .task-seperator {
+    display: unset;
   }
 }
 
