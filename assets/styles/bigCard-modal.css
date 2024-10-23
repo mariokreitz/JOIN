@@ -1,8 +1,8 @@
 #big-card-modal {
   display: flex;
   flex-direction: column;
-  width: clamp(280px, 90%, 525px);
-  height: clamp(350px, 90%, 850px);
+  width: clamp(300px, 90%, 525px);
+  height: clamp(450px, 90%, 850px);
   box-shadow: 0px 0px 4px 0px #00000029;
   border-radius: 30px;
   position: absolute;
@@ -12,6 +12,7 @@
   z-index: 99;
   background-color: white;
   gap: 18px;
+  padding: 40px;
 }
 
 #big-card-modal-background {
@@ -29,7 +30,6 @@
   justify-content: center;
   text-align: start;
   min-width: 164px;
-  min-height: 36px;
   text-wrap: nowrap;
   font-size: 23px;
   border-radius: 8px;
@@ -63,8 +63,6 @@
 }
 
 .catogory-close-container {
-  margin-left: 40px;
-  margin-top: 48px;
   max-width: 445px;
   display: flex;
   align-items: center;
@@ -73,9 +71,8 @@
 }
 
 .big-card-head {
-  margin-left: 40px;
-  margin-right: 20px;
-  margin-top: 24px;
+  display: flex;
+  text-align: start;
   margin-bottom: 24px;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -94,11 +91,10 @@
 .big-card-description {
   display: flex;
   margin-top: 24px;
-  margin-left: 40px;
+
   margin-bottom: 16px;
-  margin-right: 40px;
+
   max-width: 445px;
-  min-height: 24px;
   font-size: 21px;
 }
 
@@ -107,7 +103,6 @@
 }
 
 .big-card-date {
-  margin-left: 40px;
   max-width: 445px;
   min-height: 24px;
   display: flex;
@@ -123,7 +118,7 @@
 
 .big-card-priority {
   display: flex;
-  margin-left: 40px;
+
   margin-top: 26px;
   font-size: 21px;
 }
@@ -149,7 +144,7 @@
 
 .big-card-assigned-head {
   width: 445px;
-  margin-left: 40px;
+
   font-size: 21px;
   margin-top: 24px;
 }
@@ -158,7 +153,7 @@
   display: flex;
   align-items: center;
   max-width: 445px;
-  margin-left: 40px;
+
   margin-top: 16px;
   gap: 16px;
 }
@@ -192,14 +187,13 @@
 }
 
 .bigCard-subtask-head {
-  margin-left: 40px;
   margin-top: 18px;
   font-size: 21px;
 }
 
 .bigCard-subtasks-container {
   max-width: 445px;
-  margin-left: 40px;
+
   margin-top: 8px;
   display: flex;
   flex-direction: column;
