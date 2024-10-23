@@ -112,3 +112,12 @@
   padding: 0;
   border-radius: unset;
 }
+
+.bc-prio-select {
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  border: none;
+}
+
+.bc-prio-select:hover {
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
