@@ -102,12 +102,8 @@ function addSubtask() {
 
 function createSubtaskListItem(subtaskText, subtaskId) {
   const li = document.createElement("li");
-
-  // Call the function to create the inner HTML
   li.innerHTML = subtaskListTemplate(subtaskText);
-
   li.setAttribute("data-id", subtaskId);
-
   li.addEventListener("dblclick", function () {
     editSubtask(li);
   });
@@ -190,19 +186,23 @@ function toggleContactListDropdown(event) {
   const dropdown = document.getElementById("contact-dropdown-options");
   const icon = document.getElementById("dropdown-icon");
 
-  if (dropdown && icon) {
-    dropdown.classList.toggle("show");
-    icon.classList.toggle("rotated");
+  if (event.target.id === "dropdown-icon-container" || event.target.id === "dropdown-icon") {
+    if (dropdown && icon) {
+      dropdown.classList.toggle("show");
+      icon.classList.toggle("rotated");
 
-    if (dropdown.classList.contains("show")) {
-      document.addEventListener("click", outsideClickListenerWrapper);
-    } else {
-      document.removeEventListener("click", outsideClickListenerWrapper);
+      if (dropdown.classList.contains("show")) {
+        document.addEventListener("click", outsideClickListenerWrapper);
+      } else {
+        document.removeEventListener("click", outsideClickListenerWrapper);
+      }
     }
-  }
-
-  function outsideClickListenerWrapper(event) {
-    outsideClickListener(event, "contact-dropdown-options", "dropdown-icon");
+  } else {
+    if (dropdown && !dropdown.classList.contains("show")) {
+      dropdown.classList.add("show");
+      icon.classList.add("rotated");
+      document.addEventListener("click", outsideClickListenerWrapper);
+    }
   }
 }
 
@@ -231,10 +231,15 @@ function outsideClickListener(event, dropdownId, iconId) {
   var input = document.getElementById("search");
 
   if (dropdown && icon) {
-    if (!dropdown.contains(event.target) && !icon.contains(event.target) && !input.contains(event.target)) {
+    if (
+      !dropdown.contains(event.target) &&
+      !icon.contains(event.target) &&
+      !input.contains(event.target) &&
+      input.value.trim() === ""
+    ) {
       dropdown.classList.remove("show");
       icon.classList.remove("rotated");
-      document.removeEventListener("click", (e) => outsideClickListener(e, dropdownId, iconId));
+      document.removeEventListener("click", outsideClickListenerWrapper);
     }
   }
 }

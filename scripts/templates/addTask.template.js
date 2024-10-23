@@ -24,7 +24,7 @@ function getAddTaskTemplate() {
                   placeholder="Select contacts to assign"
                   onkeyup="filterOptions()"
                   onclick="toggleContactListDropdown(event)" />
-                <div class="icon-container dropdown-btn" onclick="toggleContactListDropdown(event)">
+                <div id="dropdown-icon-container" class="icon-container dropdown-btn" onclick="toggleContactListDropdown(event)">
                   <img src="./assets/svg/arrow-dropdown.svg" alt="dropdown icon" class="icon" id="dropdown-icon" />
                 </div>
               </div>
