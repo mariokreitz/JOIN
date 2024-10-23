@@ -642,6 +642,7 @@ function toggleBigCardModal(index) {
   const closeEditContainer = bigCardModalBackground.querySelector("#closeEditContainer");
   if (closeEditContainer) openBigCardModal(index);
   bigCardModalBackground.classList.toggle("d_none");
+  document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
 }
 
 function getAssignedMemberColor(assignedMemberName) {
