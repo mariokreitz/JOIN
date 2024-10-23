@@ -1,3 +1,23 @@
+function loadScripts(scripts, callback) {
+  let loadedScripts = 0;
+
+  scripts.forEach((src) => {
+    if (!document.querySelector(`script[src="${src}"]`)) {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        loadedScripts++;
+        if (loadedScripts === scripts.length) {
+          callback();
+        }
+      };
+      document.head.appendChild(script);
+    } else {
+      loadedScripts++;
+    }
+  });
+}
+
 function toggleUrgentState() {
   resetAllStates();
   const container = document.getElementById("bc-select-urgent");

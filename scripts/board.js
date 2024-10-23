@@ -627,6 +627,18 @@ function openBigCardModalEdit(index) {
     default:
       break;
   }
+
+  const scriptsToLoad = [
+    "./scripts/subtask.js",
+    "./scripts/contactDropDown.js",
+    "./scripts/utility.js",
+    "./scripts/templates/subtaskListItem.js",
+    "./scripts/templates/contactlistDropdown.template.js",
+  ];
+
+  loadScripts(scriptsToLoad, () => {
+    renderContactDropdown();
+  });
 }
 
 /**

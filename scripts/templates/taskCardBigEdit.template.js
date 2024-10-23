@@ -13,25 +13,34 @@ function getTaskCardBigEditTemplate(todo, index) {
         .join("")
     : "";
 
-  return ` <div id="closeEditContainer" class="bigc-main-container">
+  return /* HTML */ `
+    <div id="closeEditContainer" class="bigc-main-container">
       <div class="bc-close-container bc-with bc-m-left">
         <button onclick="openBigCardModal(${index})"><img src="./assets/img/icons/close.png" /></button>
       </div>
-      <div class="bc-head bc-m-left"><p>Title</p></div>
-      <input id="bc-todo-titel" class="bc-m-left bc-title-input" type="text" value="${todo.title}" />
-      <p class="bc-description-head bc-m-left">Description</p>
-      <textarea class="bc-m-left" name="" id="bc-description-textarea">${todo.description}</textarea>
-      <p class="bc-duedate-head bc-m-left">Due date:</p>
-      <div class="bc-duedate-input-containr bc-with bc-m-left">
-        <input id="bc-duedate-input" type="date" value="${todo.date}" />
-        <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="bc-icon">
-          <path
-            d="M12.1821 16.3967C11.4821 16.3967 10.8905 16.1551 10.4071 15.6717C9.9238 15.1884 9.68213 14.5967 9.68213 13.8967C9.68213 13.1967 9.9238 12.6051 10.4071 12.1217C10.8905 11.6384 11.4821 11.3967 12.1821 11.3967C12.8821 11.3967 13.4738 11.6384 13.9571 12.1217C14.4405 12.6051 14.6821 13.1967 14.6821 13.8967C14.6821 14.5967 14.4405 15.1884 13.9571 15.6717C13.4738 16.1551 12.8821 16.3967 12.1821 16.3967ZM2.68213 20.3967C2.13213 20.3967 1.6613 20.2009 1.26963 19.8092C0.877962 19.4176 0.682129 18.9467 0.682129 18.3967V4.39673C0.682129 3.84673 0.877962 3.3759 1.26963 2.98423C1.6613 2.59256 2.13213 2.39673 2.68213 2.39673H3.68213V1.39673C3.68213 1.1134 3.77796 0.875895 3.96963 0.684229C4.1613 0.492562 4.3988 0.396729 4.68213 0.396729C4.96546 0.396729 5.20296 0.492562 5.39463 0.684229C5.5863 0.875895 5.68213 1.1134 5.68213 1.39673V2.39673H13.6821V1.39673C13.6821 1.1134 13.778 0.875895 13.9696 0.684229C14.1613 0.492562 14.3988 0.396729 14.6821 0.396729C14.9655 0.396729 15.203 0.492562 15.3946 0.684229C15.5863 0.875895 15.6821 1.1134 15.6821 1.39673V2.39673H16.6821C17.2321 2.39673 17.703 2.59256 18.0946 2.98423C18.4863 3.3759 18.6821 3.84673 18.6821 4.39673V18.3967C18.6821 18.9467 18.4863 19.4176 18.0946 19.8092C17.703 20.2009 17.2321 20.3967 16.6821 20.3967H2.68213ZM2.68213 18.3967H16.6821V8.39673H2.68213V18.3967ZM2.68213 6.39673H16.6821V4.39673H2.68213V6.39673Z"
-            fill="#2A3647" />
-        </svg>
+
+      <div class="form-group">
+        <label for="title">Title<span class="required">*</span></label>
+        <input autocomplete="off" type="text" id="title" value="${todo.title}" required />
       </div>
-      <p class="bc-priority-head bc-m-left">Priority</p>
-      <div class="bc-priority-select-container bc-m-left bc-with">
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" placeholder="Enter a Description">${todo.description}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="due-date">Due date<span class="required">*</span></label>
+        <div class="input-container">
+          <input type="date" id="due-date" value="${todo.date}" required />
+          <div class="icon-container" onclick="openDatePicker(event)">
+            <img src="./assets/svg/event.svg" alt="date icon" class="icon" id="date-icon" />
+          </div>
+        </div>
+      </div>
+
+      <div class="bc-priority-select-container bc-m-left bc-with form-group">
+        <label class="bc-priority-head bc-m-left">Priority</label>
         <div id="bc-select-urgent" class="bc-prio-select bc-prio-urgent" onclick="toggleUrgentState()">
           <span>Urgent</span>
           <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,41 +75,54 @@ function getTaskCardBigEditTemplate(todo, index) {
           </svg>
         </div>
       </div>
-      <p class="bc-assigned-head bc-m-left">Assigned to</p>
-      <div class="dropdown-container">
-        <div class="dropdown" id="dropdown" onclick="toggleAssignedDropdown()">
-          <span>Select contacts to assign</span>
-        </div>
-        <div class="dropdown-content" id="dropdown-content">
-          <div class="dropdown-item">
-            <div class="bc-card-initial-circle-dropdown"><span>AM</span></div>
-            <span class="name">Anna Müller</span>
-            <input type="checkbox" onclick="handleSelection(this, 'AM', 'Anna Müller')" />
-          </div>
-          <div class="dropdown-item">
-            <div class="bc-card-initial-circle-dropdown"><span>BM</span></div>
-            <span class="name">Bernd Meyer</span>
-            <input type="checkbox" onclick="handleSelection(this, 'BM', 'Bernd Meyer')" />
-          </div>
-          <div class="dropdown-item">
-            <div class="bc-card-initial-circle-dropdown"><span>CM</span></div>
-            <span class="name">Clara Meier</span>
-            <input type="checkbox" onclick="handleSelection(this, 'CM', 'Clara Meier')" />
+
+      <div class="form-group custom-dropdown contact-dropdown">
+        <label for="search">Assigned to</label>
+        <div class="input-container">
+          <input
+            autocomplete="off"
+            type="text"
+            id="search"
+            placeholder="Select contacts to assign"
+            onkeyup="filterOptions()"
+            onclick="toggleContactListDropdown(event)" />
+          <div
+            id="dropdown-icon-container"
+            class="icon-container dropdown-btn"
+            onclick="toggleContactListDropdown(event)">
+            <img src="./assets/svg/arrow-dropdown.svg" alt="dropdown icon" class="icon" id="dropdown-icon" />
           </div>
         </div>
+        <ul id="contact-dropdown-options" class="options"></ul>
+        <div id="selected-badges" class="selected-badges"></div>
       </div>
 
-      <div class="bc-show-selected-assigned bc-m-left bc-with" id="selected-assigned">
-      ${assignedMembersHtml} 
+      <div class="form-group subtask">
+        <label for="subtasks">Subtasks</label>
+        <div class="input-container">
+          <input
+            autocomplete="off"
+            type="text"
+            id="subtasks"
+            placeholder="Add new subtask"
+            oninput="handleSubtaskIcons()" />
+          <div class="icon-container">
+            <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
+          </div>
+          <div class="subtask-actions" id="subtask-actions">
+            <div class="icon-container" onclick="clearInputField()">
+              <img src="./assets/svg/close.svg" alt="cancel icon" class="icon cancel-icon" />
+            </div>
+            <div class="icon-seperator"></div>
+            <div class="icon-container" onclick="addSubtask()">
+              <img src="./assets/svg/check-mark-dark.svg" alt="confirm icon" class="icon confirm-icon" />
+            </div>
+          </div>
+        </div>
+        <ul id="subtask-list"></ul>
       </div>
-      <div class="bc-subtask-head bc-m-left"><p>Subtasks</p></div>
 
-      <div class="bc-input-container bc-m-left">
-        <input id="input-subtask-bc" class="bc-input-subtask" type="text" placeholder="Aufgabe hinzufügen" />
-        <span onclick="addSubtaskBC()" class="bc-icon">+</span>
-      </div>
-      <div class="bc-subtask-list bc-with" id="show-subtask-bc">
-      </div>
+      <div class="bc-subtask-list bc-with" id="show-subtask-bc"></div>
       <button onclick="editBigCard(${index})" class="bc-end-button">
         Ok<svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -108,5 +130,6 @@ function getTaskCardBigEditTemplate(todo, index) {
             fill="white" />
         </svg>
       </button>
-    </div>`;
+    </div>
+  `;
 }

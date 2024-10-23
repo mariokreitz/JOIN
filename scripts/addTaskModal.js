@@ -19,10 +19,10 @@ function loadScripts(scripts, callback) {
 }
 
 function openAddTaskModal(state = "todo") {
+  globalState = state;
   if (window.innerWidth <= 768) {
     window.location.href = "/add-task.html";
   } else {
-    globalState = state;
     document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
 
     const scriptsToLoad = [
