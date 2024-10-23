@@ -9,12 +9,12 @@
 .bc-head {
   margin-top: 24px;
 }
-
+/*
 ::-webkit-scrollbar {
   width: 7px;
   height: 5px;
 }
-
+/*
 ::-webkit-scrollbar-track {
   background: white;
   margin-top: 30px;
@@ -30,7 +30,8 @@
   border-bottom: 400px solid transparent;
   border-radius: 50px;
 }
-*/ .bigc-main-container {
+*/
+.bigc-main-container {
   width: 525px;
   max-height: 900px;
   position: absolute;
