@@ -9,6 +9,7 @@
 .bigc-main-container::-webkit-scrollbar-track {
   margin-top: 30px;
   margin-bottom: 30px;
+  padding-right: 50px;
 }
 
 .bigc-main-container {
@@ -81,7 +82,7 @@ input:focus {
 
 .bc-icon {
   position: absolute;
-  right: 40%;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -103,6 +104,8 @@ input:focus {
   align-items: center;
   width: 137.5px;
   height: 56px;
+  padding-right: 10px;
+  padding-left: 10px;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
   gap: 8px;
@@ -474,5 +477,14 @@ select {
 @media (max-width: 525px) {
   .bigc-main-container {
     width: calc(100% - 20px);
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .bc-prio-select {
+    max-width: 137px;
+    font-size: 16px;
+  }
+  .bc-priority-select-container {
+    gap: 8px;
   }
 }
