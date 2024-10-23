@@ -169,7 +169,7 @@ function renderTodos(todos) {
         setProgressBarTooltip(index, todo.subTasks);
         break;
     }
-    renderAssignedMembers(index, todo);
+    renderAssignedMembersForTodo(index, todo);
     addMobileMenu(index, todo);
 
     handleDragEvents();
@@ -228,31 +228,52 @@ async function updateTodoMobile(index, newState) {
 }
 
 /**
- * Given the index and todo object, renders the assigned members of the todo
- * card element at that index. The assigned members are retrieved from the
- * todo object and rendered as individual contact items using the
- * getAssignedMemberTemplate function.
+ * Renders the assigned members for a specific todo item by creating and appending
+ * HTML elements representing each assigned member to the DOM element corresponding
+ * to the todo's assigned members section.
  *
- * @param {number} index - The index of the todo element to render the assigned
- *   members for.
- * @param {Object} todo - The todo object containing the assigned members.
+ * If the assigned members element does not exist, the function returns immediately.
+ *
+ * @param {number} todoIndex - The index of the todo item.
+ * @param {Object} todo - The todo object containing the assigned members information.
  * @returns {void}
  */
-function renderAssignedMembers(index, todo) {
-  const assignedMembersElement = document.getElementById(`assigned-members-${index}`);
+function renderAssignedMembersForTodo(todoIndex, todo) {
+  const assignedMembersElement = document.getElementById(`assigned-members-${todoIndex}`);
+
   if (!assignedMembersElement) return;
 
-  const assignedMembersArr = objectToArray(todo.assignedMembers);
+  const assignedMembers = objectToArray(todo.assignedMembers);
 
-  assignedMembersArr.forEach((member) => {
-    const foundMember = globalContacts.find((contact) => contact.name === member);
-    if (foundMember) {
-      const initials = getInitialsFromContact(foundMember);
-      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate(foundMember.color, initials));
-    } else {
-      assignedMembersElement.insertAdjacentHTML("beforeend", getAssignedMemberTemplate("#c7c7c7"));
-    }
-  });
+  assignedMembersElement.append(
+    ...assignedMembers.map((memberName, memberIndex) => {
+      const contact = globalContacts.find((contact) => contact.name === memberName);
+      return createAssignedMemberElement(contact, memberIndex, assignedMembers.length);
+    })
+  );
+}
+
+/**
+ * Creates an HTML element representing an assigned member badge.
+ *
+ * @param {Object} contact - The contact object containing information about the assigned member.
+ * @param {number} index - The index of the member in the assigned members list.
+ * @param {number} totalMembers - The total number of assigned members.
+ * @returns {HTMLElement|string} The HTML element representing the member badge or an empty string if the index is greater than 3.
+ */
+function createAssignedMemberElement(contact, index, totalMembers) {
+  const memberElement = document.createElement("div");
+  memberElement.classList.add("card-mall-assigend-member-badge");
+
+  if (index < 3 && contact) {
+    memberElement.textContent = getInitialsFromContact(contact);
+    memberElement.style.backgroundColor = contact.color;
+  } else if (index === 3) {
+    memberElement.textContent = `+${totalMembers - 3}`;
+    memberElement.style.backgroundColor = "#c7c7c7";
+  } else return "";
+
+  return memberElement;
 }
 
 /**
