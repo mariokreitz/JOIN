@@ -29,7 +29,6 @@ function getTaskCardBigTemplate(todo, index) {
     : "";
 
   return `
-  <div class="modal-overflow-hidden">
     <div id="big-card-modal" onclick="event.stopPropagation()">
       <div class="catogory-close-container">
         <div class="card-big-header inter-extralight" style="background-color: ${
@@ -95,6 +94,5 @@ function getTaskCardBigTemplate(todo, index) {
           <p>Edit</p>
         </div>
       </div>
-    </div>
     </div>`;
 }

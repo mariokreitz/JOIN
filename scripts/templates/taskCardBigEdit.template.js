@@ -101,6 +101,7 @@ function getTaskCardBigEditTemplate(todo, index) {
       </div>
       <div class="bc-subtask-list bc-with" id="show-subtask-bc">
       </div>
+      <div class="bc-end-button-container">
       <button onclick="editBigCard(${index})" class="bc-end-button">
         Ok<svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -108,5 +109,6 @@ function getTaskCardBigEditTemplate(todo, index) {
             fill="white" />
         </svg>
       </button>
+      </div>
     </div>`;
 }

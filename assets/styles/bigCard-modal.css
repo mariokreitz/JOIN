@@ -1,20 +1,15 @@
 #big-card-modal {
   display: flex;
   flex-direction: column;
-  width: clamp(300px, 90%, 525px);
+  max-width: 525px;
   max-height: calc(99dvh - 20px);
   box-shadow: 0px 0px 4px 0px #00000029;
   border-radius: 30px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 99;
   background-color: white;
   gap: 18px;
   padding: 40px;
-  overflow: auto;
-
+  overflow-y: auto;
+  overflow-x: hidden;
   z-index: 120;
 }
 
@@ -28,6 +23,10 @@
   position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -243,6 +242,11 @@
   color: #42526e;
 }
 
+#big-card-modal::-webkit-scrollbar-track {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 @media (max-width: 768px) {
   .big-card-head h1 {
     font-size: 40px;
@@ -259,5 +263,11 @@
   }
   .bigCard-delete-edit-container {
     margin-left: 50%;
+  }
+}
+
+@media (max-width: 525px) {
+  #big-card-modal {
+    width: calc(100% - 20px);
   }
 }
