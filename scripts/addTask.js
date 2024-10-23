@@ -374,6 +374,7 @@ function clearForm() {
   document.getElementById("description").value = "";
   document.getElementById("due-date").value = "";
   document.getElementById("subtasks").value = "";
+  document.getElementById("search").value = "";
 
   const selectedCategory = document.getElementById("select-category");
   selectedCategory.textContent = "Select task category";
