@@ -776,7 +776,7 @@ function getNewDescription() {
  * representing the new due date in the format "TT.mm.jjjj".
  */
 function getNewDueDate() {
-  return document.getElementById("bc-duedate-input").value;
+  return document.getElementById("due-date").value;
 }
 
 /**

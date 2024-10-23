@@ -9,7 +9,7 @@
 
 .bigc-main-container input[type="text"],
 .bigc-main-container input[type="date"],
-.bigc-main-container textarea,
+#bc-description-textarea,
 .bigc-main-container select {
   width: 100%;
   padding: 10px;
@@ -19,14 +19,14 @@
 }
 
 .bigc-main-container input:focus-visible,
-.bigc-main-container textarea:focus-visible,
+#bc-description-textarea:focus-visible,
 .bigc-main-container select:focus-visible {
   outline: unset;
   border: 1px solid var(--secondary);
 }
 
 .bigc-main-container input::placeholder,
-.bigc-main-container textarea::placeholder {
+#bc-description-textarea::placeholder {
   color: var(--line);
 }
 
@@ -53,7 +53,7 @@
   padding-right: 15px;
 }
 
-.bigc-main-container textarea {
+#bc-description-textarea {
   height: 80px;
 }
 

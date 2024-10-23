@@ -21,12 +21,12 @@ function getTaskCardBigEditTemplate(todo, index) {
 
       <div class="form-group">
         <label for="title">Title<span class="required">*</span></label>
-        <input autocomplete="off" type="text" id="title" value="${todo.title}" required />
+        <input autocomplete="off" type="text" id="bc-todo-titel" value="${todo.title}" required />
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" placeholder="Enter a Description">${todo.description}</textarea>
+        <textarea id="bc-description-textarea" placeholder="Enter a Description">${todo.description}</textarea>
       </div>
 
       <div class="form-group">
