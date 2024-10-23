@@ -34,6 +34,7 @@ function openAddTaskModal(state = "todo") {
 
     loadScripts(scriptsToLoad, () => {
       document.getElementById("modal-content").innerHTML += getAddTaskTemplate();
+      setDefaultPriority();
       renderContactDropdown();
       applyAnimation("slide-in");
     });
