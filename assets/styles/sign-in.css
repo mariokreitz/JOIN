@@ -44,8 +44,8 @@
 .login-login-container {
   display: flex;
   flex-direction: column;
-  width: 592px;
-  height: 530px;
+  width: 552px;
+  height: 650px;
   background-color: white;
   border-radius: 15px;
   margin-right: auto;
@@ -75,7 +75,7 @@
   margin-right: auto;
   margin-left: auto;
   margin-top: 32px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 }
 
 .login-remember-container {
@@ -113,7 +113,7 @@
   padding-left: 20px;
 }
 
-#login-login-btn {
+#sign-login-btn {
   display: flex;
   background-color: #2a3647;
   color: white;
@@ -146,7 +146,7 @@
   justify-content: center;
   gap: 24px;
   font-size: 16px;
-  margin-top: -62px;
+  margin-top: -99px;
 }
 
 .login-login-mail,
