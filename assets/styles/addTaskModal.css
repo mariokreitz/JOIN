@@ -83,12 +83,12 @@
 
 @media (max-width: 920px) {
   .modal-content {
-    padding: 20px;
+    padding: 40px;
     overflow: auto;
   }
   .modal-content .close-btn {
-    top: 20px;
-    right: 20px;
+    top: 40px;
+    right: 40px;
   }
 
   .modal-content .add-task-content {
@@ -97,6 +97,11 @@
 }
 
 @media (max-width: 768px) {
+  #add-task-modal,
+  .add-task-modal {
+    display: none;
+  }
+
   .modal-content .form-actions-container {
     position: unset;
     bottom: unset;

@@ -3,7 +3,7 @@ body:has(.add-task-main) {
   min-height: 100vh;
 }
 
-body:has(.add-task-main) {
+body:has(.add-task-content) {
   --sb-track-color: var(--background-lightGrey);
   --sb-thumb-color: var(--line);
   --sb-size: 10px;
@@ -38,7 +38,7 @@ nav {
 
 @supports not selector(::-webkit-scrollbar) {
   body {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
   }
 }
 
