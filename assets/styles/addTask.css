@@ -42,6 +42,10 @@ nav {
   }
 }
 
+.input-container #search {
+  padding-right: 40px;
+}
+
 .add-task-main {
   margin-left: 232px;
   padding: 64px;
