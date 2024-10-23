@@ -1,11 +1,9 @@
 /**
- * Contains the text content for each operation type.
- * @typedef {Object.<string, string>} TextContent
- * @property {string} create - The text content for the create operation.
- * @property {string} update - The text content for the update operation.
- * @property {string} delete - The text content for the delete operation.
- * @property {string} taskAdded - The text content for the task added operation.
- * @property {string} signUpSuccess - The text content for the sign up success operation.
+ * Shows a toast message based on the operation type and the response.
+ *
+ * @param {string} operation - The type of operation. Can be either "create" or "update".
+ * @param {Response} response - The response object from the fetch API.
+ * @returns {void}
  */
 const textContent = {
   /**
@@ -43,6 +41,16 @@ const textContent = {
    * @type {string}
    */
   exists: "Email/Phone already exists",
+  /**
+   * The text content for the todo deleted operation.
+   * @type {string}
+   */
+  todoDeleted: "Todo successfully deleted",
+  /**
+   * The text content for the todo updated operation.
+   * @type {string}
+   */
+  todoUpdated: "Todo successfully updated",
 };
 
 /**

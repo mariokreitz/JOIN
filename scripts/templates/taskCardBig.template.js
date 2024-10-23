@@ -1,28 +1,32 @@
 function getTaskCardBigTemplate(todo, index) {
-  const subTasksHtml = Object.keys(todo.subTasks)
-    .map((key) => {
-      const subTask = todo.subTasks[key];
-      const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
-      return `
+  const subTasksHtml = todo.subTasks
+    ? Object.keys(todo.subTasks)
+        .map((key) => {
+          const subTask = todo.subTasks[key];
+          const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
+          return `
     <div class="bigCard-subtask">
-      <img id="subTaskImageChecked${key}" onclick="doneSubTask(${index}, '${key}'); event.stopPropagation();"  src="./assets/img/icons/${isChecked}" />
+      <img id="subTaskImageChecked${key}" onclick="toggleSubtask(${index}, '${key}'); event.stopPropagation();"  src="./assets/img/icons/${isChecked}" />
       <p>${subTask.text}</p>
     </div>`;
-    })
-    .join("");
+        })
+        .join("")
+    : "";
 
-  const assignedMembersHtml = Object.keys(todo.assignedMembers)
-    .map((key) => {
-      const member = todo.assignedMembers[key];
-      const initials = getInitialsFromContact({ name: member });
-      const color = getAssignedMemberColor(member);
-      return `
+  const assignedMembersHtml = todo.assignedMembers
+    ? Object.keys(todo.assignedMembers)
+        .map((key) => {
+          const member = todo.assignedMembers[key];
+          const initials = getInitialsFromContact({ name: member });
+          const color = getAssignedMemberColor(member);
+          return `
         <div class="assigned-member-initial-wrapper">
           <div class="b-card-initial-circle" style="background-color: ${color};"><span>${initials}</span></div>
           <div class="big-card-assigned-name"><p>${member}</p></div>
         </div>`;
-    })
-    .join("");
+        })
+        .join("")
+    : "";
 
   return `
     <div id="big-card-modal" onclick="event.stopPropagation()">
@@ -32,8 +36,8 @@ function getTaskCardBigTemplate(todo, index) {
         }">
           <h4 class="inter-extralight">${todo.category}</h4>
         </div>
-        <div class="big-card-close-x">
-          <img onclick="closeTaskCardBig()" src="./assets/img/icons/close.png" />
+        <div onclick="toggleBigCardModal()" class="big-card-close-x">
+          <img src="./assets/img/icons/close.png" />
         </div>
       </div>
       <div class="big-card-head">
@@ -69,7 +73,7 @@ function getTaskCardBigTemplate(todo, index) {
         </div>
       <div class="bigCard-subtask-head"><p>Subtasks</p></div>
       <div class="bigCard-subtasks-container">
-        ${subTasksHtml} 
+        ${subTasksHtml ? subTasksHtml : ""} 
       </div>
       <div class="bigCard-delete-edit-container">
         <div onclick="deleteTaskCard(${index})" class="big-card-delete">

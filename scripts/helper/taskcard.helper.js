@@ -71,6 +71,13 @@ function setProgressBarTooltip(taskIndex, taskSubTasks) {
   });
 }
 
+/**
+ * Converts a given date string to a human-readable string in the default
+ * locale format.
+ *
+ * @param {string} dueDate - The date string to be formatted.
+ * @returns {string} The formatted date string.
+ */
 function formatDueDate(dueDate) {
   return new Date(dueDate).toLocaleDateString();
 }

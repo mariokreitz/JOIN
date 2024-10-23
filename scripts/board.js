@@ -300,9 +300,7 @@ function searchTodos(event) {
  */
 function onDrop(state) {
   updateTodo(state);
-  clearBoardColumns();
-  renderTodos(globalTodos);
-  renderAllPlaceholder();
+  triggerRender();
   removeAllHighlights();
 }
 
@@ -320,6 +318,39 @@ async function updateTodo(state) {
   if (response.status === 400) {
     showToastMessage("error", response);
   }
+}
+
+/**
+ * Triggers the rendering of the entire board by clearing the columns, rendering all
+ * todo items and rendering all placeholder elements.
+ *
+ * @returns {void}
+ */
+function triggerRender() {
+  clearBoardColumns();
+  renderTodos(globalTodos);
+  renderAllPlaceholder();
+}
+
+/**
+ * Deletes the todo at the specified index from the global todos array and
+ * from the Firebase Realtime Database. If the deletion is successful, a
+ * toast message is shown. Otherwise, an error is logged to the console.
+ *
+ * @param {number} index - The index of the todo to be deleted.
+ * @returns {Promise<void>} - A promise that resolves when the deletion is complete.
+ */
+async function deleteTodo(index) {
+  const todo = globalTodos[index];
+
+  if (!todo) return;
+
+  const todoID = `TODO${todo.createdAt}`;
+  const response = await deleteTodosInFirebase("guest", todoID);
+  globalTodos.splice(index, 1);
+
+  if (response.ok) showToastMessage("todoDeleted", response);
+  else showToastMessage("error", response);
 }
 
 /**
@@ -422,54 +453,66 @@ function removeAllHighlights() {
   dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
 }
 
-function toggleCardModal() {
-  const modalBackground = document.getElementById("big-card-modal-background");
-  modalBackground.classList.toggle("d_none");
-}
-
-function updateSubTasksDisplay(index) {
-  const todo = globalTodos[index];
-  const renderC = document.getElementById("big-card-modal-background");
-
-  renderC.innerHTML = "";
-  renderC.innerHTML += getTaskCardBigTemplate(todo, index);
-}
-
-function bigCard(index) {
-  const todo = globalTodos[index];
-  const renderC = document.getElementById("big-card-modal-background");
-
-  renderC.innerHTML = "";
-  renderC.innerHTML += getTaskCardBigTemplate(todo, index);
-  toggleCardModal();
-}
-
-function openBigCardModalEdit(index) {
-  const todo = globalTodos[index];
-  const renderC = document.getElementById("big-card-modal-background");
-  renderC.innerHTML = "";
-  renderC.innerHTML += getTaskCardBigEdit(todo, index);
-
+/**
+ * Opens the big card modal in view mode for the todo item at the given index.
+ * This will populate the big card modal with the todo item's information and
+ * make the modal visible.
+ *
+ * @param {number} index - The index of the todo item in the globalTodos array
+ * @returns {void}
+ */
+function openBigCardModal(index) {
   const currentTodo = globalTodos[index];
-  document.getElementById("bc-select-urgent").classList.remove("active");
-  document.getElementById("bc-select-medium").classList.remove("active");
-  document.getElementById("bc-select-low").classList.remove("active");
+  const renderContainer = document.getElementById("big-card-modal-background");
 
-  if (currentTodo.priority === "high") {
-    document.getElementById("bc-select-urgent").classList.add("active");
-  } else if (currentTodo.priority === "medium") {
-    document.getElementById("bc-select-medium").classList.add("active");
-  } else if (currentTodo.priority === "low") {
-    document.getElementById("bc-select-low").classList.add("active");
+  renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
+  toggleBigCardModal(index);
+}
+
+/**
+ * Opens the big card modal in edit view for the todo item at the given index.
+ * This will populate the big card modal with the todo item's information and
+ * highlight the currently selected priority.
+ *
+ * @param {number} index - The index of the todo item in the globalTodos array
+ * @returns {void}
+ */
+function openBigCardModalEdit(index) {
+  const currentTodo = globalTodos[index];
+  const renderContainer = document.getElementById("big-card-modal-background");
+  renderContainer.innerHTML = getTaskCardBigEditTemplate(currentTodo, index);
+
+  const prioritySelects = document.querySelectorAll(".bc-prio-select");
+
+  prioritySelects.forEach((select) => select.classList.remove("active"));
+
+  switch (currentTodo.priority) {
+    case "high":
+      document.getElementById("bc-select-urgent").classList.add("active");
+      break;
+    case "medium":
+      document.getElementById("bc-select-medium").classList.add("active");
+      break;
+    case "low":
+      document.getElementById("bc-select-low").classList.add("active");
+      break;
+    default:
+      break;
   }
 }
 
-function closeBigCardEdit() {
-  toggleCardModal();
-}
-
-function closeTaskCardBig() {
-  toggleCardModal();
+/**
+ * Toggles the visibility of the big card modal by adding or removing the
+ * "d_none" class from the big card modal background element.
+ *
+ * @returns {void}
+ */
+function toggleBigCardModal(index) {
+  const bigCardModalBackground = document.getElementById("big-card-modal-background");
+  if (!bigCardModalBackground) return;
+  const closeEditContainer = bigCardModalBackground.querySelector("#closeEditContainer");
+  if (closeEditContainer) openBigCardModal(index);
+  bigCardModalBackground.classList.toggle("d_none");
 }
 
 function getAssignedMemberColor(assignedMemberName) {
@@ -477,90 +520,151 @@ function getAssignedMemberColor(assignedMemberName) {
   return contact ? contact.color : undefined;
 }
 
-async function doneSubTask(index, subTaskKey) {
+/**
+ * Toggles the state of a subtask in the given todo.
+ *
+ * @param {number} index - The index of the todo in the globalTodos array.
+ * @param {string} subtaskKey - The key of the subtask to be toggled.
+ *
+ * @returns {Promise<void>} - Resolves when the subtask state has been toggled.
+ */
+
+async function toggleSubtask(index, subtaskKey) {
   const currentTodo = globalTodos[index];
+  const { subTasks = {} } = currentTodo;
+  const subtask = subTasks[subtaskKey];
 
-  if (!currentTodo.subTasks) return;
+  subTasks[subtaskKey] = { ...subtask, state: !subtask?.state };
+  const response = await updateTodosInFirebase("guest", arrayToObject(globalTodos));
+  if (!response.ok) showToastMessage("error", response);
+  globalTodos[index] = { ...currentTodo, subTasks };
 
-  const subTask = currentTodo.subTasks[subTaskKey];
-  if (subTask) {
-    subTask.state = !subTask.state;
-  }
-
-  const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase("guest", todosObject);
-
-  if (response.ok) {
-    console.log("aktualisiert");
-    updateSubTasksDisplay(index);
-  } else {
-    console.error("Fehler", response);
-  }
+  updateSubTasksDisplay(index);
+  triggerRender();
 }
 
+/**
+ * Updates the display of the big task card modal with the todo item at the given index.
+ * This is called when a subtask is checked or unchecked, and the big card modal needs
+ * to be updated to reflect the change.
+ *
+ * @param {number} index - The index of the todo item in the globalTodos array
+ * @returns {void}
+ */
+function updateSubTasksDisplay(index) {
+  const todoItem = globalTodos[index];
+  const modalBackground = document.getElementById("big-card-modal-background");
+
+  modalBackground.innerHTML = getTaskCardBigTemplate(todoItem, index);
+}
+
+/**
+ * Edit a todo and update the display
+ * @param {number} index The index of the todo to edit
+ */
 async function editBigCard(index) {
   const currentTodo = globalTodos[index];
 
-  if (!currentTodo) {
-    console.error(`Todo mit Index ${index} nicht gefunden.`);
-    return;
-  }
+  if (!currentTodo) return;
+  const selectedPriority = getSelectedPriority();
 
-  const isUrgentSelected = document.getElementById("bc-select-urgent").classList.contains("active");
-  const isMediumSelected = document.getElementById("bc-select-medium").classList.contains("active");
-  const isLowSelected = document.getElementById("bc-select-low").classList.contains("active");
+  if (!selectedPriority) return;
+  const newTitle = getNewTitle();
+  const newDescription = getNewDescription();
+  const newDueDate = getNewDueDate();
 
-  if (isUrgentSelected) {
-    currentTodo.priority = "high";
-  } else if (isMediumSelected) {
-    currentTodo.priority = "medium";
-  } else if (isLowSelected) {
-    currentTodo.priority = "low";
-  } else {
-    console.error("Keine Priorität ausgewählt");
-    return;
-  }
-
-  const newTitle = document.getElementById("bc-todo-titel").value;
-  const newDescription = document.getElementById("bc-description-textarea").value;
-  const newDueDate = document.getElementById("bc-duedate-input").value;
-
-  if (!newTitle || !newDescription || !newDueDate) {
-    console.error("Eingaben sind ungültig oder leer.");
-    return;
-  }
-
+  if (!isValidInput(newTitle, newDescription, newDueDate)) return;
   currentTodo.title = newTitle;
   currentTodo.description = newDescription;
   currentTodo.date = newDueDate;
+  currentTodo.priority = selectedPriority;
 
   const todosObject = arrayToObject(globalTodos);
   const response = await updateTodosInFirebase("guest", todosObject);
 
-  if (response.ok) {
-    console.log("Todo erfolgreich aktualisiert");
+  if (response.ok) showToastMessage("todoUpdated", response);
+  else showToastMessage("error", response);
+
+  toggleBigCardModal(index);
+  triggerRender();
+}
+
+/**
+ * Checks which priority is selected in the big card modal edit view.
+ * @return {string} The priority, either "high", "medium", "low" or null if none is selected.
+ */
+function getSelectedPriority() {
+  const urgent = document.getElementById("bc-select-urgent").classList.contains("active");
+  const medium = document.getElementById("bc-select-medium").classList.contains("active");
+  const low = document.getElementById("bc-select-low").classList.contains("active");
+
+  if (urgent) {
+    return "high";
+  } else if (medium) {
+    return "medium";
+  } else if (low) {
+    return "low";
   } else {
-    console.error("Fehler beim Aktualisieren", response);
+    return null;
   }
 }
 
+/**
+ * Retrieves the new title value from the title input field.
+ *
+ * @returns {string} The value of the input field with the id "bc-todo-titel",
+ * representing the new title of the todo.
+ */
+function getNewTitle() {
+  return document.getElementById("bc-todo-titel").value;
+}
+
+/**
+ * Retrieves the new description value from the textarea field.
+ *
+ * @returns {string} The value of the textarea with the id "bc-description-textarea",
+ * representing the new description of the todo.
+ */
+function getNewDescription() {
+  return document.getElementById("bc-description-textarea").value;
+}
+
+/**
+ * Retrieves the new due date value from the input field.
+ *
+ * @returns {string} The value of the input field with the id "bc-duedate-input",
+ * representing the new due date in the format "TT.mm.jjjj".
+ */
+function getNewDueDate() {
+  return document.getElementById("bc-duedate-input").value;
+}
+
+/**
+ * Checks if all input fields for a todo have valid values.
+ *
+ * @param {string} title - The title of the todo.
+ * @param {string} description - The description of the todo.
+ * @param {string} dueDate - The due date of the todo in the format "YYYY-MM-DD".
+ * @returns {boolean} - True if all inputs are valid, false otherwise.
+ */
+function isValidInput(title, description, dueDate) {
+  return title && description && dueDate;
+}
+
+/**
+ * Deletes a task card from the board and updates the UI.
+ *
+ * This function deletes a task card at the specified index from the global todos array,
+ * closes the task card modal, clears all columns on the board, and re-renders
+ * the remaining todos and placeholder elements.
+ *
+ * @param {number} index - The index of the task card to be deleted.
+ * @returns {Promise<void>} - A promise that resolves when the deletion and UI update are complete.
+ */
 async function deleteTaskCard(index) {
-  const currentTodo = globalTodos[index];
-
-  if (!currentTodo) {
-    console.error(`${index} nicht gefunden.`);
-    return;
-  }
-
-  const todoID = `TODO${currentTodo.createdAt}`;
-
-  const response = await deleteTodosInFirebase("guest", todoID);
-
-  if (response.ok) {
-    console.log("erfolgreich gelöscht");
-  } else {
-    console.error("Fehler", response);
-  }
+  await deleteTodo(index);
+  toggleBigCardModal(index);
+  triggerRender();
 }
 
 /**
@@ -576,7 +680,7 @@ function togglePlaceholder(elementId) {
 }
 
 /**
- * Makes the hollow drag area placeholder within the specified column
+ * Makes the hollow rag area placeholder within the specified column
  * visible by removing the "d_none" class from it.
  *
  * @param {string} elementId - The ID of the column element in which to show the hollow placeholder.

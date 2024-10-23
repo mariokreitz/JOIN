@@ -131,7 +131,7 @@ input:focus {
 
 .bc-prio-select:hover {
   box-shadow: 6px 14px 12px rgba(152, 148, 148, 0.2), 0 6px 12px rgba(118, 114, 114, 0.15);
-  cursor: grabbing;
+  cursor: pointer;
 }
 
 #bc-select-urgent.active {
