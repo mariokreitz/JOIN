@@ -217,6 +217,7 @@
 .big-card-delete {
   display: flex;
   gap: 12px;
+  cursor: pointer;
 }
 
 .big-card-edit {

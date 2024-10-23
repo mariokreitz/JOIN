@@ -138,6 +138,15 @@ function applyAnimationToContactView(animationType, element, callback) {
   }
 }
 
+/**
+ * Toggles the display of the contact edit menu.
+ *
+ * When the menu is displayed, it listens for a click event on the document to
+ * close the menu. When the menu is hidden, the click event listener is removed.
+ *
+ * @returns {void}
+ */
+
 function toggleEditMenu() {
   const menu = document.getElementById("contact-edit-menu");
   if (menu.classList.contains("show")) {
@@ -149,6 +158,13 @@ function toggleEditMenu() {
   }
 }
 
+/**
+ * Closes the contact edit menu when clicked outside of it.
+ *
+ * @param {Event} event - The event object from the click event.
+ *
+ * @returns {void}
+ */
 function closeEditMenu(event) {
   const menu = document.getElementById("contact-edit-menu");
   const button = document.getElementById("menuButton");

@@ -21,3 +21,22 @@ function getContactTemplate(index, initials, color, fullName, email) {
         </li>
     `;
 }
+
+/**
+ * Given the letter and an array of contact elements, returns an HTML string
+ * representing a contact list section.
+ *
+ * @param {string} letter - The letter of the contact list section.
+ * @param {string[]} contactElements - An array of HTML strings representing the
+ *   contact elements.
+ * @returns {string} An HTML string representing the contact list section.
+ */
+function getContactSectionTemplate(letter, contactElements) {
+  return /*html*/ `
+        <li class="contact-letter">
+          <h3 class="inter-extralight">${letter}</h3>
+        </li>
+        <li class="contact-horizontal-seperator"></li>
+        ${contactElements.join("")}
+      `;
+}
