@@ -90,12 +90,14 @@
 }
 
 .card-small-subheadline {
+  overflow-wrap: break-word;
   font-size: 16px;
   line-height: 19.2px;
   color: var(--primary);
 }
 
 .card-small-description {
+  overflow-wrap: break-word;
   font-size: 16px;
   line-height: 19.2px;
   color: var(--text-navbar-bottom);
