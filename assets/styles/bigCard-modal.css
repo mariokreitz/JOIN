@@ -251,7 +251,7 @@
   .bigc-main-container,
   #big-card-modal,
   .big-card-select-prio {
-    font-size: 16px;
+    font-size: 18px;
   }
   #big-card-modal {
     width: calc(100% - 20px);
