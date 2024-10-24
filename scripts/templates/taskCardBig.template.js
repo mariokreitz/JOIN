@@ -4,11 +4,13 @@ function getTaskCardBigTemplate(todo, index) {
         .map((key) => {
           const subTask = todo.subTasks[key];
           const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
-          return `
-    <div class="bigCard-subtask">
-      <img id="subTaskImageChecked${key}" onclick="toggleSubtask(${index}, '${key}'); event.stopPropagation();"  src="./assets/img/icons/${isChecked}" />
-      <p>${subTask.text}</p>
-    </div>`;
+          return /*html*/ `  
+            
+              <label class="bigCard-subtask" for="subTaskImageChecked${key}" onclick="toggleSubtask(${index}, '${key}'); event.stopPropagation();">
+                <img id="subTaskImageChecked${key}" src="./assets/img/icons/${isChecked}" />
+                <p>${subTask.text}</p>
+              </label>
+            `;
         })
         .join("")
     : "";
@@ -40,19 +42,21 @@ function getTaskCardBigTemplate(todo, index) {
       </div>
     </div>
     <div clss="card-form-container" id="big-card-form-container">
-      <div class="big-card-head inter-medium">
-        <h1>${todo.title}</h1>
-      </div>
+      <h1 class="big-card-head inter-medium">${todo.title}</h1>
       <div class="big-card-description inter-extralight">
         <p>${todo.description}</p>
       </div>
       <div class="big-card-creatAT">
         <div class="big-card-date inter-extralight">
-          <p class="b-gray-color">Due date:</p>
+          <p class="${todo.category === "Technical Task" ? "technicalTask-text-color" : "userStory-text-color"}">
+            Due date:
+          </p>
           <p class="user-createdAt-p">${formatDueDate(todo.date)}</p>
         </div>
         <div class="big-card-priority inter-extralight">
-          <p class="b-gray-color">Priority:</p>
+          <p class="${todo.category === "Technical Task" ? "technicalTask-text-color" : "userStory-text-color"}">
+            Priority:
+          </p>
           <div class="select-prio-big-card">
             <span class="big-card-select-prio">${todo.priority}</span>
             <div class="prio-img">
@@ -64,13 +68,23 @@ function getTaskCardBigTemplate(todo, index) {
             </div>
           </div>
         </div>
-        <div class="big-card-assigned-head b-gray-color inter-extralight"><p>Assigned to:</p></div>
+        <div
+          class="big-card-assigned-head inter-extralight ${todo.category === "Technical Task"
+            ? "technicalTask-text-color"
+            : "userStory-text-color"}">
+          <p>Assigned to:</p>
+        </div>
         <div class="big-card-assigned-member">
           <div class="assigned-member-wrapper inter-extralight">${assignedMembersHtml}</div>
         </div>
       </div>
       <div class="subtask-modal-wrapper">
-        <div class="bigCard-subtask-head"><p>Subtasks</p></div>
+        <div
+          class="bigCard-subtask-head inter-extralight ${todo.category === "Technical Task"
+            ? "technicalTask-text-color"
+            : "userStory-text-color"}">
+          <p>Subtasks</p>
+        </div>
         <div class="bigCard-subtasks-container">${subTasksHtml ? subTasksHtml : ""}</div>
       </div>
     </div>

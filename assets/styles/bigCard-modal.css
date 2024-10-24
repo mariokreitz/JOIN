@@ -78,11 +78,8 @@
 }
 
 .big-card-head {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  max-width: 445px;
-  font-size: 26px;
-  line-height: 50px;
+  font-size: 61px;
+  line-height: 73.2px;
 }
 
 .big-card-head h1 {
@@ -140,6 +137,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-top: 8px;
 }
 
 .b-card-initial-circle {
@@ -172,12 +170,13 @@
 
 .bigCard-subtask-head {
   font-size: 21px;
+  margin-bottom: 8px;
 }
 
 .bigCard-subtasks-container {
   max-width: 445px;
-
   display: flex;
+  gap: 8px;
   flex-direction: column;
   font-size: 18px;
 }
@@ -185,15 +184,15 @@
 .bigCard-subtasks-container img {
   width: 16px;
   height: 16px;
-  margin-top: 4px;
-  margin-left: 16px;
-  cursor: pointer;
 }
 
 .bigCard-subtask {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
-  margin-top: 8px;
+  cursor: pointer;
+  width: fit-content;
 }
 
 .bigCard-delete-edit-container {
@@ -225,8 +224,12 @@
   border: 1px solid #d1d1d1;
 }
 
-.b-gray-color {
+.technicalTask-text-color {
   color: #42526e;
+}
+
+.userStory-text-color {
+  color: var(--primary);
 }
 
 #big-card-modal::-webkit-scrollbar-track {
@@ -235,8 +238,9 @@
 }
 
 @media (max-width: 768px) {
-  .big-card-head h1 {
-    font-size: 40px;
+  .big-card-head {
+    font-size: 36px;
+    line-height: 43.2px;
   }
   #big-card-modal {
     padding: 30px;
