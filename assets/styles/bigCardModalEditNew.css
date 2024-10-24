@@ -7,11 +7,6 @@
   margin-bottom: 20px;
 }
 
-#edit-card-form-container .list-item-actions {
-  display: flex;
-  align-items: center;
-}
-
 .bigc-main-container .custom-dropdown .options {
   background-color: var(--background-lightGrey);
   box-shadow: unset;
@@ -143,4 +138,19 @@
 
 .bc-prio-select:hover {
   box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+@media (max-width: 768px) {
+  #subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #edit-card-form-container .list-item-actions {
+    display: flex;
+    align-items: center;
+  }
+  #subtask-list li::before {
+    line-height: 23px;
+  }
 }
