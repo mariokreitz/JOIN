@@ -89,7 +89,7 @@
 
 .big-card-description {
   word-wrap: break-word;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .big-card-close-x:hover {
@@ -99,7 +99,7 @@
 .big-card-date {
   display: flex;
   gap: 25px;
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .user-creatAt-p {
@@ -108,7 +108,7 @@
 
 .big-card-priority {
   display: flex;
-  font-size: 21px;
+  font-size: 18px;
   gap: 43px;
   align-items: center;
 }
@@ -129,7 +129,7 @@
 }
 
 .big-card-assigned-head {
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .big-card-assigned-member {
@@ -151,7 +151,7 @@
 }
 
 .big-card-assigned-name {
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .assigned-member-wrapper {
@@ -167,7 +167,7 @@
 }
 
 .bigCard-subtask-head {
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .bigCard-subtasks-container {
@@ -205,11 +205,13 @@
   display: flex;
   gap: 12px;
   cursor: pointer;
+  align-items: center;
 }
 
 .big-card-edit {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 .big-card-edit:hover {
   cursor: pointer;
