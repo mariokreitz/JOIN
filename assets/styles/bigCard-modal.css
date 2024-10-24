@@ -1,23 +1,33 @@
 #big-card-modal {
-  width: 525px;
-  min-height: 900px;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  max-width: 525px;
+  max-height: calc(99dvh - 20px);
+  box-shadow: 0px 0px 4px 0px #00000029;
   border-radius: 30px;
-  transform: scale(0.5);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 99;
   background-color: white;
+  gap: 18px;
+  padding: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 120;
+  min-width: 525px;
+}
+
+.modal-overflow-hidden {
+  overflow: hidden;
 }
 
 #big-card-modal-background {
   width: 100%;
-  height: 100dvh;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -25,12 +35,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 164px;
-  min-height: 36px;
-  border: 1px solid black;
+  text-align: start;
+  min-width: 164px;
+  text-wrap: nowrap;
   font-size: 23px;
   border-radius: 8px;
   color: white;
+}
+
+.card-big-header h4 {
+  padding-right: 25px;
+  padding-left: 25px;
 }
 
 .technical-task {
@@ -51,13 +66,11 @@
   width: 32px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
 }
 
 .catogory-close-container {
-  margin-left: 40px;
-  margin-top: 48px;
-  width: 445px;
+  max-width: 445px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,22 +78,22 @@
 }
 
 .big-card-head {
-  margin-top: 24px;
-  margin-left: 40px;
-  width: 445px;
-  min-height: 219px;
-  font-size: 31px;
-  line-height: 73px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 445px;
+  font-size: 26px;
+  line-height: 50px;
+}
+
+.big-card-head h1 {
+  word-break: break-word;
 }
 
 .big-card-description {
-  display: flex;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 24px;
-  width: 445px;
-  min-height: 24px;
-  font-size: 21px;
+  max-width: 445px;
+  word-wrap: break-word;
+
+  font-size: 20px;
 }
 
 .big-card-close-x:hover {
@@ -88,15 +101,10 @@
 }
 
 .big-card-date {
-  margin-left: 40px;
-  width: 445px;
-  min-height: 24px;
+  max-width: 445px;
   display: flex;
+  gap: 25px;
   font-size: 21px;
-  margin-top: 24px;
-}
-.big-card-date p {
-  margin-right: 25px;
 }
 
 .user-creatAt-p {
@@ -105,13 +113,8 @@
 
 .big-card-priority {
   display: flex;
-  margin-left: 40px;
-  margin-top: 26px;
   font-size: 21px;
-}
-
-.big-card-select-prio {
-  margin-left: 47px;
+  gap: 43px;
 }
 
 .select-prio-big-card {
@@ -122,29 +125,20 @@
 
 /* PRIO SELECT */
 .prio-img {
+  display: flex;
+  align-items: center;
   margin-left: 10px;
   min-width: 17px;
   min-height: 12.5px;
 }
 
-.prio-img svg {
-  width: 17px;
-  height: 12px;
-}
-
 .big-card-assigned-head {
-  width: 445px;
-  margin-left: 40px;
   font-size: 21px;
-  margin-top: 24px;
 }
 
 .big-card-assigned-member {
   display: flex;
   align-items: center;
-  width: 445px;
-  margin-left: 40px;
-  margin-top: 16px;
   gap: 16px;
 }
 
@@ -177,15 +171,12 @@
 }
 
 .bigCard-subtask-head {
-  margin-left: 40px;
-  margin-top: 24px;
   font-size: 21px;
 }
 
 .bigCard-subtasks-container {
-  width: 445px;
-  margin-left: 40px;
-  margin-top: 8px;
+  max-width: 445px;
+
   display: flex;
   flex-direction: column;
   font-size: 18px;
@@ -207,9 +198,9 @@
 
 .bigCard-delete-edit-container {
   display: flex;
-  margin-left: 290px;
-  margin-top: 24px;
-  margin-bottom: 48px;
+  align-items: end;
+  justify-content: end;
+
   height: 32px;
   gap: 16px;
 }
@@ -232,4 +223,38 @@
   height: 24px;
   width: 1px;
   border: 1px solid #d1d1d1;
+}
+
+.b-gray-color {
+  color: #42526e;
+}
+
+#big-card-modal::-webkit-scrollbar-track {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .big-card-head h1 {
+    font-size: 40px;
+  }
+  #big-card-modal {
+    padding: 30px;
+  }
+
+  #big-card-modal p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 525px) {
+  .bigc-main-container,
+  #big-card-modal,
+  .big-card-select-prio {
+    font-size: 16px;
+  }
+  #big-card-modal {
+    width: calc(100% - 20px);
+    min-width: unset;
+  }
 }

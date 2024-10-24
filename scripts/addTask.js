@@ -8,6 +8,7 @@ async function init() {
   document.getElementById("add-task-main").innerHTML = getAddTaskTemplate();
   renderContactDropdown();
   setDefaultPriority();
+  restrictPastDatePick();
 }
 
 /**
@@ -82,6 +83,7 @@ function clearInputField() {
 
 function checkScrollbar() {
   const subtaskList = document.getElementById("subtask-list");
+  if (!subtaskList) return;
   subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "10px" : "0";
 }
 

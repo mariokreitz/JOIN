@@ -54,17 +54,39 @@ const textContent = {
 };
 
 /**
- * Shows a toast message based on the operation type and the response.
- * @param {string} operation - The type of operation.
- * @param {Response} response - The response object from the fetch API.
- * @returns {void}
+ * Displays a toast message based on the operation and response status.
+ *
+ * Generates an HTML toast message using the appropriate text content
+ * for the provided operation and appends it to the document body.
+ * The toast message is automatically removed after a set timeout.
+ * If the operation requires a redirect and the conditions are met,
+ * the user is redirected to the board page.
+ *
+ * @param {string} operation - The operation type used to determine the message text.
+ * @param {Object} response - The response object containing the status of the operation.
  */
 function showToastMessage(operation, response) {
-  const message = response.ok ? textContent[operation] : textContent["error"];
+  const message = response.ok ? textContent[operation] : textContent.error;
   const toastMessageHTML = getToastMessageTemplate(message);
+
   document.body.insertAdjacentHTML("beforeend", toastMessageHTML);
   setTimeout(() => {
-    const toastMessageElement = document.querySelector(".toast-message-box");
-    toastMessageElement.remove();
+    document.querySelector(".toast-message-box").remove();
+
+    if (shouldRedirect("taskAdded")) window.location.href = "/board.html";
   }, 1600);
+}
+
+/**
+ * Determines whether a redirect to the board page is necessary.
+ *
+ * This function checks if the current operation is "taskAdded" and if
+ * the user is on the "add-task" page. If both conditions are true, it
+ * returns true, indicating that a redirect should occur.
+ *
+ * @param {string} operation - The operation type to check against.
+ * @returns {boolean} True if a redirect should occur, false otherwise.
+ */
+function shouldRedirect(operation) {
+  return operation === "taskAdded" && window.location.pathname === "/add-task.html";
 }

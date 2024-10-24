@@ -12,6 +12,7 @@
   left: 50%;
   transform: translateX(-50%);
   animation: slideIn 125ms ease-out forwards;
+  z-index: 1000000;
 }
 
 @keyframes slideIn {

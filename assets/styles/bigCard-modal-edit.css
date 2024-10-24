@@ -2,67 +2,41 @@
   max-width: 445px;
 }
 
-.bc-m-left {
-  margin-left: 40px;
-}
-
 .bc-head {
   margin-top: 24px;
 }
 
-/* ::-webkit-scrollbar {
-  width: 7px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: white;
+.bigc-main-container::-webkit-scrollbar-track {
   margin-top: 30px;
   margin-bottom: 30px;
+  padding-right: 50px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border: 2px solid transparent;
-  background-clip: content-box;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-  border-top: 100px solid transparent;
-  border-bottom: 400px solid transparent;
-  border-radius: 50px;
-}*/
-
 .bigc-main-container {
+  display: flex;
+  flex-direction: column;
   width: 525px;
-  max-height: 900px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  max-height: calc(99dvh - 20px);
   z-index: 99;
   overflow-y: auto;
-  border: 1px solid black;
+  overflow-x: hidden;
   border-radius: 30px;
   font-size: 21px;
   background-color: white;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 40px;
+  padding-bottom: 25px;
 }
 
 .bc-close-container {
   display: flex;
   justify-content: end;
-  margin-top: 32px;
 }
 
 .bc-close-container img {
   width: 13.5px;
   height: 13.5px;
-}
-
-input {
-  border: 1px solid #d1d1d1;
-  border-radius: 15px;
-  width: 445px;
-  height: 48px;
-  margin-top: 8px;
 }
 
 input:focus {
@@ -75,13 +49,7 @@ input:focus {
 }
 
 #bc-description-textarea {
-  width: 445px;
-  height: 120px;
-  margin-top: 8px;
-  padding: 6px;
-  border-radius: 15px;
-  outline: none;
-  border-color: #d1d1d1;
+  min-height: 120px;
 }
 
 .bc-duedate-head {
@@ -112,8 +80,8 @@ input:focus {
 }
 
 .bc-priority-select-container {
-  min-height: 56px;
   margin-top: 8px;
+  max-width: 445px;
   display: flex;
   gap: 16px;
 }
@@ -124,6 +92,8 @@ input:focus {
   align-items: center;
   width: 137.5px;
   height: 56px;
+  padding-right: 10px;
+  padding-left: 10px;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
   gap: 8px;
@@ -170,7 +140,7 @@ input:focus {
 
 select {
   margin-top: 8px;
-  width: 445px;
+  max-width: 445px;
   height: 48px;
   border-radius: 10px;
   border-color: #d1d1d1;
@@ -221,27 +191,31 @@ select {
 
 .bc-subtask-list {
   margin-top: 16px;
-  margin-left: 50px;
   min-height: 48px;
   overflow-y: auto;
+}
+
+.bc-end-button-container {
+  display: flex;
+  justify-content: end;
 }
 
 .bc-end-button {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: 24px;
-  margin-left: 396px;
-  margin-bottom: 32px;
   background-color: #2a3647;
   color: white;
   padding: 16px;
   border-radius: 15px;
+  max-width: 80px;
+  justify-content: center;
+  margin-left: auto;
 }
 
 .dropdown-container {
-  width: 445px;
-  margin-left: 40px;
+  max-width: 445px;
+
   position: relative;
 }
 
@@ -317,4 +291,202 @@ select {
 
 .dropdown-item:hover {
   background-color: #f1f1f1;
+}
+
+.custom-dropdown .options::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.custom-dropdown .options::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: var(--sb-radius);
+}
+
+.custom-dropdown .options::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.custom-dropdown .options::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: var(--sb-radius);
+}
+
+.add-task-main {
+  margin-left: 232px;
+  padding: 64px;
+  min-height: calc(100vh - 96px);
+  max-width: 1440px;
+}
+
+.add-task-content h1 {
+  font-size: 61px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.add-task-content .form-group {
+  margin-bottom: 20px;
+}
+
+.add-task-content label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.add-task-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.add-task-content input:focus-visible {
+  outline: unset;
+  border: 1px solid var(--secondary);
+}
+
+.add-task-content input::placeholder {
+  color: var(--line);
+}
+
+.add-task-content .form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.add-task-content .input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.add-task-content .input-container input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.add-task-content .input-container .icon-container {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown input::placeholder {
+  color: var(--text-primary);
+}
+
+.custom-dropdown .options {
+  list-style-type: none;
+  padding: 5px;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  background-color: #fff;
+}
+
+.custom-dropdown .options.show {
+  display: block;
+}
+
+.custom-dropdown .options li {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 8px;
+  margin-bottom: 2px;
+}
+
+.custom-dropdown .options li:last-of-type {
+  margin-bottom: 0;
+}
+
+.custom-dropdown .options li:hover {
+  background-color: #eee;
+}
+
+.custom-dropdown .badge {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.custom-dropdown input:focus + .options {
+  display: block;
+}
+
+.custom-dropdown .icon {
+  transition: transform 0.3s ease;
+}
+
+.custom-dropdown .icon.rotated {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown .options li input.checkbox {
+  margin-left: auto;
+}
+
+.custom-dropdown .options li.selected {
+  background-color: var(--primary);
+}
+
+.selected-badges {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.selected-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+@media (max-width: 525px) {
+  .bigc-main-container {
+    width: calc(100% - 20px);
+    padding: 30px;
+  }
+  .bc-prio-select {
+    max-width: 137px;
+    font-size: 16px;
+  }
+  .bc-priority-select-container {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 376px) {
+  .bc-prio-select {
+    width: 100%;
+    max-width: unset;
+  }
+
+  .priority-actions {
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 375px;
+  }
 }
