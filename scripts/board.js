@@ -597,6 +597,7 @@ function openBigCardModal(index) {
   toggleBigCardModal(index);
   checkScrollbar();
   toggleSubtaskModalWrapper();
+  selectedOptions.length = 0;
 }
 
 /**
