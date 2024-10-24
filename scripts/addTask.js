@@ -97,7 +97,7 @@ function selectCategory(event, category) {
 }
 
 function validateTodoForm() {
-  const titleField = document.getElementById("title");
+  const titleField = document.getElementById("title") || document.getElementById("bc-todo-titel");
   const dueDateField = document.getElementById("due-date");
   const categoryField = document.getElementById("select-category");
   let isValid = true;
@@ -113,7 +113,7 @@ function validateTodoForm() {
     showWarning(dueDateField, "Due date is required.");
   }
 
-  if (categoryField.textContent.trim() === "Select task category") {
+  if (categoryField && categoryField.textContent.trim() === "Select task category") {
     isValid = false;
     showWarning(categoryField, "Category is required.");
   }
