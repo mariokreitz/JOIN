@@ -32,7 +32,7 @@ function getTaskCardBigEditTemplate(todo, index) {
         <label for="due-date">Due date<span class="required">*</span></label>
         <div class="input-container">
           <input type="date" id="due-date" value="${todo.date}" required />
-          <div class="icon-container" onclick="openDatePicker(event)">
+          <div class="icon-container">
             <img src="./assets/svg/event.svg" alt="date icon" class="icon" id="date-icon" />
           </div>
         </div>
