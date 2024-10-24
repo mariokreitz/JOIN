@@ -595,7 +595,7 @@ function openBigCardModal(index) {
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
   const bigCardModalBackground = document.getElementById("big-card-modal-background");
   bigCardModalBackground.classList.remove("d_none");
-  document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
+  document.body.style.overflow = "hidden";
 
   applyCardAnimation("slide-in");
   checkScrollbar();
