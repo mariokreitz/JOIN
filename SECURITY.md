@@ -1,31 +1,35 @@
-# Sicherheitsrichtlinie für JOIN ⚠️
+# Security Policy for JOIN
 
-Das JOIN-Projekt ist ein Demo-Projekt, das mit Firebase gehostete Demo-Daten verwendet. Obwohl die Sicherheitsanforderungen möglicherweise nicht so hoch sind wie bei einem Produktionsprojekt, ist es wichtig, einige grundlegende Sicherheitspraktiken zu beachten.
+## Reporting a Vulnerability
 
-## Sicherheitsanfälligkeiten melden
+If you discover a security vulnerability in **JOIN**, we encourage you to report it promptly. Your responsible disclosure helps us improve the security of our application.
 
-Falls du Sicherheitsanfälligkeiten oder Bedenken im Zusammenhang mit diesem Projekt entdeckst, kontaktiere uns bitte umgehend:
+### Steps to Report
 
-- **E-Mail**: [contact@mario-kreitz.dev](mailto:contact@mario-kreitz.dev)
+1. **Email Us**: Send an email to [contact@mario-kreitz.dev](mailto:contact@mario-kreitz.dev) with the subject line "Security Vulnerability Report".
+2. **Provide Details**: Include a detailed description of the vulnerability, steps to reproduce it, and any potential impact.
+3. **Confidentiality**: Please keep the details of the vulnerability confidential until we have had a chance to address the issue.
 
-Bitte gib in deiner Nachricht die folgenden Informationen an:
+## What to Include in Your Report
 
-1. Eine detaillierte Beschreibung der Sicherheitsanfälligkeit.
-2. Schritte zur Reproduktion des Problems (wenn möglich).
-3. Informationen über die betroffenen Versionen oder spezifischen Funktionen.
+- A clear description of the vulnerability and its impact.
+- Steps to reproduce the issue.
+- Any relevant screenshots or logs that can assist us in understanding the problem.
 
-## Reaktionsrichtlinie
+## Response Timeline
 
-Wir verpflichten uns, alle gemeldeten Sicherheitsanfälligkeiten ernsthaft zu prüfen und zeitnah zu reagieren. Du wirst innerhalb von 48 Stunden eine Bestätigung über den Erhalt deiner Meldung erhalten. Wir halten dich über den Fortschritt bei der Behebung der Sicherheitsanfälligkeit auf dem Laufenden.
+We will acknowledge your report within **[X] business days** and aim to address the issue as quickly as possible. We appreciate your understanding and patience as we work to resolve security concerns.
 
-## Best Practices
+## Our Commitment
 
-Da das JOIN-Projekt Demo-Daten verwendet, empfehlen wir dennoch die folgenden grundlegenden Best Practices:
+We take security seriously and are committed to maintaining the safety and integrity of JOIN. All reports will be treated with the utmost seriousness, and we will work diligently to fix any identified vulnerabilities.
 
-- **Verwende nur Demo-Daten**: Stelle sicher, dass keine echten Benutzerdaten in das Projekt aufgenommen werden.
-- **Sichere Firebase-Konfiguration**: Achte darauf, dass deine Firebase-Konfiguration sicher ist und keine sensiblen Informationen enthält. Vermeide es, API-Schlüssel öffentlich zugänglich zu machen.
-- **Regelmäßige Sicherheitsüberprüfungen**: Auch wenn es sich um ein Demo-Projekt handelt, führe regelmäßige Sicherheitsüberprüfungen durch, um potenzielle Probleme frühzeitig zu identifizieren.
+## Security Best Practices
 
-## Danksagung
+While using JOIN, we recommend the following best practices to help ensure your security:
 
-Vielen Dank für deine Aufmerksamkeit für die Sicherheit des JOIN-Projekts! Dein Feedback und deine Unterstützung sind wichtig, um das Projekt sicher zu halten, auch wenn es sich nur um ein Demo-Projekt handelt.
+- Keep your dependencies up to date.
+- Use strong, unique passwords for your accounts.
+- Do not share sensitive information publicly in issues or comments.
+
+Thank you for helping us improve the security of our project!
