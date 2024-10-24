@@ -44,7 +44,7 @@ function loadSubtasks(currentTodo) {
   Object.keys(currentTodo.subTasks).forEach((key) => {
     const subtaskId = key;
     const subtaskText = currentTodo.subTasks[key].text;
-    subTasks[subtaskId] = { state: false, text: subtaskText };
+    subTasks[subtaskId] = { state: currentTodo.subTasks[key].state, text: subtaskText };
 
     const subtaskItem = createSubtaskListItem(subtaskText, subtaskId);
     subtaskList.appendChild(subtaskItem);

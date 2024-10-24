@@ -724,6 +724,7 @@ async function editBigCard(index) {
   else showToastMessage("error", response);
 
   toggleBigCardModal(index);
+  subTasks = {};
   triggerRender();
 }
 
