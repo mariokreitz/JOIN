@@ -50,6 +50,8 @@ function toggleContactListDropdown(event) {
       document.addEventListener("click", outsideClickListenerWrapper);
     }
   }
+
+  checkScrollbar();
 }
 
 function filterOptions() {
