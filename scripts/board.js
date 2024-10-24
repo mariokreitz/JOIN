@@ -710,7 +710,9 @@ async function editBigCard(index) {
   const newDueDate = getNewDueDate();
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
 
-  if (!isValidInput(newTitle, newDescription, newDueDate)) return;
+  // Use the validateTodoForm for validation
+  if (!validateTodoForm()) return;
+
   currentTodo.title = newTitle;
   currentTodo.description = newDescription;
   currentTodo.date = newDueDate;
@@ -787,8 +789,8 @@ function getNewDueDate() {
  * @param {string} dueDate - The due date of the todo in the format "YYYY-MM-DD".
  * @returns {boolean} - True if all inputs are valid, false otherwise.
  */
-function isValidInput(title, description, dueDate) {
-  return title && description && dueDate;
+function isValidInput(title, dueDate) {
+  return title && dueDate;
 }
 
 /**
