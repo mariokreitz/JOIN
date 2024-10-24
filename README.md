@@ -13,7 +13,7 @@ JOIN is a user-friendly and powerful project management tool that helps you keep
 ---
 [![pages-build-deployment](https://github.com/mariokreitz/JOIN/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/mariokreitz/JOIN/actions/workflows/pages/pages-build-deployment)
 ![Version](https://img.shields.io/github/v/release/mariokreitz/JOIN.svg)
-![License](https://img.shields.io/github/license/mariokreitz/JOIN.svg)
+![License](https://img.shields.io/badge/license-Custom%20License-blue.svg)
 ![Issues](https://img.shields.io/github/issues/mariokreitz/JOIN.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/mariokreitz/JOIN.svg)
 ## 🚀 **About the Project**
