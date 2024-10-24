@@ -56,24 +56,33 @@
   position: absolute;
   top: 0;
   right: 0;
-  max-width: 130px;
+  max-width: 150px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  background: white;
-  gap: 12px;
-  padding: 20px;
+  background: var(--primary);
+  color: var(--text-secondary);
+  gap: 4px;
+  padding: 12px;
   border-radius: 20px;
   box-shadow: 0px 4px 4px 0px #00000040;
   z-index: 100;
 }
 
 .card-switch-state-menu > button {
+  padding: 8px 12px;
   font-size: 14px;
   text-align: start;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.card-switch-state-menu > button:active {
+  background-color: var(--active);
 }
 
 .card-switch-state-menu > p {
+  padding: 8px 12px;
   font-size: 16px;
 }
 
