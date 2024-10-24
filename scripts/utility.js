@@ -26,6 +26,12 @@ function outsideClickListenerWrapperCategory(event) {
 }
 
 function checkScrollbar() {
+  const subtaskList = document.getElementById("subtask-list");
+
+  if (subtaskList) {
+    subtaskList.style.padding = subtaskList.scrollHeight > subtaskList.clientHeight ? "10px" : "0";
+  }
+
   const elements = [
     document.getElementById("edit-card-form-container"),
     document.getElementById("big-card-form-container"),
@@ -40,3 +46,5 @@ function checkScrollbar() {
     }
   });
 }
+
+window.addEventListener("resize", checkScrollbar);
