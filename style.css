@@ -117,6 +117,10 @@ nav {
   z-index: 1000;
 }
 
+textarea {
+  max-width: 100%;
+}
+
 ::-webkit-scrollbar {
   width: var(--sb-size);
 }
