@@ -70,7 +70,6 @@
 }
 
 .catogory-close-container {
-  max-width: 445px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -80,7 +79,6 @@
 .big-card-head {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 445px;
   font-size: 26px;
   line-height: 50px;
 }
@@ -90,9 +88,7 @@
 }
 
 .big-card-description {
-  max-width: 445px;
   word-wrap: break-word;
-
   font-size: 20px;
 }
 
@@ -101,7 +97,6 @@
 }
 
 .big-card-date {
-  max-width: 445px;
   display: flex;
   gap: 25px;
   font-size: 21px;
@@ -243,17 +238,15 @@
     padding: 30px;
   }
 
-  #big-card-modal p {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 525px) {
+  #big-card-modal p,
   .bigc-main-container,
   #big-card-modal,
   .big-card-select-prio {
     font-size: 18px;
   }
+}
+
+@media (max-width: 525px) {
   #big-card-modal {
     width: calc(100% - 20px);
     min-width: unset;
