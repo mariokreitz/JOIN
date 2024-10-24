@@ -121,3 +121,7 @@
 .bc-prio-select:hover {
   box-shadow: 0px 4px 4px 0px #00000040;
 }
+
+#big-card-modal-background #subtask-list li::before {
+  line-height: 31px;
+}
