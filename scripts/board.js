@@ -659,17 +659,17 @@ function getAssignedMemberColor(assignedMemberName) {
  * @returns {Promise<void>} - Resolves when the subtask state has been toggled.
  */
 
-async function toggleSubtask(index, subtaskKey) {
+async function toggleSubtask(index, subTaskKey) {
   const currentTodo = globalTodos[index];
   const { subTasks = {} } = currentTodo;
-  const subtask = subTasks[subtaskKey];
+  const subtask = subTasks[subTaskKey];
 
-  subTasks[subtaskKey] = { ...subtask, state: !subtask?.state };
+  subTasks[subTaskKey] = { ...subtask, state: !subtask?.state };
   const response = await updateTodosInFirebase("guest", arrayToObject(globalTodos));
   if (!response.ok) showToastMessage("error", response);
   globalTodos[index] = { ...currentTodo, subTasks };
 
-  updateSubTasksDisplay(index);
+  updateSubTasksDisplay(index, subTaskKey);
   triggerRender();
 }
 
@@ -681,11 +681,12 @@ async function toggleSubtask(index, subtaskKey) {
  * @param {number} index - The index of the todo item in the globalTodos array
  * @returns {void}
  */
-function updateSubTasksDisplay(index) {
+function updateSubTasksDisplay(index, subTaskKey) {
   const todoItem = globalTodos[index];
-  const modalBackground = document.getElementById("big-card-modal-background");
-
-  modalBackground.innerHTML = getTaskCardBigTemplate(todoItem, index);
+  const subTask = todoItem.subTasks[subTaskKey];
+  const imgElement = document.getElementById(`subTaskImageChecked${subTaskKey}`);
+  const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
+  imgElement.src = `./assets/img/icons/${isChecked}`;
 }
 
 /**
