@@ -87,8 +87,6 @@ function addBadge(id, initials, color) {
     badge.style.backgroundColor = color;
     badge.innerHTML = `<span>${initials}</span>`;
     badgeContainer.appendChild(badge);
-  } else {
-    console.log(`Badge for ID: ${id} already exists. Not adding.`);
   }
 }
 

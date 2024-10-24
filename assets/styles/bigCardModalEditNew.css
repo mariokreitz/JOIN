@@ -140,6 +140,24 @@
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
 @media (max-width: 768px) {
   #subtask-list {
     display: flex;
