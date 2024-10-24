@@ -652,6 +652,7 @@ function openBigCardModalEdit(index) {
  * @returns {void}
  */
 function toggleBigCardModal(index) {
+  checkScrollbar();
   document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
   const bigCardModalBackground = document.getElementById("big-card-modal-background");
   if (!bigCardModalBackground) return;
