@@ -115,6 +115,7 @@
   display: flex;
   font-size: 21px;
   gap: 43px;
+  align-items: center;
 }
 
 .select-prio-big-card {
