@@ -630,6 +630,7 @@ function openBigCardModalEdit(index) {
   }
   restrictPastDatePick();
   renderContactDropdown();
+  loadSubtasks(currentTodo);
   checkScrollbar();
 }
 
@@ -706,12 +707,15 @@ async function editBigCard(index) {
   const newTitle = getNewTitle();
   const newDescription = getNewDescription();
   const newDueDate = getNewDueDate();
+  const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
 
   if (!isValidInput(newTitle, newDescription, newDueDate)) return;
   currentTodo.title = newTitle;
   currentTodo.description = newDescription;
   currentTodo.date = newDueDate;
   currentTodo.priority = selectedPriority;
+  currentTodo.subTasks = subTasks;
+  currentTodo.assignedMembers = assignedMembers;
 
   const todosObject = arrayToObject(globalTodos);
   const response = await updateTodosInFirebase("guest", todosObject);
