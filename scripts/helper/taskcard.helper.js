@@ -96,16 +96,14 @@ function getPlaceholderText({ id }) {
 }
 
 /**
- * Given a description string, returns a shortened version of it, if it
- * exceeds a certain maximum length.
+ * Truncates a given text to a maximum length and appends an ellipsis if necessary.
  *
- * @param {string} description - The description string to be shortened.
- * @returns {string} The shortened description string, or the original
- * string if it does not exceed the maximum length.
+ * @param {string} text - The text to be truncated.
+ * @returns {string} The truncated text.
  */
-function getShortDescription(description) {
-  const maxLength = 50;
-  return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
+function truncateText(text) {
+  const maxLength = 45;
+  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 }
 
 /**
