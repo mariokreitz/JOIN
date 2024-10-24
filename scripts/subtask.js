@@ -122,3 +122,14 @@ function clearInputField() {
     inputField.dispatchEvent(new Event("input"));
   }
 }
+
+function toggleSubtaskModalWrapper() {
+  const subtaskModalWrapper = document.querySelector(".subtask-modal-wrapper");
+  const bigCardSubtasksContainer = document.querySelector(".bigCard-subtasks-container");
+
+  if (bigCardSubtasksContainer.children.length === 0) {
+    subtaskModalWrapper.style.display = "none";
+  } else {
+    subtaskModalWrapper.style.display = "block";
+  }
+}

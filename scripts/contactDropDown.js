@@ -1,4 +1,4 @@
-function generateContactListHtml(contacts, filter = "") {
+function generateContactListHtml(contacts, assignedMembers = [], filter = "") {
   const filteredContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()));
 
   if (filteredContacts.length === 0) {
@@ -6,20 +6,23 @@ function generateContactListHtml(contacts, filter = "") {
   }
 
   return filteredContacts
-    .map((contact, index) => {
+    .map((contact) => {
       const initials = getInitialsFromContact(contact);
-      return contactListItemTemplate(contact, index, initials);
+      const originalIndex = contacts.indexOf(contact);
+      const isSelected = assignedMembers.some((member) => member.toLowerCase() === contact.name.toLowerCase());
+
+      return contactListItemTemplate(contact, originalIndex, initials, isSelected);
     })
     .join("");
 }
 
-function renderContactDropdown() {
+function renderContactDropdown(assignedMembers = []) {
   const dropdownOptions = document.getElementById("contact-dropdown-options");
   const input = document.getElementById("search");
   const filter = input.value;
 
   if (dropdownOptions) {
-    const contactListHtml = generateContactListHtml(globalContacts, filter);
+    const contactListHtml = generateContactListHtml(globalContacts, assignedMembers, filter);
     dropdownOptions.innerHTML = contactListHtml;
   }
 }
@@ -47,11 +50,19 @@ function toggleContactListDropdown(event) {
       document.addEventListener("click", outsideClickListenerWrapper);
     }
   }
+
+  checkScrollbar();
 }
 
 function filterOptions() {
   const input = document.getElementById("search");
-  renderContactDropdown();
+  const filter = input.value;
+  const assignedMembers = getAssignedMembers();
+  renderContactDropdown(assignedMembers);
+}
+
+function getAssignedMembers() {
+  return selectedOptions.map((id) => globalContacts[id].name);
 }
 
 function selectOption(option) {
@@ -76,6 +87,8 @@ function addBadge(id, initials, color) {
     badge.style.backgroundColor = color;
     badge.innerHTML = `<span>${initials}</span>`;
     badgeContainer.appendChild(badge);
+  } else {
+    console.log(`Badge for ID: ${id} already exists. Not adding.`);
   }
 }
 
@@ -86,4 +99,21 @@ function removeBadge(id) {
   const badge = badgeContainer.querySelector(`.selected-badge[data-id="${id}"]`);
 
   if (badge) badge.remove();
+}
+
+function initializeBadges() {
+  const options = document.querySelectorAll("#contact-dropdown-options li");
+
+  options.forEach((option) => {
+    const checkbox = option.querySelector(".checkbox");
+    const initials = option.querySelector(".badge").innerText.trim();
+    const id = option.dataset.id;
+
+    option.classList.remove("selected");
+
+    if (checkbox.checked) {
+      addBadge(id, initials, option.querySelector(".badge").style.backgroundColor);
+      option.classList.add("selected");
+    }
+  });
 }

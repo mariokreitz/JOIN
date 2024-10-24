@@ -1,11 +1,19 @@
 #edit-card-form-container,
 #big-card-form-container {
   overflow: auto;
-  overflow-x: hidden;
   display: flex;
   gap: 20px;
   flex-direction: column;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.bigc-main-container .custom-dropdown .options {
+  background-color: var(--background-lightGrey);
+  box-shadow: unset;
+}
+
+.bigc-main-container .custom-dropdown .options::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
 }
 
 .big-card-creatAT {
@@ -126,13 +134,23 @@
 
 .bc-prio-select {
   box-shadow: 0px 0px 4px 0px #0000001a;
-  border: none;
 }
 
 .bc-prio-select:hover {
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 
-#big-card-modal-background #subtask-list li::before {
-  line-height: 31px;
+@media (max-width: 768px) {
+  #subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #edit-card-form-container .list-item-actions {
+    display: flex;
+    align-items: center;
+  }
+  #subtask-list li::before {
+    line-height: 23px;
+  }
 }

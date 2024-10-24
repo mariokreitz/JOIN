@@ -21,7 +21,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 30px;
-  font-size: 21px;
+  font-size: 18px;
   background-color: white;
   padding-right: 40px;
   padding-left: 40px;
@@ -185,7 +185,7 @@ select {
   top: 55%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   color: #555;
 }
 
@@ -478,7 +478,7 @@ select {
   }
 }
 
-@media (max-width: 376px) {
+@media (max-width: 415px) {
   .bc-prio-select {
     width: 100%;
     max-width: unset;
