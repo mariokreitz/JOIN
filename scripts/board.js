@@ -596,6 +596,7 @@ function openBigCardModal(index) {
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
   toggleBigCardModal(index);
   checkScrollbar();
+  toggleSubtaskModalWrapper();
 }
 
 /**
