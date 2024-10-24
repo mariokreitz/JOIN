@@ -29,6 +29,28 @@ function addSubtask() {
   }
 }
 
+/**
+ * Loads the subtasks for a given todo item from the currentTodo object.
+ * If the todo item does not have any subtasks, the function does nothing.
+ * @param {Object} currentTodo - The todo item to load subtasks for.
+ * @returns {void}
+ */
+function loadSubtasks(currentTodo) {
+  if (!currentTodo.hasOwnProperty("subTasks")) return;
+
+  const subtaskList = document.getElementById("subtask-list");
+  if (!subtaskList) return;
+
+  Object.keys(currentTodo.subTasks).forEach((key) => {
+    const subtaskId = key;
+    const subtaskText = currentTodo.subTasks[key].text;
+    subTasks[subtaskId] = { state: currentTodo.subTasks[key].state, text: subtaskText };
+
+    const subtaskItem = createSubtaskListItem(subtaskText, subtaskId);
+    subtaskList.appendChild(subtaskItem);
+  });
+}
+
 function createSubtaskListItem(subtaskText, subtaskId) {
   const li = document.createElement("li");
   li.innerHTML = subtaskListTemplate(subtaskText);

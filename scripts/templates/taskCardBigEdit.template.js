@@ -1,18 +1,4 @@
 function getTaskCardBigEditTemplate(todo, index) {
-  const assignedMembersHtml = todo.assignedMembers
-    ? Object.keys(todo.assignedMembers)
-        .map((key) => {
-          const member = todo.assignedMembers[key];
-          const initials = getInitialsFromContact({ name: member });
-          const color = getAssignedMemberColor(member);
-          return `
-      <div class="assigned-member-initial-wrapper">
-        <div class="bc-card-initial-circle" style="background-color: ${color};"><span>${initials}</span></div>
-      </div>`;
-        })
-        .join("")
-    : "";
-
   return /* HTML */ `
     <div id="closeEditContainer" class="bigc-main-container inter-extralight">
       <div class="bc-close-container bc-with bc-m-left">
@@ -96,7 +82,7 @@ function getTaskCardBigEditTemplate(todo, index) {
             </div>
           </div>
           <ul id="contact-dropdown-options" class="options"></ul>
-          <div id="selected-badges" class="selected-badges"></div>
+          <div id="selected-badges" class="selected-badges">${todo.assignedMembers}</div>
         </div>
 
         <div class="form-group subtask">

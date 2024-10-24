@@ -28,8 +28,8 @@ function getTaskCardSmallTemplate(index, { category, description, priority, titl
     </div>
       <div class="card-small-body">
         <div class="card-small-info">
-          <p class="card-small-subheadline inter-medium">${title}</p>
-          <p class="card-small-description inter-extralight">${getShortDescription(description)}</p>
+          <p class="card-small-subheadline inter-medium">${truncateText(title)}</p>
+          <p class="card-small-description inter-extralight">${truncateText(description)}</p>
         </div>
         ${
           getObjectLength(subTasks) > 0
