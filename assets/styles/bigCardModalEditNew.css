@@ -7,6 +7,15 @@
   margin-bottom: 20px;
 }
 
+.bigc-main-container .custom-dropdown .options {
+  background-color: var(--background-lightGrey);
+  box-shadow: unset;
+}
+
+.bigc-main-container .custom-dropdown .options::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+}
+
 .big-card-creatAT {
   display: flex;
   gap: 10px;
