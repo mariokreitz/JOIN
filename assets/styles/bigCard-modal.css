@@ -11,6 +11,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 120;
+  min-width: 525px;
 }
 
 .modal-overflow-hidden {
@@ -113,6 +114,7 @@
 .big-card-priority {
   display: flex;
   font-size: 21px;
+  gap: 43px;
 }
 
 .select-prio-big-card {
