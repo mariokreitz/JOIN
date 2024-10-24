@@ -589,7 +589,7 @@ function removeAllHighlights() {
  * @param {number} index - The index of the todo item in the globalTodos array
  * @returns {void}
  */
-function openBigCardModal(index) {
+function openBigCardModal(index, isFromEdit = false) {
   const currentTodo = globalTodos[index];
   const renderContainer = document.getElementById("big-card-modal-background");
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
@@ -597,7 +597,7 @@ function openBigCardModal(index) {
   bigCardModalBackground.classList.remove("d_none");
   document.body.style.overflow = "hidden";
 
-  applyCardAnimation("slide-in");
+  if (!isFromEdit) applyCardAnimation("slide-in");
   checkScrollbar();
   toggleSubtaskModalWrapper();
   selectedOptions.length = 0;
@@ -643,7 +643,6 @@ function openBigCardModalEdit(index) {
   loadSubtasks(currentTodo);
   initializeBadges();
   checkScrollbar();
-  applyCardAnimation("slide-in");
 }
 
 /**

@@ -2,7 +2,7 @@ function getTaskCardBigEditTemplate(todo, index) {
   return /* HTML */ `
     <div id="closeEditContainer" class="bigc-main-container inter-extralight">
       <div class="bc-close-container bc-with bc-m-left">
-        <button onclick="openBigCardModal(${index})"><img src="./assets/img/icons/close.png" /></button>
+        <button onclick="openBigCardModal(${index}, true)"><img src="./assets/img/icons/close.png" /></button>
       </div>
       <div clss="card-form-container" id="edit-card-form-container">
         <div class="form-group">
