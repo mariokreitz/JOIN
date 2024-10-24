@@ -629,8 +629,9 @@ function openBigCardModalEdit(index) {
       break;
   }
   restrictPastDatePick();
-  renderContactDropdown();
+  renderContactDropdown(currentTodo.assignedMembers);
   loadSubtasks(currentTodo);
+  initializeBadges();
   checkScrollbar();
 }
 
@@ -725,6 +726,7 @@ async function editBigCard(index) {
 
   toggleBigCardModal(index);
   triggerRender();
+  selectedOptions.length = 0;
 }
 
 /**

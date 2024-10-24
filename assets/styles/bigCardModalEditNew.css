@@ -1,11 +1,10 @@
 #edit-card-form-container,
 #big-card-form-container {
   overflow: auto;
-  overflow-x: hidden;
   display: flex;
   gap: 20px;
   flex-direction: column;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .big-card-creatAT {

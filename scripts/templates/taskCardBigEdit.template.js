@@ -82,7 +82,7 @@ function getTaskCardBigEditTemplate(todo, index) {
             </div>
           </div>
           <ul id="contact-dropdown-options" class="options"></ul>
-          <div id="selected-badges" class="selected-badges">${todo.assignedMembers}</div>
+          <div id="selected-badges" class="selected-badges"></div>
         </div>
 
         <div class="form-group subtask">
