@@ -595,6 +595,7 @@ function openBigCardModal(index) {
 
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
   toggleBigCardModal(index);
+  checkScrollbar();
 }
 
 /**
@@ -629,6 +630,7 @@ function openBigCardModalEdit(index) {
   }
   restrictPastDatePick();
   renderContactDropdown();
+  checkScrollbar();
 }
 
 /**

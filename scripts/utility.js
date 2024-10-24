@@ -24,3 +24,19 @@ function outsideClickListenerWrapper(event) {
 function outsideClickListenerWrapperCategory(event) {
   outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
 }
+
+function checkScrollbar() {
+  const elements = [
+    document.getElementById("edit-card-form-container"),
+    document.getElementById("big-card-form-container"),
+  ];
+
+  elements.forEach((el) => {
+    if (el) {
+      const padding = el.scrollHeight > el.clientHeight ? "15px" : "0";
+      const margin = el.scrollHeight > el.clientHeight ? "-25px" : "0";
+      el.style.paddingRight = padding;
+      el.style.marginRight = margin;
+    }
+  });
+}

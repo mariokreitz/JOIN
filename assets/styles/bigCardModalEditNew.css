@@ -1,3 +1,9 @@
+#edit-card-form-container,
+#big-card-form-container {
+  overflow: auto;
+  overflow-x: hidden;
+}
+
 .bigc-main-container .form-group {
   margin-bottom: 20px;
 }
