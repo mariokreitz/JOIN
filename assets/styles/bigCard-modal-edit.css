@@ -467,8 +467,7 @@ select {
 @media (max-width: 525px) {
   .bigc-main-container {
     width: calc(100% - 20px);
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 30px;
   }
   .bc-prio-select {
     max-width: 137px;
