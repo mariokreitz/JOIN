@@ -596,6 +596,8 @@ function openBigCardModal(index) {
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
   toggleBigCardModal(index);
   checkScrollbar();
+  toggleSubtaskModalWrapper();
+  selectedOptions.length = 0;
 }
 
 /**
@@ -629,8 +631,9 @@ function openBigCardModalEdit(index) {
       break;
   }
   restrictPastDatePick();
-  renderContactDropdown();
+  renderContactDropdown(currentTodo.assignedMembers);
   loadSubtasks(currentTodo);
+  initializeBadges();
   checkScrollbar();
 }
 
@@ -709,7 +712,9 @@ async function editBigCard(index) {
   const newDueDate = getNewDueDate();
   const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
 
-  if (!isValidInput(newTitle, newDescription, newDueDate)) return;
+  // Use the validateTodoForm for validation
+  if (!validateTodoForm()) return;
+
   currentTodo.title = newTitle;
   currentTodo.description = newDescription;
   currentTodo.date = newDueDate;
@@ -726,6 +731,7 @@ async function editBigCard(index) {
   toggleBigCardModal(index);
   subTasks = {};
   triggerRender();
+  selectedOptions.length = 0;
 }
 
 /**
@@ -786,8 +792,8 @@ function getNewDueDate() {
  * @param {string} dueDate - The due date of the todo in the format "YYYY-MM-DD".
  * @returns {boolean} - True if all inputs are valid, false otherwise.
  */
-function isValidInput(title, description, dueDate) {
-  return title && description && dueDate;
+function isValidInput(title, dueDate) {
+  return title && dueDate;
 }
 
 /**

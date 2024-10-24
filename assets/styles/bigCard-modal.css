@@ -70,7 +70,6 @@
 }
 
 .catogory-close-container {
-  max-width: 445px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -80,7 +79,6 @@
 .big-card-head {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 445px;
   font-size: 26px;
   line-height: 50px;
 }
@@ -90,10 +88,8 @@
 }
 
 .big-card-description {
-  max-width: 445px;
   word-wrap: break-word;
-
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .big-card-close-x:hover {
@@ -101,10 +97,9 @@
 }
 
 .big-card-date {
-  max-width: 445px;
   display: flex;
   gap: 25px;
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .user-creatAt-p {
@@ -113,8 +108,9 @@
 
 .big-card-priority {
   display: flex;
-  font-size: 21px;
+  font-size: 18px;
   gap: 43px;
+  align-items: center;
 }
 
 .select-prio-big-card {
@@ -133,7 +129,7 @@
 }
 
 .big-card-assigned-head {
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .big-card-assigned-member {
@@ -155,7 +151,7 @@
 }
 
 .big-card-assigned-name {
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .assigned-member-wrapper {
@@ -171,7 +167,7 @@
 }
 
 .bigCard-subtask-head {
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .bigCard-subtasks-container {
@@ -209,11 +205,13 @@
   display: flex;
   gap: 12px;
   cursor: pointer;
+  align-items: center;
 }
 
 .big-card-edit {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 .big-card-edit:hover {
   cursor: pointer;
@@ -242,17 +240,15 @@
     padding: 30px;
   }
 
-  #big-card-modal p {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 525px) {
+  #big-card-modal p,
   .bigc-main-container,
   #big-card-modal,
   .big-card-select-prio {
     font-size: 16px;
   }
+}
+
+@media (max-width: 525px) {
   #big-card-modal {
     width: calc(100% - 20px);
     min-width: unset;
