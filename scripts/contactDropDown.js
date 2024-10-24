@@ -8,7 +8,8 @@ function generateContactListHtml(contacts, filter = "") {
   return filteredContacts
     .map((contact, index) => {
       const initials = getInitialsFromContact(contact);
-      return contactListItemTemplate(contact, index, initials);
+      const originalIndex = contacts.indexOf(contact);
+      return contactListItemTemplate(contact, originalIndex, initials);
     })
     .join("");
 }
