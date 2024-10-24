@@ -8,6 +8,7 @@ async function init() {
   document.getElementById("add-task-main").innerHTML = getAddTaskTemplate();
   renderContactDropdown();
   setDefaultPriority();
+  restrictPastDatePick();
 }
 
 /**

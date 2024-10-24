@@ -107,3 +107,15 @@ function getShortDescription(description) {
   const maxLength = 50;
   return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
 }
+
+/**
+ * Sets the minimum date for the due date input to the current date, to
+ * prevent the user from selecting a date in the past.
+ */
+function restrictPastDatePick() {
+  const dueDateElement = document.getElementById("due-date");
+  if (!dueDateElement) return;
+
+  const currentDate = new Date().toISOString().split("T")[0];
+  dueDateElement.min = currentDate;
+}

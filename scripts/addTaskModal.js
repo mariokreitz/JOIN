@@ -37,6 +37,7 @@ function openAddTaskModal(state = "todo") {
       setDefaultPriority();
       renderContactDropdown();
       applyAnimation("slide-in");
+      restrictPastDatePick();
     });
   }
 }

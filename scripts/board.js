@@ -627,6 +627,7 @@ function openBigCardModalEdit(index) {
     default:
       break;
   }
+  restrictPastDatePick();
   renderContactDropdown();
 }
 
