@@ -255,5 +255,6 @@
   }
   #big-card-modal {
     width: calc(100% - 20px);
+    min-width: unset;
   }
 }
