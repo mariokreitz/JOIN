@@ -69,8 +69,10 @@ function getTaskCardBigTemplate(todo, index) {
           <div class="assigned-member-wrapper inter-extralight">${assignedMembersHtml}</div>
         </div>
       </div>
-      <div class="bigCard-subtask-head"><p>Subtasks</p></div>
-      <div class="bigCard-subtasks-container">${subTasksHtml ? subTasksHtml : ""}</div>
+      <div class="subtask-modal-wrapper">
+        <div class="bigCard-subtask-head"><p>Subtasks</p></div>
+        <div class="bigCard-subtasks-container">${subTasksHtml ? subTasksHtml : ""}</div>
+      </div>
     </div>
     <div class="bigCard-delete-edit-container inter-extralight">
       <div onclick="deleteTaskCard(${index})" class="big-card-delete">

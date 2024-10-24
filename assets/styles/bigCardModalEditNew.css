@@ -2,10 +2,15 @@
 #big-card-form-container {
   overflow: auto;
   overflow-x: hidden;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
 }
 
-.bigc-main-container .form-group {
-  margin-bottom: 20px;
+.big-card-creatAT {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
 }
 
 .bigc-main-container label {
@@ -38,7 +43,6 @@
 
 .bigc-main-container .form-group {
   position: relative;
-  margin-bottom: 15px;
 }
 
 .bigc-main-container .input-container {

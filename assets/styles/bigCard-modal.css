@@ -77,8 +77,6 @@
 }
 
 .big-card-head {
-  display: flex;
-  text-align: start;
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 445px;
@@ -114,13 +112,7 @@
 
 .big-card-priority {
   display: flex;
-
-  margin-top: 26px;
   font-size: 21px;
-}
-
-.big-card-select-prio {
-  margin-left: 47px;
 }
 
 .select-prio-big-card {
@@ -139,18 +131,12 @@
 }
 
 .big-card-assigned-head {
-  width: 445px;
-
   font-size: 21px;
-  margin-top: 24px;
 }
 
 .big-card-assigned-member {
   display: flex;
   align-items: center;
-  max-width: 445px;
-
-  margin-top: 16px;
   gap: 16px;
 }
 
@@ -183,7 +169,6 @@
 }
 
 .bigCard-subtask-head {
-  margin-top: 18px;
   font-size: 21px;
 }
 
@@ -261,6 +246,11 @@
 }
 
 @media (max-width: 525px) {
+  .bigc-main-container,
+  #big-card-modal,
+  .big-card-select-prio {
+    font-size: 16px;
+  }
   #big-card-modal {
     width: calc(100% - 20px);
   }
