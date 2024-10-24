@@ -6,7 +6,7 @@ function getTaskCardBigEditTemplate(todo, index) {
       </div>
       <div clss="card-form-container" id="edit-card-form-container">
         <div class="form-group">
-          <label for="title">Title<span class="required">*</span></label>
+          <label for="title">Title</label>
           <input autocomplete="off" type="text" id="bc-todo-titel" value="${todo.title}" required />
         </div>
 
@@ -16,7 +16,7 @@ function getTaskCardBigEditTemplate(todo, index) {
         </div>
 
         <div class="form-group">
-          <label for="due-date">Due date<span class="required">*</span></label>
+          <label for="due-date">Due date</label>
           <div class="input-container">
             <input type="date" id="due-date" value="${todo.date}" required />
             <div class="icon-container">
