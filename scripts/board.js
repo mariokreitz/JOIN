@@ -595,6 +595,7 @@ function openBigCardModal(index) {
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
   const bigCardModalBackground = document.getElementById("big-card-modal-background");
   bigCardModalBackground.classList.remove("d_none");
+  document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
 
   applyCardAnimation("slide-in");
   checkScrollbar();
@@ -652,6 +653,7 @@ function openBigCardModalEdit(index) {
  * @returns {void}
  */
 function toggleBigCardModal(index) {
+  document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
   const bigCardModalBackground = document.getElementById("big-card-modal-background");
   if (!bigCardModalBackground) return;
   const closeEditContainer = bigCardModalBackground.querySelector("#closeEditContainer");
@@ -661,7 +663,6 @@ function toggleBigCardModal(index) {
     applyCardAnimation("slide-out");
     setTimeout(() => {
       bigCardModalBackground.classList.toggle("d_none");
-      document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
     }, 300);
   }
 }
