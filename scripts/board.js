@@ -592,12 +592,19 @@ function removeAllHighlights() {
 function openBigCardModal(index) {
   const currentTodo = globalTodos[index];
   const renderContainer = document.getElementById("big-card-modal-background");
-
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
-  toggleBigCardModal(index);
+  const bigCardModalBackground = document.getElementById("big-card-modal-background");
+  bigCardModalBackground.classList.remove("d_none");
+
+  applyCardAnimation("slide-in");
   checkScrollbar();
   toggleSubtaskModalWrapper();
   selectedOptions.length = 0;
+}
+
+function applyCardAnimation(animationType) {
+  const modalContent = document.getElementById("big-card-modal") || document.getElementById("closeEditContainer");
+  modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
 }
 
 /**
@@ -635,6 +642,7 @@ function openBigCardModalEdit(index) {
   loadSubtasks(currentTodo);
   initializeBadges();
   checkScrollbar();
+  applyCardAnimation("slide-in");
 }
 
 /**
@@ -647,9 +655,15 @@ function toggleBigCardModal(index) {
   const bigCardModalBackground = document.getElementById("big-card-modal-background");
   if (!bigCardModalBackground) return;
   const closeEditContainer = bigCardModalBackground.querySelector("#closeEditContainer");
-  if (closeEditContainer) openBigCardModal(index);
-  bigCardModalBackground.classList.toggle("d_none");
-  document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
+  if (closeEditContainer) {
+    openBigCardModal(index);
+  } else {
+    applyCardAnimation("slide-out");
+    setTimeout(() => {
+      bigCardModalBackground.classList.toggle("d_none");
+      document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
+    }, 300);
+  }
 }
 
 function getAssignedMemberColor(assignedMemberName) {
