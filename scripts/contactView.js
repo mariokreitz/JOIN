@@ -16,7 +16,7 @@ function toggleContactView(contactId) {
   }
   if (!contactItemElement || !contactViewElement) return;
   const contactName = contactItemElement.querySelector(".contact-name").textContent;
-  const contact = contacts.find((c) => c.name === contactName);
+  const contact = globalContacts.find((c) => c.name === contactName);
   const initials = getInitialsFromContact(contact);
   const isAlreadySelected = contact.contactSelect;
   toggleSelectedContactInList(contact, contactItemElement);
@@ -39,7 +39,7 @@ function deselectContact(contactViewElement) {
   const previouslySelectedElement = document.querySelector(".selected");
   if (previouslySelectedElement) {
     previouslySelectedElement.classList.remove("selected");
-    const previouslySelectedContact = contacts.find(
+    const previouslySelectedContact = globalContacts.find(
       (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
     );
     if (previouslySelectedContact) {
@@ -84,7 +84,7 @@ function adjustDisplayForScreenSize(contact) {
     const contactListWrapper = document.querySelector(".contact-list-wrapper");
     const contactMainContainer = document.querySelector(".contact-main-container");
     contactListWrapper.style.display = contact.contactSelect ? "none" : "block";
-    contactMainContainer.style.display = contact.contactSelect ? "flex" : "none";
+    contactMainContainer.style.display = contact.contactSelect ? "block" : "none";
   }
 }
 
@@ -106,7 +106,7 @@ function toggleSelectedContactInList(selectedContact, contactItemElement) {
   }
   if (previouslySelectedElement && previouslySelectedElement !== contactItemElement) {
     previouslySelectedElement.classList.remove("selected");
-    const previouslySelectedContact = contacts.find(
+    const previouslySelectedContact = globalContacts.find(
       (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
     );
     if (previouslySelectedContact) {
@@ -138,8 +138,17 @@ function applyAnimationToContactView(animationType, element, callback) {
   }
 }
 
+/**
+ * Toggles the display of the contact edit menu.
+ *
+ * When the menu is displayed, it listens for a click event on the document to
+ * close the menu. When the menu is hidden, the click event listener is removed.
+ *
+ * @returns {void}
+ */
+
 function toggleEditMenu() {
-  var menu = document.getElementById("contact-edit-menu");
+  const menu = document.getElementById("contact-edit-menu");
   if (menu.classList.contains("show")) {
     menu.classList.remove("show");
     document.removeEventListener("click", closeEditMenu);
@@ -149,12 +158,19 @@ function toggleEditMenu() {
   }
 }
 
+/**
+ * Closes the contact edit menu when clicked outside of it.
+ *
+ * @param {Event} event - The event object from the click event.
+ *
+ * @returns {void}
+ */
 function closeEditMenu(event) {
-  var menu = document.getElementById("contact-edit-menu");
-  var button = document.getElementById("menuButton");
+  const menu = document.getElementById("contact-edit-menu");
+  const button = document.getElementById("menuButton");
   if (menu && button) {
     if (!menu.contains(event.target) && !button.contains(event.target)) {
-      menu.classList.remove("show");
+      menu.classList.remove("show", "d_none");
       document.removeEventListener("click", closeEditMenu);
     }
   }

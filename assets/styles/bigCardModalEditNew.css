@@ -1,0 +1,174 @@
+#edit-card-form-container,
+#big-card-form-container {
+  overflow: auto;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.bigc-main-container .custom-dropdown .options {
+  background-color: var(--background-lightGrey);
+  box-shadow: unset;
+}
+
+.bigc-main-container .custom-dropdown .options::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+}
+
+.big-card-creatAT {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.bigc-main-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.bigc-main-container input[type="text"],
+.bigc-main-container input[type="date"],
+#bc-description-textarea,
+.bigc-main-container select {
+  width: 100%;
+  padding: 10px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.bigc-main-container input:focus-visible,
+#bc-description-textarea:focus-visible,
+.bigc-main-container select:focus-visible {
+  outline: unset;
+  border: 1px solid var(--secondary);
+}
+
+.bigc-main-container input::placeholder,
+#bc-description-textarea::placeholder {
+  color: var(--line);
+}
+
+.bigc-main-container .form-group {
+  position: relative;
+}
+
+.bigc-main-container .input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bigc-main-container .input-container input {
+  width: 100%;
+  padding-right: 70px;
+  box-sizing: border-box;
+}
+
+.bigc-main-container .input-container input[type="date"] {
+  padding-right: 15px;
+}
+
+#bc-description-textarea {
+  height: 80px;
+}
+
+.bigc-main-container .required {
+  color: #ff8190;
+}
+
+.bigc-main-container .priority-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.bigc-main-container .add-subtask {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bigc-main-container .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.bigc-main-container .create-task-btn {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bigc-main-container .input-container .icon-container {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.bigc-main-container .subtask-actions .icon-container {
+  position: unset;
+}
+
+.bigc-main-container .input-container .subtask .icon {
+  position: unset;
+  height: 15px;
+  width: auto;
+}
+
+.bigc-main-container .input-container .subtask .icon:hover {
+  background: unset;
+  padding: 0;
+  border-radius: unset;
+}
+
+.bc-prio-select {
+  box-shadow: 0px 0px 4px 0px #0000001a;
+}
+
+.bc-prio-select:hover {
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+@media (max-width: 768px) {
+  #subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #edit-card-form-container .list-item-actions {
+    display: flex;
+    align-items: center;
+  }
+  #subtask-list li::before {
+    line-height: 23px;
+  }
+}

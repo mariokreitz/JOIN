@@ -10,12 +10,120 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./assets/styles/header.css" />
     <link rel="stylesheet" href="./assets/styles/navbar.css" />
+    <link rel="stylesheet" href="./assets/styles/board.css" />
+    <link rel="stylesheet" href="./assets/styles/task-card-small.css" />
+    <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
+    <link rel="stylesheet" href="./assets/styles/bigCard-modal-edit.css" />
+    <link rel="stylesheet" href="./assets/styles/bigCard-modal.css" />
+    <link rel="stylesheet" href="./assets/styles/addTask.css" />
+    <link rel="stylesheet" href="./assets/styles/addTaskModal.css" />
+    <link rel="stylesheet" href="./assets/styles/bigCardModalEditNew.css" />
   </head>
   <body onload="init()">
     <header id="header"></header>
     <nav id="navbar" class="navbar"></nav>
+    <main class="board-main">
+      <div id="board-content" class="board-content">
+        <div class="board-header">
+          <div class="head-searchbar-button-board">
+            <div class="board-head">
+              <h1 class="inter-medium">Board</h1>
+            </div>
+            <div class="board-searchbar-button">
+              <div class="board-input-container">
+                <input onkeyup="searchTodos(event)" type="text" id="search-task" placeholder="Find Task" />
+                <i class="board-search-icon"><img src="./assets/img/icons/search-icon.png" alt="person icon" /></i>
+              </div>
+              <button type="button" class="inter-medium" onclick="openAddTaskModal()">
+                <span class="inter-medium button-add-text">Add Task</span>
+                <div>
+                  <svg class="button-add-svg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8.66602 11.3327H0.666016V8.66602H8.66602V0.666016H11.3327V8.66602H19.3327V11.3327H11.3327V19.3327H8.66602V11.3327Z"
+                      fill="white" />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="board-body">
+          <div class="board-task-layout">
+            <div class="board-todo-column">
+              <div class="board-todo-head">
+                <h4 class="inter-medium">To do</h4>
+                <button type="button" onclick="openAddTaskModal('todo')">+</button>
+              </div>
+              <div
+                id="board-todo"
+                class="board-card-layout"
+                ondrop="onDrop('todo'); removeDragAreaHighlighting('board-todo')"
+                ondragleave="removeDragAreaHighlighting('board-todo')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-todo')"></div>
+            </div>
+            <div class="board-todo-column">
+              <div class="board-todo-head">
+                <h4 class="inter-medium">In Progress</h4>
+                <button type="button" onclick="openAddTaskModal('progress')">+</button>
+              </div>
+              <div
+                id="board-progress"
+                class="board-card-layout"
+                ondrop="onDrop('progress'); removeDragAreaHighlighting('board-progress')"
+                ondragleave="removeDragAreaHighlighting('board-progress')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-progress')"></div>
+            </div>
+            <div class="board-todo-column">
+              <div class="board-todo-head">
+                <h4 class="inter-medium">Await Feedback</h4>
+                <button type="button" onclick="openAddTaskModal('feedback')">+</button>
+              </div>
+              <div
+                id="board-feedback"
+                class="board-card-layout"
+                ondrop="onDrop('feedback'); removeDragAreaHighlighting('board-feedback')"
+                ondragleave="removeDragAreaHighlighting('board-feedback')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-feedback')"></div>
+            </div>
+            <div class="board-todo-column">
+              <div class="board-todo-head">
+                <h4 class="inter-medium">Done</h4>
+              </div>
+              <div
+                id="board-done"
+                class="board-card-layout"
+                ondrop="onDrop('done'); removeDragAreaHighlighting('board-done')"
+                ondragleave="removeDragAreaHighlighting('board-done')"
+                ondragover="allowDrop(event); addDragAreaHighlighting('board-done')"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="big-card-modal-background" class="d_none"></div>
+    </main>
+    <script src="./scripts/bigcard-modal-edit.js"></script>
+    <script src="./scripts/templates/taskCardBig.template.js"></script>
+    <script src="./scripts/templates/taskCardBigEdit.template.js"></script>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/helper/initials.helper.js"></script>
+    <script src="./scripts/helper/priority.helper.js"></script>
+    <script src="./scripts/helper/object.helper.js"></script>
+    <script src="./scripts/helper/taskcard.helper.js"></script>
     <script src="./scripts/templates/header.template.js"></script>
     <script src="./scripts/templates/navbar.template.js"></script>
+    <script src="./scripts/templates/taskCardSmall.template.js"></script>
+    <script src="./scripts/templates/toastMessage.template.js"></script>
     <script src="./scripts/board.js"></script>
+    <script src="./scripts/toastMessage.js"></script>
+    <script src="./scripts/addTaskGlobals.js"></script>
+    <script src="./scripts/templates/addTaskModal.template.js"></script>
+    <script src="./scripts/addTaskModal.js"></script>
+    <script src="./scripts/subtask.js"></script>
+    <script src="./scripts/contactDropDown.js"></script>
+    <script src="./scripts/utility.js"></script>
+    <script src="./scripts/templates/subtaskListItem.js"></script>
+    <script src="./scripts/templates/contactlistDropdown.template.js"></script>
   </body>
 </html>

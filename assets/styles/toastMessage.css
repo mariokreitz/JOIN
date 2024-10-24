@@ -12,6 +12,7 @@
   left: 50%;
   transform: translateX(-50%);
   animation: slideIn 125ms ease-out forwards;
+  z-index: 1000000;
 }
 
 @keyframes slideIn {
@@ -29,4 +30,7 @@
   font-size: 20px;
   line-height: 24px;
   color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }

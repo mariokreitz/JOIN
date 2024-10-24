@@ -1,12 +1,54 @@
 /**
+ * An array of colors that can be used to color user profiles.
+ * @type {Array<string>}
+ */
+const profileColors = [
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+  "#9327FF",
+  "#00BEE8",
+  "#1FC7C1",
+  "#8B9467",
+  "#FF745E",
+  "#FFA35E",
+  "#FC71FF",
+  "#FFC701",
+  "#0038FF",
+  "#B22222",
+  "#C3FF2B",
+  "#FFE62B",
+  "#FF4646",
+  "#FFBB2B",
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+];
+
+/**
  * Timeout in milliseconds that is used for how long the warning in the form
  * validation is shown.
  * @constant {number}
  */
 const TIMEOUT = 2000;
 
+/**
+ * Opens the contact modal and inserts it into the DOM.
+ *
+ * Depending on the type, the modal will either be in "add" or "edit" mode.
+ * If in "edit" mode, the initials are derived from the provided name.
+ * The contact modal is created using the provided name, email, phone, and color,
+ * and then inserted into the body of the document.
+ * The function also applies a "slide-in" animation to the modal.
+ *
+ * @param {string} type - The type of the modal, either "add" or "edit".
+ * @param {string} [name=""] - The name of the contact.
+ * @param {string} [email=""] - The email of the contact.
+ * @param {string} [phone=""] - The phone number of the contact.
+ * @param {string} [color=""] - The color associated with the contact.
+ */
 function openContactModal(type, name = "", email = "", phone = "", color = "") {
-  const initials = type === "edit" ? getInitials(name) : "";
+  const initials = type === "edit" ? getInitialsFromContact({ name: name }) : "";
   const modalHtml = getContactModalTemplate(type, name, email, phone, initials, color);
   let modalElement = document.getElementById("contact-modal");
   if (modalElement) modalElement.remove();
@@ -38,63 +80,61 @@ function applyAnimation(animationType) {
   modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
 }
 
-function getInitials(fullName) {
-  const nameParts = fullName.split(" ");
-  const initials = nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : "");
-  return initials.toUpperCase();
-}
-
 /**
- * Handles the save button click event.
+ * Handles the save button click in the contact modal.
  *
- * If the button text is "Save", calls updateContact with the contact name.
- * If the button text is "Add", calls createContact.
+ * If the button says "Save", it will update a contact. It will find the contact
+ * to update based on the data-created-at attribute of the #createdAt element.
  *
- * @param {Event} event - The click event.
+ * If the button says "Add", it will create a contact.
  *
- * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ * @param {Event} event - The save button click event.
+ * @returns {Promise<void>}
  */
 async function handleSaveClick(event) {
   event.preventDefault();
+  const saveBtn = document.querySelector(".save-btn");
 
-  const saveButton = document.querySelector(".save-btn");
+  if (!saveBtn) return;
+  const isSave = saveBtn.innerText.includes("Save");
 
-  if (!saveButton) return;
+  if (isSave) {
+    const contactNameElement = document.getElementById("createdAt");
+    if (!contactNameElement) return;
 
-  if (saveButton.innerText.includes("Save")) {
-    const contactNameElement = document.getElementById("contact-main-name");
-    const contactName = contactNameElement.innerText;
-    await updateContact(contactName);
+    const createdAt = Number(contactNameElement.dataset.createdat);
+    const contact = globalContacts.find((c) => c.createdAt === createdAt);
+
+    await updateContact(contact);
   } else {
     await createContact();
   }
 }
 
 /**
- * Updates a contact in Firebase Realtime Database.
+ * Updates the contact with the given createdAt time with the current form data.
+ * The function first retrieves the contact id by createdAt and user, then
+ * creates an updated contact object by spreading the form data and adding the
+ * current timestamp for createdAt. The function then calls patchDataInFirebase
+ * to update the contact in the database and shows a toast message with the
+ * status of the operation. Finally, the function closes the contact modal,
+ * renders the contacts page and selects the latest created contact.
  *
- * @param {string} contactName The name of the contact to update.
- *
- * @returns {Promise<void>} A promise that resolves when the contact has been
- * updated.
+ * @param {Object} contact - The contact to be updated.
+ * @returns {Promise<void>}
  */
-async function updateContact(contactName) {
+async function updateContact(contact) {
   const contactForm = document.getElementById("contact-form");
+  const contactId = await getContactIdByCreatedAt("guest", contact.createdAt);
 
-  const contactIndex = await getContactIndexByName(contactName);
-
-  if (contactForm && contactIndex >= 0 && validateFormdata()) {
-    const formData = new FormData(contactForm);
+  if (contactForm && contactId && validateFormdata()) {
     const updatedContact = {
+      ...Object.fromEntries(new FormData(contactForm)),
       createdAt: Date.now(),
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
     };
 
-    const status = await patchDataInFirebase(API_URL, "contacts", updatedContact, contactIndex);
+    const status = await updateContactInDatabase("guest", contactId, updatedContact);
     showToastMessage("update", status);
-
     closeContactModal();
     renderContactsPage();
     await selectLatestCreatedContact();
@@ -102,19 +142,35 @@ async function updateContact(contactName) {
 }
 
 /**
- * Creates a new contact in Firebase Realtime Database.
+ * Creates a new contact with the form data and adds it to the Firebase Realtime
+ * Database. The function first retrieves the form data, validates it, and
+ * creates a new contact object by spreading the form data and adding the current
+ * timestamp for createdAt. The function then calls putDataInFirebase to add the
+ * contact to the database and shows a toast message with the status of the
+ * operation. Finally, the function closes the contact modal, renders the
+ * contacts page and selects the latest created contact.
  *
- * @returns {Promise<void>} A promise that resolves when the contact has been
- * created.
+ * @returns {Promise<void>}
  */
 async function createContact() {
-  if (!validateFormdata()) return;
-  const status = await postData();
-  showToastMessage("create", status);
+  const formData = getFormData();
 
-  closeContactModal();
-  renderContactsPage();
-  await selectLatestCreatedContact();
+  if (!validateFormdata()) return;
+
+  const profileColor = profileColors[Math.floor(Math.random() * profileColors.length)];
+  const createdAt = Date.now();
+
+  const newContact = { ...formData, color: profileColor, contactSelect: false, createdAt };
+  const status = await createContactInDatabase("guest", newContact);
+
+  if (status.status === 200) {
+    showToastMessage("create", status);
+    closeContactModal();
+    renderContactsPage();
+    await selectLatestCreatedContact();
+  } else {
+    showToastMessage("exists", status);
+  }
 }
 
 /**
@@ -222,34 +278,42 @@ function showPhoneWarning() {
 }
 
 /**
- * Selects the latest created contact item in the contact list by toggling the
- * contact view.
+ * Selects the latest created contact from the list of contacts and shows its details
+ * in the contact view by calling `toggleContactView` with the index of the contact.
  *
- * @returns {Promise<void>} A promise that resolves when the contact view has been
- * toggled.
+ * @returns {Promise<void>}
  */
 async function selectLatestCreatedContact() {
-  const latestContact = await getLatestCreatedContact();
+  const latestContact = await getLatestCreatedContact("guest");
   const contactElements = [...document.querySelectorAll(".contact-item")];
   const selectedContactElement = contactElements.find(
     (contactElement) => contactElement.querySelector(".contact-name").textContent === latestContact.name
   );
-  const index = selectedContactElement ? parseInt(selectedContactElement.dataset.sortedIndex) : null;
+  const index = selectedContactElement ? parseInt(selectedContactElement.dataset.sortedIndex, 10) : null;
 
   toggleContactView(index);
 }
 
-async function deleteContact(contactName) {
-  const contactIndex = await getContactIndexByName(contactName);
+/**
+ * Deletes the contact with the id specified in the data-created-at attribute of the
+ * #createdAt element from the Firebase Realtime Database. If the deletion is successful,
+ * the contact view is removed and the contacts page is re-rendered.
+ *
+ * @returns {Promise<void>}
+ */
+async function deleteContact() {
+  const contactCreatedAtElement = document.getElementById("createdAt");
 
-  if (contactIndex >= 0) {
-    const status = await deleteDataInFirebase(API_URL, "contacts", contactIndex);
+  if (!contactCreatedAtElement) return;
 
-    showToastMessage("delete", status);
-    closeContactModal();
-    removeContactView();
-    renderContactsPage();
-  } else {
-    console.error("Contact not found.");
-  }
+  const contactId = await getContactIdByCreatedAt("guest", Number(contactCreatedAtElement.dataset.createdat));
+
+  if (!contactId) return;
+
+  const status = await deleteContactFromDatabase("guest", contactId);
+
+  showToastMessage("delete", status);
+  closeContactModal();
+  removeContactView();
+  renderContactsPage();
 }

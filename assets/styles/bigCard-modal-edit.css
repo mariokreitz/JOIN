@@ -1,0 +1,492 @@
+.bc-with {
+  max-width: 445px;
+}
+
+.bc-head {
+  margin-top: 24px;
+}
+
+.bigc-main-container::-webkit-scrollbar-track {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-right: 50px;
+}
+
+.bigc-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 525px;
+  max-height: calc(99dvh - 20px);
+  z-index: 99;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 30px;
+  font-size: 18px;
+  background-color: white;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 40px;
+  padding-bottom: 25px;
+}
+
+.bc-close-container {
+  display: flex;
+  justify-content: end;
+}
+
+.bc-close-container img {
+  width: 13.5px;
+  height: 13.5px;
+}
+
+input:focus {
+  border-color: #d1d1d1;
+  outline: none;
+}
+
+.bc-description-head {
+  margin-top: 18px;
+}
+
+#bc-description-textarea {
+  min-height: 120px;
+}
+
+.bc-duedate-head {
+  margin-top: 32px;
+}
+
+.bc-duedate-input-containr {
+  position: relative;
+  width: 445px;
+}
+
+#duedate-input {
+  width: 100%;
+  padding-right: 35px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.bc-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bc-priority-head {
+  margin-top: 40px;
+}
+
+.bc-priority-select-container {
+  margin-top: 8px;
+  max-width: 445px;
+  display: flex;
+  gap: 16px;
+}
+
+.bc-prio-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 137.5px;
+  height: 56px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  gap: 8px;
+}
+
+.bc-prio-select:hover {
+  box-shadow: 6px 14px 12px rgba(152, 148, 148, 0.2), 0 6px 12px rgba(118, 114, 114, 0.15);
+  cursor: pointer;
+}
+
+#bc-select-urgent.active {
+  background-color: #ff3d00 !important;
+  color: white;
+  box-shadow: none;
+}
+
+#bc-select-medium.active {
+  background-color: #ffa800 !important;
+  color: white;
+  box-shadow: none;
+}
+
+#bc-select-low.active {
+  background-color: #7ae229 !important;
+  color: white;
+  box-shadow: none;
+}
+
+.bc-prio-urgent.active svg path {
+  fill: white;
+}
+
+.bc-prio-medium.active svg path {
+  fill: white;
+}
+
+.bc-prio-low.active svg path {
+  fill: white;
+}
+
+.bc-assigned-head {
+  margin-top: 24px;
+}
+
+select {
+  margin-top: 8px;
+  max-width: 445px;
+  height: 48px;
+  border-radius: 10px;
+  border-color: #d1d1d1;
+}
+
+.bc-show-selected-assigned {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  min-height: 42px;
+}
+
+.bc-card-initial-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #0038ff;
+  color: white;
+  font-size: 14px;
+}
+
+.bc-subtask-head {
+  margin-top: 20px;
+}
+
+.bc-input-container {
+  position: relative;
+  margin-right: 40px;
+}
+
+.bc-input-subtask {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.bc-icon {
+  position: absolute;
+  right: 15px;
+  top: 55%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.bc-subtask-list {
+  margin-top: 16px;
+  min-height: 48px;
+  overflow-y: auto;
+}
+
+.bc-end-button-container {
+  display: flex;
+  justify-content: end;
+}
+
+.bc-end-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #2a3647;
+  color: white;
+  padding: 16px;
+  border-radius: 15px;
+  max-width: 80px;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.dropdown-container {
+  max-width: 445px;
+
+  position: relative;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #d1d1d1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.dropdown span {
+  font-size: 16px;
+}
+
+.dropdown-content {
+  display: none;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.bc-card-initial-circle-dropdown {
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: 50%;
+  background-color: #0038ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.name {
+  flex-grow: 1;
+  padding-left: 16px;
+}
+
+.dropdown-item input {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.dropdown-item input:checked {
+  color: #2a3647;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.custom-dropdown .options::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.custom-dropdown .options::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: var(--sb-radius);
+}
+
+.custom-dropdown .options::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.custom-dropdown .options::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: var(--sb-radius);
+}
+
+.add-task-main {
+  margin-left: 232px;
+  padding: 64px;
+  min-height: calc(100vh - 96px);
+  max-width: 1440px;
+}
+
+.add-task-content h1 {
+  font-size: 61px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.add-task-content .form-group {
+  margin-bottom: 20px;
+}
+
+.add-task-content label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.add-task-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.add-task-content input:focus-visible {
+  outline: unset;
+  border: 1px solid var(--secondary);
+}
+
+.add-task-content input::placeholder {
+  color: var(--line);
+}
+
+.add-task-content .form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.add-task-content .input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.add-task-content .input-container input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.add-task-content .input-container .icon-container {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown input::placeholder {
+  color: var(--text-primary);
+}
+
+.custom-dropdown .options {
+  list-style-type: none;
+  padding: 5px;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  background-color: #fff;
+}
+
+.custom-dropdown .options.show {
+  display: block;
+}
+
+.custom-dropdown .options li {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 8px;
+  margin-bottom: 2px;
+}
+
+.custom-dropdown .options li:last-of-type {
+  margin-bottom: 0;
+}
+
+.custom-dropdown .options li:hover {
+  background-color: #eee;
+}
+
+.custom-dropdown .badge {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.custom-dropdown input:focus + .options {
+  display: block;
+}
+
+.custom-dropdown .icon {
+  transition: transform 0.3s ease;
+}
+
+.custom-dropdown .icon.rotated {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown .options li input.checkbox {
+  margin-left: auto;
+}
+
+.custom-dropdown .options li.selected {
+  background-color: var(--primary);
+}
+
+.selected-badges {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.selected-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+@media (max-width: 525px) {
+  .bigc-main-container {
+    width: calc(100% - 20px);
+    padding: 30px;
+  }
+  .bc-prio-select {
+    max-width: 137px;
+    font-size: 16px;
+  }
+  .bc-priority-select-container {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 415px) {
+  .bc-prio-select {
+    width: 100%;
+    max-width: unset;
+  }
+
+  .priority-actions {
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 375px;
+  }
+}

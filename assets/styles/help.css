@@ -1,7 +1,7 @@
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-}
+} */
 
 main {
   padding-bottom: 40px;
@@ -86,4 +86,66 @@ body {
 
 .how-to-use-containers {
   display: flex;
+}
+
+@media (max-width: 768px) {
+  .help-below-section p {
+    font-size: 16px;
+  }
+
+  .whats-join-section p {
+    font-size: 16px;
+  }
+  .how-to-use-section h4 {
+    font-size: 27px;
+    margin-bottom: 16px;
+  }
+
+  .how-to-use-section h3 {
+    font-size: 27px;
+  }
+  .help-main {
+    margin-left: 16px;
+  }
+  .help-below-section {
+    margin-left: 16px;
+  }
+
+  .help-head {
+    margin-left: 16px;
+  }
+  .help-below-section {
+    margin-left: 16px;
+  }
+
+  .how-to-use-container p {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .help-head {
+    margin-left: 16px;
+    margin-top: 0px;
+  }
+
+  .whats-join-section {
+    max-width: 100%;
+  }
+
+  .p-whats-join {
+    margin-top: 16px;
+  }
+
+  .help-main {
+    max-width: 100%;
+  }
+
+  .how-to-use-section {
+    max-width: 100%;
+  }
+
+  .help-below-section p {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
 }
