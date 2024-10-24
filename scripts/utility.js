@@ -27,7 +27,6 @@ function outsideClickListenerWrapperCategory(event) {
 
 function checkScrollbar() {
   const elements = [
-    document.getElementById("subtask-list"),
     document.getElementById("edit-card-form-container"),
     document.getElementById("big-card-form-container"),
   ];
