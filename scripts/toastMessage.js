@@ -73,7 +73,7 @@ function showToastMessage(operation, response) {
   setTimeout(() => {
     document.querySelector(".toast-message-box").remove();
 
-    if (shouldRedirect()) window.location.href = "/board.html";
+    if (shouldRedirect("taskAdded")) window.location.href = "/board.html";
   }, 1600);
 }
 
