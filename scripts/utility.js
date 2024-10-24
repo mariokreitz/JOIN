@@ -12,7 +12,6 @@ function outsideClickListener(event, dropdownId, iconId) {
     ) {
       dropdown.classList.remove("show");
       icon.classList.remove("rotated");
-      document.removeEventListener("click", outsideClickListenerWrapper);
     }
   }
 }
@@ -24,6 +23,11 @@ function outsideClickListenerWrapper(event) {
 function outsideClickListenerWrapperCategory(event) {
   outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
 }
+
+document.addEventListener("click", function (event) {
+  outsideClickListenerWrapper(event);
+  outsideClickListenerWrapperCategory(event);
+});
 
 function checkScrollbar() {
   const subtaskList = document.getElementById("subtask-list");
