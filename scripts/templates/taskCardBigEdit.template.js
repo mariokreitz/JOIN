@@ -94,7 +94,7 @@ function getTaskCardBigEditTemplate(todo, index) {
               id="subtasks"
               placeholder="Add new subtask"
               oninput="handleSubtaskIcons()" />
-            <div class="icon-container">
+            <div class="icon-container" onclick="focusInput()">
               <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
             </div>
             <div class="subtask-actions" id="subtask-actions">

@@ -159,10 +159,8 @@
 }
 
 @media (max-width: 768px) {
-  #subtask-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  #subtask-list li {
+    margin-bottom: 10px;
   }
   #edit-card-form-container .list-item-actions {
     display: flex;

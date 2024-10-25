@@ -130,10 +130,6 @@ textarea {
   border-radius: var(--sb-radius);
 }
 
-::-webkit-scrollbar-track {
-  background: #fff;
-}
-
 ::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: var(--sb-radius);
