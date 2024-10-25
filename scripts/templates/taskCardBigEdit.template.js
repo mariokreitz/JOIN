@@ -1,10 +1,10 @@
 function getTaskCardBigEditTemplate(todo, index) {
   return /* HTML */ `
     <div id="closeEditContainer" class="bigc-main-container inter-extralight">
-      <div class="bc-close-container bc-with bc-m-left">
-        <button onclick="openBigCardModal(${index}, true)"><img src="./assets/img/icons/close.png" /></button>
-      </div>
-      <div clss="card-form-container" id="edit-card-form-container">
+      <span class="close-btn big-card-close-x" onclick="openBigCardModal(${index}, true)">
+        <img src="./assets/svg/close.svg" alt="" />
+      </span>
+      <div class="card-form-container" id="edit-card-form-container">
         <div class="form-group">
           <label for="title">Title</label>
           <input autocomplete="off" type="text" id="bc-todo-titel" value="${todo.title}" required />
@@ -94,7 +94,7 @@ function getTaskCardBigEditTemplate(todo, index) {
               id="subtasks"
               placeholder="Add new subtask"
               oninput="handleSubtaskIcons()" />
-            <div class="icon-container">
+            <div class="icon-container" onclick="focusInput()">
               <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
             </div>
             <div class="subtask-actions" id="subtask-actions">

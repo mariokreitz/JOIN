@@ -33,7 +33,7 @@ function checkScrollbar() {
   const subtaskList = document.getElementById("subtask-list");
 
   if (subtaskList) {
-    subtaskList.style.padding = subtaskList.scrollHeight > subtaskList.clientHeight ? "10px" : "0";
+    subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "5px" : "0";
   }
 
   const elements = [

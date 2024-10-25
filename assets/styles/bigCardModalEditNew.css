@@ -5,6 +5,7 @@
   gap: 20px;
   flex-direction: column;
   margin-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .bigc-main-container .custom-dropdown .options {
@@ -158,11 +159,24 @@
   }
 }
 
+.big-card-delete:hover,
+.big-card-edit:hover {
+  color: var(--secondary);
+}
+
+.big-card-delete:hover svg path,
+.big-card-edit:hover svg path {
+  fill: var(--secondary);
+}
+
+.bc-end-button:hover {
+  background: var(--secondary);
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
 @media (max-width: 768px) {
-  #subtask-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  #subtask-list li {
+    margin-bottom: 10px;
   }
   #edit-card-form-container .list-item-actions {
     display: flex;

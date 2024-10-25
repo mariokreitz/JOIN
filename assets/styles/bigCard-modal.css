@@ -67,6 +67,8 @@
   display: flex;
   align-items: center;
   justify-content: end;
+  position: unset !important;
+  margin-left: auto;
 }
 
 .catogory-close-container {
@@ -81,7 +83,6 @@
   overflow-wrap: break-word;
   font-size: 26px;
   line-height: 50px;
-
 }
 
 .big-card-head h1 {

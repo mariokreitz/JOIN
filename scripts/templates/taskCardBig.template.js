@@ -37,11 +37,11 @@ function getTaskCardBigTemplate(todo, index) {
         style="background-color: ${todo.category === "Technical Task" ? "#1FD7C1" : "#0038ff"}">
         <h4 class="inter-extralight">${todo.category}</h4>
       </div>
-      <div onclick="toggleBigCardModal()" class="big-card-close-x">
-        <img src="./assets/img/icons/close.png" />
-      </div>
+      <span class="close-btn big-card-close-x" onclick="toggleBigCardModal()">
+        <img src="./assets/svg/close.svg" alt="" />
+      </span>
     </div>
-    <div clss="card-form-container" id="big-card-form-container">
+    <div class="card-form-container" id="big-card-form-container">
       <h1 class="big-card-head inter-medium">${todo.title}</h1>
       <div class="big-card-description inter-extralight">
         <p>${todo.description}</p>

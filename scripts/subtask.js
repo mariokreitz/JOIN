@@ -29,6 +29,10 @@ function addSubtask() {
   }
 }
 
+function focusInput() {
+  document.getElementById("subtasks").focus();
+}
+
 /**
  * Loads the subtasks for a given todo item from the currentTodo object.
  * If the todo item does not have any subtasks, the function does nothing.
