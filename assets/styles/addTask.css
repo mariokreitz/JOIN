@@ -586,10 +586,6 @@ input[type="date"]:invalid::-webkit-datetime-edit {
     flex-direction: row;
   }
 
-  .priority-group button {
-    justify-content: start;
-  }
-
   .task-form-container {
     flex-direction: column;
     gap: 0px;
