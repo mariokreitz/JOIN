@@ -23,8 +23,8 @@ function openAddTaskModal(state = "todo") {
   if (window.innerWidth <= 768) {
     window.location.href = "/add-task.html";
   } else {
+    document.body.style.overflow = "hidden";
     document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
-
     const scriptsToLoad = [
       "./scripts/addTask.js",
       "./scripts/templates/subtaskListItem.js",
@@ -48,7 +48,6 @@ function closeAddTaskModal(event) {
   const modal = document.getElementById("add-task-modal");
   if (modal) {
     applyAnimation("slide-out");
-
     modal.addEventListener("animationend", () => {
       document.removeEventListener("click", outsideClickListenerWrapper);
       document.removeEventListener("click", outsideClickListenerWrapperCategory);
@@ -59,7 +58,7 @@ function closeAddTaskModal(event) {
       document.removeEventListener("click", (e) =>
         outsideClickListener(e, "category-dropdown-options", "category-dropdown-icon")
       );
-
+      document.body.style.overflow = "auto";
       modal.remove();
 
       const scriptsToUnload = [
