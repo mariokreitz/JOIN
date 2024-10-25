@@ -169,6 +169,8 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1;
+  justify-content: center;
 }
 
 .priority-group button:hover {
