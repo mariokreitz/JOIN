@@ -41,7 +41,7 @@ function getTaskCardBigTemplate(todo, index) {
         <img src="./assets/svg/close.svg" alt="" />
       </span>
     </div>
-    <div clss="card-form-container" id="big-card-form-container">
+    <div class="card-form-container" id="big-card-form-container">
       <h1 class="big-card-head inter-medium">${todo.title}</h1>
       <div class="big-card-description inter-extralight">
         <p>${todo.description}</p>

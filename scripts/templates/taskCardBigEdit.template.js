@@ -4,7 +4,7 @@ function getTaskCardBigEditTemplate(todo, index) {
       <span class="close-btn big-card-close-x" onclick="openBigCardModal(${index}, true)">
         <img src="./assets/svg/close.svg" alt="" />
       </span>
-      <div clss="card-form-container" id="edit-card-form-container">
+      <div class="card-form-container" id="edit-card-form-container">
         <div class="form-group">
           <label for="title">Title</label>
           <input autocomplete="off" type="text" id="bc-todo-titel" value="${todo.title}" required />
