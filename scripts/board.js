@@ -743,7 +743,7 @@ async function editBigCard(index) {
   if (response.ok) showToastMessage("todoUpdated", response);
   else showToastMessage("error", response);
 
-  toggleBigCardModal(index);
+  openBigCardModal(index, true);
   subTasks = {};
   triggerRender();
   selectedOptions.length = 0;
