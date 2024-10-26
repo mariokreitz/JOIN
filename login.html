@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./assets/styles/font.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
+  <body id="login-login-body">
     <div class="login-max-witdh-wrapper">
       <img class="login-join-logo" src="./assets/img/logo.png" />
       <div class="login-signup-container">
@@ -23,10 +23,17 @@
         <div class="login-blue-stretch"></div>
         <div class="login-login-input-fields">
           <div class="login-input-mail-c">
-            <input class="login-login-mail" type="text" placeholder="Email" />
+            <input id="email" class="login-login-mail inter-extralight" type="text" placeholder="Email" />
+            <span id="emailError" class="error-message"></span>
           </div>
-          <div class="login-login-pw-c">
-            <input class="login-login-pw" type="text" placeholder="Password" />
+          <div class="login-login-pw-c inter-extralight">
+            <input
+              id="password"
+              class="login-login-pw inter-extralight"
+              type="text"
+              placeholder="Password"
+              required="" />
+            <span id="passwordError" class="error-message"></span>
           </div>
         </div>
 
@@ -35,7 +42,7 @@
           <p>Remember me</p>
         </div>
         <div class="login-login-btn-container">
-          <button id="login-login-btn" class="inter-medium">Log in</button>
+          <button onclick="validateForm()" id="login-login-btn" class="inter-medium">Log in</button>
           <button id="login-login-guest-btn" class="inter-medium">Guest Log in</button>
         </div>
       </div>
@@ -44,5 +51,7 @@
         <a class="inter-extralight login-legal" href="./legal-notice.html">Legal Notice</a>
       </div>
     </div>
+
+    <script src="./scripts/login.js"></script>
   </body>
 </html>
