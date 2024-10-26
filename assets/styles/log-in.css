@@ -149,7 +149,7 @@
   justify-content: center;
   gap: 24px;
   font-size: 16px;
-  margin-top: -62px;
+  margin-top: -80px;
 }
 
 .login-login-mail,
@@ -237,4 +237,79 @@
   cursor: pointer;
   padding: 0;
   opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .login-login-container {
+    width: 95%;
+    margin-top: 85px;
+    min-height: 90%;
+    transform: scale(0.95);
+
+    margin-bottom: unset;
+  }
+
+  .login-privacy-legal-container {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    background-color: #f6f7f8;
+  }
+
+  .login-remember-container {
+    width: 100%;
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+
+  .login-login-mail,
+  .login-login-pw {
+    display: flex;
+  }
+  .login-login-input-fields {
+    width: 75%;
+  }
+
+  .login-signup-container {
+    display: none;
+  }
+  .login-signup-container {
+    background-color: #f6f7f8;
+  }
+
+  .login-join-logo {
+    width: auto;
+    height: 48px;
+    left: 40px;
+    top: 25px;
+  }
+
+  .login-login-btn-container {
+    flex-direction: column;
+    gap: 20px;
+    width: 75%;
+  }
+
+  #login-login-btn,
+  #login-login-guest-btn {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: auto;
+    text-align: center;
+  }
+
+  .login-max-witdh-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .login-signup-container-down {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 37px;
+
+    gap: 35px;
+  }
 }
