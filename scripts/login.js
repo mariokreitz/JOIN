@@ -25,10 +25,35 @@ function toggleLoginIconVisibility() {
   if (passwordInput.value.trim() !== "") {
     loginIconDiv.classList.remove("login-svg");
     loginIconDiv.classList.add("login-pw-non-visibility");
+    loginIconDiv.onclick = changeVisibilityIcon;
   } else {
     loginIconDiv.classList.remove("login-pw-non-visibility");
     loginIconDiv.classList.add("login-svg");
+    loginIconDiv.onclick = null;
   }
 }
 
-document.getElementById("password").addEventListener("input", toggleLoginIconVisibility);
+function changeVisibilityIcon() {
+  const passwordInput = document.getElementById("password");
+  const loginIconDiv = document.getElementById("login-change-pw-icon");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    loginIconDiv.classList.remove("login-pw-non-visibility");
+    loginIconDiv.classList.add("login-pw-visibility");
+  } else {
+    passwordInput.type = "password";
+    loginIconDiv.classList.remove("login-pw-visibility");
+    loginIconDiv.classList.add("login-pw-non-visibility");
+  }
+}
+
+function loginRemember() {
+  const rememberMeImage = document.getElementById("loginRememberMe");
+
+  if (rememberMeImage.src.includes("subtask-checked.png")) {
+    rememberMeImage.src = "./assets/img/icons/subtask-non-checked.png";
+  } else {
+    rememberMeImage.src = "./assets/img/icons/subtask-checked.png";
+  }
+}

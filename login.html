@@ -53,9 +53,10 @@
           </div>
           <div class="login-login-pw-c inter-extralight">
             <input
+              oninput="toggleLoginIconVisibility()"
               id="password"
               class="login-login-pw inter-extralight"
-              type="text"
+              type="password"
               placeholder="Password"
               required="" />
             <div id="login-change-pw-icon" class="login-svg"></div>
@@ -64,7 +65,7 @@
         </div>
 
         <div class="login-remember-container inter-extralight">
-          <img src="./assets/img/icons/subtask-non-checked.png" />
+          <img id="loginRememberMe" onclick="loginRemember()" src="./assets/img/icons/subtask-non-checked.png" />
           <p>Remember me</p>
         </div>
         <div class="login-login-btn-container">
