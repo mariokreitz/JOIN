@@ -43,6 +43,7 @@ function validateForm() {
   }
 }
 
+// DIESE CODES SIND PROTOYPEN!
 function toggleLoginIconVisibility() {
   const passwordInput = document.getElementById("password");
   const loginIconDiv = document.getElementById("login-change-pw-icon");
