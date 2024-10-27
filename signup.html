@@ -30,25 +30,27 @@
 
         <div class="login-login-input-fields">
           <div class="login-input-name-c">
-            <input class="login-login-name" type="text" placeholder="Email" />
+            <input id="name" class="login-login-name" type="text" placeholder="Name" />
+            <span id="nameError" class="error-message"></span>
           </div>
 
           <div class="login-input-mail-c">
-            <input class="login-login-mail" type="text" placeholder="Email" />
+            <input id="email" class="login-login-mail" type="text" placeholder="Email" />
+            <span id="emailError" class="error-message"></span>
+          </div>
+
+          <div class="login-login-pw-c">
+            <input id="password" class="login-login-pw" type="text" placeholder="Password" />
+            <span id="passwordError" class="error-message"></span>
           </div>
 
           <div class="login-login-pw-c">
             <input class="login-login-pw" type="text" placeholder="Password" />
-          </div>
-
-          <div class="login-login-pw-c">
-            <input class="login-login-pw" type="text" placeholder="Password" />
+            <span id="passwordDoubleError" class="error-message"></span>
           </div>
         </div>
         <div class="sign-accept-agb-container">
-          <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1.5" y="1" width="16" height="16" rx="3" stroke="#2A3647" stroke-width="2" />
-          </svg>
+          <img id="loginRememberMe" onclick="loginRemember()" src="./assets/img/icons/subtask-non-checked.png" />
 
           <p class="inter-extralight">
             I accept the <span class="sign-privacy-blue inter-extralight">Privacy policy</span>
@@ -56,7 +58,7 @@
         </div>
 
         <div class="login-login-btn-container">
-          <button id="sign-login-btn" class="inter-medium">Sign Up</button>
+          <button onclick="validateForm()" id="sign-login-btn" class="inter-medium">Sign Up</button>
         </div>
       </div>
 
@@ -65,5 +67,7 @@
         <a class="inter-extralight login-legal" href="./legal-notice.html">Legal Notice</a>
       </div>
     </div>
+
+    <script src="./scripts/signup.js"></script>
   </body>
 </html>
