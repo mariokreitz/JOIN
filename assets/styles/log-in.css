@@ -239,10 +239,14 @@
   opacity: 0.5;
 }
 
+.login-signup-container-down {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .login-login-container {
     width: 95%;
-    margin-top: 85px;
+    margin-top: 90px;
     min-height: 90%;
     transform: scale(0.95);
 
@@ -250,7 +254,7 @@
   }
 
   .login-privacy-legal-container {
-    margin-top: 50px;
+    margin-top: 55px;
     margin-bottom: 10px;
     background-color: #f6f7f8;
   }
@@ -267,6 +271,12 @@
   }
   .login-login-input-fields {
     width: 75%;
+  }
+
+  .not-user-centre-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .login-signup-container {
