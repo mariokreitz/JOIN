@@ -40,12 +40,24 @@
           </div>
 
           <div class="login-login-pw-c">
-            <input id="password" class="login-login-pw" type="text" placeholder="Password" />
+            <input
+              oninput="toggleLoginIconVisibility()"
+              id="password"
+              class="login-login-pw"
+              type="text"
+              placeholder="Password" />
+            <div id="login-change-pw-icon" class="login-svg"></div>
             <span id="passwordError" class="error-message"></span>
           </div>
 
           <div class="login-login-pw-c">
-            <input class="login-login-pw" type="text" placeholder="Password" />
+            <input
+              oninput="toggleLoginIconVisibilityDouble()"
+              id="confirmPassword"
+              class="login-login-pw"
+              type="text"
+              placeholder="Password" />
+            <div id="login-change-pw-icon-double" class="login-svg-confirmed"></div>
             <span id="passwordDoubleError" class="error-message"></span>
           </div>
         </div>
