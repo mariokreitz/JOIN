@@ -1,7 +1,32 @@
-user = {
-  name: "guest",
-  isLoggedIn: true,
+const currentUser = {
+  isLoggedIn: false,
 };
+
+if (!localStorage.getItem("currentUser")) {
+  saveUserToLocalStorage();
+}
+loadUserFromLocalStorage();
+
+/**
+ * Saves the current user object to local storage.
+ * The user object is stringified before being stored.
+ * This allows the user information to persist across
+ * browser sessions.
+ */
+function saveUserToLocalStorage() {
+  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+}
+
+/**
+ * Loads the user object from local storage and updates the global user object.
+ * If no user is found in local storage, the user object remains unchanged.
+ */
+function loadUserFromLocalStorage() {
+  const storedUser = localStorage.getItem("currentUser");
+  if (storedUser) {
+    Object.assign(currentUser, JSON.parse(storedUser));
+  }
+}
 
 /**
  * Object containing all routes of the application.
@@ -39,7 +64,7 @@ const routes = {
  * Otherwise, does nothing.
  */
 function checkAuthorization() {
-  const isLoggedIn = user.isLoggedIn;
+  const isLoggedIn = currentUser.isLoggedIn;
   const currentPath = window.location.pathname;
 
   if (isLoggedIn) {
@@ -55,7 +80,7 @@ function checkAuthorization() {
  * Otherwise, does nothing.
  */
 function redirectToHomeIfAuthorized() {
-  if (user.isLoggedIn) window.location.href = "/";
+  if (currentUser.isLoggedIn) window.location.href = "/";
 }
 
 /**
