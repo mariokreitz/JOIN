@@ -6,10 +6,11 @@
     <script src="./router.js"></script>
     <title>Join</title>
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="./assets/styles/log-in.css" />
     <link rel="stylesheet" href="./assets/styles/reset.css" />
     <link rel="stylesheet" href="./assets/styles/font.css" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/styles/log-in.css" />
+    <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
   </head>
   <body id="login-login-body">
     <div class="login-max-witdh-wrapper">
@@ -69,14 +70,19 @@
         </div>
 
         <div class="login-remember-wrapper">
-          <label onclick="loginRemember()" for="rememberMeText" class="login-remember-container inter-extralight">
+          <label
+            onclick="loginRemember()"
+            id="rememberMeLabel"
+            for="rememberMeText"
+            data-checked="false"
+            class="login-remember-container inter-extralight">
             <img id="loginRememberMe" src="./assets/img/icons/subtask-non-checked.png" />
             <p id="rememberMeText">Remember me</p>
           </label>
         </div>
         <div class="login-login-btn-container">
-          <button onclick="validateForm()" id="login-login-btn" class="inter-medium">Log in</button>
-          <button id="login-login-guest-btn" class="inter-medium">Guest Log in</button>
+          <button onclick="handleLogin(false)" id="login-login-btn" class="inter-medium">Log in</button>
+          <button onclick="handleLogin(true)" id="login-login-guest-btn" class="inter-medium">Guest Log in</button>
         </div>
       </div>
       <div class="login-signup-container-down">
@@ -92,7 +98,10 @@
         <a class="inter-extralight login-legal" href="./legal-notice.html">Legal Notice</a>
       </div>
     </div>
-
+    <script src="./scripts/templates/toastMessage.template.js"></script>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/toastMessage.js"></script>
     <script src="./scripts/login.js"></script>
   </body>
 </html>

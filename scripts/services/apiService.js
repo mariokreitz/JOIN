@@ -222,16 +222,16 @@ async function deleteTodosInFirebase(user, todoID) {
  * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
  */
 async function createUserInFirebaseDatabase(newUser) {
-  const data = await getDataFromFirebase();
+  if (!newUser.email) return { status: 401, ok: true, statusText: "Email address should not be empty." };
 
-  if (!data) return { status: 400, ok: true, statusText: "No data found in Firebase Database." };
+  const data = await getDataFromFirebase();
+  if (!data) return { status: 404, ok: true, statusText: "No data found in Firebase Database." };
 
   const users = data.users || {};
   const userId = getInitialsFromContact(newUser) + Date.now();
   const userExists = Object.values(users).some((user) => user.email === newUser.email);
 
   if (userExists) return { status: 400, ok: true, statusText: "User with this email already exists." };
-
   const response = await fetch(`${API_URL}/users/${userId}/.json`, {
     method: "PATCH",
     headers: {
@@ -241,4 +241,19 @@ async function createUserInFirebaseDatabase(newUser) {
   });
 
   return response;
+}
+
+async function getUserFromFirebaseDatabase({ email, password }) {
+  const data = await getDataFromFirebase();
+
+  if (!data) return { status: 404, ok: false, statusText: "No data found in Firebase Database." };
+
+  const users = data.users || {};
+  const user = Object.values(users).find((user) => user.email === email);
+
+  if (!user) return { status: 401, ok: false, statusText: "No user with this email found." };
+  if (email === "demo@join.com") return { status: 200, ok: true, user: { isDemo: true, isLoggedIn: !user.isLoggedIn } };
+  if (user.password !== password) return { status: 401, ok: true, statusText: "Incorrect password." };
+
+  return { status: 200, ok: true, user: { isLoggedIn: !user.isLoggedIn } };
 }

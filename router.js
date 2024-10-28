@@ -1,7 +1,32 @@
-user = {
-  name: "guest",
+const user = {
   isLoggedIn: false,
 };
+
+if (!localStorage.getItem("user")) {
+  saveUserToLocalStorage();
+}
+loadUserFromLocalStorage();
+
+/**
+ * Saves the current user object to local storage.
+ * The user object is stringified before being stored.
+ * This allows the user information to persist across
+ * browser sessions.
+ */
+function saveUserToLocalStorage() {
+  localStorage.setItem("user", JSON.stringify(user));
+}
+
+/**
+ * Loads the user object from local storage and updates the global user object.
+ * If no user is found in local storage, the user object remains unchanged.
+ */
+function loadUserFromLocalStorage() {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    Object.assign(user, JSON.parse(storedUser));
+  }
+}
 
 /**
  * Object containing all routes of the application.

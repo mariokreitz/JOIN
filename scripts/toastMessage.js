@@ -84,7 +84,7 @@ function showToastMessage(operation, response) {
     document.querySelector(".toast-message-box").remove();
 
     if (shouldRedirect("taskAdded")) window.location.href = "/board.html";
-  }, 1600);
+  }, 1000);
 }
 
 /**
