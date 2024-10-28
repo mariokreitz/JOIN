@@ -6,11 +6,11 @@
  * initialized.
  */
 async function init() {
+  showGreeting();
   loadComponents();
   await getTodosFromData("guest");
   populateCounters(globalTodos);
   updateGreeting();
-  showGreeting();
 }
 
 /**
@@ -128,9 +128,8 @@ function updateGreeting() {
 
 /**
  * Displays the greeting container if the screen width is less than 768 pixels.
- * The container fades in over 300 milliseconds, remains visible for 2 seconds,
- * and then fades out. During the fade-in and fade-out animations, body scrolling
- * is disabled.
+ * The container is visible for 2 seconds, and then fades out.
+ * During the animation, body scrolling is disabled.
  *
  * @function showGreeting
  */

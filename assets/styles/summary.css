@@ -286,23 +286,24 @@ body:has(#summary-main) {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 374px) {
   .tasks,
   .metrics {
     gap: 10px;
-  }
-
-  .urgent-container {
-    gap: 15px;
   }
 
   .metrics {
     margin-bottom: 10px;
   }
 
+  .tasks {
+    flex-wrap: wrap;
+  }
+
   .urgent-container {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
 
   .deadline {
@@ -312,11 +313,5 @@ body:has(#summary-main) {
   .urgent-container .seperator {
     height: 1px;
     width: 100%;
-  }
-}
-
-@media (max-width: 374px) {
-  .tasks {
-    flex-wrap: wrap;
   }
 }
