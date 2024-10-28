@@ -24,16 +24,18 @@ body:has(#summary-main) {
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .header h1 {
   font-size: 61px;
+  line-height: 46px;
 }
 
 .header span {
   font-size: 27px;
   color: var(--primary);
+  line-height: normal;
 }
 
 .icon {
@@ -118,7 +120,6 @@ body:has(#summary-main) {
 
 .greeting-container {
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -136,6 +137,7 @@ body:has(#summary-main) {
   color: var(--secondary);
   font-weight: 700;
   line-height: normal;
+  text-transform: capitalize;
 }
 
 .tasks {
@@ -164,4 +166,99 @@ body:has(#summary-main) {
 
 .deadline .label {
   font-size: 16px;
+}
+
+#summary-main .underline {
+  display: none;
+  height: 3px;
+  width: 100px;
+  background-color: var(--secondary);
+  border-radius: 3px;
+}
+
+@media (max-width: 1320px) {
+  #summary-main .header {
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .greeting-container {
+    display: none;
+  }
+
+  .summary-data {
+    max-width: unset;
+  }
+}
+
+@media (max-width: 960px) {
+  #summary-main .header {
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+  }
+
+  #summary-main .underline {
+    display: block;
+  }
+
+  #summary-main .header .seperator {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  #summary-main {
+    margin-left: 0;
+    padding: 20px;
+    padding-bottom: 120px;
+  }
+}
+
+@media (max-width: 550px) {
+  .header h1,
+  .count {
+    font-size: 47px;
+    line-height: normal;
+  }
+
+  .header span {
+    font-size: 20px;
+  }
+
+  .date {
+    font-size: 16px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .metric,
+  .task {
+    padding: 20px;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 400px) {
+  .tasks,
+  .metrics,
+  .urgent-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .deadline {
+    align-items: center;
+  }
+
+  .metrics {
+    margin-bottom: 10px;
+  }
 }
