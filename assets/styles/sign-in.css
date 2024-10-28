@@ -410,7 +410,7 @@ input:focus {
 @media (width: 820px) and (height: 1180px) {
   .login-login-container {
     margin-top: 239px;
-    transform: scale(1.2);
+    transform: scale(1);
   }
   .login-privacy-legal-container {
     margin-top: 189px;
