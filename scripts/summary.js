@@ -48,36 +48,45 @@ function loadNavbar() {
 }
 
 function populateCounters(todos) {
-  const todoCount = todos.filter((todo) => todo.state === "todo").length;
-  const doneCount = todos.filter((todo) => todo.state === "done").length;
-  const progressCount = todos.filter((todo) => todo.state === "progress").length;
-  const feedbackCount = todos.filter((todo) => todo.state === "feedback").length;
-  const urgentCount = todos.filter((todo) => todo.priority === "high").length;
-  const totalCount = todos.length;
-  const upcomingDeadline = todos.reduce((earliest, todo) => {
-    const todoDate = new Date(todo.date);
-    return todoDate < earliest ? todoDate : earliest;
-  }, new Date(todos[0].date));
-
-  document.getElementById("todo-count").textContent = todoCount;
-  document.getElementById("done-count").textContent = doneCount;
-  document.getElementById("urgent-count").textContent = urgentCount;
-  document.getElementById("due-date").textContent = upcomingDeadline.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  document.getElementById("total-count").textContent = totalCount;
-  document.getElementById("progress-count").textContent = progressCount;
-  document.getElementById("feedback-count").textContent = feedbackCount;
+  document.getElementById("todo-count").textContent = countTodos(todos, "todo");
+  document.getElementById("done-count").textContent = countTodos(todos, "done");
+  document.getElementById("progress-count").textContent = countTodos(todos, "progress");
+  document.getElementById("feedback-count").textContent = countTodos(todos, "feedback");
+  document.getElementById("urgent-count").textContent = countUrgentTodos(todos);
+  document.getElementById("total-count").textContent = todos.length;
   document.getElementById("name").textContent = currentUser.name;
+  document.getElementById("due-date").textContent =
+    findEarliestDeadline(todos) !== "No urgent tasks"
+      ? findEarliestDeadline(todos).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : findEarliestDeadline(todos);
+}
+
+function countTodos(todos, state) {
+  return todos.filter((todo) => todo.state === state).length;
+}
+
+function countUrgentTodos(todos) {
+  return todos.filter((todo) => todo.priority === "high" && todo.state !== "done").length;
+}
+
+function findEarliestDeadline(todos) {
+  const urgentTasks = todos.filter((todo) => todo.priority === "high" && todo.state !== "done");
+  return urgentTasks.length > 0
+    ? urgentTasks.reduce((earliest, todo) => {
+        const todoDate = new Date(todo.date);
+        return todoDate < earliest ? todoDate : earliest;
+      }, new Date(urgentTasks[0].date))
+    : "No urgent tasks";
 }
 
 function updateGreeting() {
   const greetingElement = document.getElementById("greeting");
   const currentTime = new Date();
   const currentHour = currentTime.getHours();
-
   let greeting;
 
   if (currentHour < 12) {
