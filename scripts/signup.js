@@ -11,10 +11,15 @@ function loginRemember() {
 }
 
 /**
- * Validates the form and creates a new user in the Firebase Realtime
- * Database. If the sign up is successful, shows a toast message and
- * redirects to the login page after 1.6 seconds. If the user already
- * exists, shows a toast message with the status of the operation.
+ * Handles the sign up process, by validating the form data, creating a new user
+ * object and adding it to the Firebase Realtime Database. The function first
+ * retrieves the form data, validates it, creates a new user object by spreading
+ * the form data and adds the current timestamp for createdAt. The function then
+ * calls putDataInFirebase to add the user to the database and shows a toast
+ * message with the status of the operation. Finally, the function closes the
+ * contact modal, renders the contacts page and selects the latest created
+ * contact.
+ *
  * @returns {Promise<void>}
  */
 async function signUp() {
@@ -34,13 +39,16 @@ async function signUp() {
       showToastMessage("signUpSuccess", response);
       setTimeout(() => {
         window.location.href = "./login.html";
-      }, 1600);
+      }, 1000);
       break;
     case 400:
       showToastMessage("signUpExists", response);
       break;
-    default:
+    case 404:
       showToastMessage("error", response);
+      break;
+    default:
+      break;
   }
 }
 
@@ -54,21 +62,36 @@ async function signUp() {
 function validateForm() {
   const [name, email, password, confirmPassword] = getFormValues();
 
-  const namePattern = /^[A-Za-z]+(-[A-Za-z]+)? [A-Za-z]+(-[A-Za-z]+)?$/;
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  let isValid = false;
+  const nameRegex = /^[A-Za-z]+(-[A-Za-z]+)? [A-Za-z]+(-[A-Za-z]+)?$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,}$/;
 
   clearErrorMessages();
-  if (!namePattern.test(name)) document.getElementById("nameError").textContent = "Please enter a valid name.";
-  if (!emailPattern.test(email))
-    document.getElementById("emailError").textContent = "Please enter a valid email address.";
-  if (password.length < 7)
-    document.getElementById("passwordError").textContent = "The password must be at least 7 characters long.";
-  if (password !== confirmPassword)
-    document.getElementById("passwordDoubleError").textContent = "The passwords do not match.";
 
-  return (isValid = true);
+  let isValid = true;
+
+  if (!nameRegex.test(name)) {
+    document.getElementById("nameError").textContent = "Please enter a valid name.";
+    isValid = false;
+  }
+
+  if (!emailRegex.test(email)) {
+    document.getElementById("emailError").textContent = "Please enter a valid email address.";
+    isValid = false;
+  }
+
+  if (!passwordRegex.test(password)) {
+    document.getElementById("passwordError").textContent =
+      "Password must be at least 7 characters long with both lowercase and uppercase letters, number and special character.";
+    isValid = false;
+  }
+
+  if (password !== confirmPassword) {
+    document.getElementById("passwordDoubleError").textContent = "The passwords do not match.";
+    isValid = false;
+  }
+
+  return isValid;
 }
 /**
  * Retrieves the values of the sign-up form fields and returns them in an array.
