@@ -101,7 +101,7 @@ body:has(#summary-main) {
 }
 
 .urgent-container {
-  justify-content: space-evenly; /* Maintain layout for urgent items */
+  justify-content: space-evenly;
 }
 
 .urgent {

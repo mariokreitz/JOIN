@@ -9,6 +9,7 @@ async function init() {
   loadComponents();
   await getTodosFromData("guest");
   populateCounters(globalTodos);
+  updateGreeting();
 }
 
 /**
@@ -70,4 +71,22 @@ function populateCounters(todos) {
   document.getElementById("progress-count").textContent = progressCount;
   document.getElementById("feedback-count").textContent = feedbackCount;
   document.getElementById("name").textContent = currentUser.name;
+}
+
+function updateGreeting() {
+  const greetingElement = document.getElementById("greeting");
+  const currentTime = new Date();
+  const currentHour = currentTime.getHours();
+
+  let greeting;
+
+  if (currentHour < 12) {
+    greeting = "Good morning,";
+  } else if (currentHour < 18) {
+    greeting = "Good afternoon,";
+  } else {
+    greeting = "Good evening,";
+  }
+
+  greetingElement.textContent = greeting;
 }
