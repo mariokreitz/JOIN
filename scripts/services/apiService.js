@@ -243,6 +243,15 @@ async function createUserInFirebaseDatabase(newUser) {
   return response;
 }
 
+/**
+ * Retrieves a user from the Firebase Realtime Database using the provided credentials.
+ *
+ * @param {Object} credentials - The user's credentials.
+ * @param {string} credentials.email - The email of the user to be retrieved.
+ * @param {string} credentials.password - The password of the user to be verified.
+ * @returns {Promise<Object>} A promise that resolves with an object containing the status of the operation,
+ * an ok flag indicating success or failure, and either the user's data or an error message.
+ */
 async function getUserFromFirebaseDatabase({ email, password }) {
   const data = await getDataFromFirebase();
 
@@ -252,8 +261,9 @@ async function getUserFromFirebaseDatabase({ email, password }) {
   const user = Object.values(users).find((user) => user.email === email);
 
   if (!user) return { status: 401, ok: false, statusText: "No user with this email found." };
-  if (email === "demo@join.com") return { status: 200, ok: true, user: { isDemo: true, isLoggedIn: !user.isLoggedIn } };
+  if (email === "demo@join.com")
+    return { status: 200, ok: true, user: { name: user.name, isDemo: true, isLoggedIn: !user.isLoggedIn } };
   if (user.password !== password) return { status: 401, ok: true, statusText: "Incorrect password." };
 
-  return { status: 200, ok: true, user: { isLoggedIn: !user.isLoggedIn } };
+  return { status: 200, ok: true, user: { name: user.name, isLoggedIn: !user.isLoggedIn } };
 }
