@@ -405,3 +405,49 @@ input:focus {
     min-height: 120dvh;
   }
 }
+
+/* IPAD AIR */
+@media (width: 820px) and (height: 1180px) {
+  .login-login-container {
+    margin-top: 239px;
+    transform: scale(1.2);
+  }
+  .login-privacy-legal-container {
+    margin-top: 189px;
+    font-size: 1.3rem;
+  }
+}
+
+/* IPAD PRO */
+@media (width: 1024px) and (height: 1366px) {
+  .login-login-container {
+    margin-top: 309px;
+    transform: scale(1.4);
+  }
+  .login-privacy-legal-container {
+    margin-top: 259px;
+    font-size: 1.5rem;
+  }
+}
+/* SURFACE PRO */
+@media (width: 912px) and (height: 1368px) {
+  .login-login-container {
+    margin-top: 299px;
+    transform: scale(1.3);
+  }
+  .login-privacy-legal-container {
+    margin-top: 239px;
+    font-size: 1.6rem;
+  }
+}
+
+/* IPAD MINI */
+@media (width: 768px) and (height: 1024px) {
+  .login-login-container {
+    margin-top: 139px;
+  }
+  .login-privacy-legal-container {
+    margin-top: 139px;
+    font-size: 1.2rem;
+  }
+}
