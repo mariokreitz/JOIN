@@ -23,7 +23,7 @@ async function handleLogin(isGuest) {
         showToastMessage("error", { ok: false });
         break;
       case 200:
-        Object.assign(user, fetchedUser);
+        Object.assign(currentUser, fetchedUser);
         saveUserToLocalStorage();
         checkAndSaveUserToLocalStorage();
         showToastMessage("loginSuccess", { ok: true });
