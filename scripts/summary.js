@@ -143,7 +143,7 @@ function showGreeting() {
       setTimeout(() => {
         greetingContainer.style.display = "none";
         document.body.style.overflow = "";
-      }, 300);
+      }, 600);
     }, 2000);
     document.body.style.overflow = "hidden";
   }

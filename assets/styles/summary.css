@@ -228,7 +228,7 @@ body:has(#summary-main) {
 
   .greeting-container {
     opacity: 0;
-    transition: opacity 300ms ease;
+    transition: opacity 600ms ease;
     position: absolute;
     background-color: var(--background-lightGrey);
     height: 100vh;
