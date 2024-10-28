@@ -1,6 +1,6 @@
 user = {
   name: "guest",
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 /**
