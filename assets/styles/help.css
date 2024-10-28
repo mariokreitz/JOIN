@@ -1,8 +1,3 @@
-/* ::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-} */
-
 main {
   padding-bottom: 40px;
 }
@@ -147,5 +142,11 @@ body {
   .help-below-section p {
     margin-top: 32px;
     margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 500px) {
+  .policy-header {
+    font-size: 18px;
   }
 }
