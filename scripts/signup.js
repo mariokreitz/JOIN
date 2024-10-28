@@ -3,8 +3,10 @@ function loginRemember() {
 
   if (rememberMeImage.src.includes("subtask-checked.png")) {
     rememberMeImage.src = "./assets/img/icons/subtask-non-checked.png";
+    document.getElementById("sign-login-btn").disabled = true;
   } else {
     rememberMeImage.src = "./assets/img/icons/subtask-checked.png";
+    document.getElementById("sign-login-btn").disabled = false;
   }
 }
 

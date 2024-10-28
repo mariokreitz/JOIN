@@ -81,10 +81,7 @@
   margin-top: 32px;
 }
 
-.login-remember-container {
-  gap: 8px;
-  display: flex;
-  align-items: center;
+.login-remember-wrapper {
   width: 400px;
   height: 24px;
   max-width: 400px;
@@ -92,6 +89,14 @@
   margin-right: auto;
   margin-left: auto;
   margin-top: 20px;
+}
+
+.login-remember-container {
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  cursor: pointer;
 }
 
 .login-remember-container img {

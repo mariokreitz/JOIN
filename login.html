@@ -66,9 +66,11 @@
           </div>
         </div>
 
-        <div class="login-remember-container inter-extralight">
-          <img id="loginRememberMe" onclick="loginRemember()" src="./assets/img/icons/subtask-non-checked.png" />
-          <p>Remember me</p>
+        <div class="login-remember-wrapper">
+          <label onclick="loginRemember()" for="rememberMeText" class="login-remember-container inter-extralight">
+            <img id="loginRememberMe" src="./assets/img/icons/subtask-non-checked.png" />
+            <p id="rememberMeText">Remember me</p>
+          </label>
         </div>
         <div class="login-login-btn-container">
           <button onclick="validateForm()" id="login-login-btn" class="inter-medium">Log in</button>

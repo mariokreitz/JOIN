@@ -74,6 +74,10 @@
   margin-top: 26px;
 }
 
+.sign-accept-agb-container img {
+  cursor: pointer;
+}
+
 .login-login-head {
   height: 90px;
   width: 100%;
@@ -139,6 +143,11 @@
   padding: 15px 24px;
   border-radius: 12px;
   text-wrap: nowrap;
+}
+
+#sign-login-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 #login-login-guest-btn {
