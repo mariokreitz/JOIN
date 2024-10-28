@@ -214,3 +214,31 @@ async function deleteTodosInFirebase(user, todoID) {
   if (response.ok) return response;
   return response;
 }
+
+/**
+ * Creates a new user in the Firebase Realtime Database.
+ *
+ * @param {Object} newUser - The new user data to be added.
+ * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
+ */
+async function createUserInFirebaseDatabase(newUser) {
+  const data = await getDataFromFirebase();
+
+  if (!data) return { status: 400, ok: true, statusText: "No data found in Firebase Database." };
+
+  const users = data.users || {};
+  const userId = getInitialsFromContact(newUser) + Date.now();
+  const userExists = Object.values(users).some((user) => user.email === newUser.email);
+
+  if (userExists) return { status: 400, ok: true, statusText: "User with this email already exists." };
+
+  const response = await fetch(`${API_URL}/users/${userId}/.json`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  });
+
+  return response;
+}

@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./router.js"></script>
-    <title>Document</title>
+    <title>Join</title>
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./assets/styles/reset.css" />
     <link rel="stylesheet" href="./assets/styles/font.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./assets/styles/sign-in.css" />
+    <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
   </head>
   <body>
     <div class="login-max-witdh-wrapper">
@@ -71,7 +73,7 @@
         </div>
 
         <div class="login-login-btn-container">
-          <button onclick="validateForm()" id="sign-login-btn" class="inter-medium" disabled>Sign Up</button>
+          <button onclick="signUp()" id="sign-login-btn" class="inter-medium" disabled>Sign Up</button>
         </div>
       </div>
 
@@ -81,6 +83,11 @@
       </div>
     </div>
 
+    <script src="./scripts/templates/toastMessage.template.js"></script>
+    <script src="./scripts/helper/initials.helper.js"></script>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/toastMessage.js"></script>
     <script src="./scripts/signup.js"></script>
   </body>
 </html>
