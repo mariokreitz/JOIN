@@ -10,39 +10,88 @@ function loginRemember() {
   }
 }
 
-function validateForm() {
-  document.getElementById("nameError").textContent = "";
-  document.getElementById("emailError").textContent = "";
-  document.getElementById("passwordError").textContent = "";
-  document.getElementById("passwordDoubleError").textContent = "";
+/**
+ * Validates the form and creates a new user in the Firebase Realtime
+ * Database. If the sign up is successful, shows a toast message and
+ * redirects to the login page after 1.6 seconds. If the user already
+ * exists, shows a toast message with the status of the operation.
+ * @returns {Promise<void>}
+ */
+async function signUp() {
+  if (!validateForm()) return;
+  const [name, email, password] = getFormValues();
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-  let isValid = true;
+  const user = {
+    name,
+    email,
+    password,
+    isLoggedIn: false,
+    contacts: "guest",
+  };
+  const response = await createUserInFirebaseDatabase(user);
+  switch (response.status) {
+    case 200:
+      showToastMessage("signUpSuccess", response);
+      setTimeout(() => {
+        window.location.href = "./login.html";
+      }, 1600);
+      break;
+    case 400:
+      showToastMessage("signUpExists", response);
+      break;
+    default:
+      showToastMessage("error", response);
+  }
+}
+
+/**
+ * Validates the sign-up form fields by checking if the name, email,
+ * password, and confirm password inputs meet specific requirements.
+ * Updates the respective error message fields if validation fails.
+ *
+ * @returns {boolean} Always returns true after validation.
+ */
+function validateForm() {
+  const [name, email, password, confirmPassword] = getFormValues();
 
   const namePattern = /^[A-Za-z]+(-[A-Za-z]+)? [A-Za-z]+(-[A-Za-z]+)?$/;
-  if (!namePattern.test(name)) {
-    document.getElementById("nameError").textContent = "Please enter a valid name.";
-    isValid = false;
-  }
-
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
+
+  let isValid = false;
+
+  clearErrorMessages();
+  if (!namePattern.test(name)) document.getElementById("nameError").textContent = "Please enter a valid name.";
+  if (!emailPattern.test(email))
     document.getElementById("emailError").textContent = "Please enter a valid email address.";
-    isValid = false;
-  }
-
-  if (password.length < 7) {
+  if (password.length < 7)
     document.getElementById("passwordError").textContent = "The password must be at least 7 characters long.";
-    isValid = false;
-  }
-
-  if (password !== confirmPassword) {
+  if (password !== confirmPassword)
     document.getElementById("passwordDoubleError").textContent = "The passwords do not match.";
-    isValid = false;
-  }
+
+  return (isValid = true);
+}
+/**
+ * Retrieves the values of the sign-up form fields and returns them in an array.
+ * The array contains the name, email, password, and confirm password values in
+ * that order. The values are retrieved from the DOM using the ids of the input
+ * fields and trimmed of any whitespace.
+ *
+ * @returns {Array<string>} The values of the sign-up form fields.
+ */
+function getFormValues() {
+  return ["name", "email", "password", "confirmPassword"].map((id) => document.getElementById(id).value.trim());
+}
+
+/**
+ * Clears the error messages displayed in the sign-up form by setting the textContent
+ * of the elements with ids "nameError", "emailError", "passwordError", and
+ * "passwordDoubleError" to an empty string.
+ */
+function clearErrorMessages() {
+  const errorFields = ["nameError", "emailError", "passwordError", "passwordDoubleError"];
+  errorFields.forEach((id) => {
+    document.getElementById(id).textContent = "";
+  });
 }
 
 // DIESE CODES SIND PROTOYPEN!
