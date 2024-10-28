@@ -207,6 +207,7 @@
   margin-top: 2px;
   padding-left: 12px;
   position: absolute;
+  line-height: normal;
 }
 
 .login-svg {
