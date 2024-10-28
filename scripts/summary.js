@@ -10,6 +10,7 @@ async function init() {
   await getTodosFromData("guest");
   populateCounters(globalTodos);
   updateGreeting();
+  showGreeting();
 }
 
 /**
@@ -123,4 +124,19 @@ function updateGreeting() {
     greeting = "Good evening,";
   }
   greetingElement.textContent = greeting;
+}
+
+function showGreeting() {
+  const greetingContainer = document.getElementById("greeting-container");
+  if (window.innerWidth < 768) {
+    greetingContainer.classList.add("show");
+    setTimeout(() => {
+      greetingContainer.classList.add("fade-out");
+      setTimeout(() => {
+        greetingContainer.style.display = "none";
+        document.body.style.overflow = "";
+      }, 300);
+    }, 2000);
+    document.body.style.overflow = "hidden";
+  }
 }
