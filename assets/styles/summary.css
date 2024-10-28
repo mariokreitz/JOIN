@@ -255,9 +255,12 @@ body:has(#summary-main) {
 
 @media (max-width: 400px) {
   .tasks,
-  .metrics,
-  .urgent-container {
+  .metrics {
     gap: 10px;
+  }
+
+  .urgent-container {
+    gap: 15px;
   }
 
   .metrics {
@@ -274,7 +277,8 @@ body:has(#summary-main) {
   }
 
   .urgent-container .seperator {
-    display: none;
+    height: 1px;
+    width: 100%;
   }
 }
 
