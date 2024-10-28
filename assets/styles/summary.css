@@ -83,6 +83,7 @@ body:has(#summary-main) {
 .task {
   flex-direction: column;
   padding: 20px;
+  flex: 1 1 calc(50% - 10px);
 }
 
 .metric:hover,
@@ -239,6 +240,11 @@ body:has(#summary-main) {
   .metric,
   .task {
     padding: 20px;
+    border-radius: 15px;
+  }
+
+  .task {
+    padding: 10px;
   }
 
   .icon {
@@ -251,15 +257,29 @@ body:has(#summary-main) {
   .tasks,
   .metrics,
   .urgent-container {
-    flex-direction: column;
     gap: 10px;
+  }
+
+  .metrics {
+    margin-bottom: 10px;
+  }
+
+  .urgent-container {
+    flex-direction: column;
+    align-items: center;
   }
 
   .deadline {
     align-items: center;
   }
 
-  .metrics {
-    margin-bottom: 10px;
+  .urgent-container .seperator {
+    display: none;
+  }
+}
+
+@media (max-width: 374px) {
+  .tasks {
+    flex-wrap: wrap;
   }
 }
