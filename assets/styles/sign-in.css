@@ -275,6 +275,13 @@
   opacity: 0.5;
 }
 
+input:focus {
+  border-color: #29abe2;
+  outline: #29abe2;
+  border-width: 2px;
+  border-style: solid;
+}
+
 @media (max-width: 768px) {
   .login-login-container {
     width: 95%;
@@ -378,5 +385,23 @@
   }
   .error-message {
     font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 768px) and (max-height: 820px) {
+  .login-privacy-legal-container {
+    margin-top: 30px;
+  }
+  .login-login-container {
+    transform: scale(0.85);
+  }
+  body {
+    min-height: 110dvh;
+  }
+}
+
+@media (max-width: 990px) and (max-height: 820px) {
+  body {
+    min-height: 120dvh;
   }
 }
