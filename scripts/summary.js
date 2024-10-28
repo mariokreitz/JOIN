@@ -7,6 +7,8 @@
  */
 async function init() {
   loadComponents();
+  await getTodosFromData("guest");
+  populateCounters(globalTodos);
 }
 
 /**
@@ -42,4 +44,30 @@ function loadNavbar() {
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
   navbar.innerHTML = getNavbarTemplate("summary");
+}
+
+function populateCounters(todos) {
+  const todoCount = todos.filter((todo) => todo.state === "todo").length;
+  const doneCount = todos.filter((todo) => todo.state === "done").length;
+  const progressCount = todos.filter((todo) => todo.state === "progress").length;
+  const feedbackCount = todos.filter((todo) => todo.state === "feedback").length;
+  const urgentCount = todos.filter((todo) => todo.priority === "high").length;
+  const totalCount = todos.length;
+  const upcomingDeadline = todos.reduce((earliest, todo) => {
+    const todoDate = new Date(todo.date);
+    return todoDate < earliest ? todoDate : earliest;
+  }, new Date(todos[0].date));
+
+  document.getElementById("todo-count").textContent = todoCount;
+  document.getElementById("done-count").textContent = doneCount;
+  document.getElementById("urgent-count").textContent = urgentCount;
+  document.getElementById("due-date").textContent = upcomingDeadline.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  document.getElementById("total-count").textContent = totalCount;
+  document.getElementById("progress-count").textContent = progressCount;
+  document.getElementById("feedback-count").textContent = feedbackCount;
+  document.getElementById("name").textContent = user.name;
 }

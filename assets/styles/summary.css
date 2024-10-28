@@ -1,0 +1,167 @@
+body:has(#summary-main) {
+  height: unset;
+  min-height: 100vh;
+}
+
+#summary-main {
+  margin-left: 232px;
+  padding: 64px;
+  min-height: calc(100vh - 96px);
+  max-width: 1440px;
+}
+
+.summary-container {
+  display: flex;
+  gap: 40px;
+}
+
+.summary-data {
+  flex: 1;
+  max-width: 510px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 61px;
+}
+
+.header span {
+  font-size: 27px;
+  color: var(--primary);
+}
+
+.icon {
+  width: 69px;
+  height: 69px;
+}
+
+.count {
+  font-size: 64px;
+  line-height: normal;
+  font-weight: 600;
+}
+
+.label {
+  font-size: 20px;
+  line-height: normal;
+  color: var(--primary);
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.metric,
+.task {
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 15px;
+  flex: 1 1 calc(50% - 10px);
+  text-align: center;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 30px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  will-change: transform;
+}
+
+.task {
+  flex-direction: column;
+  padding: 20px;
+}
+
+.metric:hover,
+.task:hover {
+  background: var(--primary);
+  box-shadow: 0px 4px 4px 0px #00000040;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+.metric:hover .label,
+.task:hover .label {
+  color: #fff;
+}
+
+.metric:hover path {
+  fill: #fff;
+}
+
+.urgent-container {
+  justify-content: space-evenly; /* Maintain layout for urgent items */
+}
+
+.urgent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.date {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.greeting-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.greeting {
+  font-size: 47px;
+  color: var(--primary);
+  font-weight: 500;
+  line-height: normal;
+}
+
+.greeting-container .name {
+  font-size: 64px;
+  color: var(--secondary);
+  font-weight: 700;
+  line-height: normal;
+}
+
+.tasks {
+  display: flex;
+  gap: 20px;
+}
+
+.seperator {
+  width: 1px;
+  height: 100%;
+  background-color: var(--line);
+}
+
+.header .seperator {
+  height: 59px;
+  width: 3px;
+  background-color: var(--secondary);
+  border-radius: 3px;
+}
+
+.deadline {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.deadline .label {
+  font-size: 16px;
+}
