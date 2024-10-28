@@ -69,5 +69,5 @@ function populateCounters(todos) {
   document.getElementById("total-count").textContent = totalCount;
   document.getElementById("progress-count").textContent = progressCount;
   document.getElementById("feedback-count").textContent = feedbackCount;
-  document.getElementById("name").textContent = user.name;
+  document.getElementById("name").textContent = currentUser.name;
 }
