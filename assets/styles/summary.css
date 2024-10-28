@@ -231,7 +231,8 @@ body:has(#summary-main) {
     font-size: 16px;
   }
 
-  .label {
+  .label,
+  .deadline .label {
     font-size: 14px;
   }
 
