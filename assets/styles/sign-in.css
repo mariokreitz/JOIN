@@ -282,7 +282,7 @@ input:focus {
   border-style: solid;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .login-login-container {
     width: 95%;
     margin-top: 90px;
