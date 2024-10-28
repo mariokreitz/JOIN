@@ -144,9 +144,3 @@ body {
     margin-bottom: 24px;
   }
 }
-
-@media (max-width: 500px) {
-  .policy-header {
-    font-size: 18px;
-  }
-}
