@@ -45,6 +45,15 @@
 }
 
 @media (max-width: 768px) {
+  #login-logo {
+    width: 200px;
+    height: 200px;
+    left: calc(50% - 100px);
+    top: calc(50% - 100px);
+    position: absolute;
+    z-index: 1001;
+  }
+
   @keyframes logoMove {
     0% {
       width: 200px;
@@ -53,7 +62,7 @@
       top: calc(50vh - 100px);
     }
     100% {
-      width: auto;
+      width: 60px;
       height: 78px;
       left: 40px;
       top: 25px;
