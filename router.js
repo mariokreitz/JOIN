@@ -1,11 +1,25 @@
+/**
+ * The current user object, used to store the user's
+ * information and keep track of their login status.
+ * @type {Object}
+ */
 const currentUser = {
   isLoggedIn: false,
 };
 
-if (!localStorage.getItem("currentUser")) {
-  saveUserToLocalStorage();
+/**
+ * Initializes the current user object by loading it from
+ * local storage and saving it back to local storage if it
+ * does not exist.
+ */
+function initializeCurrentUser() {
+  loadCurrentUserFromLocalStorage();
+  if (!currentUser.isLoggedIn) {
+    saveCurrentUserToLocalStorage();
+  }
 }
-loadUserFromLocalStorage();
+
+initializeCurrentUser();
 
 /**
  * Saves the current user object to local storage.
@@ -13,19 +27,42 @@ loadUserFromLocalStorage();
  * This allows the user information to persist across
  * browser sessions.
  */
-function saveUserToLocalStorage() {
+function saveCurrentUserToLocalStorage() {
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
 }
 
 /**
- * Loads the user object from local storage and updates the global user object.
- * If no user is found in local storage, the user object remains unchanged.
+ * Loads the current user from local storage and updates the global user object.
+ * If no user is found, the global user object remains unchanged.
  */
-function loadUserFromLocalStorage() {
-  const storedUser = localStorage.getItem("currentUser");
-  if (storedUser) {
-    Object.assign(currentUser, JSON.parse(storedUser));
+function loadCurrentUserFromLocalStorage() {
+  const storedUserData = localStorage.getItem("currentUser");
+  if (storedUserData) {
+    Object.assign(currentUser, JSON.parse(storedUserData));
   }
+}
+
+/**
+ * Saves user credentials to local storage, stringifying them first.
+ * This allows the user credentials to persist across browser sessions.
+ * The key used is "userCredentials".
+ * @param {Object} credentials - The user credentials to be saved.
+ */
+function saveUserCredentialsToLocalStorage(credentials) {
+  localStorage.setItem("userCredentials", JSON.stringify(credentials));
+}
+
+/**
+ * Loads user credentials from local storage.
+ * If credentials are found, they are parsed from JSON
+ * and returned as an object.
+ *
+ * @returns {Object|undefined} The parsed user credentials object,
+ * or undefined if no credentials are stored.
+ */
+function loadUserCredentialsFromLocalStorage() {
+  const storedCredentials = localStorage.getItem("userCredentials");
+  return storedCredentials ? JSON.parse(storedCredentials) : undefined;
 }
 
 /**
@@ -58,21 +95,21 @@ const routes = {
 };
 
 /**
- * Checks if a user is authorized to access the current route.
- * If the user is authorized but on the homepage, redirects to the summary page.
- * If the user is not authorized but on a protected route, redirects to the login page.
- * Otherwise, does nothing.
+ * Checks if the user is logged in and authorized to access the current route.
+ * If the user is logged in, it redirects to the summary page if the current route is the homepage.
+ * If the user is not logged in and the current route is protected, it redirects to the login page.
  */
 function checkAuthorization() {
-  const isLoggedIn = currentUser.isLoggedIn;
-  const currentPath = window.location.pathname;
+  const { isLoggedIn } = currentUser;
+  const path = window.location.pathname;
 
   if (isLoggedIn) {
-    if (currentPath === "/" || currentPath === "/index.html") window.location.href = "/summary.html";
+    if (path === "/" || path === "/index.html") window.location.href = "/summary.html";
     return;
   }
 
-  if (routes[currentPath]) window.location.href = "/login.html";
+  const isProtectedRoute = routes[path] && path !== "/policy.html" && path !== "/legal-notice.html";
+  if (isProtectedRoute) window.location.href = "/login.html";
 }
 
 /**

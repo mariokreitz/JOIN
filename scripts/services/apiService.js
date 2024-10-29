@@ -228,7 +228,7 @@ async function createUserInFirebaseDatabase(newUser) {
   if (!data) return { status: 404, ok: true, statusText: "No data found in Firebase Database." };
 
   const users = data.users || {};
-  const userId = getInitialsFromContact(newUser) + Date.now();
+  const userId = getInitialsFromContact(newUser).toUpperCase() + Date.now();
   const userExists = Object.values(users).some((user) => user.email === newUser.email);
 
   if (userExists) return { status: 400, ok: true, statusText: "User with this email already exists." };
@@ -260,7 +260,7 @@ async function getUserFromFirebaseDatabase({ email, password }) {
   const users = data.users || {};
   const user = Object.values(users).find((user) => user.email === email);
 
-  if (!user) return { status: 401, ok: false, statusText: "No user with this email found." };
+  if (!user) return { status: 400, ok: false, statusText: "No user with this email found." };
   if (email === "demo@join.com")
     return { status: 200, ok: true, user: { name: user.name, isDemo: true, isLoggedIn: !user.isLoggedIn } };
   if (user.password !== password) return { status: 401, ok: true, statusText: "Incorrect password." };
