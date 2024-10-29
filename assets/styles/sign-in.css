@@ -145,6 +145,12 @@
   text-wrap: nowrap;
 }
 
+#sign-login-btn:not(:disabled):hover {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
 #sign-login-btn:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
