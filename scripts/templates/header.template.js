@@ -12,16 +12,16 @@ function getHeaderTemplate() {
               currentUser.isLoggedIn
                 ? /*html*/ `
                 <a href="./help.html"><img class="qeustion-mark" src="./assets/img/icons/qeustion-mark.png" /></a>
-                <button onclick="openProfileMenu()" type="button" class="btn btn-profile">
+                <button id="profile-menu-toggler" onclick="openProfileMenu()" type="button" class="btn btn-profile">
                   <span class="inter-medium">${getInitialsFromContact(currentUser).toUpperCase()}</span>
                 </button>
                 `
                 : ""
             }
           <div id="profile-menu" class="profile-menu d_none">
-            <button onclick="" class="inter-extralight">Help</button>
-            <button onclick="" class="inter-extralight">Legal Notice</button>
-            <button onclick="" class="inter-extralight">Privacy Policy</button>
+            <button onclick="window.location.href='./help.html'" class="inter-extralight">Help</button>
+            <button onclick="window.location.href='./legal-notice.html'" class="inter-extralight">Legal Notice</button>
+            <button onclick="window.location.href='./policy.html'" class="inter-extralight">Privacy Policy</button>
             <button onclick="logout()" class="inter-extralight">Log Out</button>
           </div>
         </div>
