@@ -122,6 +122,15 @@ function fillCredentialsInLoginForm({ email, password }) {
   passwordInputField.value = password;
 }
 
+/**
+ * Validates the login form data by checking if the email and password inputs
+ * meet specific requirements. Clears any previous error messages before validation.
+ * Displays appropriate error messages if the inputs are invalid.
+ *
+ * The email must be in a valid format and the password must be at least 7 characters long.
+ *
+ * @returns {boolean} True if both email and password are valid; otherwise, false.
+ */
 function validateLoginFormData() {
   const emailErrorElement = document.getElementById("emailError");
   const passwordErrorElement = document.getElementById("passwordError");
@@ -145,47 +154,4 @@ function validateLoginFormData() {
   }
 
   return isValid;
-}
-
-function toggleLoginIconVisibility() {
-  const passwordInput = document.getElementById("password");
-  const loginIconDiv = document.getElementById("login-change-pw-icon");
-
-  if (passwordInput.value.trim() !== "") {
-    loginIconDiv.classList.remove("login-svg");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-    loginIconDiv.onclick = changeVisibilityIcon;
-  } else {
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-svg");
-    loginIconDiv.onclick = null;
-  }
-}
-
-function changeVisibilityIcon() {
-  const passwordInput = document.getElementById("password");
-  const loginIconDiv = document.getElementById("login-change-pw-icon");
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-pw-visibility");
-  } else {
-    passwordInput.type = "password";
-    loginIconDiv.classList.remove("login-pw-visibility");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-  }
-}
-
-function loginRemember() {
-  const rememberMeImage = document.getElementById("loginRememberMe");
-  const rememberMeLabel = document.getElementById("rememberMeLabel");
-
-  if (rememberMeImage.src.includes("subtask-checked.png")) {
-    rememberMeImage.src = "./assets/img/icons/subtask-non-checked.png";
-    rememberMeLabel.dataset.checked = "false";
-  } else {
-    rememberMeImage.src = "./assets/img/icons/subtask-checked.png";
-    rememberMeLabel.dataset.checked = "true";
-  }
 }

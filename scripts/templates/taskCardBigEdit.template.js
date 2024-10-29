@@ -1,7 +1,7 @@
 function getTaskCardBigEditTemplate(todo, index) {
   return /* HTML */ `
     <div id="closeEditContainer" class="bigc-main-container inter-extralight">
-      <span class="close-btn big-card-close-x" onclick="openBigCardModal(${index}, true)">
+      <span class="close-btn big-card-close-x" onclick="openTodoModal(${index}, true)">
         <img src="./assets/svg/close.svg" alt="" />
       </span>
       <div class="card-form-container" id="edit-card-form-container">
@@ -28,7 +28,10 @@ function getTaskCardBigEditTemplate(todo, index) {
         <div class="form-group">
           <label class="">Priority</label>
           <div class="priority-actions">
-            <div id="bc-select-urgent" class="bc-prio-select bc-prio-urgent" onclick="toggleUrgentState()">
+            <div
+              id="bc-select-urgent"
+              class="bc-prio-select bc-prio-urgent"
+              onclick="togglePriorityState('bc-select-urgent')">
               <span>Urgent</span>
               <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -39,7 +42,10 @@ function getTaskCardBigEditTemplate(todo, index) {
                   fill="#FF3D00" />
               </svg>
             </div>
-            <div id="bc-select-medium" class="bc-prio-select bc-prio-medium" onclick="toggleMediumState()">
+            <div
+              id="bc-select-medium"
+              class="bc-prio-select bc-prio-medium"
+              onclick="togglePriorityState('bc-select-medium')">
               <span>Medium</span
               ><svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -50,7 +56,7 @@ function getTaskCardBigEditTemplate(todo, index) {
                   fill="#FFA800" />
               </svg>
             </div>
-            <div id="bc-select-low" class="bc-prio-select bc-prio-low" onclick="toggleLowState()">
+            <div id="bc-select-low" class="bc-prio-select bc-prio-low" onclick="togglePriorityState('bc-select-low')">
               <span>Low</span
               ><svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -72,12 +78,12 @@ function getTaskCardBigEditTemplate(todo, index) {
               type="text"
               id="search"
               placeholder="Select contacts to assign"
-              onkeyup="filterOptions()"
-              onclick="toggleContactListDropdown(event)" />
+              onkeyup="filterContactOptions()"
+              onclick="toggleContactDropdown(event)" />
             <div
               id="dropdown-icon-container"
               class="icon-container dropdown-btn"
-              onclick="toggleContactListDropdown(event)">
+              onclick="toggleContactDropdown(event)">
               <img src="./assets/svg/arrow-dropdown.svg" alt="dropdown icon" class="icon" id="dropdown-icon" />
             </div>
           </div>
@@ -93,12 +99,12 @@ function getTaskCardBigEditTemplate(todo, index) {
               type="text"
               id="subtasks"
               placeholder="Add new subtask"
-              oninput="handleSubtaskIcons()" />
+              oninput="updateSubtaskIcons()" />
             <div class="icon-container" onclick="focusInput()">
               <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
             </div>
             <div class="subtask-actions" id="subtask-actions">
-              <div class="icon-container" onclick="clearInputField()">
+              <div class="icon-container" onclick="clearSubtaskInput()">
                 <img src="./assets/svg/close.svg" alt="cancel icon" class="icon cancel-icon" />
               </div>
               <div class="icon-seperator"></div>
@@ -111,7 +117,7 @@ function getTaskCardBigEditTemplate(todo, index) {
         </div>
       </div>
 
-      <button onclick="editBigCard(${index})" class="bc-end-button">
+      <button onclick="saveEditedTodo(${index})" class="bc-end-button">
         Ok<svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M6.23282 9.04673L14.7078 0.571728C14.9078 0.371729 15.1453 0.271729 15.4203 0.271729C15.6953 0.271729 15.9328 0.371729 16.1328 0.571728C16.3328 0.771728 16.4328 1.00923 16.4328 1.28423C16.4328 1.55923 16.3328 1.79673 16.1328 1.99673L6.93282 11.1967C6.73282 11.3967 6.49949 11.4967 6.23282 11.4967C5.96616 11.4967 5.73282 11.3967 5.53282 11.1967L1.23282 6.89673C1.03282 6.69673 0.936991 6.45923 0.945324 6.18423C0.953658 5.90923 1.05782 5.67173 1.25782 5.47173C1.45782 5.27173 1.69532 5.17173 1.97032 5.17173C2.24532 5.17173 2.48282 5.27173 2.68282 5.47173L6.23282 9.04673Z"

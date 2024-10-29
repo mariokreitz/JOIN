@@ -42,6 +42,14 @@ function loadNavbar() {
   }
 }
 
+/**
+ * Handles a click event on a priority button by removing the active class
+ * from all other priority buttons and setting the active class on the
+ * clicked button. It also updates the global priority variable.
+ *
+ * @param {MouseEvent} event - The event object of the click event.
+ * @returns {void}
+ */
 function handlePrioChange(event) {
   const buttons = document.querySelectorAll(".priority-actions button");
   const clickedButton = event.currentTarget;
@@ -51,12 +59,30 @@ function handlePrioChange(event) {
   priority = clickedButton.getAttribute("data-priority");
 }
 
+/**
+ * Sets the priority of the task to medium by default.
+ *
+ * This function is called when the page is initialized to set the initial
+ * priority of the task to medium. It adds the active class to the medium
+ * priority button and updates the global priority variable.
+ *
+ * @returns {void}
+ */
 function setDefaultPriority() {
   const mediumButton = document.querySelector('button[data-priority="medium"]');
   mediumButton.classList.add("active");
   priority = "medium";
 }
 
+/**
+ * Toggles the visibility of the category dropdown menu and rotates the dropdown icon.
+ *
+ * When the dropdown is shown, it adds an event listener to detect clicks outside
+ * the dropdown, which will hide the dropdown and rotate the icon back.
+ *
+ * @param {Event} event - The event object from the click event.
+ * @returns {void}
+ */
 function toggleCategoryDropdown(event) {
   event.stopPropagation();
   const dropdown = document.getElementById("category-dropdown-options");
@@ -71,108 +97,92 @@ function toggleCategoryDropdown(event) {
     document.removeEventListener("click", outsideClickListenerWrapper);
   }
 
+  /**
+   * Calls outsideClickListener with the category dropdown options and icon.
+   *
+   * @param {{ target: HTMLElement }} event - The event object from the click event.
+   * @returns {void}
+   */
   function outsideClickListenerWrapper(event) {
     outsideClickListener(event, "category-dropdown-options", "category-dropdown-icon");
   }
 }
 
-function selectCategory(event, category) {
-  const selectedCategory = document.getElementById("select-category");
+/**
+ * Selects a category from the dropdown and updates the displayed category name.
+ *
+ * This function handles the selection of a category from the category dropdown menu.
+ * It stops the event from propagating, removes the 'selected' class from all category
+ * options, updates the text content of the selected category element with the provided
+ * category name, and then adds the 'selected' class to the chosen category option.
+ * Finally, it toggles the visibility of the category dropdown menu.
+ *
+ * @param {Event} event - The event object from the click event.
+ * @param {string} selectedCategoryName - The name of the category to be selected.
+ * @returns {void}
+ */
+function selectCategory(event, selectedCategoryName) {
+  const selectedCategoryElement = document.getElementById("select-category");
 
   event.stopPropagation();
 
   const categoryOptions = document.querySelectorAll("#category-dropdown-options li");
-  categoryOptions.forEach((option) => {
-    option.classList.remove("selected");
-  });
+  categoryOptions.forEach((option) => option.classList.remove("selected"));
 
-  selectedCategory.textContent = category;
+  selectedCategoryElement.textContent = selectedCategoryName;
 
-  const currentOption = Array.from(categoryOptions).find((option) => option.textContent.trim() === category);
-  if (currentOption) {
-    currentOption.classList.add("selected");
+  const selectedOption = Array.from(categoryOptions).find(
+    (option) => option.textContent.trim() === selectedCategoryName
+  );
+  if (selectedOption) {
+    selectedOption.classList.add("selected");
   }
 
   toggleCategoryDropdown(event);
 }
 
-function validateTodoForm() {
-  const titleField = document.getElementById("title") || document.getElementById("bc-todo-titel");
-  const dueDateField = document.getElementById("due-date");
-  const categoryField = document.getElementById("select-category");
-  let isValid = true;
-  clearWarnings();
-
-  if (!titleField.value.trim()) {
-    isValid = false;
-    showWarning(titleField, "Title is required.");
-  }
-
-  if (!dueDateField.value) {
-    isValid = false;
-    showWarning(dueDateField, "Due date is required.");
-  }
-
-  if (categoryField && categoryField.textContent.trim() === "Select task category") {
-    isValid = false;
-    showWarning(categoryField, "Category is required.");
-  }
-
-  return isValid;
-}
-
-function showWarning(inputField, message) {
-  if (inputField.tagName === "INPUT") {
-    inputField.style.borderColor = "red";
-    inputField.insertAdjacentHTML("afterend", `<p class="warning-text">${message}</p>`);
-  } else if (inputField.tagName === "DIV") {
-    inputField.style.borderColor = "red";
-    const parentElement = inputField.parentNode;
-    parentElement.insertAdjacentHTML("afterend", `<p class="warning-text">${message}</p>`);
-  }
-
-  setTimeout(() => {
-    inputField.style.borderColor = "";
-    clearWarnings();
-  }, 3000);
-}
-
-function clearWarnings() {
-  const warnings = document.querySelectorAll(".warning-text");
-  warnings.forEach((warning) => warning.remove());
-}
-
+/**
+ * Opens the date picker for the due date input field and focuses on it.
+ *
+ * This function prevents the event from propagating and programmatically
+ * focuses on and clicks the due date input element to display the date picker.
+ *
+ * @param {Event} event - The event object from the click event.
+ * @returns {void}
+ */
 function openDatePicker(event) {
   event.stopPropagation();
 
-  var dateInput = document.getElementById("due-date");
-  dateInput.focus();
-  dateInput.click();
+  const dueDateInput = document.getElementById("due-date");
+  dueDateInput.focus();
+  dueDateInput.click();
 }
 
+/**
+ * Clears all the input fields in the add task form and resets all the
+ * selected state, including the category, priority, contacts, and subtasks.
+ *
+ * @returns {void}
+ */
+
 function clearForm() {
-  document.getElementById("title").value = "";
-  document.getElementById("description").value = "";
-  document.getElementById("due-date").value = "";
-  document.getElementById("subtasks").value = "";
-  document.getElementById("search").value = "";
+  clearInputFields();
 
-  const selectedCategory = document.getElementById("select-category");
-  selectedCategory.textContent = "Select task category";
+  const selectedCategoryElement = document.getElementById("select-category");
+  selectedCategoryElement.textContent = "Select task category";
 
-  document.getElementById("selected-badges").innerHTML = "";
+  const selectedBadgesElement = document.getElementById("selected-badges");
+  selectedBadgesElement.innerHTML = "";
 
   const priorityButtons = document.querySelectorAll(".priority-actions button");
   priorityButtons.forEach((button) => button.classList.remove("active"));
   setDefaultPriority();
 
   const subtasksContainer = document.getElementById("subtask-list");
-  if (subtasksContainer) {
-    subtasksContainer.innerHTML = "";
-  }
+  if (subtasksContainer) subtasksContainer.innerHTML = "";
 
-  const dropdownOptions = document.querySelectorAll("#contact-dropdown-options li");
-  dropdownOptions.forEach((option) => {
+  const contactOptions = document.querySelectorAll("#contact-dropdown-options li");
+  contactOptions.forEach((option) => {
     const checkbox = option.querySelector(".checkbox");
     if (checkbox) {
       checkbox.checked = false;
@@ -186,6 +196,30 @@ function clearForm() {
   checkScrollbar();
 }
 
+/**
+ * Clears the input fields of the add-task form by setting the value of the
+ * specified elements to an empty string.
+ *
+ * @returns {void}
+ */
+function clearInputFields() {
+  const inputIds = ["title", "description", "due-date", "subtasks", "search"];
+  inputIds.forEach((id) => {
+    const inputElement = document.getElementById(id);
+    if (inputElement) {
+      inputElement.value = "";
+    }
+  });
+}
+
+/**
+ * Creates a new todo item with the values from the add-task form and adds it to the
+ * globalTodos object. After creating the todo item, it updates the Firebase Realtime
+ * Database and clears the form.
+ *
+ * @returns {Promise<void>} - A promise that resolves when the todo item is created and
+ * the data is updated in the Firebase Realtime Database.
+ */
 async function createTodo() {
   if (!validateTodoForm()) {
     return;

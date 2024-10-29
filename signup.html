@@ -44,10 +44,10 @@
 
           <div class="login-login-pw-c">
             <input
-              oninput="toggleLoginIconVisibility()"
+              oninput="togglePasswordVisibilityIcon()"
               id="password"
               class="login-login-pw"
-              type="text"
+              type="password"
               placeholder="Password"
               minlength="7"
               required />
@@ -57,10 +57,10 @@
 
           <div class="login-login-pw-c">
             <input
-              oninput="toggleLoginIconVisibilityDouble()"
+              oninput="toggleConfirmPasswordVisibilityIcon()"
               id="confirmPassword"
               class="login-login-pw"
-              type="text"
+              type="password"
               placeholder="Password"
               minlength="7"
               required />
@@ -69,7 +69,10 @@
           </div>
         </div>
         <div class="sign-accept-agb-container">
-          <img id="loginRememberMe" onclick="loginRemember()" src="./assets/img/icons/subtask-non-checked.png" />
+          <img
+            id="privacy-policy-checkbox"
+            onclick="togglePrivacyPolicyCheckbox()"
+            src="./assets/img/icons/subtask-non-checked.png" />
 
           <p class="inter-extralight">
             I accept the
@@ -88,6 +91,7 @@
       </div>
     </div>
     <script src="./scripts/helper/initials.helper.js"></script>
+    <script src="./scripts/helper/loginSignUp.helper.js"></script>
     <script src="./scripts/templates/toastMessage.template.js"></script>
     <script src="./scripts/config/firebaseConfig.js"></script>
     <script src="./scripts/services/apiService.js"></script>

@@ -22,9 +22,9 @@ function getAddTaskTemplate() {
                   type="text"
                   id="search"
                   placeholder="Select contacts to assign"
-                  onkeyup="filterOptions()"
-                  onclick="toggleContactListDropdown(event)" />
-                <div id="dropdown-icon-container" class="icon-container dropdown-btn" onclick="toggleContactListDropdown(event)">
+                  onkeyup="filterContactOptions()"
+                  onclick="toggleContactDropdown(event)" />
+                <div id="dropdown-icon-container" class="icon-container dropdown-btn" onclick="toggleContactDropdown(event)">
                   <img src="./assets/svg/arrow-dropdown.svg" alt="dropdown icon" class="icon" id="dropdown-icon" />
                 </div>
               </div>
@@ -113,12 +113,12 @@ function getAddTaskTemplate() {
                   type="text"
                   id="subtasks"
                   placeholder="Add new subtask"
-                  oninput="handleSubtaskIcons()" />
+                  oninput="updateSubtaskIcons()" />
                 <div class="icon-container" onclick="focusInput()">
                   <img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
                 </div>
                 <div class="subtask-actions" id="subtask-actions">
-                  <div class="icon-container" onclick="clearInputField()">
+                  <div class="icon-container" onclick="clearSubtaskInput()">
                     <img src="./assets/svg/close.svg" alt="cancel icon" class="icon cancel-icon" />
                   </div>
                   <div class="icon-seperator"></div>

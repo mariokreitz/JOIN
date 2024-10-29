@@ -58,7 +58,7 @@
           </div>
           <div class="login-login-pw-c inter-extralight">
             <input
-              oninput="toggleLoginIconVisibility()"
+              oninput="togglePasswordVisibilityIcon()"
               id="password"
               class="login-login-pw inter-extralight"
               type="password"
@@ -71,7 +71,7 @@
 
         <div class="login-remember-wrapper">
           <label
-            onclick="loginRemember()"
+            onclick="toggleRememberMe()"
             id="rememberMeLabel"
             for="rememberMeText"
             data-checked="false"
@@ -98,6 +98,7 @@
         <a class="inter-extralight login-legal" href="./legal-notice.html" target="_blank">Legal Notice</a>
       </div>
     </div>
+    <script src="./scripts/helper/loginSignUp.helper.js"></script>
     <script src="./scripts/templates/toastMessage.template.js"></script>
     <script src="./scripts/config/firebaseConfig.js"></script>
     <script src="./scripts/services/apiService.js"></script>
