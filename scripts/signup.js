@@ -82,7 +82,7 @@ function validateForm() {
 
   if (!passwordRegex.test(password)) {
     document.getElementById("passwordError").textContent =
-      "Password must be at least 7 characters long with both lowercase and uppercase letters, number and special character.";
+      "Password must contain at least 7 characters, uppercase and lowercase letters, number and one of !@#$%^&*.";
     isValid = false;
   }
 
