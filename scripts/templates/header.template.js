@@ -10,11 +10,20 @@ function getHeaderTemplate() {
         <div class="header-right">
             ${
               currentUser.isLoggedIn
-                ? `<a href="./help.html"><img class="qeustion-mark" src="./assets/img/icons/qeustion-mark.png" /></a><div class="profile-icon"><span class="inter-medium">${getInitialsFromContact(
-                    currentUser
-                  ).toUpperCase()}</span></div>`
+                ? /*html*/ `
+                <a href="./help.html"><img class="qeustion-mark" src="./assets/img/icons/qeustion-mark.png" /></a>
+                <button onclick="openProfileMenu()" type="button" class="btn btn-profile">
+                  <span class="inter-medium">${getInitialsFromContact(currentUser).toUpperCase()}</span>
+                </button>
+                `
                 : ""
             }
+          <div id="profile-menu" class="profile-menu d_none">
+            <button onclick="" class="inter-extralight">Help</button>
+            <button onclick="" class="inter-extralight">Legal Notice</button>
+            <button onclick="" class="inter-extralight">Privacy Policy</button>
+            <button onclick="logout()" class="inter-extralight">Log Out</button>
+          </div>
         </div>
     `;
 }
