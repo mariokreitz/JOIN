@@ -113,13 +113,8 @@ function updateDueDateText(dueDateElement, date) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const isPastDue = date < today;
-  if (isPastDue) {
-    dueDateElement.classList.add("overdue");
-    dueDateElement.classList.remove("upcoming");
-  } else {
-    dueDateElement.classList.add("upcoming");
-    dueDateElement.classList.remove("overdue");
-  }
+  dueDateElement.classList.toggle("overdue", isPastDue);
+  dueDateElement.classList.toggle("upcoming", !isPastDue);
   const deadlineTextElement = document.getElementById("deadline-text");
   deadlineTextElement.textContent = isPastDue ? "Overdue Deadline" : "Upcoming Deadline";
 }
