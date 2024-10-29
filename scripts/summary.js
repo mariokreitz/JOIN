@@ -125,7 +125,7 @@ function updateDueDateText(dueDateElement, date) {
  * @param {HTMLElement} deadlineTextElement - The DOM element for displaying the label text.
  */
 function clearDueDate(dueDateElement, deadlineTextElement) {
-  dueDateElement.textContent = "No urgent tasks";
+  dueDateElement.textContent = "No urgent Deadline";
   dueDateElement.classList.remove("overdue", "upcoming");
   deadlineTextElement.textContent = "";
 }
@@ -190,7 +190,7 @@ function updateGreeting() {
 }
 
 /**
- * Displays the greeting container if the screen width is less than 1121 pixels.
+ * Displays the greeting container if the screen width is less than 1080 pixels.
  * The container is visible for 2 seconds, and then fades out.
  * During the animation, body scrolling is disabled.
  *
@@ -198,7 +198,7 @@ function updateGreeting() {
  */
 function showGreeting() {
   const greetingContainer = document.getElementById("greeting-container");
-  if (window.innerWidth < 1121) {
+  if (window.innerWidth < 1080) {
     greetingContainer.classList.add("show");
     setTimeout(() => {
       greetingContainer.classList.add("fade-out");
