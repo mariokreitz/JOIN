@@ -1,3 +1,12 @@
+/**
+ * Toggles the display of the profile menu.
+ *
+ * The profile menu is a dropdown menu that displays when the user clicks on their
+ * avatar or name in the header. It is hidden by default and can be shown by
+ * clicking on the avatar or name, or by pressing the 'Escape' key.
+ *
+ * @returns {void}
+ */
 function openProfileMenu() {
   const profileMenu = document.getElementById("profile-menu");
   profileMenu.classList.toggle("d_none");
