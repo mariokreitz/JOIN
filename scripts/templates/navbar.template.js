@@ -9,8 +9,10 @@ function getNavbarTemplate(currentPage) {
     <div class="navbar-logo-container">
       <img class="navbar-logo" src="assets/img/join-logo.png" alt="Join Logo"/> 
     </div>
-    <div class="navbar-link-container">
-      <ul>
+    <div class="navbar-link-container" ${currentUser.isLoggedIn ? "" : 'style="justify-content: flex-end;"'}>
+      ${
+        currentUser.isLoggedIn
+          ? `      <ul>
         <li><a class="navigation navbar-link ${
           currentPage == "summary" ? "active" : ""
         }" href="./summary.html"><img src="./assets/img/icons/summary.png" alt="Summary Icon">Summary</a></li>
@@ -23,14 +25,16 @@ function getNavbarTemplate(currentPage) {
         <li><a class="navigation navbar-link ${
           currentPage == "contacts" ? "active" : ""
         }" href="./contacts.html"><img src="./assets/img/icons/contacts.png" alt="Contacts Icon">Contacts</a></li>
-      </ul>
+      </ul>`
+          : ""
+      }
       <ul>
         <li><a class="navigation gdpr ${
           currentPage == "privacy" ? "active" : ""
-        }" href="policy.html">Privacy Policy</a></li>
+        }" href="./policy.html">Privacy Policy</a></li>
         <li><a class="navigation gdpr ${
           currentPage == "legal" ? "active" : ""
-        }" href="legal-notice.html">Legal notice</a></li>
+        }" href="./legal-notice.html">Legal notice</a></li>
       </ul>
     </div>
     `;
