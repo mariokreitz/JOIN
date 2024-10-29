@@ -84,7 +84,7 @@ function checkAndSaveUserCredentialsToLocalStorage() {
     const userCredentials = getCredentialsFromForm();
     userCredentials.isRememberMe = isRememberMeChecked;
     saveUserCredentialsToLocalStorage(userCredentials);
-  }
+  } else localStorage.removeItem("userCredentials");
 }
 
 /**
