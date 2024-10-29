@@ -84,7 +84,7 @@ function checkAndSaveUserCredentialsToLocalStorage() {
     const userCredentials = getCredentialsFromForm();
     userCredentials.isRememberMe = isRememberMeChecked;
     saveUserCredentialsToLocalStorage(userCredentials);
-  }
+  } else localStorage.removeItem("userCredentials");
 }
 
 /**
@@ -97,8 +97,10 @@ function checkAndSaveUserCredentialsToLocalStorage() {
 function checkAndLoadUserCredentialsFromLocalStorage() {
   const storedUser = loadUserCredentialsFromLocalStorage();
   if (storedUser && storedUser.isRememberMe) {
+    const rememberMeLabel = document.getElementById("rememberMeLabel");
     const rememberMeIcon = document.getElementById("loginRememberMe");
     rememberMeIcon.src = "./assets/img/icons/subtask-checked.png";
+    rememberMeLabel.dataset.checked = "true";
     return { email: storedUser.email, password: storedUser.password };
   }
   return { email: "", password: "" };
