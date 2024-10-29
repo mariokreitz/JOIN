@@ -54,21 +54,106 @@ function loadNavbar() {
  * @param {Array} todos - An array of todo objects, each containing state, priority, and other properties.
  */
 function populateCounters(todos) {
+  updateTodoCounts(todos);
+  updateUserInfo();
+  updateDueDate(todos);
+}
+
+/**
+ * Updates the count of todos in different states.
+ *
+ * @param {Array} todos - An array of todo objects.
+ */
+function updateTodoCounts(todos) {
   document.getElementById("todo-count").textContent = countTodos(todos, "todo");
   document.getElementById("done-count").textContent = countTodos(todos, "done");
   document.getElementById("progress-count").textContent = countTodos(todos, "progress");
   document.getElementById("feedback-count").textContent = countTodos(todos, "feedback");
   document.getElementById("urgent-count").textContent = countUrgentTodos(todos);
   document.getElementById("total-count").textContent = todos.length;
+}
+
+/**
+ * Updates the user information displayed on the page.
+ */
+function updateUserInfo() {
   document.getElementById("name").textContent = currentUser.name;
-  document.getElementById("due-date").textContent =
-    findEarliestDeadline(todos) !== "No urgent tasks"
-      ? findEarliestDeadline(todos).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      : findEarliestDeadline(todos);
+}
+
+/**
+ * Updates the due date display and its label based on the earliest deadline of urgent todos.
+ *
+ * @param {Array} todos - An array of todo objects.
+ */
+function updateDueDate(todos) {
+  const { date } = findEarliestDeadline(todos);
+  const dueDateElement = document.getElementById("due-date");
+  const deadlineTextElement = document.getElementById("deadline-text");
+
+  if (date !== "No urgent tasks") {
+    updateDueDateText(dueDateElement, date);
+    updateDeadlineLabel(deadlineTextElement, date);
+  } else {
+    clearDueDate(dueDateElement, deadlineTextElement);
+  }
+}
+
+/**
+ * Updates the text and color of the due date element and the label text.
+ *
+ * @param {HTMLElement} dueDateElement - The DOM element for displaying the due date.
+ * @param {Date} date - The date of the earliest deadline.
+ */
+function updateDueDateText(dueDateElement, date) {
+  dueDateElement.textContent = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const isPastDue = date < today;
+  if (isPastDue) {
+    dueDateElement.classList.add("overdue");
+    dueDateElement.classList.remove("upcoming");
+  } else {
+    dueDateElement.classList.add("upcoming");
+    dueDateElement.classList.remove("overdue");
+  }
+  const deadlineTextElement = document.getElementById("deadline-text");
+  deadlineTextElement.textContent = isPastDue ? "Overdue Deadline" : "Upcoming Deadline";
+}
+
+/**
+ * Clears the due date display and resets the label text.
+ *
+ * @param {HTMLElement} dueDateElement - The DOM element for displaying the due date.
+ * @param {HTMLElement} deadlineTextElement - The DOM element for displaying the label text.
+ */
+function clearDueDate(dueDateElement, deadlineTextElement) {
+  dueDateElement.textContent = "No urgent tasks";
+  dueDateElement.classList.remove("overdue", "upcoming");
+  deadlineTextElement.textContent = "";
+}
+
+/**
+ * Finds the earliest deadline among urgent todos that are not marked as done.
+ *
+ * @param {Array} todos - An array of todo objects.
+ * @returns {Object} An object containing the earliest deadline as a Date object.
+ */
+function findEarliestDeadline(todos) {
+  const urgentTasks = todos.filter((todo) => todo.priority === "high" && todo.state !== "done");
+  if (urgentTasks.length > 0) {
+    const earliest = urgentTasks.reduce((earliest, todo) => {
+      const todoDate = new Date(todo.date);
+      return todoDate < earliest ? todoDate : earliest;
+    }, new Date(urgentTasks[0].date));
+    return {
+      date: earliest,
+    };
+  }
+  return { date: "No urgent tasks" };
 }
 
 /**
@@ -90,22 +175,6 @@ function countTodos(todos, state) {
  */
 function countUrgentTodos(todos) {
   return todos.filter((todo) => todo.priority === "high" && todo.state !== "done").length;
-}
-
-/**
- * Finds the earliest deadline among urgent todos that are not marked as done.
- *
- * @param {Array} todos - An array of todo objects.
- * @returns {Date|string} The earliest deadline as a Date object, or a message if there are no urgent tasks.
- */
-function findEarliestDeadline(todos) {
-  const urgentTasks = todos.filter((todo) => todo.priority === "high" && todo.state !== "done");
-  return urgentTasks.length > 0
-    ? urgentTasks.reduce((earliest, todo) => {
-        const todoDate = new Date(todo.date);
-        return todoDate < earliest ? todoDate : earliest;
-      }, new Date(urgentTasks[0].date))
-    : "No urgent tasks";
 }
 
 /**

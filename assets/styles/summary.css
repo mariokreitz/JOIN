@@ -120,6 +120,18 @@ body:has(#summary-main) {
   font-weight: 700;
 }
 
+.upcoming {
+  color: #000000;
+}
+
+.overdue {
+  color: #ff3d00;
+}
+
+.urgent-container:hover .upcoming {
+  color: white;
+}
+
 .greeting-container {
   display: flex;
   flex-direction: column;
