@@ -12,12 +12,17 @@
 }
 
 #login-logo {
-  width: 300px;
-  height: 300px;
-  left: calc(50% - 150px);
-  top: calc(50% - 150px);
   position: absolute;
   z-index: 1001;
+  width: 90px;
+  height: 110px;
+  left: 60px;
+  top: 37px;
+}
+
+#login-logo svg {
+  width: 100%;
+  height: auto;
 }
 
 .logo-animate {
@@ -28,14 +33,14 @@
   0% {
     width: 300px;
     height: 300px;
-    left: calc(50vw - 150px);
+    left: calc(50% - 150px);
     top: calc(50vh - 150px);
   }
   100% {
     width: 90px;
     height: 110px;
     left: 60px;
-    top: 55px;
+    top: 37px;
   }
 }
 
@@ -44,22 +49,32 @@
   transition: opacity 1s ease;
 }
 
+.fade-path {
+  transition: fill 1s ease;
+}
+
+.fade-in {
+  fill: #2a3647;
+}
+
 @media (max-width: 768px) {
+  #overlay {
+    background-color: var(--primary);
+  }
+
   #login-logo {
-    width: 200px;
-    height: 200px;
-    left: calc(50% - 100px);
-    top: calc(50% - 100px);
-    position: absolute;
-    z-index: 1001;
+    width: 60px;
+    height: 78px;
+    left: 40px;
+    top: 25px;
   }
 
   @keyframes logoMove {
     0% {
-      width: 200px;
-      height: 200px;
-      left: calc(50vw - 100px);
-      top: calc(50vh - 100px);
+      width: 150px;
+      height: 150px;
+      left: calc(50% - 75px);
+      top: calc(50vh - 75px);
     }
     100% {
       width: 60px;
