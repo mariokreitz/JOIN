@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="./assets/styles/log-in.css" />
     <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
   </head>
-  <body id="login-login-body">
+  <body id="login-login-body" onload="triggerLogoAnimation()">
     <div class="login-max-witdh-wrapper">
-      <img class="login-join-logo" src="./assets/img/logo.png" />
+      <div id="overlay"></div>
+      <img class="login-join-logo" id="login-logo" src="./assets/svg/logo.svg" />
       <div class="login-signup-container">
         <p class="inter-extralight">Not a Join user?</p>
         <a href="./signup.html">
