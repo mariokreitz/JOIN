@@ -92,7 +92,6 @@ function updateDueDate(todos) {
 
   if (date !== "No urgent tasks") {
     updateDueDateText(dueDateElement, date);
-    updateDeadlineLabel(deadlineTextElement, date);
   } else {
     clearDueDate(dueDateElement, deadlineTextElement);
   }
