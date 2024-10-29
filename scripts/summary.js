@@ -127,7 +127,7 @@ function updateGreeting() {
 }
 
 /**
- * Displays the greeting container if the screen width is less than 768 pixels.
+ * Displays the greeting container if the screen width is less than 1121 pixels.
  * The container is visible for 2 seconds, and then fades out.
  * During the animation, body scrolling is disabled.
  *
@@ -135,7 +135,7 @@ function updateGreeting() {
  */
 function showGreeting() {
   const greetingContainer = document.getElementById("greeting-container");
-  if (window.innerWidth < 768) {
+  if (window.innerWidth < 1121) {
     greetingContainer.classList.add("show");
     setTimeout(() => {
       greetingContainer.classList.add("fade-out");
