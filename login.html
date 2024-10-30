@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./router.js"></script>
+    <title>Join</title>
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/styles/reset.css" />
+    <link rel="stylesheet" href="./assets/styles/font.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/styles/log-in.css" />
+    <link rel="stylesheet" href="./assets/styles/toastMessage.css" />
+    <link rel="stylesheet" href="./assets/styles/logoAnimation.css" />
+  </head>
+  <body id="login-login-body" onload="init()">
+    <div class="login-max-witdh-wrapper">
+      <div id="overlay"></div>
+      <span class="login-join-logo" id="login-logo">
+        <svg width="274" height="335" viewBox="0 0 274 335" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="fade-path" d="M196.314 0H135.623V69.8251H196.314V0Z" fill="#2A3647" />
+          <path
+            class="fade-path"
+            d="M135.623 126.614H196.315V225.091C196.592 248.787 189.848 272.031 176.94 291.868C164.195 311.141 139.591 334.072 94.0723 334.072C44.4917 334.072 15.5931 310.626 0 297.777L38.2825 250.554C53.5021 262.981 68.1615 273.204 94.3057 273.204C114.101 273.204 121.99 265.138 126.612 258.104C132.896 248.334 136.146 236.908 135.95 225.279L135.623 126.614Z"
+            fill="#2A3647" />
+          <path d="M104.67 82.5332H43.9781V143.495H104.67V82.5332Z" fill="#29ABE2" />
+          <path
+            class="fade-path"
+            d="M228.108 305.467C228.108 318.456 221.525 325.444 212.328 325.444C203.131 325.444 197.108 317.143 197.108 306.123C197.108 295.103 203.318 286.381 212.842 286.381C222.366 286.381 228.108 294.962 228.108 305.467ZM204.158 305.983C204.158 313.814 207.286 319.582 212.655 319.582C218.024 319.582 221.058 313.486 221.058 305.514C221.058 298.526 218.257 291.961 212.655 291.961C207.053 291.961 204.158 298.292 204.158 305.983Z"
+            fill="#2A3647" />
+          <path class="fade-path" d="M240.153 286.944V324.834H233.43V286.944H240.153Z" fill="#2A3647" />
+          <path
+            class="fade-path"
+            d="M247.436 324.834V286.944H254.905L262.935 302.56C265.002 306.643 266.842 310.838 268.444 315.127C268.024 310.438 267.837 305.045 267.837 299.042V286.944H274V324.834H267.044L258.92 308.89C256.77 304.702 254.853 300.397 253.178 295.994C253.178 300.684 253.505 305.983 253.505 312.501V324.787L247.436 324.834Z"
+            fill="#2A3647" />
+        </svg>
+      </span>
+
+      <div class="login-signup-container">
+        <p class="inter-extralight">Not a Join user?</p>
+        <a href="./signup.html">
+          <button id="login-signup-btn" class="inter-medium">Sign Up</button>
+        </a>
+      </div>
+      <div class="login-login-container">
+        <div class="login-login-head">
+          <h1 class="inter-medium">Log in</h1>
+        </div>
+        <div class="login-blue-stretch"></div>
+        <div class="login-login-input-fields">
+          <div class="login-input-mail-c">
+            <input id="email" class="login-login-mail inter-extralight" type="text" placeholder="Email" />
+
+            <svg
+              class="login-mail-icon"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <mask
+                id="mask0_242159_5108"
+                style="mask-type: alpha"
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="24"
+                height="25">
+                <rect y="0.5" width="24" height="24" fill="#D9D9D9" />
+              </mask>
+              <g mask="url(#mask0_242159_5108)">
+                <path
+                  d="M4 20.5C3.45 20.5 2.97917 20.3042 2.5875 19.9125C2.19583 19.5208 2 19.05 2 18.5V6.5C2 5.95 2.19583 5.47917 2.5875 5.0875C2.97917 4.69583 3.45 4.5 4 4.5H20C20.55 4.5 21.0208 4.69583 21.4125 5.0875C21.8042 5.47917 22 5.95 22 6.5V18.5C22 19.05 21.8042 19.5208 21.4125 19.9125C21.0208 20.3042 20.55 20.5 20 20.5H4ZM20 8.5L12.525 13.175C12.4417 13.225 12.3542 13.2625 12.2625 13.2875C12.1708 13.3125 12.0833 13.325 12 13.325C11.9167 13.325 11.8292 13.3125 11.7375 13.2875C11.6458 13.2625 11.5583 13.225 11.475 13.175L4 8.5V18.5H20V8.5ZM12 11.5L20 6.5H4L12 11.5ZM4 8.75V7.275V7.3V7.2875V8.75Z"
+                  fill="#A8A8A8" />
+              </g>
+            </svg>
+
+            <span id="emailError" class="error-message"></span>
+          </div>
+          <div class="login-login-pw-c inter-extralight">
+            <input
+              oninput="togglePasswordVisibilityIcon()"
+              id="password"
+              class="login-login-pw inter-extralight"
+              type="password"
+              placeholder="Password"
+              required="" />
+            <div id="login-change-pw-icon" class="login-svg"></div>
+            <span id="passwordError" class="error-message"></span>
+          </div>
+        </div>
+
+        <div class="login-remember-wrapper">
+          <label
+            onclick="toggleRememberMe()"
+            id="rememberMeLabel"
+            for="rememberMeText"
+            data-checked="false"
+            class="login-remember-container inter-extralight">
+            <img id="loginRememberMe" src="./assets/svg/subtask-non-checked.svg" />
+            <p id="rememberMeText">Remember me</p>
+          </label>
+        </div>
+        <div class="login-login-btn-container">
+          <button onclick="handleLogin(false)" id="login-login-btn" class="inter-medium">Log in</button>
+          <button onclick="handleLogin(true)" id="login-login-guest-btn" class="inter-medium">Guest Log in</button>
+        </div>
+      </div>
+      <div class="login-signup-container-down">
+        <div class="not-user-centre-div">
+          <p class="inter-extralight">Not a Join user?</p>
+        </div>
+        <a href="./signup.html">
+          <button id="login-signup-btn" class="inter-medium">Sign Up</button>
+        </a>
+      </div>
+      <div class="login-privacy-legal-container">
+        <a class="inter-extralight login-policy" href="./policy.html" target="_blank">Privacy Policy</a>
+        <a class="inter-extralight login-legal" href="./legal-notice.html" target="_blank">Legal Notice</a>
+      </div>
+    </div>
+    <script src="./scripts/helper/loginSignUp.helper.js"></script>
+    <script src="./scripts/templates/toastMessage.template.js"></script>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/toastMessage.js"></script>
+    <script src="./scripts/login.js"></script>
+    <script src="./scripts/logoAnimation.js"></script>
+  </body>
+</html>

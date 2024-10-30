@@ -16,9 +16,14 @@
  */
 function getTaskCardSmallTemplate(index, { category, description, priority, title, subTasks }) {
   return /*html*/ `
-  <div class="task-card-small" id="task-card-small-${index}" onclick="openBigCardModal(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">
+  <div class="task-card-small" id="task-card-small-${index}" onclick="openTodoModal(${index})" draggable="true" ondragstart="startDraggingTodo(${index})">
     <div class="card-small-header">
       <p class="inter-extralight ${category === "Technical Task" ? "technical-task" : "user-story"}">${category}</p>
+      ${
+        isDueOrOverdue(index)
+          ? /*html*/ `<div id="overDuo-${index}" class="overDuo-alert" title="Overdue Deadline">!</div>`
+          : ""
+      }
       <button onclick="openStateChangeMenu(event, ${index})" type="button" class="btn btn-custom-more">
         <img src="./assets/svg/more-vert.svg" alt="More Icon">
       </button>

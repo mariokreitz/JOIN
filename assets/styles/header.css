@@ -22,6 +22,7 @@ header {
 }
 
 .header-right {
+  position: relative;
   margin-right: 40px;
   display: flex;
   gap: 22px;
@@ -42,7 +43,9 @@ header {
   height: 20px;
 }
 
-.profile-icon {
+.btn-profile {
+  font-size: 18px;
+  line-height: 1;
   width: 56px;
   height: 56px;
   border-radius: 9999px;
@@ -52,8 +55,54 @@ header {
   align-items: center;
 }
 
-.profile-icon > span {
+.btn-profile:hover,
+.btn-profile:active {
+  background-color: var(--btn-profile-hover);
+}
+
+.btn-profile > span {
   color: var(--secondary);
+}
+
+.profile-menu {
+  position: absolute;
+  top: 76px;
+  right: 0;
+  width: 150px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary);
+  border-radius: 20px 0px 20px 20px;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  z-index: 9999;
+}
+
+.profile-menu button:first-child {
+  display: none;
+}
+
+.profile-menu button {
+  font-size: 16px;
+  text-align: start;
+  line-height: 19.2px;
+  text-wrap: nowrap;
+  padding: 14px 8px;
+  color: var(--text-navbar);
+  width: 100%;
+}
+
+.profile-menu button:hover {
+  background-color: var(--nav-hover);
+}
+
+.profile-menu button:first-child:hover {
+  border-top-left-radius: 10px;
+}
+
+.profile-menu button:last-child:hover {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 @media (max-width: 1320px) {
@@ -87,8 +136,17 @@ header {
     display: none;
   }
 
-  .profile-icon {
+  .btn-profile {
+    font-size: 14px;
     width: 40px;
     height: 40px;
+  }
+
+  .profile-menu {
+    top: 60px;
+  }
+
+  .profile-menu button:first-child {
+    display: inline-block;
   }
 }

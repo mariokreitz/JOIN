@@ -3,11 +3,11 @@ function getTaskCardBigTemplate(todo, index) {
     ? Object.keys(todo.subTasks)
         .map((key) => {
           const subTask = todo.subTasks[key];
-          const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
+          const isChecked = subTask.state === true ? "subtask-checked.svg" : "subtask-non-checked.svg";
           return /*html*/ `  
             
               <label class="bigCard-subtask" for="subTaskImageChecked${key}" onclick="toggleSubtask(${index}, '${key}'); event.stopPropagation();">
-                <img id="subTaskImageChecked${key}" src="./assets/img/icons/${isChecked}" />
+                <img id="subTaskImageChecked${key}" src="./assets/svg/${isChecked}" />
                 <p>${subTask.text}</p>
               </label>
             `;
@@ -37,7 +37,7 @@ function getTaskCardBigTemplate(todo, index) {
         style="background-color: ${todo.category === "Technical Task" ? "#1FD7C1" : "#0038ff"}">
         <h4 class="inter-extralight">${todo.category}</h4>
       </div>
-      <span class="close-btn big-card-close-x" onclick="toggleBigCardModal()">
+      <span class="close-btn big-card-close-x" onclick="toggleTodoModal()">
         <img src="./assets/svg/close.svg" alt="" />
       </span>
     </div>
@@ -98,7 +98,7 @@ function getTaskCardBigTemplate(todo, index) {
         <p>Delete</p>
       </div>
       <div class="bigCard-edit-delete-divider"></div>
-      <div onclick="openBigCardModalEdit(${index})" class="big-card-edit">
+      <div onclick="openTodoModalEdit(${index})" class="big-card-edit">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M2 17H3.4L12.025 8.375L10.625 6.975L2 15.6V17ZM16.3 6.925L12.05 2.725L13.45 1.325C13.8333 0.941667 14.3042 0.75 14.8625 0.75C15.4208 0.75 15.8917 0.941667 16.275 1.325L17.675 2.725C18.0583 3.10833 18.2583 3.57083 18.275 4.1125C18.2917 4.65417 18.1083 5.11667 17.725 5.5L16.3 6.925ZM14.85 8.4L4.25 19H0V14.75L10.6 4.15L14.85 8.4Z"

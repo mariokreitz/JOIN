@@ -102,7 +102,7 @@ function renderContactListHtml(contactsByLetter) {
   return sortedLetters
     .map((letter) => {
       const contactsForLetter = contactsByLetter[letter];
-      const contactElements = contactsForLetter.map((contact, index) => {
+      const contactElements = contactsForLetter.map((contact) => {
         const initials = getInitialsFromContact(contact);
         contactIndex++;
         return getContactTemplate(contactIndex, initials, contact.color, contact.name, contact.email);

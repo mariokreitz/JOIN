@@ -1,42 +1,4 @@
 /**
- * An object representing the different states a task can be in.
- *
- * @type {Object}
- * @property {string} todo - Represents tasks that are to be done.
- * @property {string} progress - Represents tasks that are in progress.
- * @property {string} feedback - Represents tasks awaiting feedback.
- * @property {string} done - Represents tasks that are completed.
- */
-const todoStates = {
-  todo: "Todo",
-  progress: "In Progress",
-  feedback: "Awaiting Feedback",
-  done: "Done",
-};
-
-/**
- * Reference to the search task input element.
- *
- * @type {HTMLInputElement}
- */
-let searchTaskRef;
-
-/**
- * Reference to the currently dragged element.
- *
- * @type {number}
- */
-let currentlyDraggedElement;
-
-/**
- * The current target element being interacted with, used to determine
- * whether to highlight a drag area or not.
- *
- * @type {HTMLElement|null}
- */
-let currentTarget = null;
-
-/**
  * Destructures the columns from the DOM elements.
  *
  * @type {Object}
@@ -104,7 +66,7 @@ function loadNavbar() {
  * @returns {void}
  */
 function getBoardColumnsFromDOM() {
-  searchTaskRef = document.getElementById("search-task");
+  searchTodoRef = document.getElementById("search-task");
   ({ todoColumn, progressColumn, feedbackColumn, doneColumn } = getBoardColumns());
 }
 
@@ -406,7 +368,7 @@ function openStateChangeMenu(event, todoIndex) {
     if (!stateChangeMenu.contains(target)) {
       stateChangeMenu.classList.add("d_none");
       document.removeEventListener("click", handleOutsideClick);
-      todoCard.onclick = () => openBigCardModal(todoIndex);
+      todoCard.onclick = () => openTodoModal(todoIndex);
     }
   };
 
@@ -589,7 +551,7 @@ function removeAllHighlights() {
  * @param {number} index - The index of the todo item in the globalTodos array
  * @returns {void}
  */
-function openBigCardModal(index, isFromEdit = false) {
+function openTodoModal(index, isFromEdit = false) {
   const currentTodo = globalTodos[index];
   const renderContainer = document.getElementById("big-card-modal-background");
   renderContainer.innerHTML = getTaskCardBigTemplate(currentTodo, index);
@@ -599,7 +561,7 @@ function openBigCardModal(index, isFromEdit = false) {
 
   if (!isFromEdit) applyCardAnimation("slide-in");
   checkScrollbar();
-  toggleSubtaskModalWrapper();
+  toggleSubtaskModalWrapperVisibility();
   selectedOptions.length = 0;
 }
 
@@ -616,7 +578,7 @@ function applyCardAnimation(animationType) {
  * @param {number} index - The index of the todo item in the globalTodos array
  * @returns {void}
  */
-function openBigCardModalEdit(index) {
+function openTodoModalEdit(index) {
   const currentTodo = globalTodos[index];
   const renderContainer = document.getElementById("big-card-modal-background");
   renderContainer.innerHTML = getTaskCardBigEditTemplate(currentTodo, index);
@@ -646,19 +608,22 @@ function openBigCardModalEdit(index) {
 }
 
 /**
- * Toggles the visibility of the big card modal by adding or removing the
- * "d_none" class from the big card modal background element.
+ * Toggles the big card modal's visibility and animation based on the overflow state
+ * of the body. If the body is set to "hidden", the big card modal is displayed and
+ * the body is set to "auto", otherwise the big card modal is hidden and the body
+ * is set to "hidden".
  *
+ * @param {number} index - The index of the todo item in the globalTodos array
  * @returns {void}
  */
-function toggleBigCardModal(index) {
+function toggleTodoModal(index) {
   checkScrollbar();
   document.body.style.overflow = document.body.style.overflow === "hidden" ? "auto" : "hidden";
   const bigCardModalBackground = document.getElementById("big-card-modal-background");
   if (!bigCardModalBackground) return;
   const closeEditContainer = bigCardModalBackground.querySelector("#closeEditContainer");
   if (closeEditContainer) {
-    openBigCardModal(index);
+    openTodoModal(index);
   } else {
     applyCardAnimation("slide-out");
     setTimeout(() => {
@@ -667,6 +632,12 @@ function toggleBigCardModal(index) {
   }
 }
 
+/**
+ * Returns the color of the assigned member specified by the given name.
+ *
+ * @param {string} assignedMemberName - The name of the assigned member.
+ * @returns {string|undefined} The color of the assigned member or undefined if no contact with the given name is found.
+ */
 function getAssignedMemberColor(assignedMemberName) {
   const contact = globalContacts.find((contact) => contact.name === assignedMemberName);
   return contact ? contact.color : undefined;
@@ -707,108 +678,47 @@ function updateSubTasksDisplay(index, subTaskKey) {
   const todoItem = globalTodos[index];
   const subTask = todoItem.subTasks[subTaskKey];
   const imgElement = document.getElementById(`subTaskImageChecked${subTaskKey}`);
-  const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
-  imgElement.src = `./assets/img/icons/${isChecked}`;
+  const isChecked = subTask.state === true ? "subtask-checked.svg" : "subtask-non-checked.svg";
+  imgElement.src = `./assets/svg/${isChecked}`;
 }
 
 /**
- * Edit a todo and update the display
- * @param {number} index The index of the todo to edit
+ * Saves the changes made to a todo item in the big card modal and updates the
+ * corresponding element in the globalTodos array. After saving the changes, the
+ * big card modal is closed and the board is re-rendered.
+ *
+ * @param {number} index - The index of the todo item in the globalTodos array
+ * @returns {Promise<void>} - Resolves when the save operation is complete
  */
-async function editBigCard(index) {
-  const currentTodo = globalTodos[index];
+async function saveEditedTodo(index) {
+  const todo = globalTodos[index];
+  if (!todo) return;
 
-  if (!currentTodo) return;
-  const selectedPriority = getSelectedPriority();
+  const { title, description, dueDate, selectedPriority, assignedMembers } = getFormData(
+    "bc-select-urgent",
+    "bc-select-medium",
+    "bc-select-low",
+    "bc-todo-titel",
+    "bc-description-textarea",
+    "due-date"
+  );
 
-  if (!selectedPriority) return;
-  const newTitle = getNewTitle();
-  const newDescription = getNewDescription();
-  const newDueDate = getNewDueDate();
-  const assignedMembers = selectedOptions.map((id) => globalContacts[id].name);
-
-  // Use the validateTodoForm for validation
   if (!validateTodoForm()) return;
 
-  currentTodo.title = newTitle;
-  currentTodo.description = newDescription;
-  currentTodo.date = newDueDate;
-  currentTodo.priority = selectedPriority;
-  currentTodo.subTasks = subTasks;
-  currentTodo.assignedMembers = assignedMembers;
+  Object.assign(todo, { title, description, date: dueDate, priority: selectedPriority, subTasks, assignedMembers });
 
-  const todosObject = arrayToObject(globalTodos);
-  const response = await updateTodosInFirebase("guest", todosObject);
+  try {
+    const response = await updateTodosInFirebase("guest", arrayToObject(globalTodos));
+    const messageType = response.ok ? "todoUpdated" : "error";
+    showToastMessage(messageType, response);
+  } catch (error) {
+    showToastMessage("error", error);
+  }
 
-  if (response.ok) showToastMessage("todoUpdated", response);
-  else showToastMessage("error", response);
-
-  openBigCardModal(index, true);
-  subTasks = {};
+  openTodoModal(index, true);
   triggerRender();
   selectedOptions.length = 0;
-}
-
-/**
- * Checks which priority is selected in the big card modal edit view.
- * @return {string} The priority, either "high", "medium", "low" or null if none is selected.
- */
-function getSelectedPriority() {
-  const urgent = document.getElementById("bc-select-urgent").classList.contains("active");
-  const medium = document.getElementById("bc-select-medium").classList.contains("active");
-  const low = document.getElementById("bc-select-low").classList.contains("active");
-
-  if (urgent) {
-    return "high";
-  } else if (medium) {
-    return "medium";
-  } else if (low) {
-    return "low";
-  } else {
-    return null;
-  }
-}
-
-/**
- * Retrieves the new title value from the title input field.
- *
- * @returns {string} The value of the input field with the id "bc-todo-titel",
- * representing the new title of the todo.
- */
-function getNewTitle() {
-  return document.getElementById("bc-todo-titel").value;
-}
-
-/**
- * Retrieves the new description value from the textarea field.
- *
- * @returns {string} The value of the textarea with the id "bc-description-textarea",
- * representing the new description of the todo.
- */
-function getNewDescription() {
-  return document.getElementById("bc-description-textarea").value;
-}
-
-/**
- * Retrieves the new due date value from the input field.
- *
- * @returns {string} The value of the input field with the id "bc-duedate-input",
- * representing the new due date in the format "TT.mm.jjjj".
- */
-function getNewDueDate() {
-  return document.getElementById("due-date").value;
-}
-
-/**
- * Checks if all input fields for a todo have valid values.
- *
- * @param {string} title - The title of the todo.
- * @param {string} description - The description of the todo.
- * @param {string} dueDate - The due date of the todo in the format "YYYY-MM-DD".
- * @returns {boolean} - True if all inputs are valid, false otherwise.
- */
-function isValidInput(title, dueDate) {
-  return title && dueDate;
+  subTasks = {};
 }
 
 /**
@@ -823,7 +733,7 @@ function isValidInput(title, dueDate) {
  */
 async function deleteTaskCard(index) {
   await deleteTodo(index);
-  toggleBigCardModal(index);
+  toggleTodoModal(index);
   triggerRender();
 }
 

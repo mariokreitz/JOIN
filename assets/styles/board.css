@@ -63,6 +63,12 @@ main {
   align-items: center;
   gap: 4px;
 }
+
+.board-searchbar-button button:hover {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
 .board-searchbar-button button div {
   display: flex;
   justify-content: center;

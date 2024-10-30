@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./router.js"></script>
     <title>Join</title>
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./assets/styles/reset.css" />
@@ -27,7 +28,7 @@
               type="button"
               class="inter-medium btn btn-primary btn-primary-big">
               <span class="button-text">Add new contact</span>
-              <img src="./assets/img/icons/person_add.png" alt="add icon" />
+              <img src="./assets/svg/person-add.svg" alt="add icon" />
             </button>
           </div>
           <ul id="contactList" class="contact-list"></ul>
@@ -46,6 +47,8 @@
         <div id="contact-view" class="contact-main-view"></div>
       </div>
     </main>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
     <script src="./scripts/helper/object.helper.js"></script>
     <script src="./scripts/helper/initials.helper.js"></script>
     <script src="./scripts/templates/header.template.js"></script>
@@ -54,8 +57,7 @@
     <script src="./scripts/templates/contactModal.template.js"></script>
     <script src="./scripts/templates/contactView.template.js"></script>
     <script src="./scripts/templates/toastMessage.template.js"></script>
-    <script src="./scripts/config/firebaseConfig.js"></script>
-    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/header.js"></script>
     <script src="./scripts/contacts.js"></script>
     <script src="./scripts/contactModal.js"></script>
     <script src="./scripts/contactView.js"></script>

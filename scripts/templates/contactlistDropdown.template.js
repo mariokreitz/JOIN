@@ -8,7 +8,7 @@ function noContactsTemplate() {
 
 function contactListItemTemplate(contact, originalIndex, initials, isSelected) {
   return /*html*/ `
-    <li onclick="selectOption(this)" data-id="${originalIndex}" class="${isSelected ? "selected" : ""}">
+    <li onclick="toggleOptionSelection(this)" data-id="${originalIndex}" class="${isSelected ? "selected" : ""}">
       <span class="badge" style="background-color: ${contact.color}">${initials}</span>
       ${contact.name}
       <input type="checkbox" class="checkbox" ${isSelected ? "checked" : ""} />

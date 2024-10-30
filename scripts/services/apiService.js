@@ -214,3 +214,56 @@ async function deleteTodosInFirebase(user, todoID) {
   if (response.ok) return response;
   return response;
 }
+
+/**
+ * Creates a new user in the Firebase Realtime Database.
+ *
+ * @param {Object} newUser - The new user data to be added.
+ * @returns {Promise<Response|Error>} A promise that resolves with the response from the Firebase Database if successful, or rejects with an error if there is a HTTP error.
+ */
+async function createUserInFirebaseDatabase(newUser) {
+  if (!newUser.email) return { status: 401, ok: true, statusText: "Email address should not be empty." };
+
+  const data = await getDataFromFirebase();
+  if (!data) return { status: 404, ok: true, statusText: "No data found in Firebase Database." };
+
+  const users = data.users || {};
+  const userId = getInitialsFromContact(newUser).toUpperCase() + Date.now();
+  const userExists = Object.values(users).some((user) => user.email === newUser.email);
+
+  if (userExists) return { status: 400, ok: true, statusText: "User with this email already exists." };
+  const response = await fetch(`${API_URL}/users/${userId}/.json`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  });
+
+  return response;
+}
+
+/**
+ * Retrieves a user from the Firebase Realtime Database using the provided credentials.
+ *
+ * @param {Object} credentials - The user's credentials.
+ * @param {string} credentials.email - The email of the user to be retrieved.
+ * @param {string} credentials.password - The password of the user to be verified.
+ * @returns {Promise<Object>} A promise that resolves with an object containing the status of the operation,
+ * an ok flag indicating success or failure, and either the user's data or an error message.
+ */
+async function getUserFromFirebaseDatabase({ email, password }) {
+  const data = await getDataFromFirebase();
+
+  if (!data) return { status: 404, ok: false, statusText: "No data found in Firebase Database." };
+
+  const users = data.users || {};
+  const user = Object.values(users).find((user) => user.email === email);
+
+  if (!user) return { status: 400, ok: false, statusText: "No user with this email found." };
+  if (email === "demo@join.com")
+    return { status: 200, ok: true, user: { name: user.name, isDemo: true, isLoggedIn: !user.isLoggedIn } };
+  if (user.password !== password) return { status: 401, ok: true, statusText: "Incorrect password." };
+
+  return { status: 200, ok: true, user: { name: user.name, isLoggedIn: !user.isLoggedIn } };
+}

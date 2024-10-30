@@ -1,4 +1,4 @@
-function subtaskListTemplate(subtaskText) {
+function getSubtaskListItemTemplate(subtaskText) {
   return /* HTML */ `
     <span class="subtask-text">${subtaskText}</span>
     <div class="list-item-actions">

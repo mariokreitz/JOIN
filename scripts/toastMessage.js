@@ -27,10 +27,10 @@ const textContent = {
    */
   taskAdded: `Task added to board <img src="./assets/svg/board-icon.svg">`,
   /**
-   * The text content for the sign up success operation.
+   * The text content for the login success operation.
    * @type {string}
    */
-  signUpSuccess: "You Signed Up successfully",
+  loginSuccess: "You Logged In successfully",
   /**
    * The text content for when something went wrong.
    * @type {string}
@@ -51,6 +51,16 @@ const textContent = {
    * @type {string}
    */
   todoUpdated: "Todo successfully updated",
+  /**
+   * The text content for the sign up success operation.
+   * @type {string}
+   */
+  signUpSuccess: "You Signed Up successfully",
+  /**
+   * The text content for when a user already exists while signing up.
+   * @type {string}
+   */
+  signUpExists: "Email already exists",
 };
 
 /**
@@ -74,7 +84,7 @@ function showToastMessage(operation, response) {
     document.querySelector(".toast-message-box").remove();
 
     if (shouldRedirect("taskAdded")) window.location.href = "/board.html";
-  }, 1600);
+  }, 1000);
 }
 
 /**

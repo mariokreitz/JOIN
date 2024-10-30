@@ -1,65 +1,60 @@
-function loadScripts(scripts, callback) {
-  let loadedScripts = 0;
+/**
+ * Opens the 'Add Task' modal with the specified state and loads necessary scripts.
+ *
+ * This function updates the global state and checks if the device is mobile.
+ * If mobile, it redirects to the add-task page. Otherwise, it opens a modal
+ * by creating and appending a modal element to the DOM. It loads additional
+ * scripts required for the modal and inserts the task template into the modal content.
+ * Finally, it applies a slide-in animation and restricts date selection to future dates.
+ *
+ * @param {string} [state="todo"] - The initial state of the task being added.
+ */
+function openAddTaskModal(state = "todo") {
+  globalState = state;
+  const isMobile = window.innerWidth <= 768;
 
-  scripts.forEach((src) => {
-    if (!document.querySelector(`script[src="${src}"]`)) {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        loadedScripts++;
-        if (loadedScripts === scripts.length) {
-          callback();
-        }
-      };
-      document.head.appendChild(script);
-    } else {
-      loadedScripts++;
-    }
+  if (isMobile) {
+    window.location.href = "/add-task.html";
+    return;
+  }
+
+  document.body.style.overflow = "hidden";
+  const modal = document.createElement("div");
+  modal.innerHTML = getAddTaskModalTemplate();
+  document.body.appendChild(modal);
+
+  const scriptsToLoad = [
+    "./scripts/addTask.js",
+    "./scripts/templates/subtaskListItem.js",
+    "./scripts/templates/contactlistDropdown.template.js",
+    "./scripts/templates/addTask.template.js",
+  ];
+
+  loadScripts(scriptsToLoad, () => {
+    const modalContent = document.getElementById("modal-content");
+    modalContent.insertAdjacentHTML("beforeend", getAddTaskTemplate());
+    setDefaultPriority();
+    renderContactDropdown();
+    applyAnimation("slide-in");
+    restrictPastDatePick();
   });
 }
 
-function openAddTaskModal(state = "todo") {
-  globalState = state;
-  if (window.innerWidth <= 768) {
-    window.location.href = "/add-task.html";
-  } else {
-    document.body.style.overflow = "hidden";
-    document.body.insertAdjacentHTML("beforeend", getAddTaskModalTemplate());
-    const scriptsToLoad = [
-      "./scripts/addTask.js",
-      "./scripts/templates/subtaskListItem.js",
-      "./scripts/templates/contactlistDropdown.template.js",
-      "./scripts/templates/addTask.template.js",
-    ];
-
-    loadScripts(scriptsToLoad, () => {
-      document.getElementById("modal-content").innerHTML += getAddTaskTemplate();
-      setDefaultPriority();
-      renderContactDropdown();
-      applyAnimation("slide-in");
-      restrictPastDatePick();
-    });
-  }
-}
-
+/**
+ * Closes the add task modal and removes it from the DOM. It also removes
+ * the scripts required for the modal and re-enables body scrolling.
+ *
+ * @param {Event} [event] - The event that triggered the modal to close.
+ */
 function closeAddTaskModal(event) {
   if (event) event.preventDefault();
 
-  const modal = document.getElementById("add-task-modal");
-  if (modal) {
+  const modalElement = document.getElementById("add-task-modal");
+  if (modalElement) {
     applyAnimation("slide-out");
-    modal.addEventListener("animationend", () => {
-      document.removeEventListener("click", outsideClickListenerWrapper);
-      document.removeEventListener("click", outsideClickListenerWrapperCategory);
-
-      document.removeEventListener("click", (e) =>
-        outsideClickListener(e, "contact-dropdown-options", "dropdown-icon")
-      );
-      document.removeEventListener("click", (e) =>
-        outsideClickListener(e, "category-dropdown-options", "category-dropdown-icon")
-      );
+    modalElement.addEventListener("animationend", () => {
       document.body.style.overflow = "auto";
-      modal.remove();
+      modalElement.remove();
 
       const scriptsToUnload = [
         "./scripts/addTask.js",
@@ -68,8 +63,8 @@ function closeAddTaskModal(event) {
         "./scripts/templates/addTask.template.js",
       ];
 
-      scriptsToUnload.forEach((src) => {
-        const existingScript = document.querySelector(`script[src="${src}"]`);
+      scriptsToUnload.forEach((scriptSource) => {
+        const existingScript = document.querySelector(`script[src="${scriptSource}"]`);
         if (existingScript) {
           existingScript.parentNode.removeChild(existingScript);
         }
@@ -77,6 +72,12 @@ function closeAddTaskModal(event) {
     });
   }
 }
+
+/**
+ * Applies the given animation to the modal content element.
+ *
+ * @param {string} animationType - The type of animation to apply.
+ */
 
 function applyAnimation(animationType) {
   const modalContent = document.getElementById("modal-content");

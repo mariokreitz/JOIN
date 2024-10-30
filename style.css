@@ -16,6 +16,7 @@
   /* hover and active states */
   --hover: #29abe2;
   --active: #091931;
+  --btn-profile-hover: #0c2e621f;
 
   /* line color */
   --line: #d1d1d1;
@@ -54,6 +55,7 @@ body {
   display: flex;
   justify-content: center;
   font-size: 21px;
+  align-items: center;
 }
 
 .btn-primary {
@@ -133,6 +135,16 @@ textarea {
 ::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: var(--sb-radius);
+}
+
+.blue-arrow {
+  display: flex;
+  height: fit-content;
+  border-radius: 9999px;
+}
+
+.blue-arrow:hover {
+  background-color: #eeeeee;
 }
 
 @media (max-width: 768px) {

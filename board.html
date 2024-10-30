@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./router.js"></script>
     <title>Join</title>
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./assets/styles/reset.css" />
@@ -32,7 +33,7 @@
             <div class="board-searchbar-button">
               <div class="board-input-container">
                 <input onkeyup="searchTodos(event)" type="text" id="search-task" placeholder="Find Task" />
-                <i class="board-search-icon"><img src="./assets/img/icons/search-icon.png" alt="person icon" /></i>
+                <i class="board-search-icon"><img src="./assets/svg/search.svg" alt="person icon" /></i>
               </div>
               <button type="button" class="inter-medium" onclick="openAddTaskModal()">
                 <span class="inter-medium button-add-text">Add Task</span>
@@ -102,28 +103,29 @@
 
       <div id="big-card-modal-background" class="d_none"></div>
     </main>
-    <script src="./scripts/bigcard-modal-edit.js"></script>
-    <script src="./scripts/templates/taskCardBig.template.js"></script>
-    <script src="./scripts/templates/taskCardBigEdit.template.js"></script>
-    <script src="./scripts/config/firebaseConfig.js"></script>
-    <script src="./scripts/services/apiService.js"></script>
     <script src="./scripts/helper/initials.helper.js"></script>
     <script src="./scripts/helper/priority.helper.js"></script>
     <script src="./scripts/helper/object.helper.js"></script>
-    <script src="./scripts/helper/taskcard.helper.js"></script>
+    <script src="./scripts/helper/todoCard.helper.js"></script>
+    <script src="./scripts/helper/contactDropDown.helper.js"></script>
+    <script src="./scripts/helper/subtask.helper.js"></script>
+    <script src="./scripts/helper/utility.helper.js"></script>
     <script src="./scripts/templates/header.template.js"></script>
     <script src="./scripts/templates/navbar.template.js"></script>
     <script src="./scripts/templates/taskCardSmall.template.js"></script>
-    <script src="./scripts/templates/toastMessage.template.js"></script>
-    <script src="./scripts/board.js"></script>
-    <script src="./scripts/toastMessage.js"></script>
-    <script src="./scripts/addTaskGlobals.js"></script>
     <script src="./scripts/templates/addTaskModal.template.js"></script>
-    <script src="./scripts/addTaskModal.js"></script>
-    <script src="./scripts/subtask.js"></script>
-    <script src="./scripts/contactDropDown.js"></script>
-    <script src="./scripts/utility.js"></script>
+    <script src="./scripts/templates/taskCardBig.template.js"></script>
+    <script src="./scripts/templates/taskCardBigEdit.template.js"></script>
+    <script src="./scripts/templates/toastMessage.template.js"></script>
     <script src="./scripts/templates/subtaskListItem.js"></script>
     <script src="./scripts/templates/contactlistDropdown.template.js"></script>
+    <script src="./scripts/config/firebaseConfig.js"></script>
+    <script src="./scripts/services/apiService.js"></script>
+    <script src="./scripts/header.js"></script>
+    <script src="./scripts/board.js"></script>
+    <script src="./scripts/todoModal.js"></script>
+    <script src="./scripts/toastMessage.js"></script>
+    <script src="./scripts/addTaskGlobals.js"></script>
+    <script src="./scripts/addTaskModal.js"></script>
   </body>
 </html>
