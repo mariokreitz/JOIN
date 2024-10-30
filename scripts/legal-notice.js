@@ -15,7 +15,7 @@ function init() {
  */
 function loadComponents() {
   loadHeader();
-  loadNavbar();
+  adjustNavbarForMobile();
 }
 
 /**
@@ -41,3 +41,25 @@ function loadNavbar() {
   if (!navbar) return;
   navbar.innerHTML = getNavbarTemplate("legal");
 }
+
+/**
+ * Adjusts the navbar based on the window width.
+ *
+ * @returns {void}
+ */
+function adjustNavbarForMobile() {
+  const navbar = document.getElementById("navbar");
+
+  if (window.innerWidth >= 768) {
+    if (!navbar) {
+      const nav = document.createElement("nav");
+      nav.id = "navbar";
+      nav.classList.add("navbar");
+      document.body.appendChild(nav);
+    }
+    navbar.innerHTML = getNavbarTemplate("legal");
+  } else if (navbar && !currentUser.isLoggedIn) navbar.remove();
+  loadNavbar();
+}
+
+window.addEventListener("resize", adjustNavbarForMobile);
