@@ -112,13 +112,7 @@ async function handleSaveClick(event) {
 }
 
 /**
- * Updates the contact with the given createdAt time with the current form data.
- * The function first retrieves the contact id by createdAt and user, then
- * creates an updated contact object by spreading the form data and adding the
- * current timestamp for createdAt. The function then calls patchDataInFirebase
- * to update the contact in the database and shows a toast message with the
- * status of the operation. Finally, the function closes the contact modal,
- * renders the contacts page and selects the latest created contact.
+ * Updates the given contact in the Firebase Realtime Database.
  *
  * @param {Object} contact - The contact to be updated.
  * @returns {Promise<void>}
@@ -128,8 +122,12 @@ async function updateContact(contact) {
   const contactId = await getContactIdByCreatedAt("guest", contact.createdAt);
 
   if (contactForm && contactId && validateFormdata()) {
+    const formData = new FormData(contactForm);
+    const phoneNumber = formData.get("phone");
+    const updatedPhoneNumber = phoneNumber.startsWith("0") ? "+49" + phoneNumber.slice(1) : phoneNumber;
     const updatedContact = {
-      ...Object.fromEntries(new FormData(contactForm)),
+      ...Object.fromEntries(formData),
+      phone: updatedPhoneNumber,
       createdAt: Date.now(),
     };
 
@@ -287,7 +285,7 @@ async function selectLatestCreatedContact() {
   const latestContact = await getLatestCreatedContact("guest");
   const contactElements = [...document.querySelectorAll(".contact-item")];
   const selectedContactElement = contactElements.find(
-    (contactElement) => contactElement.querySelector(".contact-name").textContent === latestContact.name
+    (contactElement) => contactElement.querySelector(".contact-email").textContent === latestContact.email
   );
   const index = selectedContactElement ? parseInt(selectedContactElement.dataset.sortedIndex, 10) : null;
 
