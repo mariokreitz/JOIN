@@ -129,10 +129,7 @@
 
 @media (max-width: 375px) {
   .navbar-link-container > ul {
-    padding-inline: 1px;
-  }
-
-  .navigation {
-    width: unset;
+    padding-inline: 4px;
+    gap: unset;
   }
 }
