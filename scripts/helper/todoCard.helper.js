@@ -175,6 +175,10 @@ function loadScripts(scripts, callback) {
     if (!document.querySelector(`script[src="${src}"]`)) {
       const scriptElement = document.createElement("script");
       scriptElement.src = src;
+      /**
+       * Increments the count of loaded scripts and checks if all scripts
+       * have been loaded. If so, executes the provided callback function.
+       */
       scriptElement.onload = () => {
         scriptsLoaded++;
         if (scriptsLoaded === scripts.length) callback();
@@ -266,4 +270,24 @@ function getNewDescriptionValue(todoDescriptionElementID) {
  */
 function getNewDueDateValue(duoDateElementID) {
   return document.getElementById(duoDateElementID).value;
+}
+
+/**
+ * Determines if the due date of a todo item is today or earlier, excluding completed tasks.
+ *
+ * @param {number} index - The index of the todo item in the globalTodos array.
+ * @returns {boolean|undefined} Returns true if the due date is today or earlier, false otherwise.
+ * Returns undefined if the task is completed.
+ */
+function isDueOrOverdue(index) {
+  const { date: dueDateString, state } = globalTodos[index];
+  if (state === "done") return;
+  const today = new Date();
+  const dueDate = new Date(dueDateString);
+
+  return (
+    dueDate.getFullYear() === today.getFullYear() &&
+    dueDate.getMonth() === today.getMonth() &&
+    dueDate.getDate() < today.getDate()
+  );
 }
