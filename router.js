@@ -84,14 +84,23 @@ function loadUserCredentialsFromLocalStorage() {
  */
 const routes = {
   "/": checkAuthorization,
+  "/JOIN/": checkAuthorization,
   "/index.html": checkAuthorization,
+  "/JOIN/index.html": checkAuthorization,
   "/summary.html": checkAuthorization,
+  "/JOIN/summary.html": checkAuthorization,
   "/board.html": checkAuthorization,
+  "/JOIN/board.html": checkAuthorization,
   "/contacts.html": checkAuthorization,
+  "/JOIN/contacts.html": checkAuthorization,
   "/add-task.html": checkAuthorization,
+  "/JOIN/add-task.html": checkAuthorization,
   "/legal-notice.html": checkAuthorization,
+  "/JOIN/legal-notice.html": checkAuthorization,
   "/policy.html": checkAuthorization,
+  "/JOIN/policy.html": checkAuthorization,
   "/help.html": checkAuthorization,
+  "/JOIN/help.html": checkAuthorization,
 };
 
 /**
