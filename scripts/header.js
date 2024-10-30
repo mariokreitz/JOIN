@@ -45,3 +45,15 @@ document.addEventListener("click", ({ target }) => {
     profileMenu.classList.add("d_none");
   }
 });
+
+/**
+ * Goes back to the previous page in the browser's history or closes the current tab if the user is not logged in and the history is empty.
+ *
+ * @returns {void}
+ */
+function goBack() {
+  const { isLoggedIn } = currentUser;
+
+  if (!isLoggedIn && window.history.length <= 1) window.close();
+  else window.history.back();
+}
