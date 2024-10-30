@@ -44,7 +44,7 @@ function getContactViewTemplate(initials, { createdAt, color, name, email, phone
                 </div>
                 <div class="contact-main-details-phone">
                     <span class="inter-medium">Phone</span>
-                    <span class="inter-extralight"><a href="tel:${phone}">+${phone}</a></span>
+                    <span class="inter-extralight"><a href="tel:${phone}">${phone}</a></span>
                 </div>
                 <span id="createdAt" data-createdAt="${createdAt}"></span>
             </div>
