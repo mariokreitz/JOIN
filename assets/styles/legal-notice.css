@@ -36,11 +36,11 @@
 
 .legal-main {
   max-width: 1014px;
-  margin-top: 32px;
   margin-left: 328px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding-right: 40px;
 }
 
 .legal-main li {
@@ -58,10 +58,24 @@
   margin-top: 24px;
 }
 
+.head-and-arrow {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 1320px) {
+  .legal-main {
+    padding-top: 96px;
+  }
+}
+
 @media (max-width: 768px) {
   .legal-main {
+    padding-top: 80px;
     margin-left: 16px;
-    margin-right: 15.5px;
+  }
+  .legal-main h1 {
+    margin-top: 0px;
   }
   .imprint-section-head {
     font-size: 27px;
@@ -78,11 +92,5 @@
   }
   .legal-main p {
     font-size: 16px;
-  }
-}
-
-@media (max-width: 1350px) {
-  .head-and-arrow {
-    margin-top: 25px;
   }
 }

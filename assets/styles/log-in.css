@@ -166,7 +166,7 @@ body {
   justify-content: center;
   gap: 24px;
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .login-login-mail,
@@ -274,7 +274,7 @@ input:focus {
   }
 
   .login-privacy-legal-container {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     background-color: #f6f7f8;
   }
 
@@ -335,6 +335,7 @@ input:focus {
     flex-direction: row;
     justify-content: center;
     padding-top: 37px;
+    padding-bottom: 37px;
 
     gap: 35px;
   }

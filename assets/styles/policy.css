@@ -23,13 +23,23 @@
   gap: 35px;
 }
 
+@media (max-width: 1320px) {
+  .policy-main {
+    padding-top: 96px;
+  }
+}
+
 @media (max-width: 768px) {
+  .policy-main {
+    padding-top: 80px;
+  }
   .policy-container {
     margin-left: 16px;
     margin-right: 16px;
   }
   .policy-main h1 {
     font-size: 47px;
+    margin-top: 0;
   }
 }
 
