@@ -1,39 +1,37 @@
-/**
- * Initializes the page by loading components and rendering the contact dropdown.
- * @returns {Promise<void>} A promise that resolves when the page has been initialized.
- */
+
 async function init() {
   triggerLogoAnimation();
+  const rememberedCredentials = checkAndLoadUserCredentialsFromLocalStorage();
+  fillCredentialsInLoginForm(rememberedCredentials);
 }
 
-/**
- * Handles the login process, by retrieving the user credentials from the form or
- * demo credentials, validating the form data, getting the user from the Firebase
- * Realtime Database and then logging in the user.
- *
- * @param {boolean} isGuest determines whether the demo credentials should be used
- * @returns {Promise<void>}
- */
 async function handleLogin(isGuest) {
   const demoCredentials = {
     email: "demo@join.com",
     password: "1234567",
   };
+
   const credentials = isGuest ? demoCredentials : getCredentialsFromForm();
-  if (isGuest) fillDemoCredentialsInLoginForm(credentials);
+  fillCredentialsInLoginForm(credentials);
 
   if (!validateLoginFormData(credentials)) return;
 
   try {
-    const { status, user: fetchedUser } = await getUserFromFirebaseDatabase(credentials);
+    const { status, user: fetchedUser, statusText } = await getUserFromFirebaseDatabase(credentials);
     switch (status) {
+      case 400:
+        document.getElementById("emailError").innerText = statusText;
+        break;
+      case 401:
+        document.getElementById("passwordError").innerText = statusText;
+        break;
       case 404:
         showToastMessage("error", { ok: false });
         break;
       case 200:
         Object.assign(currentUser, fetchedUser);
-        saveUserToLocalStorage();
-        checkAndSaveUserToLocalStorage();
+        saveCurrentUserToLocalStorage();
+        checkAndSaveUserCredentialsToLocalStorage();
         showToastMessage("loginSuccess", { ok: true });
         setTimeout(() => {
           window.location.href = "/";
@@ -62,25 +60,50 @@ function getCredentialsFromForm() {
     password: passwordInput.value.trim(),
   };
 }
-
 /**
- * Checks if the "Remember Me" checkbox is checked and saves the user
- * data to local storage if it is.
+ * Checks if the "Remember Me" option is selected and saves the user credentials
+ * to local storage if it is. The credentials are retrieved from the login form,
+ * and an additional "isRememberMe" flag is added to indicate the selection status.
  */
-function checkAndSaveUserToLocalStorage() {
-  const rememberMeLabelElement = document.getElementById("rememberMeLabel");
-  const isRememberMeChecked = rememberMeLabelElement.dataset.checked === "true";
+function checkAndSaveUserCredentialsToLocalStorage() {
+  const rememberMeElement = document.getElementById("rememberMeLabel");
+  const isRememberMeChecked = rememberMeElement.dataset.checked === "true";
 
   if (isRememberMeChecked) {
-    saveUserToLocalStorage();
-  }
+    const userCredentials = getCredentialsFromForm();
+    userCredentials.isRememberMe = isRememberMeChecked;
+    saveUserCredentialsToLocalStorage(userCredentials);
+  } else localStorage.removeItem("userCredentials");
 }
 
 /**
- * Fills in the login form with the demo user's email and password.
- * @param {Object} credentials - An object containing the email and password of the demo user.
+ * Checks and loads user credentials from local storage if the "Remember Me" option was selected.
+ * Updates the "Remember Me" icon to indicate the selection status.
+ *
+ * @returns {Object} An object containing the email and password if credentials are found and the
+ * "Remember Me" option is enabled; otherwise, returns an object with empty strings for email and password.
  */
-function fillDemoCredentialsInLoginForm({ email, password }) {
+function checkAndLoadUserCredentialsFromLocalStorage() {
+  const storedUser = loadUserCredentialsFromLocalStorage();
+  if (storedUser && storedUser.isRememberMe) {
+    const rememberMeLabel = document.getElementById("rememberMeLabel");
+    const rememberMeIcon = document.getElementById("loginRememberMe");
+    rememberMeIcon.src = "./assets/img/icons/subtask-checked.png";
+    rememberMeLabel.dataset.checked = "true";
+    return { email: storedUser.email, password: storedUser.password };
+  }
+  return { email: "", password: "" };
+}
+
+/**
+ * Fills in the login form with the provided credentials.
+ *
+ * @param {Object} credentials - The object containing the email and password
+ * to fill in the form with.
+ * @param {string} credentials.email - The email to fill in the form with.
+ * @param {string} credentials.password - The password to fill in the form with.
+ */
+function fillCredentialsInLoginForm({ email, password }) {
   const emailInputField = document.getElementById("email");
   const passwordInputField = document.getElementById("password");
 

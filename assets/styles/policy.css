@@ -32,3 +32,11 @@
     font-size: 47px;
   }
 }
+
+@media (max-width: 500px) {
+  .policy-main h1 {
+    font-size: 36px;
+    line-height: 48px;
+    margin-left: 0px;
+  }
+}
