@@ -1,21 +1,25 @@
 /**
- * Initializes the login form by loading and filling in the login form
- * with any remembered login credentials.
+ * Initializes the login page by triggering the logo animation,
+ * checking for stored user credentials, and filling the login
+ * form with those credentials if available.
  */
 function init() {
+  triggerLogoAnimation();
   const rememberedCredentials = checkAndLoadUserCredentialsFromLocalStorage();
   fillCredentialsInLoginForm(rememberedCredentials);
 }
 
 /**
- * Handles the login process, given a flag indicating whether
- * the user should be logged in as a guest or not.
- *
- * @param {boolean} isGuest - Whether the user should be logged in as a guest or not.
- *
- * @returns {Promise<void>} A promise that resolves when the login process is finished.
+ * Handles the login process, given a boolean indicating whether a guest login should be performed.
+ * If the isGuest flag is true, the function will use the demo user credentials for the login.
+ * Otherwise, it will obtain the user credentials from the login form.
+ * The function will first validate the input data, and if the data is invalid, it will return.
+ * If the data is valid, the function will attempt to retrieve the user from the Firebase Realtime Database.
+ * Depending on the result of the operation, the function will update the UI accordingly.
+ * If the operation is successful, the function will save the current user to local storage and
+ * redirect the user to the main page after one second.
+ * @param {boolean} isGuest - Whether to perform a guest login or not.
  */
-
 async function handleLogin(isGuest) {
   const demoCredentials = {
     email: "demo@join.com",
