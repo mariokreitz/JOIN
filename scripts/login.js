@@ -3,7 +3,7 @@
  * checking for stored user credentials, and filling the login
  * form with those credentials if available.
  */
-function init() {
+async function init() {
   triggerLogoAnimation();
   const rememberedCredentials = checkAndLoadUserCredentialsFromLocalStorage();
   fillCredentialsInLoginForm(rememberedCredentials);
