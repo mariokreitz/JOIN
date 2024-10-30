@@ -1,13 +1,20 @@
-function loginRemember() {
-  const rememberMeImage = document.getElementById("loginRememberMe");
+/**
+ * Toggles the state of the privacy policy checkbox and enables/disables
+ * the sign-up button accordingly. The checkbox image source is switched
+ * between checked and non-checked states, and the sign-up button is
+ * disabled if the checkbox is unchecked.
+ */
+function togglePrivacyPolicyCheckbox() {
+  const privacyPolicyCheckbox = document.getElementById("privacy-policy-checkbox");
+  const signUpButton = document.getElementById("sign-login-btn");
 
-  if (rememberMeImage.src.includes("subtask-checked.png")) {
-    rememberMeImage.src = "./assets/img/icons/subtask-non-checked.png";
-    document.getElementById("sign-login-btn").disabled = true;
-  } else {
-    rememberMeImage.src = "./assets/img/icons/subtask-checked.png";
-    document.getElementById("sign-login-btn").disabled = false;
-  }
+  const isChecked = privacyPolicyCheckbox.src.includes("subtask-checked.png");
+
+  privacyPolicyCheckbox.src = isChecked
+    ? "./assets/img/icons/subtask-non-checked.png"
+    : "./assets/img/icons/subtask-checked.png";
+
+  signUpButton.disabled = isChecked;
 }
 
 /**
@@ -115,65 +122,4 @@ function clearErrorMessages() {
   errorFields.forEach((id) => {
     document.getElementById(id).textContent = "";
   });
-}
-
-// DIESE CODES SIND PROTOYPEN!
-function toggleLoginIconVisibility() {
-  const passwordInput = document.getElementById("password");
-  const loginIconDiv = document.getElementById("login-change-pw-icon");
-
-  if (passwordInput.value.trim() !== "") {
-    loginIconDiv.classList.remove("login-svg");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-    loginIconDiv.onclick = changeVisibilityIcon;
-  } else {
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-svg");
-    loginIconDiv.onclick = null;
-  }
-}
-
-function toggleLoginIconVisibilityDouble() {
-  const passwordInput = document.getElementById("confirmPassword");
-  const loginIconDiv = document.getElementById("login-change-pw-icon-double");
-
-  if (passwordInput.value.trim() !== "") {
-    loginIconDiv.classList.remove("login-svg-confirmed");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-    loginIconDiv.onclick = changeVisibilityIconConfirmed;
-  } else {
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-svg-confirmed");
-    loginIconDiv.onclick = null;
-  }
-}
-
-function changeVisibilityIcon() {
-  const passwordInput = document.getElementById("password");
-  const loginIconDiv = document.getElementById("login-change-pw-icon");
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-pw-visibility");
-  } else {
-    passwordInput.type = "password";
-    loginIconDiv.classList.remove("login-pw-visibility");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-  }
-}
-
-function changeVisibilityIconConfirmed() {
-  const passwordInput = document.getElementById("confirmPassword");
-  const loginIconDiv = document.getElementById("login-change-pw-icon-double");
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-pw-visibility");
-  } else {
-    passwordInput.type = "password";
-    loginIconDiv.classList.remove("login-pw-visibility");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-  }
 }

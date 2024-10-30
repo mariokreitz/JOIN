@@ -1,10 +1,25 @@
-
+/**
+ * Initializes the login page by triggering the logo animation,
+ * checking for stored user credentials, and filling the login
+ * form with those credentials if available.
+ */
 async function init() {
   triggerLogoAnimation();
   const rememberedCredentials = checkAndLoadUserCredentialsFromLocalStorage();
   fillCredentialsInLoginForm(rememberedCredentials);
 }
 
+/**
+ * Handles the login process, given a boolean indicating whether a guest login should be performed.
+ * If the isGuest flag is true, the function will use the demo user credentials for the login.
+ * Otherwise, it will obtain the user credentials from the login form.
+ * The function will first validate the input data, and if the data is invalid, it will return.
+ * If the data is valid, the function will attempt to retrieve the user from the Firebase Realtime Database.
+ * Depending on the result of the operation, the function will update the UI accordingly.
+ * If the operation is successful, the function will save the current user to local storage and
+ * redirect the user to the main page after one second.
+ * @param {boolean} isGuest - Whether to perform a guest login or not.
+ */
 async function handleLogin(isGuest) {
   const demoCredentials = {
     email: "demo@join.com",
@@ -111,6 +126,15 @@ function fillCredentialsInLoginForm({ email, password }) {
   passwordInputField.value = password;
 }
 
+/**
+ * Validates the login form data by checking if the email and password inputs
+ * meet specific requirements. Clears any previous error messages before validation.
+ * Displays appropriate error messages if the inputs are invalid.
+ *
+ * The email must be in a valid format and the password must be at least 7 characters long.
+ *
+ * @returns {boolean} True if both email and password are valid; otherwise, false.
+ */
 function validateLoginFormData() {
   const emailErrorElement = document.getElementById("emailError");
   const passwordErrorElement = document.getElementById("passwordError");
@@ -134,47 +158,4 @@ function validateLoginFormData() {
   }
 
   return isValid;
-}
-
-function toggleLoginIconVisibility() {
-  const passwordInput = document.getElementById("password");
-  const loginIconDiv = document.getElementById("login-change-pw-icon");
-
-  if (passwordInput.value.trim() !== "") {
-    loginIconDiv.classList.remove("login-svg");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-    loginIconDiv.onclick = changeVisibilityIcon;
-  } else {
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-svg");
-    loginIconDiv.onclick = null;
-  }
-}
-
-function changeVisibilityIcon() {
-  const passwordInput = document.getElementById("password");
-  const loginIconDiv = document.getElementById("login-change-pw-icon");
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    loginIconDiv.classList.remove("login-pw-non-visibility");
-    loginIconDiv.classList.add("login-pw-visibility");
-  } else {
-    passwordInput.type = "password";
-    loginIconDiv.classList.remove("login-pw-visibility");
-    loginIconDiv.classList.add("login-pw-non-visibility");
-  }
-}
-
-function loginRemember() {
-  const rememberMeImage = document.getElementById("loginRememberMe");
-  const rememberMeLabel = document.getElementById("rememberMeLabel");
-
-  if (rememberMeImage.src.includes("subtask-checked.png")) {
-    rememberMeImage.src = "./assets/img/icons/subtask-non-checked.png";
-    rememberMeLabel.dataset.checked = "false";
-  } else {
-    rememberMeImage.src = "./assets/img/icons/subtask-checked.png";
-    rememberMeLabel.dataset.checked = "true";
-  }
 }
