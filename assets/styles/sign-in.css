@@ -1,3 +1,8 @@
+body {
+  height: unset;
+  min-height: 100vh;
+}
+
 .login-max-witdh-wrapper {
   max-width: 1940px;
   margin: auto;
@@ -6,9 +11,9 @@
 .login-join-logo {
   width: 90px;
   height: 110px;
-  position: absolute;
   left: 60px;
-  top: 55px;
+  top: 37px;
+  position: absolute;
 }
 
 .login-signup-container {
@@ -55,10 +60,7 @@
   height: 650px;
   background-color: white;
   border-radius: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 59px;
-  margin-bottom: 190px;
+  margin: 60px auto;
   box-shadow: 0px 0px 14px 3px #0000000a;
 }
 
@@ -180,7 +182,7 @@
   justify-content: center;
   gap: 24px;
   font-size: 16px;
-  margin-top: -99px;
+  padding-bottom: 20px;
 }
 
 .login-login-mail,
@@ -219,9 +221,10 @@
 .login-svg {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/lock-gray.png);
-  background-size: cover;
+  background-image: url(../svg/lock.svg);
+  background-position: center center;
   position: absolute;
+  background-repeat: no-repeat;
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
@@ -229,15 +232,15 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-svg-confirmed {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/lock-gray.png);
-  background-size: cover;
+  background-image: url(../svg/lock.svg);
+  background-position: center center;
   position: absolute;
+  background-repeat: no-repeat;
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
@@ -245,15 +248,14 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-pw-non-visibility {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/visibility_off-gray.png);
-  background-size: cover;
+  background-image: url(../svg/visibility_off.svg);
   background-repeat: no-repeat;
+  background-position: center center;
   position: absolute;
   top: 55%;
   right: 20px;
@@ -262,15 +264,14 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-pw-visibility {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/visibility-gray.png);
-  background-size: cover;
+  background-image: url(../svg/visibility.svg);
   background-repeat: no-repeat;
+  background-position: center center;
   position: absolute;
   top: 50%;
   right: 20px;
@@ -279,7 +280,6 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 input:focus {
@@ -292,7 +292,7 @@ input:focus {
 @media (max-width: 868px) {
   .login-login-container {
     width: 95%;
-    margin-top: 90px;
+    margin-top: 110px;
     min-height: 90%;
     transform: scale(0.95);
 
@@ -333,8 +333,8 @@ input:focus {
   }
 
   .login-join-logo {
-    width: auto;
-    height: 48px;
+    width: 60px;
+    height: 78px;
     left: 40px;
     top: 25px;
   }
@@ -397,7 +397,7 @@ input:focus {
 
 @media (max-width: 768px) and (max-height: 820px) {
   .login-privacy-legal-container {
-    margin-top: 30px;
+    margin-top: 60px;
   }
   .login-login-container {
     transform: scale(0.85);

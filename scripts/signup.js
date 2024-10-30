@@ -8,11 +8,9 @@ function togglePrivacyPolicyCheckbox() {
   const privacyPolicyCheckbox = document.getElementById("privacy-policy-checkbox");
   const signUpButton = document.getElementById("sign-login-btn");
 
-  const isChecked = privacyPolicyCheckbox.src.includes("subtask-checked.png");
+  const isChecked = privacyPolicyCheckbox.src.includes("subtask-checked.svg");
 
-  privacyPolicyCheckbox.src = isChecked
-    ? "./assets/img/icons/subtask-non-checked.png"
-    : "./assets/img/icons/subtask-checked.png";
+  privacyPolicyCheckbox.src = isChecked ? "./assets/svg/subtask-non-checked.svg" : "./assets/svg/subtask-checked.svg";
 
   signUpButton.disabled = isChecked;
 }

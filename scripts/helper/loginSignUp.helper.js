@@ -54,10 +54,8 @@ function toggleRememberMe() {
   const rememberMeIcon = document.getElementById("loginRememberMe");
   const rememberMeLabel = document.getElementById("rememberMeLabel");
 
-  const isChecked = rememberMeIcon.src.includes("subtask-checked.png");
-  rememberMeIcon.src = isChecked
-    ? "./assets/img/icons/subtask-non-checked.png"
-    : "./assets/img/icons/subtask-checked.png";
+  const isChecked = rememberMeIcon.src.includes("subtask-checked.svg");
+  rememberMeIcon.src = isChecked ? "./assets/svg/subtask-non-checked.svg" : "./assets/svg/subtask-checked.svg";
 
   rememberMeLabel.dataset.checked = isChecked ? "false" : "true";
 }

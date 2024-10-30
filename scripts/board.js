@@ -678,8 +678,8 @@ function updateSubTasksDisplay(index, subTaskKey) {
   const todoItem = globalTodos[index];
   const subTask = todoItem.subTasks[subTaskKey];
   const imgElement = document.getElementById(`subTaskImageChecked${subTaskKey}`);
-  const isChecked = subTask.state === true ? "subtask-checked.png" : "subtask-non-checked.png";
-  imgElement.src = `./assets/img/icons/${isChecked}`;
+  const isChecked = subTask.state === true ? "subtask-checked.svg" : "subtask-non-checked.svg";
+  imgElement.src = `./assets/svg/${isChecked}`;
 }
 
 /**

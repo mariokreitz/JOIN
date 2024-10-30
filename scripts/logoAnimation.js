@@ -5,11 +5,11 @@
  */
 function setLogoStartPosition() {
   const logo = document.getElementById("login-logo");
-  if (window.innerWidth < 768) {
+  if (window.innerWidth <= 768) {
     logo.style.width = "150px";
     logo.style.height = "150px";
     logo.style.left = "calc(50% - 75px)";
-    logo.style.top = "calc(50vh - 75px)";
+    logo.style.top = "calc(50vh)";
   } else {
     logo.style.width = "300px";
     logo.style.height = "300px";
@@ -20,13 +20,13 @@ function setLogoStartPosition() {
 
 /**
  * Sets the final position and size of the logo based on the window width.
- * For mobile devices (width < 768px), the logo is smaller and positioned
+ * For mobile devices (width <= 768px), the logo is smaller and positioned
  * at specific coordinates. For larger screens, it has a different size
  * and position. Additionally, it restores the body's overflow to auto.
  */
 function setLogoFinalPosition() {
   const logo = document.getElementById("login-logo");
-  if (window.innerWidth < 768) {
+  if (window.innerWidth <= 976) {
     logo.style.width = "60px";
     logo.style.height = "78px";
     logo.style.left = "40px";
@@ -56,7 +56,7 @@ function triggerLogoAnimation() {
   }
   document.body.style.overflow = "hidden";
   setLogoStartPosition();
-  if (window.innerWidth < 768) {
+  if (window.innerWidth <= 768) {
     setWhiteFill(paths);
     triggerFadeIn(paths);
   }

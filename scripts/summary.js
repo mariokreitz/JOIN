@@ -77,7 +77,12 @@ function updateTodoCounts(todos) {
  * Updates the user information displayed on the page.
  */
 function updateUserInfo() {
-  document.getElementById("name").textContent = currentUser.name;
+  var nameElement = document.getElementById("name");
+  if (currentUser.name.toLowerCase() !== "guest") {
+    nameElement.textContent = currentUser.name;
+  } else {
+    nameElement.textContent = "";
+  }
 }
 
 /**
@@ -180,11 +185,14 @@ function updateGreeting() {
   const currentHour = currentTime.getHours();
   let greeting;
   if (currentHour < 12) {
-    greeting = "Good morning,";
+    greeting = "Good morning";
   } else if (currentHour < 18) {
-    greeting = "Good afternoon,";
+    greeting = "Good afternoon";
   } else {
-    greeting = "Good evening,";
+    greeting = "Good evening";
+  }
+  if (currentUser.name.toLowerCase() !== "guest") {
+    greeting += ",";
   }
   greetingElement.textContent = greeting;
 }
