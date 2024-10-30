@@ -1,3 +1,13 @@
+/**
+ * Returns the HTML string for a big task card with the given parameters.
+ *
+ * The returned HTML will be a div with the class "big-card-modal" and the given index as its ID.
+ * It will have a header with the category and title, a body with the description, assigned members, and a list of subtasks, and a footer with a delete and edit button.
+ *
+ * @param {object} todo - The task object from the global todos array.
+ * @param {number} index - The index of the task card in the global todos array.
+ * @returns {string} - The HTML string for the big task card.
+ */
 function getTaskCardBigTemplate(todo, index) {
   const subTasksHtml = todo.subTasks
     ? Object.keys(todo.subTasks)

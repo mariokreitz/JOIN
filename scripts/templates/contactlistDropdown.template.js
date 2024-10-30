@@ -1,3 +1,8 @@
+/**
+ * Returns an HTML string representing a list item indicating that no
+ * contacts were found.
+ * @returns {string} An HTML string representing a list item.
+ */
 function noContactsTemplate() {
   return /*html*/ `
     <li class="no-contacts">

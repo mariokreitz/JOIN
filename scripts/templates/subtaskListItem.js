@@ -1,3 +1,10 @@
+/**
+ * Returns a string of HTML for a subtask list item with the given subtask text.
+ * The returned HTML will be a span element with the subtask text and a div
+ * element with the "edit" and "delete" icons.
+ * @param {string} subtaskText - The text of the subtask.
+ * @returns {string} - The HTML string for the subtask list item.
+ */
 function getSubtaskListItemTemplate(subtaskText) {
   return /* HTML */ `
     <span class="subtask-text">${subtaskText}</span>

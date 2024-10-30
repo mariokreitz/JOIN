@@ -1,3 +1,7 @@
+/**
+ * Returns the HTML template for the add task form.
+ * @returns {String} The add task form template.
+ */
 function getAddTaskTemplate() {
   return /*html*/ `
   <div class="add-task-content">

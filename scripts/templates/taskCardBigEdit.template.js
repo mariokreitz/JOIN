@@ -1,3 +1,9 @@
+/**
+ * Returns the HTML template for the big card in edit mode.
+ * @param {Todo} todo The todo that is being edited.
+ * @param {number} index The index of the todo in the todo list.
+ * @returns {string} The HTML template for the big card in edit mode.
+ */
 function getTaskCardBigEditTemplate(todo, index) {
   return /* HTML */ `
     <div id="closeEditContainer" class="bigc-main-container inter-extralight">
