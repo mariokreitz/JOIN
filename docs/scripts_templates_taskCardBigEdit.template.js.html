@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/templates/taskCardBigEdit.template.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/templates/taskCardBigEdit.template.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Returns the HTML template for the big card in edit mode.
+ * @param {Todo} todo The todo that is being edited.
+ * @param {number} index The index of the todo in the todo list.
+ * @returns {string} The HTML template for the big card in edit mode.
+ */
+function getTaskCardBigEditTemplate(todo, index) {
+  return /* HTML */ `
+    &lt;div id="closeEditContainer" class="bigc-main-container inter-extralight">
+      &lt;span class="close-btn big-card-close-x" onclick="openTodoModal(${index}, true)">
+        &lt;img src="./assets/svg/close.svg" alt="" />
+      &lt;/span>
+      &lt;div class="card-form-container" id="edit-card-form-container">
+        &lt;div class="form-group">
+          &lt;label for="title">Title&lt;/label>
+          &lt;input autocomplete="off" type="text" id="bc-todo-titel" value="${todo.title}" required />
+        &lt;/div>
+
+        &lt;div class="form-group">
+          &lt;label for="description">Description&lt;/label>
+          &lt;textarea id="bc-description-textarea" placeholder="Enter a Description">${todo.description}&lt;/textarea>
+        &lt;/div>
+
+        &lt;div class="form-group">
+          &lt;label for="due-date">Due date&lt;/label>
+          &lt;div class="input-container">
+            &lt;input type="date" id="due-date" value="${todo.date}" required />
+            &lt;div class="icon-container">
+              &lt;img src="./assets/svg/event.svg" alt="date icon" class="icon" id="date-icon" />
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+
+        &lt;div class="form-group">
+          &lt;label class="">Priority&lt;/label>
+          &lt;div class="priority-actions">
+            &lt;div
+              id="bc-select-urgent"
+              class="bc-prio-select bc-prio-urgent"
+              onclick="togglePriorityState('bc-select-urgent')">
+              &lt;span>Urgent&lt;/span>
+              &lt;svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                &lt;path
+                  d="M18.9199 14.6516C18.6853 14.652 18.4567 14.5772 18.2678 14.4381L10.0158 8.35491L1.76372 14.4381C1.64787 14.5236 1.51628 14.5856 1.37648 14.6203C1.23668 14.6551 1.0914 14.662 0.94893 14.6406C0.806462 14.6193 0.669598 14.5701 0.546153 14.4959C0.422708 14.4217 0.315099 14.3239 0.22947 14.2081C0.143841 14.0923 0.0818687 13.9609 0.0470921 13.8212C0.0123154 13.6815 0.00541523 13.5363 0.0267854 13.3939C0.0699445 13.1064 0.225635 12.8478 0.459607 12.675L9.36372 6.10452C9.55241 5.96493 9.78099 5.88959 10.0158 5.88959C10.2506 5.88959 10.4791 5.96493 10.6678 6.10452L19.5719 12.675C19.7579 12.8119 19.8957 13.004 19.9659 13.2239C20.036 13.4438 20.0349 13.6802 19.9626 13.8994C19.8903 14.1186 19.7505 14.3093 19.5633 14.4444C19.376 14.5795 19.1508 14.652 18.9199 14.6516Z"
+                  fill="#FF3D00" />
+                &lt;path
+                  d="M18.9199 8.9025C18.6853 8.90291 18.4567 8.82806 18.2678 8.68896L10.0158 2.6058L1.76372 8.68896C1.52975 8.86177 1.23666 8.93462 0.948935 8.8915C0.661208 8.84837 0.40241 8.69279 0.229474 8.459C0.0565387 8.2252 -0.0163691 7.93233 0.02679 7.64481C0.069949 7.3573 0.22564 7.09869 0.459611 6.92588L9.36372 0.355408C9.55242 0.215817 9.781 0.140472 10.0158 0.140472C10.2506 0.140472 10.4791 0.215817 10.6678 0.355408L19.5719 6.92588C19.7579 7.0628 19.8957 7.25491 19.9659 7.47479C20.036 7.69467 20.0349 7.93108 19.9626 8.15026C19.8903 8.36944 19.7505 8.5602 19.5633 8.69529C19.376 8.83038 19.1508 8.9029 18.9199 8.9025Z"
+                  fill="#FF3D00" />
+              &lt;/svg>
+            &lt;/div>
+            &lt;div
+              id="bc-select-medium"
+              class="bc-prio-select bc-prio-medium"
+              onclick="togglePriorityState('bc-select-medium')">
+              &lt;span>Medium&lt;/span
+              >&lt;svg width="21" height="9" viewBox="0 0 21 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                &lt;path
+                  d="M19.0862 8.122H1.27802C0.987371 8.122 0.708627 8.00571 0.503108 7.79869C0.297588 7.59168 0.182129 7.31091 0.182129 7.01816C0.182129 6.7254 0.297588 6.44463 0.503108 6.23762C0.708627 6.0306 0.987371 5.91431 1.27802 5.91431H19.0862C19.3769 5.91431 19.6556 6.0306 19.8612 6.23762C20.0667 6.44463 20.1821 6.7254 20.1821 7.01816C20.1821 7.31091 20.0667 7.59168 19.8612 7.79869C19.6556 8.00571 19.3769 8.122 19.0862 8.122Z"
+                  fill="#FFA800" />
+                &lt;path
+                  d="M19.0862 2.87884H1.27802C0.987371 2.87884 0.708627 2.76254 0.503108 2.55553C0.297588 2.34852 0.182129 2.06775 0.182129 1.77499C0.182129 1.48223 0.297588 1.20146 0.503108 0.994452C0.708627 0.787441 0.987371 0.671143 1.27802 0.671143L19.0862 0.671143C19.3769 0.671143 19.6556 0.787441 19.8612 0.994452C20.0667 1.20146 20.1821 1.48223 20.1821 1.77499C20.1821 2.06775 20.0667 2.34852 19.8612 2.55553C19.6556 2.76254 19.3769 2.87884 19.0862 2.87884Z"
+                  fill="#FFA800" />
+              &lt;/svg>
+            &lt;/div>
+            &lt;div id="bc-select-low" class="bc-prio-select bc-prio-low" onclick="togglePriorityState('bc-select-low')">
+              &lt;span>Low&lt;/span
+              >&lt;svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                &lt;path
+                  d="M10.8491 8.90286C10.6145 8.90327 10.386 8.82843 10.1971 8.68935L1.29403 2.11961C1.1782 2.03406 1.08036 1.92654 1.0061 1.8032C0.931846 1.67986 0.882629 1.54311 0.861261 1.40076C0.818107 1.11328 0.891007 0.820446 1.06392 0.586673C1.23684 0.352901 1.49561 0.197343 1.7833 0.154221C2.071 0.111099 2.36405 0.183944 2.598 0.356733L10.8491 6.43921L19.1002 0.356733C19.2161 0.271177 19.3477 0.209257 19.4874 0.17451C19.6272 0.139763 19.7725 0.132869 19.9149 0.154221C20.0574 0.175573 20.1942 0.224753 20.3177 0.298953C20.4411 0.373154 20.5487 0.470921 20.6343 0.586673C20.7199 0.702426 20.7819 0.833896 20.8167 0.973578C20.8514 1.11326 20.8583 1.25842 20.837 1.40076C20.8156 1.54311 20.7664 1.67986 20.6921 1.8032C20.6179 1.92654 20.52 2.03406 20.4042 2.11961L11.5011 8.68935C11.3123 8.82843 11.0837 8.90327 10.8491 8.90286Z"
+                  fill="#7AE229" />
+                &lt;path
+                  d="M10.8491 14.6514C10.6145 14.6518 10.386 14.577 10.1971 14.4379L1.29403 7.86815C1.06009 7.69536 0.904415 7.43678 0.861261 7.1493C0.818107 6.86182 0.891007 6.56898 1.06392 6.33521C1.23684 6.10144 1.49561 5.94588 1.7833 5.90276C2.071 5.85963 2.36405 5.93248 2.598 6.10527L10.8491 12.1877L19.1002 6.10527C19.3342 5.93248 19.6272 5.85963 19.9149 5.90276C20.2026 5.94588 20.4614 6.10144 20.6343 6.33521C20.8072 6.56898 20.8801 6.86182 20.837 7.1493C20.7938 7.43678 20.6382 7.69536 20.4042 7.86815L11.5011 14.4379C11.3123 14.577 11.0837 14.6518 10.8491 14.6514Z"
+                  fill="#7AE229" />
+              &lt;/svg>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+
+        &lt;div class="form-group custom-dropdown contact-dropdown">
+          &lt;label>Assigned to&lt;/label>
+          &lt;div class="input-container">
+            &lt;input
+              autocomplete="off"
+              type="text"
+              id="search"
+              placeholder="Select contacts to assign"
+              onkeyup="filterContactOptions()"
+              onclick="toggleContactDropdown(event)" />
+            &lt;div
+              id="dropdown-icon-container"
+              class="icon-container dropdown-btn"
+              onclick="toggleContactDropdown(event)">
+              &lt;img src="./assets/svg/arrow-dropdown.svg" alt="dropdown icon" class="icon" id="dropdown-icon" />
+            &lt;/div>
+          &lt;/div>
+          &lt;ul id="contact-dropdown-options" class="options">&lt;/ul>
+          &lt;div id="selected-badges" class="selected-badges">&lt;/div>
+        &lt;/div>
+
+        &lt;div class="form-group subtask">
+          &lt;label for="subtasks">Subtasks&lt;/label>
+          &lt;div class="input-container">
+            &lt;input
+              autocomplete="off"
+              type="text"
+              id="subtasks"
+              placeholder="Add new subtask"
+              oninput="updateSubtaskIcons()" />
+            &lt;div class="icon-container" onclick="focusInput()">
+              &lt;img src="./assets/svg/add-icon.svg" alt="add icon" class="icon add-icon" id="add-icon" />
+            &lt;/div>
+            &lt;div class="subtask-actions" id="subtask-actions">
+              &lt;div class="icon-container" onclick="clearSubtaskInput()">
+                &lt;img src="./assets/svg/close.svg" alt="cancel icon" class="icon cancel-icon" />
+              &lt;/div>
+              &lt;div class="icon-seperator">&lt;/div>
+              &lt;div class="icon-container" onclick="addSubtask()">
+                &lt;img src="./assets/svg/check-mark-dark.svg" alt="confirm icon" class="icon confirm-icon" />
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+          &lt;ul id="subtask-list">&lt;/ul>
+        &lt;/div>
+      &lt;/div>
+
+      &lt;button onclick="saveEditedTodo(${index})" class="bc-end-button">
+        Ok&lt;svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          &lt;path
+            d="M6.23282 9.04673L14.7078 0.571728C14.9078 0.371729 15.1453 0.271729 15.4203 0.271729C15.6953 0.271729 15.9328 0.371729 16.1328 0.571728C16.3328 0.771728 16.4328 1.00923 16.4328 1.28423C16.4328 1.55923 16.3328 1.79673 16.1328 1.99673L6.93282 11.1967C6.73282 11.3967 6.49949 11.4967 6.23282 11.4967C5.96616 11.4967 5.73282 11.3967 5.53282 11.1967L1.23282 6.89673C1.03282 6.69673 0.936991 6.45923 0.945324 6.18423C0.953658 5.90923 1.05782 5.67173 1.25782 5.47173C1.45782 5.27173 1.69532 5.17173 1.97032 5.17173C2.24532 5.17173 2.48282 5.27173 2.68282 5.47173L6.23282 9.04673Z"
+            fill="white" />
+        &lt;/svg>
+      &lt;/button>
+    &lt;/div>
+  `;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_URL">API_URL</a></li><li><a href="global.html#TIMEOUT">TIMEOUT</a></li><li><a href="global.html#addBadge">addBadge</a></li><li><a href="global.html#addDragAreaHighlighting">addDragAreaHighlighting</a></li><li><a href="global.html#addHollowPlaceholder">addHollowPlaceholder</a></li><li><a href="global.html#addMobileMenu">addMobileMenu</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#adjustDisplayForScreenSize">adjustDisplayForScreenSize</a></li><li><a href="global.html#adjustNavbarForMobile">adjustNavbarForMobile</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#applyAnimation">applyAnimation</a></li><li><a href="global.html#applyAnimationToContactView">applyAnimationToContactView</a></li><li><a href="global.html#arrayToObject">arrayToObject</a></li><li><a href="global.html#changeVisibilityIcon">changeVisibilityIcon</a></li><li><a href="global.html#checkAndLoadUserCredentialsFromLocalStorage">checkAndLoadUserCredentialsFromLocalStorage</a></li><li><a href="global.html#checkAndSaveUserCredentialsToLocalStorage">checkAndSaveUserCredentialsToLocalStorage</a></li><li><a href="global.html#checkAuthorization">checkAuthorization</a></li><li><a href="global.html#checkIfDuplicate">checkIfDuplicate</a></li><li><a href="global.html#checkScrollbar">checkScrollbar</a></li><li><a href="global.html#clearBoardColumns">clearBoardColumns</a></li><li><a href="global.html#clearDueDate">clearDueDate</a></li><li><a href="global.html#clearErrorMessages">clearErrorMessages</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearInputFields">clearInputFields</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearWarnings">clearWarnings</a></li><li><a href="global.html#closeAddTaskModal">closeAddTaskModal</a></li><li><a href="global.html#closeContactModal">closeContactModal</a></li><li><a href="global.html#closeEditMenu">closeEditMenu</a></li><li><a href="global.html#countTodos">countTodos</a></li><li><a href="global.html#countUrgentTodos">countUrgentTodos</a></li><li><a href="global.html#createAssignedMemberElement">createAssignedMemberElement</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactInDatabase">createContactInDatabase</a></li><li><a href="global.html#createSubtaskListItem">createSubtaskListItem</a></li><li><a href="global.html#createTodo">createTodo</a></li><li><a href="global.html#createUserInFirebaseDatabase">createUserInFirebaseDatabase</a></li><li><a href="global.html#currentTarget">currentTarget</a></li><li><a href="global.html#currentUser">currentUser</a></li><li><a href="global.html#currentlyDraggedElement">currentlyDraggedElement</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactFromDatabase">deleteContactFromDatabase</a></li><li><a href="global.html#deleteTaskCard">deleteTaskCard</a></li><li><a href="global.html#deleteTodo">deleteTodo</a></li><li><a href="global.html#deleteTodosInFirebase">deleteTodosInFirebase</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#displayContactView">displayContactView</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#fillCredentialsInLoginForm">fillCredentialsInLoginForm</a></li><li><a href="global.html#filterContactOptions">filterContactOptions</a></li><li><a href="global.html#findEarliestDeadline">findEarliestDeadline</a></li><li><a href="global.html#findKeyByCreatedAt">findKeyByCreatedAt</a></li><li><a href="global.html#firebaseConfig">firebaseConfig</a></li><li><a href="global.html#focusSubtaskInput">focusSubtaskInput</a></li><li><a href="global.html#formatDueDate">formatDueDate</a></li><li><a href="global.html#generateContactListHtml">generateContactListHtml</a></li><li><a href="global.html#getAddTaskModalTemplate">getAddTaskModalTemplate</a></li><li><a href="global.html#getAddTaskTemplate">getAddTaskTemplate</a></li><li><a href="global.html#getAssignedMemberColor">getAssignedMemberColor</a></li><li><a href="global.html#getAssignedMemberTemplate">getAssignedMemberTemplate</a></li><li><a href="global.html#getAssignedMembersNames">getAssignedMembersNames</a></li><li><a href="global.html#getBoardColumns">getBoardColumns</a></li><li><a href="global.html#getBoardColumnsFromDOM">getBoardColumnsFromDOM</a></li><li><a href="global.html#getContactIdByCreatedAt">getContactIdByCreatedAt</a></li><li><a href="global.html#getContactModalTemplate">getContactModalTemplate</a></li><li><a href="global.html#getContactSectionTemplate">getContactSectionTemplate</a></li><li><a href="global.html#getContactTemplate">getContactTemplate</a></li><li><a href="global.html#getContactViewTemplate">getContactViewTemplate</a></li><li><a href="global.html#getContactsFromData">getContactsFromData</a></li><li><a href="global.html#getCredentialsFromForm">getCredentialsFromForm</a></li><li><a href="global.html#getDataFromFirebase">getDataFromFirebase</a></li><li><a href="global.html#getDoneAmount">getDoneAmount</a></li><li><a href="global.html#getDragAreaHollowPlaceholder">getDragAreaHollowPlaceholder</a></li><li><a href="global.html#getFormData">getFormData</a></li><li><a href="global.html#getFormValues">getFormValues</a></li><li><a href="global.html#getHeaderTemplate">getHeaderTemplate</a></li><li><a href="global.html#getInitialsFromContact">getInitialsFromContact</a></li><li><a href="global.html#getLatestCreatedContact">getLatestCreatedContact</a></li><li><a href="global.html#getNavbarTemplate">getNavbarTemplate</a></li><li><a href="global.html#getNewDescriptionValue">getNewDescriptionValue</a></li><li><a href="global.html#getNewDueDateValue">getNewDueDateValue</a></li><li><a href="global.html#getNewTitleValue">getNewTitleValue</a></li><li><a href="global.html#getObjectLength">getObjectLength</a></li><li><a href="global.html#getPlaceholderText">getPlaceholderText</a></li><li><a href="global.html#getProgressValueFromSubTasks">getProgressValueFromSubTasks</a></li><li><a href="global.html#getSelectedPriorityValue">getSelectedPriorityValue</a></li><li><a href="global.html#getSubtaskListItemTemplate">getSubtaskListItemTemplate</a></li><li><a href="global.html#getSubtasksText">getSubtasksText</a></li><li><a href="global.html#getTaskCardBigEditTemplate">getTaskCardBigEditTemplate</a></li><li><a href="global.html#getTaskCardBigTemplate">getTaskCardBigTemplate</a></li><li><a href="global.html#getTaskCardSmallTemplate">getTaskCardSmallTemplate</a></li><li><a href="global.html#getToastMessageTemplate">getToastMessageTemplate</a></li><li><a href="global.html#getTodosFromData">getTodosFromData</a></li><li><a href="global.html#getUserFromFirebaseDatabase">getUserFromFirebaseDatabase</a></li><li><a href="global.html#globalContacts">globalContacts</a></li><li><a href="global.html#globalState">globalState</a></li><li><a href="global.html#globalTodos">globalTodos</a></li><li><a href="global.html#goBack">goBack</a></li><li><a href="global.html#groupContactsByLetter">groupContactsByLetter</a></li><li><a href="global.html#handleDragEvents">handleDragEvents</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handlePrioChange">handlePrioChange</a></li><li><a href="global.html#handleRouteChange">handleRouteChange</a></li><li><a href="global.html#handleSaveClick">handleSaveClick</a></li><li><a href="global.html#handleSignupReferrer">handleSignupReferrer</a></li><li><a href="global.html#highPriotiySVG">highPriotiySVG</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRender">initRender</a></li><li><a href="global.html#initializeBadges">initializeBadges</a></li><li><a href="global.html#initializeCurrentUser">initializeCurrentUser</a></li><li><a href="global.html#isCategoryDropdownOpen">isCategoryDropdownOpen</a></li><li><a href="global.html#isContactDropdownOpen">isContactDropdownOpen</a></li><li><a href="global.html#isDueOrOverdue">isDueOrOverdue</a></li><li><a href="global.html#isSignupReferrer">isSignupReferrer</a></li><li><a href="global.html#loadComponents">loadComponents</a></li><li><a href="global.html#loadCurrentUserFromLocalStorage">loadCurrentUserFromLocalStorage</a></li><li><a href="global.html#loadHeader">loadHeader</a></li><li><a href="global.html#loadNavbar">loadNavbar</a></li><li><a href="global.html#loadScripts">loadScripts</a></li><li><a href="global.html#loadSubtasks">loadSubtasks</a></li><li><a href="global.html#loadUserCredentialsFromLocalStorage">loadUserCredentialsFromLocalStorage</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowPriotiySVG">lowPriotiySVG</a></li><li><a href="global.html#mediumPriotiySVG">mediumPriotiySVG</a></li><li><a href="global.html#noContactsTemplate">noContactsTemplate</a></li><li><a href="global.html#objectToArray">objectToArray</a></li><li><a href="global.html#onDrop">onDrop</a></li><li><a href="global.html#openAddTaskModal">openAddTaskModal</a></li><li><a href="global.html#openContactModal">openContactModal</a></li><li><a href="global.html#openDatePicker">openDatePicker</a></li><li><a href="global.html#openProfileMenu">openProfileMenu</a></li><li><a href="global.html#openStateChangeMenu">openStateChangeMenu</a></li><li><a href="global.html#openTodoModal">openTodoModal</a></li><li><a href="global.html#openTodoModalEdit">openTodoModalEdit</a></li><li><a href="global.html#outsideClickListener">outsideClickListener</a></li><li><a href="global.html#outsideClickListenerWrapper">outsideClickListenerWrapper</a></li><li><a href="global.html#outsideClickListenerWrapperCategory">outsideClickListenerWrapperCategory</a></li><li><a href="global.html#populateCounters">populateCounters</a></li><li><a href="global.html#priority">priority</a></li><li><a href="global.html#profileColors">profileColors</a></li><li><a href="global.html#redirectToHomeIfAuthorized">redirectToHomeIfAuthorized</a></li><li><a href="global.html#removeAllHighlights">removeAllHighlights</a></li><li><a href="global.html#removeBadge">removeBadge</a></li><li><a href="global.html#removeContactView">removeContactView</a></li><li><a href="global.html#removeDragAreaHighlighting">removeDragAreaHighlighting</a></li><li><a href="global.html#removeHollowPlaceholder">removeHollowPlaceholder</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderAllPlaceholder">renderAllPlaceholder</a></li><li><a href="global.html#renderAssignedMembersForTodo">renderAssignedMembersForTodo</a></li><li><a href="global.html#renderContactDropdown">renderContactDropdown</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#renderContactListHtml">renderContactListHtml</a></li><li><a href="global.html#renderContactsPage">renderContactsPage</a></li><li><a href="global.html#renderHollowPlaceholder">renderHollowPlaceholder</a></li><li><a href="global.html#renderNoContactsMessage">renderNoContactsMessage</a></li><li><a href="global.html#renderPlaceholder">renderPlaceholder</a></li><li><a href="global.html#renderTodos">renderTodos</a></li><li><a href="global.html#resetPriorityStates">resetPriorityStates</a></li><li><a href="global.html#restrictPastDatePick">restrictPastDatePick</a></li><li><a href="global.html#saveCurrentUserToLocalStorage">saveCurrentUserToLocalStorage</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditedTodo">saveEditedTodo</a></li><li><a href="global.html#saveUserCredentialsToLocalStorage">saveUserCredentialsToLocalStorage</a></li><li><a href="global.html#searchTodoRef">searchTodoRef</a></li><li><a href="global.html#searchTodos">searchTodos</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectLatestCreatedContact">selectLatestCreatedContact</a></li><li><a href="global.html#selectedOptions">selectedOptions</a></li><li><a href="global.html#setDefaultPriority">setDefaultPriority</a></li><li><a href="global.html#setLogoFinalPosition">setLogoFinalPosition</a></li><li><a href="global.html#setLogoStartPosition">setLogoStartPosition</a></li><li><a href="global.html#setProgressBarTooltip">setProgressBarTooltip</a></li><li><a href="global.html#setWhiteFill">setWhiteFill</a></li><li><a href="global.html#shouldRedirect">shouldRedirect</a></li><li><a href="global.html#showEmailWarning">showEmailWarning</a></li><li><a href="global.html#showGreeting">showGreeting</a></li><li><a href="global.html#showNameWarning">showNameWarning</a></li><li><a href="global.html#showPhoneWarning">showPhoneWarning</a></li><li><a href="global.html#showToastMessage">showToastMessage</a></li><li><a href="global.html#showWarning">showWarning</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#startDraggingTodo">startDraggingTodo</a></li><li><a href="global.html#subTasks">subTasks</a></li><li><a href="global.html#textContent">textContent</a></li><li><a href="global.html#todoStates">todoStates</a></li><li><a href="global.html#toggleCategoryDropdown">toggleCategoryDropdown</a></li><li><a href="global.html#toggleConfirmPasswordVisibility">toggleConfirmPasswordVisibility</a></li><li><a href="global.html#toggleConfirmPasswordVisibilityIcon">toggleConfirmPasswordVisibilityIcon</a></li><li><a href="global.html#toggleContactDropdown">toggleContactDropdown</a></li><li><a href="global.html#toggleContactView">toggleContactView</a></li><li><a href="global.html#toggleEditMenu">toggleEditMenu</a></li><li><a href="global.html#toggleElementVisibility">toggleElementVisibility</a></li><li><a href="global.html#toggleOptionSelection">toggleOptionSelection</a></li><li><a href="global.html#togglePasswordVisibilityIcon">togglePasswordVisibilityIcon</a></li><li><a href="global.html#togglePlaceholder">togglePlaceholder</a></li><li><a href="global.html#togglePriorityState">togglePriorityState</a></li><li><a href="global.html#togglePrivacyPolicyCheckbox">togglePrivacyPolicyCheckbox</a></li><li><a href="global.html#toggleRememberMe">toggleRememberMe</a></li><li><a href="global.html#toggleSelectedContactInList">toggleSelectedContactInList</a></li><li><a href="global.html#toggleSubtask">toggleSubtask</a></li><li><a href="global.html#toggleSubtaskModalWrapperVisibility">toggleSubtaskModalWrapperVisibility</a></li><li><a href="global.html#toggleTodoModal">toggleTodoModal</a></li><li><a href="global.html#triggerFadeIn">triggerFadeIn</a></li><li><a href="global.html#triggerLogoAnimation">triggerLogoAnimation</a></li><li><a href="global.html#triggerLogoAnimationSequence">triggerLogoAnimationSequence</a></li><li><a href="global.html#triggerRender">triggerRender</a></li><li><a href="global.html#truncateText">truncateText</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateContactInDatabase">updateContactInDatabase</a></li><li><a href="global.html#updateDueDate">updateDueDate</a></li><li><a href="global.html#updateDueDateText">updateDueDateText</a></li><li><a href="global.html#updateGreeting">updateGreeting</a></li><li><a href="global.html#updateSubTasksDisplay">updateSubTasksDisplay</a></li><li><a href="global.html#updateSubtaskIcons">updateSubtaskIcons</a></li><li><a href="global.html#updateTodo">updateTodo</a></li><li><a href="global.html#updateTodoCounts">updateTodoCounts</a></li><li><a href="global.html#updateTodoMobile">updateTodoMobile</a></li><li><a href="global.html#updateTodosInFirebase">updateTodosInFirebase</a></li><li><a href="global.html#updateUserInfo">updateUserInfo</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#validateFormdata">validateFormdata</a></li><li><a href="global.html#validateLoginFormData">validateLoginFormData</a></li><li><a href="global.html#validateTodoForm">validateTodoForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Oct 31 2024 00:13:51 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/helper/contactDropDown.helper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/helper/contactDropDown.helper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Given an array of contacts, an array of assigned members, and a filter string, returns an HTML string
+ * representing the contact list.
+ *
+ * @param {Array&lt;Object>} contacts - An array of contact objects.
+ * @param {Array&lt;string>} assignedMembers - An array of strings representing the names of assigned members.
+ * @param {string} filter - A string to filter the contacts by.
+ * @returns {string} An HTML string representing the contact list.
+ */
+function generateContactListHtml(contacts, assignedMembers = [], filter = "") {
+  const filteredContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()));
+
+  if (filteredContacts.length === 0) return noContactsTemplate();
+
+  return filteredContacts
+    .map((contact) => {
+      const initials = getInitialsFromContact(contact);
+      const originalIndex = contacts.indexOf(contact);
+      const isSelected = assignedMembers.some((member) => member.toLowerCase() === contact.name.toLowerCase());
+
+      return contactListItemTemplate(contact, originalIndex, initials, isSelected);
+    })
+    .join("");
+}
+
+/**
+ * Renders the contact dropdown list by generating the HTML for the list and setting the
+ * innerHTML of the dropdown options element to the generated HTML.
+ *
+ * @param {Array&lt;string>} [assignedMembers] - An array of strings representing the names of assigned members.
+ *   Defaults to an empty array.
+ * @param {string} [filterValue] - A string to filter the contacts by. Defaults to an empty string.
+ * @returns {void}
+ */
+function renderContactDropdown(assignedMembers = [], filterValue) {
+  const dropdownOptionsElement = document.getElementById("contact-dropdown-options");
+
+  if (dropdownOptionsElement) {
+    const contactListHtml = generateContactListHtml(globalContacts, assignedMembers, filterValue);
+    dropdownOptionsElement.innerHTML = contactListHtml;
+  }
+}
+
+/**
+ * Toggles the contact dropdown by toggling the "show" class on the dropdown options element.
+ *
+ * Listens for a click event on the document to close the dropdown when clicked outside of the dropdown.
+ *
+ * If the event target is the dropdown icon or icon container, toggles the "show" class and the "rotated" class on the dropdown icon.
+ * If the event target is not the dropdown icon or icon container and the dropdown is not visible, shows the dropdown and adds the event listener.
+ * If the event target is not the dropdown icon or icon container and the dropdown is visible, removes the event listener and hides the dropdown.
+ *
+ * @param {Event} event - The event object from the click event.
+ * @returns {void}
+ */
+function toggleContactDropdown(event) {
+  event.stopPropagation();
+  const dropdownElement = document.getElementById("contact-dropdown-options");
+  const iconElement = document.getElementById("dropdown-icon");
+
+  if (event.target.id === "dropdown-icon-container" || event.target.id === "dropdown-icon") {
+    dropdownElement.classList.toggle("show");
+    iconElement.classList.toggle("rotated");
+
+    if (dropdownElement.classList.contains("show")) {
+      document.addEventListener("click", outsideClickListenerWrapper);
+    } else {
+      document.removeEventListener("click", outsideClickListenerWrapper);
+    }
+  } else {
+    if (dropdownElement &amp;&amp; !dropdownElement.classList.contains("show")) {
+      dropdownElement.classList.add("show");
+      iconElement.classList.add("rotated");
+      document.addEventListener("click", outsideClickListenerWrapper);
+    }
+  }
+}
+
+/**
+ * Filters the contact dropdown options based on the search input value and
+ * re-renders the dropdown with the filtered options.
+ *
+ * @returns {void}
+ */
+function filterContactOptions() {
+  const searchInput = document.getElementById("search");
+  const filterValue = searchInput.value;
+  const assignedMembers = getAssignedMembersNames();
+  renderContactDropdown(assignedMembers, filterValue);
+}
+
+/**
+ * Toggles the selection of a contact dropdown option by changing the
+ * checked state of the checkbox and the selected class of the option.
+ *
+ * @param {HTMLElement} option - The &lt;li> element of the contact dropdown option.
+ *
+ * @returns {void}
+ */
+function toggleOptionSelection(option) {
+  const checkboxElement = option.querySelector(".checkbox");
+  const initialsText = option.querySelector(".badge").innerText.trim();
+  const contactId = option.dataset.id;
+
+  const isChecked = (checkboxElement.checked = !checkboxElement.checked);
+  option.classList.toggle("selected", isChecked);
+
+  if (isChecked) addBadge(contactId, initialsText, option.querySelector(".badge").style.backgroundColor);
+  else removeBadge(contactId);
+}
+
+/**
+ * Adds a badge to the selected-badges container for the given contact ID and
+ * initials. The badge is colored with the given color.
+ *
+ * @param {string} contactId - The ID of the contact to add a badge for.
+ * @param {string} contactInitials - The initials of the contact to add a badge for.
+ * @param {string} badgeColor - The color of the badge to add.
+ */
+function addBadge(contactId, contactInitials, badgeColor) {
+  if (!selectedOptions.includes(contactId)) {
+    selectedOptions.push(contactId);
+
+    const badgeContainer = document.getElementById("selected-badges");
+    const badgeElement = document.createElement("div");
+
+    badgeElement.classList.add("selected-badge");
+    badgeElement.setAttribute("data-id", contactId);
+    badgeElement.style.backgroundColor = badgeColor;
+    badgeElement.innerHTML = `&lt;span>${contactInitials}&lt;/span>`;
+    badgeContainer.appendChild(badgeElement);
+  }
+}
+
+/**
+ * Removes the badge for the given contact ID from the selected-badges
+ * container and removes the contact ID from the selectedOptions array.
+ *
+ * @param {string} contactId - The ID of the contact to remove a badge for.
+ *
+ * @returns {void}
+ */
+function removeBadge(contactId) {
+  const index = selectedOptions.indexOf(contactId);
+  if (index >= 0) selectedOptions.splice(index, 1);
+
+  const badgeContainer = document.getElementById("selected-badges");
+  const badgeElement = badgeContainer.querySelector(`.selected-badge[data-id="${contactId}"]`);
+
+  if (badgeElement) badgeElement.remove();
+}
+
+/**
+ * Initializes the badges for the contact dropdown options by iterating through
+ * each option. If the option is checked, it adds a badge to the selected-badges
+ * container with the contact's initials and color, and marks the option as selected.
+ *
+ * This function ensures that the UI correctly reflects the current selection
+ * state of the contacts when the dropdown is opened.
+ *
+ * @returns {void}
+ */
+function initializeBadges() {
+  const contactOptions = document.querySelectorAll("#contact-dropdown-options li");
+
+  contactOptions.forEach((contactOption) => {
+    const checkboxElement = contactOption.querySelector(".checkbox");
+    const contactInitials = contactOption.querySelector(".badge").innerText.trim();
+    const contactId = contactOption.dataset.id;
+
+    contactOption.classList.remove("selected");
+
+    if (checkboxElement.checked) {
+      const badgeColor = contactOption.querySelector(".badge").style.backgroundColor;
+      addBadge(contactId, contactInitials, badgeColor);
+      contactOption.classList.add("selected");
+    }
+  });
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_URL">API_URL</a></li><li><a href="global.html#TIMEOUT">TIMEOUT</a></li><li><a href="global.html#addBadge">addBadge</a></li><li><a href="global.html#addDragAreaHighlighting">addDragAreaHighlighting</a></li><li><a href="global.html#addHollowPlaceholder">addHollowPlaceholder</a></li><li><a href="global.html#addMobileMenu">addMobileMenu</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#adjustDisplayForScreenSize">adjustDisplayForScreenSize</a></li><li><a href="global.html#adjustNavbarForMobile">adjustNavbarForMobile</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#applyAnimation">applyAnimation</a></li><li><a href="global.html#applyAnimationToContactView">applyAnimationToContactView</a></li><li><a href="global.html#arrayToObject">arrayToObject</a></li><li><a href="global.html#changeVisibilityIcon">changeVisibilityIcon</a></li><li><a href="global.html#checkAndLoadUserCredentialsFromLocalStorage">checkAndLoadUserCredentialsFromLocalStorage</a></li><li><a href="global.html#checkAndSaveUserCredentialsToLocalStorage">checkAndSaveUserCredentialsToLocalStorage</a></li><li><a href="global.html#checkAuthorization">checkAuthorization</a></li><li><a href="global.html#checkIfDuplicate">checkIfDuplicate</a></li><li><a href="global.html#checkScrollbar">checkScrollbar</a></li><li><a href="global.html#clearBoardColumns">clearBoardColumns</a></li><li><a href="global.html#clearDueDate">clearDueDate</a></li><li><a href="global.html#clearErrorMessages">clearErrorMessages</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearInputFields">clearInputFields</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearWarnings">clearWarnings</a></li><li><a href="global.html#closeAddTaskModal">closeAddTaskModal</a></li><li><a href="global.html#closeContactModal">closeContactModal</a></li><li><a href="global.html#closeEditMenu">closeEditMenu</a></li><li><a href="global.html#countTodos">countTodos</a></li><li><a href="global.html#countUrgentTodos">countUrgentTodos</a></li><li><a href="global.html#createAssignedMemberElement">createAssignedMemberElement</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactInDatabase">createContactInDatabase</a></li><li><a href="global.html#createSubtaskListItem">createSubtaskListItem</a></li><li><a href="global.html#createTodo">createTodo</a></li><li><a href="global.html#createUserInFirebaseDatabase">createUserInFirebaseDatabase</a></li><li><a href="global.html#currentTarget">currentTarget</a></li><li><a href="global.html#currentUser">currentUser</a></li><li><a href="global.html#currentlyDraggedElement">currentlyDraggedElement</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactFromDatabase">deleteContactFromDatabase</a></li><li><a href="global.html#deleteTaskCard">deleteTaskCard</a></li><li><a href="global.html#deleteTodo">deleteTodo</a></li><li><a href="global.html#deleteTodosInFirebase">deleteTodosInFirebase</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#displayContactView">displayContactView</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#fillCredentialsInLoginForm">fillCredentialsInLoginForm</a></li><li><a href="global.html#filterContactOptions">filterContactOptions</a></li><li><a href="global.html#findEarliestDeadline">findEarliestDeadline</a></li><li><a href="global.html#findKeyByCreatedAt">findKeyByCreatedAt</a></li><li><a href="global.html#firebaseConfig">firebaseConfig</a></li><li><a href="global.html#focusSubtaskInput">focusSubtaskInput</a></li><li><a href="global.html#formatDueDate">formatDueDate</a></li><li><a href="global.html#generateContactListHtml">generateContactListHtml</a></li><li><a href="global.html#getAddTaskModalTemplate">getAddTaskModalTemplate</a></li><li><a href="global.html#getAddTaskTemplate">getAddTaskTemplate</a></li><li><a href="global.html#getAssignedMemberColor">getAssignedMemberColor</a></li><li><a href="global.html#getAssignedMemberTemplate">getAssignedMemberTemplate</a></li><li><a href="global.html#getAssignedMembersNames">getAssignedMembersNames</a></li><li><a href="global.html#getBoardColumns">getBoardColumns</a></li><li><a href="global.html#getBoardColumnsFromDOM">getBoardColumnsFromDOM</a></li><li><a href="global.html#getContactIdByCreatedAt">getContactIdByCreatedAt</a></li><li><a href="global.html#getContactModalTemplate">getContactModalTemplate</a></li><li><a href="global.html#getContactSectionTemplate">getContactSectionTemplate</a></li><li><a href="global.html#getContactTemplate">getContactTemplate</a></li><li><a href="global.html#getContactViewTemplate">getContactViewTemplate</a></li><li><a href="global.html#getContactsFromData">getContactsFromData</a></li><li><a href="global.html#getCredentialsFromForm">getCredentialsFromForm</a></li><li><a href="global.html#getDataFromFirebase">getDataFromFirebase</a></li><li><a href="global.html#getDoneAmount">getDoneAmount</a></li><li><a href="global.html#getDragAreaHollowPlaceholder">getDragAreaHollowPlaceholder</a></li><li><a href="global.html#getFormData">getFormData</a></li><li><a href="global.html#getFormValues">getFormValues</a></li><li><a href="global.html#getHeaderTemplate">getHeaderTemplate</a></li><li><a href="global.html#getInitialsFromContact">getInitialsFromContact</a></li><li><a href="global.html#getLatestCreatedContact">getLatestCreatedContact</a></li><li><a href="global.html#getNavbarTemplate">getNavbarTemplate</a></li><li><a href="global.html#getNewDescriptionValue">getNewDescriptionValue</a></li><li><a href="global.html#getNewDueDateValue">getNewDueDateValue</a></li><li><a href="global.html#getNewTitleValue">getNewTitleValue</a></li><li><a href="global.html#getObjectLength">getObjectLength</a></li><li><a href="global.html#getPlaceholderText">getPlaceholderText</a></li><li><a href="global.html#getProgressValueFromSubTasks">getProgressValueFromSubTasks</a></li><li><a href="global.html#getSelectedPriorityValue">getSelectedPriorityValue</a></li><li><a href="global.html#getSubtaskListItemTemplate">getSubtaskListItemTemplate</a></li><li><a href="global.html#getSubtasksText">getSubtasksText</a></li><li><a href="global.html#getTaskCardBigEditTemplate">getTaskCardBigEditTemplate</a></li><li><a href="global.html#getTaskCardBigTemplate">getTaskCardBigTemplate</a></li><li><a href="global.html#getTaskCardSmallTemplate">getTaskCardSmallTemplate</a></li><li><a href="global.html#getToastMessageTemplate">getToastMessageTemplate</a></li><li><a href="global.html#getTodosFromData">getTodosFromData</a></li><li><a href="global.html#getUserFromFirebaseDatabase">getUserFromFirebaseDatabase</a></li><li><a href="global.html#globalContacts">globalContacts</a></li><li><a href="global.html#globalState">globalState</a></li><li><a href="global.html#globalTodos">globalTodos</a></li><li><a href="global.html#goBack">goBack</a></li><li><a href="global.html#groupContactsByLetter">groupContactsByLetter</a></li><li><a href="global.html#handleDragEvents">handleDragEvents</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handlePrioChange">handlePrioChange</a></li><li><a href="global.html#handleRouteChange">handleRouteChange</a></li><li><a href="global.html#handleSaveClick">handleSaveClick</a></li><li><a href="global.html#handleSignupReferrer">handleSignupReferrer</a></li><li><a href="global.html#highPriotiySVG">highPriotiySVG</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRender">initRender</a></li><li><a href="global.html#initializeBadges">initializeBadges</a></li><li><a href="global.html#initializeCurrentUser">initializeCurrentUser</a></li><li><a href="global.html#isCategoryDropdownOpen">isCategoryDropdownOpen</a></li><li><a href="global.html#isContactDropdownOpen">isContactDropdownOpen</a></li><li><a href="global.html#isDueOrOverdue">isDueOrOverdue</a></li><li><a href="global.html#isSignupReferrer">isSignupReferrer</a></li><li><a href="global.html#loadComponents">loadComponents</a></li><li><a href="global.html#loadCurrentUserFromLocalStorage">loadCurrentUserFromLocalStorage</a></li><li><a href="global.html#loadHeader">loadHeader</a></li><li><a href="global.html#loadNavbar">loadNavbar</a></li><li><a href="global.html#loadScripts">loadScripts</a></li><li><a href="global.html#loadSubtasks">loadSubtasks</a></li><li><a href="global.html#loadUserCredentialsFromLocalStorage">loadUserCredentialsFromLocalStorage</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowPriotiySVG">lowPriotiySVG</a></li><li><a href="global.html#mediumPriotiySVG">mediumPriotiySVG</a></li><li><a href="global.html#noContactsTemplate">noContactsTemplate</a></li><li><a href="global.html#objectToArray">objectToArray</a></li><li><a href="global.html#onDrop">onDrop</a></li><li><a href="global.html#openAddTaskModal">openAddTaskModal</a></li><li><a href="global.html#openContactModal">openContactModal</a></li><li><a href="global.html#openDatePicker">openDatePicker</a></li><li><a href="global.html#openProfileMenu">openProfileMenu</a></li><li><a href="global.html#openStateChangeMenu">openStateChangeMenu</a></li><li><a href="global.html#openTodoModal">openTodoModal</a></li><li><a href="global.html#openTodoModalEdit">openTodoModalEdit</a></li><li><a href="global.html#outsideClickListener">outsideClickListener</a></li><li><a href="global.html#outsideClickListenerWrapper">outsideClickListenerWrapper</a></li><li><a href="global.html#outsideClickListenerWrapperCategory">outsideClickListenerWrapperCategory</a></li><li><a href="global.html#populateCounters">populateCounters</a></li><li><a href="global.html#priority">priority</a></li><li><a href="global.html#profileColors">profileColors</a></li><li><a href="global.html#redirectToHomeIfAuthorized">redirectToHomeIfAuthorized</a></li><li><a href="global.html#removeAllHighlights">removeAllHighlights</a></li><li><a href="global.html#removeBadge">removeBadge</a></li><li><a href="global.html#removeContactView">removeContactView</a></li><li><a href="global.html#removeDragAreaHighlighting">removeDragAreaHighlighting</a></li><li><a href="global.html#removeHollowPlaceholder">removeHollowPlaceholder</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderAllPlaceholder">renderAllPlaceholder</a></li><li><a href="global.html#renderAssignedMembersForTodo">renderAssignedMembersForTodo</a></li><li><a href="global.html#renderContactDropdown">renderContactDropdown</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#renderContactListHtml">renderContactListHtml</a></li><li><a href="global.html#renderContactsPage">renderContactsPage</a></li><li><a href="global.html#renderHollowPlaceholder">renderHollowPlaceholder</a></li><li><a href="global.html#renderNoContactsMessage">renderNoContactsMessage</a></li><li><a href="global.html#renderPlaceholder">renderPlaceholder</a></li><li><a href="global.html#renderTodos">renderTodos</a></li><li><a href="global.html#resetPriorityStates">resetPriorityStates</a></li><li><a href="global.html#restrictPastDatePick">restrictPastDatePick</a></li><li><a href="global.html#saveCurrentUserToLocalStorage">saveCurrentUserToLocalStorage</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditedTodo">saveEditedTodo</a></li><li><a href="global.html#saveUserCredentialsToLocalStorage">saveUserCredentialsToLocalStorage</a></li><li><a href="global.html#searchTodoRef">searchTodoRef</a></li><li><a href="global.html#searchTodos">searchTodos</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectLatestCreatedContact">selectLatestCreatedContact</a></li><li><a href="global.html#selectedOptions">selectedOptions</a></li><li><a href="global.html#setDefaultPriority">setDefaultPriority</a></li><li><a href="global.html#setLogoFinalPosition">setLogoFinalPosition</a></li><li><a href="global.html#setLogoStartPosition">setLogoStartPosition</a></li><li><a href="global.html#setProgressBarTooltip">setProgressBarTooltip</a></li><li><a href="global.html#setWhiteFill">setWhiteFill</a></li><li><a href="global.html#shouldRedirect">shouldRedirect</a></li><li><a href="global.html#showEmailWarning">showEmailWarning</a></li><li><a href="global.html#showGreeting">showGreeting</a></li><li><a href="global.html#showNameWarning">showNameWarning</a></li><li><a href="global.html#showPhoneWarning">showPhoneWarning</a></li><li><a href="global.html#showToastMessage">showToastMessage</a></li><li><a href="global.html#showWarning">showWarning</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#startDraggingTodo">startDraggingTodo</a></li><li><a href="global.html#subTasks">subTasks</a></li><li><a href="global.html#textContent">textContent</a></li><li><a href="global.html#todoStates">todoStates</a></li><li><a href="global.html#toggleCategoryDropdown">toggleCategoryDropdown</a></li><li><a href="global.html#toggleConfirmPasswordVisibility">toggleConfirmPasswordVisibility</a></li><li><a href="global.html#toggleConfirmPasswordVisibilityIcon">toggleConfirmPasswordVisibilityIcon</a></li><li><a href="global.html#toggleContactDropdown">toggleContactDropdown</a></li><li><a href="global.html#toggleContactView">toggleContactView</a></li><li><a href="global.html#toggleEditMenu">toggleEditMenu</a></li><li><a href="global.html#toggleElementVisibility">toggleElementVisibility</a></li><li><a href="global.html#toggleOptionSelection">toggleOptionSelection</a></li><li><a href="global.html#togglePasswordVisibilityIcon">togglePasswordVisibilityIcon</a></li><li><a href="global.html#togglePlaceholder">togglePlaceholder</a></li><li><a href="global.html#togglePriorityState">togglePriorityState</a></li><li><a href="global.html#togglePrivacyPolicyCheckbox">togglePrivacyPolicyCheckbox</a></li><li><a href="global.html#toggleRememberMe">toggleRememberMe</a></li><li><a href="global.html#toggleSelectedContactInList">toggleSelectedContactInList</a></li><li><a href="global.html#toggleSubtask">toggleSubtask</a></li><li><a href="global.html#toggleSubtaskModalWrapperVisibility">toggleSubtaskModalWrapperVisibility</a></li><li><a href="global.html#toggleTodoModal">toggleTodoModal</a></li><li><a href="global.html#triggerFadeIn">triggerFadeIn</a></li><li><a href="global.html#triggerLogoAnimation">triggerLogoAnimation</a></li><li><a href="global.html#triggerLogoAnimationSequence">triggerLogoAnimationSequence</a></li><li><a href="global.html#triggerRender">triggerRender</a></li><li><a href="global.html#truncateText">truncateText</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateContactInDatabase">updateContactInDatabase</a></li><li><a href="global.html#updateDueDate">updateDueDate</a></li><li><a href="global.html#updateDueDateText">updateDueDateText</a></li><li><a href="global.html#updateGreeting">updateGreeting</a></li><li><a href="global.html#updateSubTasksDisplay">updateSubTasksDisplay</a></li><li><a href="global.html#updateSubtaskIcons">updateSubtaskIcons</a></li><li><a href="global.html#updateTodo">updateTodo</a></li><li><a href="global.html#updateTodoCounts">updateTodoCounts</a></li><li><a href="global.html#updateTodoMobile">updateTodoMobile</a></li><li><a href="global.html#updateTodosInFirebase">updateTodosInFirebase</a></li><li><a href="global.html#updateUserInfo">updateUserInfo</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#validateFormdata">validateFormdata</a></li><li><a href="global.html#validateLoginFormData">validateLoginFormData</a></li><li><a href="global.html#validateTodoForm">validateTodoForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Oct 31 2024 00:13:51 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

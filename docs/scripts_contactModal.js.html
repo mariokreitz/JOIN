@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/contactModal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/contactModal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * An array of colors that can be used to color user profiles.
+ * @type {Array&lt;string>}
+ */
+const profileColors = [
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+  "#9327FF",
+  "#00BEE8",
+  "#1FC7C1",
+  "#8B9467",
+  "#FF745E",
+  "#FFA35E",
+  "#FC71FF",
+  "#FFC701",
+  "#0038FF",
+  "#B22222",
+  "#C3FF2B",
+  "#FFE62B",
+  "#FF4646",
+  "#FFBB2B",
+  "#FF7A00",
+  "#FF5EB3",
+  "#6E52FF",
+];
+
+/**
+ * Timeout in milliseconds that is used for how long the warning in the form
+ * validation is shown.
+ * @constant {number}
+ */
+const TIMEOUT = 2000;
+
+/**
+ * Opens the contact modal and inserts it into the DOM.
+ *
+ * Depending on the type, the modal will either be in "add" or "edit" mode.
+ * If in "edit" mode, the initials are derived from the provided name.
+ * The contact modal is created using the provided name, email, phone, and color,
+ * and then inserted into the body of the document.
+ * The function also applies a "slide-in" animation to the modal.
+ *
+ * @param {string} type - The type of the modal, either "add" or "edit".
+ * @param {string} [name=""] - The name of the contact.
+ * @param {string} [email=""] - The email of the contact.
+ * @param {string} [phone=""] - The phone number of the contact.
+ * @param {string} [color=""] - The color associated with the contact.
+ */
+function openContactModal(type, name = "", email = "", phone = "", color = "") {
+  const initials = type === "edit" ? getInitialsFromContact({ name: name }) : "";
+  const modalHtml = getContactModalTemplate(type, name, email, phone, initials, color);
+  let modalElement = document.getElementById("contact-modal");
+  if (modalElement) modalElement.remove();
+  document.body.insertAdjacentHTML("beforeend", modalHtml);
+  applyAnimation("slide-in");
+}
+
+/**
+ * Closes the contact modal, removing it from the DOM.
+ *
+ * @param {Event} [event] - Optional event.
+ */
+function closeContactModal(event) {
+  if (event) event.preventDefault();
+  const modal = document.getElementById("contact-modal");
+  if (modal) {
+    applyAnimation("slide-out");
+    modal.addEventListener("animationend", () => modal.remove());
+  }
+}
+
+/**
+ * Applies the given animation to the modal content element. The animation is
+ * applied by setting the animation CSS property on the element.
+ * @param {string} animationType - The type of animation to apply.
+ */
+function applyAnimation(animationType) {
+  const modalContent = document.getElementById("modal-content");
+  modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
+}
+
+/**
+ * Handles the save button click in the contact modal.
+ *
+ * If the button says "Save", it will update a contact. It will find the contact
+ * to update based on the data-created-at attribute of the #createdAt element.
+ *
+ * If the button says "Add", it will create a contact.
+ *
+ * @param {Event} event - The save button click event.
+ * @returns {Promise&lt;void>}
+ */
+async function handleSaveClick(event) {
+  event.preventDefault();
+  const saveBtn = document.querySelector(".save-btn");
+
+  if (!saveBtn) return;
+  const isSave = saveBtn.innerText.includes("Save");
+
+  if (isSave) {
+    const contactNameElement = document.getElementById("createdAt");
+    if (!contactNameElement) return;
+
+    const createdAt = Number(contactNameElement.dataset.createdat);
+    const contact = globalContacts.find((c) => c.createdAt === createdAt);
+
+    await updateContact(contact);
+  } else {
+    await createContact();
+  }
+}
+
+/**
+ * Updates the given contact in the Firebase Realtime Database.
+ *
+ * @param {Object} contact - The contact to be updated.
+ * @returns {Promise&lt;void>}
+ */
+async function updateContact(contact) {
+  const contactForm = document.getElementById("contact-form");
+  const contactId = await getContactIdByCreatedAt("guest", contact.createdAt);
+
+  if (contactForm &amp;&amp; contactId &amp;&amp; validateFormdata()) {
+    const formData = new FormData(contactForm);
+    const phoneNumber = formData.get("phone");
+    const updatedPhoneNumber = phoneNumber.startsWith("0") ? "+49" + phoneNumber.slice(1) : phoneNumber;
+    const updatedContact = {
+      ...Object.fromEntries(formData),
+      phone: updatedPhoneNumber,
+      createdAt: Date.now(),
+    };
+
+    const status = await updateContactInDatabase("guest", contactId, updatedContact);
+    showToastMessage("update", status);
+    closeContactModal();
+    renderContactsPage();
+    await selectLatestCreatedContact();
+  }
+}
+
+/**
+ * Creates a new contact with the form data and adds it to the Firebase Realtime
+ * Database. The function first retrieves the form data, validates it, and
+ * creates a new contact object by spreading the form data and adding the current
+ * timestamp for createdAt. The function then calls putDataInFirebase to add the
+ * contact to the database and shows a toast message with the status of the
+ * operation. Finally, the function closes the contact modal, renders the
+ * contacts page and selects the latest created contact.
+ *
+ * @returns {Promise&lt;void>}
+ */
+async function createContact() {
+  const formData = getFormData();
+
+  if (!validateFormdata()) return;
+
+  const profileColor = profileColors[Math.floor(Math.random() * profileColors.length)];
+  const createdAt = Date.now();
+
+  const newContact = { ...formData, color: profileColor, contactSelect: false, createdAt };
+  const status = await createContactInDatabase("guest", newContact);
+
+  if (status.status === 200) {
+    showToastMessage("create", status);
+    closeContactModal();
+    renderContactsPage();
+    await selectLatestCreatedContact();
+  } else {
+    showToastMessage("exists", status);
+  }
+}
+
+/**
+ * Validates the form data in the contact form.
+ *
+ * @returns {boolean} True if the form is valid, false otherwise.
+ */
+function validateFormdata() {
+  const { name, email, phone } = getFormData();
+
+  const nameRegex = /^[A-Z][a-z]+(-[A-Z][a-z]+)* [A-Z][a-z]+$/;
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  const phoneRegex = /^\+?\d{1,3}?[-.\s]?(\(?\d{1,5}?\)?[-.\s]?)?\d{5,12}$/;
+
+  if (!nameRegex.test(name)) {
+    showNameWarning();
+    return false;
+  }
+  if (!emailRegex.test(email)) {
+    showEmailWarning();
+    return false;
+  }
+  if (!phoneRegex.test(phone)) {
+    showPhoneWarning();
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Gets the form data from the contact form.
+ *
+ * @returns {Object} An object with the form data: {name: string, email: string, phone: string}.
+ */
+function getFormData() {
+  const contactForm = document.getElementById("contact-form");
+  const formData = new FormData(contactForm);
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const phone = formData.get("phone");
+  return { name, email, phone };
+}
+
+/**
+ * Shows a warning message for the contact name input field when the name is not in the
+ * correct format. The warning message is shown for 2 seconds and then removed.
+ * @returns {void}
+ */
+function showNameWarning() {
+  const inputNameField = document.getElementById("contact-name");
+  inputNameField.style.borderColor = "red";
+  inputNameField.insertAdjacentHTML(
+    "afterend",
+    `&lt;p style="color: red; font-size: 12px;">Name must be in the format: Firstname Lastname&lt;/p>`
+  );
+  setTimeout(() => {
+    inputNameField.style.borderColor = "";
+    const feedback = inputNameField.nextElementSibling;
+    if (feedback &amp;&amp; feedback.tagName === "P") {
+      feedback.remove();
+    }
+  }, TIMEOUT);
+}
+
+/**
+ * Shows a warning message for the contact email input field when the email is not in the
+ * correct format. The warning message is shown for 2 seconds and then removed.
+ * @returns {void}
+ */
+function showEmailWarning() {
+  const inputEmailField = document.getElementById("contact-email");
+  inputEmailField.style.borderColor = "red";
+  inputEmailField.insertAdjacentHTML(
+    "afterend",
+    `&lt;p style="color: red; font-size: 12px;">Email must be in the format: example@domain.com&lt;/p>`
+  );
+  setTimeout(() => {
+    inputEmailField.style.borderColor = "";
+    const feedback = inputEmailField.nextElementSibling;
+    if (feedback &amp;&amp; feedback.tagName === "P") {
+      feedback.remove();
+    }
+  }, TIMEOUT);
+}
+
+/**
+ * Shows a warning message for the contact phone input field when the phone is not in the
+ * correct format. The warning message is shown for 2 seconds and then removed.
+ * @returns {void}
+ */
+function showPhoneWarning() {
+  const inputPhoneField = document.getElementById("contact-phone");
+  inputPhoneField.style.borderColor = "red";
+  inputPhoneField.insertAdjacentHTML(
+    "afterend",
+    `&lt;p style="color: red; font-size: 12px;">Phone number cannot be empty&lt;/p>`
+  );
+  setTimeout(() => {
+    inputPhoneField.style.borderColor = "";
+    const feedback = inputPhoneField.nextElementSibling;
+    if (feedback &amp;&amp; feedback.tagName === "P") {
+      feedback.remove();
+    }
+  }, TIMEOUT);
+}
+
+/**
+ * Selects the latest created contact from the list of contacts and shows its details
+ * in the contact view by calling `toggleContactView` with the index of the contact.
+ *
+ * @returns {Promise&lt;void>}
+ */
+async function selectLatestCreatedContact() {
+  const latestContact = await getLatestCreatedContact("guest");
+  const contactElements = [...document.querySelectorAll(".contact-item")];
+  const selectedContactElement = contactElements.find(
+    (contactElement) => contactElement.querySelector(".contact-email").textContent === latestContact.email
+  );
+  const index = selectedContactElement ? parseInt(selectedContactElement.dataset.sortedIndex, 10) : null;
+
+  toggleContactView(index);
+}
+
+/**
+ * Deletes the contact with the id specified in the data-created-at attribute of the
+ * #createdAt element from the Firebase Realtime Database. If the deletion is successful,
+ * the contact view is removed and the contacts page is re-rendered.
+ *
+ * @returns {Promise&lt;void>}
+ */
+async function deleteContact() {
+  const contactCreatedAtElement = document.getElementById("createdAt");
+
+  if (!contactCreatedAtElement) return;
+
+  const contactId = await getContactIdByCreatedAt("guest", Number(contactCreatedAtElement.dataset.createdat));
+
+  if (!contactId) return;
+
+  const status = await deleteContactFromDatabase("guest", contactId);
+
+  showToastMessage("delete", status);
+  closeContactModal();
+  removeContactView();
+  renderContactsPage();
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_URL">API_URL</a></li><li><a href="global.html#TIMEOUT">TIMEOUT</a></li><li><a href="global.html#addBadge">addBadge</a></li><li><a href="global.html#addDragAreaHighlighting">addDragAreaHighlighting</a></li><li><a href="global.html#addHollowPlaceholder">addHollowPlaceholder</a></li><li><a href="global.html#addMobileMenu">addMobileMenu</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#adjustDisplayForScreenSize">adjustDisplayForScreenSize</a></li><li><a href="global.html#adjustNavbarForMobile">adjustNavbarForMobile</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#applyAnimation">applyAnimation</a></li><li><a href="global.html#applyAnimationToContactView">applyAnimationToContactView</a></li><li><a href="global.html#arrayToObject">arrayToObject</a></li><li><a href="global.html#changeVisibilityIcon">changeVisibilityIcon</a></li><li><a href="global.html#checkAndLoadUserCredentialsFromLocalStorage">checkAndLoadUserCredentialsFromLocalStorage</a></li><li><a href="global.html#checkAndSaveUserCredentialsToLocalStorage">checkAndSaveUserCredentialsToLocalStorage</a></li><li><a href="global.html#checkAuthorization">checkAuthorization</a></li><li><a href="global.html#checkIfDuplicate">checkIfDuplicate</a></li><li><a href="global.html#checkScrollbar">checkScrollbar</a></li><li><a href="global.html#clearBoardColumns">clearBoardColumns</a></li><li><a href="global.html#clearDueDate">clearDueDate</a></li><li><a href="global.html#clearErrorMessages">clearErrorMessages</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearInputFields">clearInputFields</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearWarnings">clearWarnings</a></li><li><a href="global.html#closeAddTaskModal">closeAddTaskModal</a></li><li><a href="global.html#closeContactModal">closeContactModal</a></li><li><a href="global.html#closeEditMenu">closeEditMenu</a></li><li><a href="global.html#countTodos">countTodos</a></li><li><a href="global.html#countUrgentTodos">countUrgentTodos</a></li><li><a href="global.html#createAssignedMemberElement">createAssignedMemberElement</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactInDatabase">createContactInDatabase</a></li><li><a href="global.html#createSubtaskListItem">createSubtaskListItem</a></li><li><a href="global.html#createTodo">createTodo</a></li><li><a href="global.html#createUserInFirebaseDatabase">createUserInFirebaseDatabase</a></li><li><a href="global.html#currentTarget">currentTarget</a></li><li><a href="global.html#currentUser">currentUser</a></li><li><a href="global.html#currentlyDraggedElement">currentlyDraggedElement</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactFromDatabase">deleteContactFromDatabase</a></li><li><a href="global.html#deleteTaskCard">deleteTaskCard</a></li><li><a href="global.html#deleteTodo">deleteTodo</a></li><li><a href="global.html#deleteTodosInFirebase">deleteTodosInFirebase</a></li><li><a href="global.html#deselectContact">deselectContact</a></li><li><a href="global.html#displayContactView">displayContactView</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#fillCredentialsInLoginForm">fillCredentialsInLoginForm</a></li><li><a href="global.html#filterContactOptions">filterContactOptions</a></li><li><a href="global.html#findEarliestDeadline">findEarliestDeadline</a></li><li><a href="global.html#findKeyByCreatedAt">findKeyByCreatedAt</a></li><li><a href="global.html#firebaseConfig">firebaseConfig</a></li><li><a href="global.html#focusSubtaskInput">focusSubtaskInput</a></li><li><a href="global.html#formatDueDate">formatDueDate</a></li><li><a href="global.html#generateContactListHtml">generateContactListHtml</a></li><li><a href="global.html#getAddTaskModalTemplate">getAddTaskModalTemplate</a></li><li><a href="global.html#getAddTaskTemplate">getAddTaskTemplate</a></li><li><a href="global.html#getAssignedMemberColor">getAssignedMemberColor</a></li><li><a href="global.html#getAssignedMemberTemplate">getAssignedMemberTemplate</a></li><li><a href="global.html#getAssignedMembersNames">getAssignedMembersNames</a></li><li><a href="global.html#getBoardColumns">getBoardColumns</a></li><li><a href="global.html#getBoardColumnsFromDOM">getBoardColumnsFromDOM</a></li><li><a href="global.html#getContactIdByCreatedAt">getContactIdByCreatedAt</a></li><li><a href="global.html#getContactModalTemplate">getContactModalTemplate</a></li><li><a href="global.html#getContactSectionTemplate">getContactSectionTemplate</a></li><li><a href="global.html#getContactTemplate">getContactTemplate</a></li><li><a href="global.html#getContactViewTemplate">getContactViewTemplate</a></li><li><a href="global.html#getContactsFromData">getContactsFromData</a></li><li><a href="global.html#getCredentialsFromForm">getCredentialsFromForm</a></li><li><a href="global.html#getDataFromFirebase">getDataFromFirebase</a></li><li><a href="global.html#getDoneAmount">getDoneAmount</a></li><li><a href="global.html#getDragAreaHollowPlaceholder">getDragAreaHollowPlaceholder</a></li><li><a href="global.html#getFormData">getFormData</a></li><li><a href="global.html#getFormValues">getFormValues</a></li><li><a href="global.html#getHeaderTemplate">getHeaderTemplate</a></li><li><a href="global.html#getInitialsFromContact">getInitialsFromContact</a></li><li><a href="global.html#getLatestCreatedContact">getLatestCreatedContact</a></li><li><a href="global.html#getNavbarTemplate">getNavbarTemplate</a></li><li><a href="global.html#getNewDescriptionValue">getNewDescriptionValue</a></li><li><a href="global.html#getNewDueDateValue">getNewDueDateValue</a></li><li><a href="global.html#getNewTitleValue">getNewTitleValue</a></li><li><a href="global.html#getObjectLength">getObjectLength</a></li><li><a href="global.html#getPlaceholderText">getPlaceholderText</a></li><li><a href="global.html#getProgressValueFromSubTasks">getProgressValueFromSubTasks</a></li><li><a href="global.html#getSelectedPriorityValue">getSelectedPriorityValue</a></li><li><a href="global.html#getSubtaskListItemTemplate">getSubtaskListItemTemplate</a></li><li><a href="global.html#getSubtasksText">getSubtasksText</a></li><li><a href="global.html#getTaskCardBigEditTemplate">getTaskCardBigEditTemplate</a></li><li><a href="global.html#getTaskCardBigTemplate">getTaskCardBigTemplate</a></li><li><a href="global.html#getTaskCardSmallTemplate">getTaskCardSmallTemplate</a></li><li><a href="global.html#getToastMessageTemplate">getToastMessageTemplate</a></li><li><a href="global.html#getTodosFromData">getTodosFromData</a></li><li><a href="global.html#getUserFromFirebaseDatabase">getUserFromFirebaseDatabase</a></li><li><a href="global.html#globalContacts">globalContacts</a></li><li><a href="global.html#globalState">globalState</a></li><li><a href="global.html#globalTodos">globalTodos</a></li><li><a href="global.html#goBack">goBack</a></li><li><a href="global.html#groupContactsByLetter">groupContactsByLetter</a></li><li><a href="global.html#handleDragEvents">handleDragEvents</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handlePrioChange">handlePrioChange</a></li><li><a href="global.html#handleRouteChange">handleRouteChange</a></li><li><a href="global.html#handleSaveClick">handleSaveClick</a></li><li><a href="global.html#handleSignupReferrer">handleSignupReferrer</a></li><li><a href="global.html#highPriotiySVG">highPriotiySVG</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRender">initRender</a></li><li><a href="global.html#initializeBadges">initializeBadges</a></li><li><a href="global.html#initializeCurrentUser">initializeCurrentUser</a></li><li><a href="global.html#isCategoryDropdownOpen">isCategoryDropdownOpen</a></li><li><a href="global.html#isContactDropdownOpen">isContactDropdownOpen</a></li><li><a href="global.html#isDueOrOverdue">isDueOrOverdue</a></li><li><a href="global.html#isSignupReferrer">isSignupReferrer</a></li><li><a href="global.html#loadComponents">loadComponents</a></li><li><a href="global.html#loadCurrentUserFromLocalStorage">loadCurrentUserFromLocalStorage</a></li><li><a href="global.html#loadHeader">loadHeader</a></li><li><a href="global.html#loadNavbar">loadNavbar</a></li><li><a href="global.html#loadScripts">loadScripts</a></li><li><a href="global.html#loadSubtasks">loadSubtasks</a></li><li><a href="global.html#loadUserCredentialsFromLocalStorage">loadUserCredentialsFromLocalStorage</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowPriotiySVG">lowPriotiySVG</a></li><li><a href="global.html#mediumPriotiySVG">mediumPriotiySVG</a></li><li><a href="global.html#noContactsTemplate">noContactsTemplate</a></li><li><a href="global.html#objectToArray">objectToArray</a></li><li><a href="global.html#onDrop">onDrop</a></li><li><a href="global.html#openAddTaskModal">openAddTaskModal</a></li><li><a href="global.html#openContactModal">openContactModal</a></li><li><a href="global.html#openDatePicker">openDatePicker</a></li><li><a href="global.html#openProfileMenu">openProfileMenu</a></li><li><a href="global.html#openStateChangeMenu">openStateChangeMenu</a></li><li><a href="global.html#openTodoModal">openTodoModal</a></li><li><a href="global.html#openTodoModalEdit">openTodoModalEdit</a></li><li><a href="global.html#outsideClickListener">outsideClickListener</a></li><li><a href="global.html#outsideClickListenerWrapper">outsideClickListenerWrapper</a></li><li><a href="global.html#outsideClickListenerWrapperCategory">outsideClickListenerWrapperCategory</a></li><li><a href="global.html#populateCounters">populateCounters</a></li><li><a href="global.html#priority">priority</a></li><li><a href="global.html#profileColors">profileColors</a></li><li><a href="global.html#redirectToHomeIfAuthorized">redirectToHomeIfAuthorized</a></li><li><a href="global.html#removeAllHighlights">removeAllHighlights</a></li><li><a href="global.html#removeBadge">removeBadge</a></li><li><a href="global.html#removeContactView">removeContactView</a></li><li><a href="global.html#removeDragAreaHighlighting">removeDragAreaHighlighting</a></li><li><a href="global.html#removeHollowPlaceholder">removeHollowPlaceholder</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderAllPlaceholder">renderAllPlaceholder</a></li><li><a href="global.html#renderAssignedMembersForTodo">renderAssignedMembersForTodo</a></li><li><a href="global.html#renderContactDropdown">renderContactDropdown</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#renderContactListHtml">renderContactListHtml</a></li><li><a href="global.html#renderContactsPage">renderContactsPage</a></li><li><a href="global.html#renderHollowPlaceholder">renderHollowPlaceholder</a></li><li><a href="global.html#renderNoContactsMessage">renderNoContactsMessage</a></li><li><a href="global.html#renderPlaceholder">renderPlaceholder</a></li><li><a href="global.html#renderTodos">renderTodos</a></li><li><a href="global.html#resetPriorityStates">resetPriorityStates</a></li><li><a href="global.html#restrictPastDatePick">restrictPastDatePick</a></li><li><a href="global.html#saveCurrentUserToLocalStorage">saveCurrentUserToLocalStorage</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveEditedTodo">saveEditedTodo</a></li><li><a href="global.html#saveUserCredentialsToLocalStorage">saveUserCredentialsToLocalStorage</a></li><li><a href="global.html#searchTodoRef">searchTodoRef</a></li><li><a href="global.html#searchTodos">searchTodos</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectLatestCreatedContact">selectLatestCreatedContact</a></li><li><a href="global.html#selectedOptions">selectedOptions</a></li><li><a href="global.html#setDefaultPriority">setDefaultPriority</a></li><li><a href="global.html#setLogoFinalPosition">setLogoFinalPosition</a></li><li><a href="global.html#setLogoStartPosition">setLogoStartPosition</a></li><li><a href="global.html#setProgressBarTooltip">setProgressBarTooltip</a></li><li><a href="global.html#setWhiteFill">setWhiteFill</a></li><li><a href="global.html#shouldRedirect">shouldRedirect</a></li><li><a href="global.html#showEmailWarning">showEmailWarning</a></li><li><a href="global.html#showGreeting">showGreeting</a></li><li><a href="global.html#showNameWarning">showNameWarning</a></li><li><a href="global.html#showPhoneWarning">showPhoneWarning</a></li><li><a href="global.html#showToastMessage">showToastMessage</a></li><li><a href="global.html#showWarning">showWarning</a></li><li><a href="global.html#signUp">signUp</a></li><li><a href="global.html#startDraggingTodo">startDraggingTodo</a></li><li><a href="global.html#subTasks">subTasks</a></li><li><a href="global.html#textContent">textContent</a></li><li><a href="global.html#todoStates">todoStates</a></li><li><a href="global.html#toggleCategoryDropdown">toggleCategoryDropdown</a></li><li><a href="global.html#toggleConfirmPasswordVisibility">toggleConfirmPasswordVisibility</a></li><li><a href="global.html#toggleConfirmPasswordVisibilityIcon">toggleConfirmPasswordVisibilityIcon</a></li><li><a href="global.html#toggleContactDropdown">toggleContactDropdown</a></li><li><a href="global.html#toggleContactView">toggleContactView</a></li><li><a href="global.html#toggleEditMenu">toggleEditMenu</a></li><li><a href="global.html#toggleElementVisibility">toggleElementVisibility</a></li><li><a href="global.html#toggleOptionSelection">toggleOptionSelection</a></li><li><a href="global.html#togglePasswordVisibilityIcon">togglePasswordVisibilityIcon</a></li><li><a href="global.html#togglePlaceholder">togglePlaceholder</a></li><li><a href="global.html#togglePriorityState">togglePriorityState</a></li><li><a href="global.html#togglePrivacyPolicyCheckbox">togglePrivacyPolicyCheckbox</a></li><li><a href="global.html#toggleRememberMe">toggleRememberMe</a></li><li><a href="global.html#toggleSelectedContactInList">toggleSelectedContactInList</a></li><li><a href="global.html#toggleSubtask">toggleSubtask</a></li><li><a href="global.html#toggleSubtaskModalWrapperVisibility">toggleSubtaskModalWrapperVisibility</a></li><li><a href="global.html#toggleTodoModal">toggleTodoModal</a></li><li><a href="global.html#triggerFadeIn">triggerFadeIn</a></li><li><a href="global.html#triggerLogoAnimation">triggerLogoAnimation</a></li><li><a href="global.html#triggerLogoAnimationSequence">triggerLogoAnimationSequence</a></li><li><a href="global.html#triggerRender">triggerRender</a></li><li><a href="global.html#truncateText">truncateText</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateContactInDatabase">updateContactInDatabase</a></li><li><a href="global.html#updateDueDate">updateDueDate</a></li><li><a href="global.html#updateDueDateText">updateDueDateText</a></li><li><a href="global.html#updateGreeting">updateGreeting</a></li><li><a href="global.html#updateSubTasksDisplay">updateSubTasksDisplay</a></li><li><a href="global.html#updateSubtaskIcons">updateSubtaskIcons</a></li><li><a href="global.html#updateTodo">updateTodo</a></li><li><a href="global.html#updateTodoCounts">updateTodoCounts</a></li><li><a href="global.html#updateTodoMobile">updateTodoMobile</a></li><li><a href="global.html#updateTodosInFirebase">updateTodosInFirebase</a></li><li><a href="global.html#updateUserInfo">updateUserInfo</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#validateFormdata">validateFormdata</a></li><li><a href="global.html#validateLoginFormData">validateLoginFormData</a></li><li><a href="global.html#validateTodoForm">validateTodoForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Oct 31 2024 00:13:51 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
