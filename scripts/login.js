@@ -1,20 +1,9 @@
-/**
- * Initializes the login form by loading and filling in the login form
- * with any remembered login credentials.
- */
-function init() {
+
+async function init() {
+  triggerLogoAnimation();
   const rememberedCredentials = checkAndLoadUserCredentialsFromLocalStorage();
   fillCredentialsInLoginForm(rememberedCredentials);
 }
-
-/**
- * Handles the login process, given a flag indicating whether
- * the user should be logged in as a guest or not.
- *
- * @param {boolean} isGuest - Whether the user should be logged in as a guest or not.
- *
- * @returns {Promise<void>} A promise that resolves when the login process is finished.
- */
 
 async function handleLogin(isGuest) {
   const demoCredentials = {

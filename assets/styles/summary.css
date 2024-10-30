@@ -152,6 +152,8 @@ body:has(#summary-main) {
   font-weight: 700;
   line-height: normal;
   text-transform: capitalize;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .tasks {
@@ -196,13 +198,14 @@ body:has(#summary-main) {
   }
 }
 
-@media (min-width: 1121px) {
+@media (min-width: 1080px) {
   .greeting-container {
     display: flex !important;
+    max-width: 50%;
   }
 }
 
-@media (max-width: 1121px) {
+@media (max-width: 1080px) {
   .greeting-container {
     display: none;
   }
