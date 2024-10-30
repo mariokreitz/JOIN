@@ -137,6 +137,16 @@ textarea {
   border-radius: var(--sb-radius);
 }
 
+.blue-arrow {
+  display: flex;
+  height: fit-content;
+  border-radius: 9999px;
+}
+
+.blue-arrow:hover {
+  background-color: #eeeeee;
+}
+
 @media (max-width: 768px) {
   .head-and-arrow h1 {
     font-size: 47px;
