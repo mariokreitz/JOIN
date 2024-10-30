@@ -15,8 +15,8 @@ function toggleContactView(contactId) {
     return;
   }
   if (!contactItemElement || !contactViewElement) return;
-  const contactName = contactItemElement.querySelector(".contact-name").textContent;
-  const contact = globalContacts.find((c) => c.name === contactName);
+  const contactEmail = contactItemElement.querySelector(".contact-email").textContent;
+  const contact = globalContacts.find((c) => c.email === contactEmail);
   const initials = getInitialsFromContact(contact);
   const isAlreadySelected = contact.contactSelect;
   toggleSelectedContactInList(contact, contactItemElement);
@@ -40,7 +40,7 @@ function deselectContact(contactViewElement) {
   if (previouslySelectedElement) {
     previouslySelectedElement.classList.remove("selected");
     const previouslySelectedContact = globalContacts.find(
-      (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
+      (c) => c.email === previouslySelectedElement.querySelector(".contact-email").textContent
     );
     if (previouslySelectedContact) {
       previouslySelectedContact.contactSelect = false;
@@ -107,7 +107,7 @@ function toggleSelectedContactInList(selectedContact, contactItemElement) {
   if (previouslySelectedElement && previouslySelectedElement !== contactItemElement) {
     previouslySelectedElement.classList.remove("selected");
     const previouslySelectedContact = globalContacts.find(
-      (c) => c.name === previouslySelectedElement.querySelector(".contact-name").textContent
+      (c) => c.email === previouslySelectedElement.querySelector(".contact-email").textContent
     );
     if (previouslySelectedContact) {
       previouslySelectedContact.contactSelect = false;
