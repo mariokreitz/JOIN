@@ -177,49 +177,6 @@ function removeSubtask(iconElement) {
 }
 
 /**
- * Checks if the subtask list element has a scrollbar, and if so, sets the
- * padding-right CSS property of the element to 10px to make room for the
- * scrollbar. If not, sets the padding-right to 0.
- *
- * This function is called when the user adds or removes a subtask, to ensure
- * that the UI is updated correctly.
- *
- * @returns {void}
- */
-function checkScrollbar() {
-  const subtaskListElement = document.getElementById("subtask-list");
-
-  if (subtaskListElement) {
-    const padding = subtaskListElement.scrollHeight > subtaskListElement.clientHeight ? "10px" : "0";
-    subtaskListElement.style.paddingRight = padding;
-  }
-}
-//
-// TODO: DIESE ZWEITE FUNKTION ÜBERPRÜFEN!
-//
-// function checkScrollbar() {
-//   const subtaskList = document.getElementById("subtask-list");
-
-//   if (subtaskList) {
-//     subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "5px" : "0";
-//   }
-
-//   const elements = [
-//     document.getElementById("edit-card-form-container"),
-//     document.getElementById("big-card-form-container"),
-//   ];
-
-//   elements.forEach((el) => {
-//     if (el) {
-//       const padding = el.scrollHeight > el.clientHeight ? "15px" : "0";
-//       const margin = el.scrollHeight > el.clientHeight ? "-25px" : "0";
-//       el.style.paddingRight = padding;
-//       el.style.marginRight = margin;
-//     }
-//   });
-// }
-
-/**
  * Clears the input field of the subtask list and triggers an input event on
  * it, so that the UI is updated correctly.
  *

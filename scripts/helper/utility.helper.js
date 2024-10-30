@@ -128,6 +128,32 @@ function clearWarnings() {
 }
 
 /**
+ * Checks for overflow on specific elements and adjusts padding and margin to account for scrollbars.
+ * Adds padding to the subtask list if it has a vertical scrollbar and adjusts the padding and margin
+ * of specified form containers.
+ *
+ * @returns {void}
+ */
+function checkScrollbar() {
+  const subtaskList = document.getElementById("subtask-list");
+  if (subtaskList) {
+    subtaskList.style.paddingRight = subtaskList.scrollHeight > subtaskList.clientHeight ? "5px" : "0";
+  }
+  const elements = [
+    document.getElementById("edit-card-form-container"),
+    document.getElementById("big-card-form-container"),
+  ];
+  elements.forEach((el) => {
+    if (el) {
+      const padding = el.scrollHeight > el.clientHeight ? "15px" : "0";
+      const margin = el.scrollHeight > el.clientHeight ? "-25px" : "0";
+      el.style.paddingRight = padding;
+      el.style.marginRight = margin;
+    }
+  });
+}
+
+/**
  * Listens for the window resize event and calls the checkScrollbar function
  * when fired.
  *
