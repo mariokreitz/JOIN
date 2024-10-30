@@ -9,7 +9,7 @@ function setLogoStartPosition() {
     logo.style.width = "150px";
     logo.style.height = "150px";
     logo.style.left = "calc(50% - 75px)";
-    logo.style.top = "calc(50vh - 75px)";
+    logo.style.top = "calc(50vh)";
   } else {
     logo.style.width = "300px";
     logo.style.height = "300px";
@@ -26,7 +26,7 @@ function setLogoStartPosition() {
  */
 function setLogoFinalPosition() {
   const logo = document.getElementById("login-logo");
-  if (window.innerWidth <= 768) {
+  if (window.innerWidth <= 976) {
     logo.style.width = "60px";
     logo.style.height = "78px";
     logo.style.left = "40px";

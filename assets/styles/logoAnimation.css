@@ -62,19 +62,12 @@
     background-color: var(--primary);
   }
 
-  #login-logo {
-    width: 60px;
-    height: 78px;
-    left: 40px;
-    top: 25px;
-  }
-
   @keyframes logoMove {
     0% {
       width: 150px;
       height: 150px;
       left: calc(50% - 75px);
-      top: calc(50vh - 75px);
+      top: calc(50vh);
     }
     100% {
       width: 60px;

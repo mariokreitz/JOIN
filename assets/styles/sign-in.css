@@ -292,7 +292,7 @@ input:focus {
 @media (max-width: 868px) {
   .login-login-container {
     width: 95%;
-    margin-top: 90px;
+    margin-top: 110px;
     min-height: 90%;
     transform: scale(0.95);
 
