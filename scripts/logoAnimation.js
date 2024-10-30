@@ -118,8 +118,8 @@ function triggerLogoAnimationSequence(overlay, logo) {
     setTimeout(() => {
       overlay.style.display = "none";
       setLogoFinalPosition();
-    }, 600);
-  }, 600);
+    }, 1000);
+  }, 2000);
 }
 
 // Event listener to adjust the logo position on window resize.
