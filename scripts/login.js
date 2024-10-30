@@ -1,4 +1,12 @@
 /**
+ * Initializes the page by loading components and rendering the contact dropdown.
+ * @returns {Promise<void>} A promise that resolves when the page has been initialized.
+ */
+async function init() {
+  triggerLogoAnimation();
+}
+
+/**
  * Handles the login process, by retrieving the user credentials from the form or
  * demo credentials, validating the form data, getting the user from the Firebase
  * Realtime Database and then logging in the user.
