@@ -6,12 +6,12 @@
 function getHeaderTemplate() {
   return /*html*/ `
         <h2 class="inter-extralight heading-text">Kanban Project Management Tool</h2>
-        <img class="header-respo-logo" src="./assets/img/logo.png" alt="Join Logo">
+        <img class="header-respo-logo" src="./assets/svg/logo.svg" alt="Join Logo">
         <div class="header-right">
             ${
               currentUser.isLoggedIn
                 ? /*html*/ `
-                <a href="./help.html"><img class="qeustion-mark" src="./assets/img/icons/qeustion-mark.png" /></a>
+                <a href="./help.html"><img class="qeustion-mark" src="./assets/svg/help.svg" /></a>
                 <button id="profile-menu-toggler" onclick="openProfileMenu()" type="button" class="btn btn-profile">
                   <span class="inter-medium">${getInitialsFromContact(currentUser).toUpperCase()}</span>
                 </button>

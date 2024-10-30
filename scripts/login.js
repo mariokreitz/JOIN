@@ -103,7 +103,7 @@ function checkAndLoadUserCredentialsFromLocalStorage() {
   if (storedUser && storedUser.isRememberMe) {
     const rememberMeLabel = document.getElementById("rememberMeLabel");
     const rememberMeIcon = document.getElementById("loginRememberMe");
-    rememberMeIcon.src = "./assets/img/icons/subtask-checked.png";
+    rememberMeIcon.src = "./assets/svg/subtask-checked.svg";
     rememberMeLabel.dataset.checked = "true";
     return { email: storedUser.email, password: storedUser.password };
   }

@@ -55,6 +55,7 @@ body {
   display: flex;
   justify-content: center;
   font-size: 21px;
+  align-items: center;
 }
 
 .btn-primary {

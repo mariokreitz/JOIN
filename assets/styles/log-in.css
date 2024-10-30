@@ -203,15 +203,15 @@ body {
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-svg {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/lock-gray.png);
-  background-size: cover;
+  background-image: url(../svg/lock.svg);
+  background-position: center center;
   position: absolute;
+  background-repeat: no-repeat;
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
@@ -219,32 +219,30 @@ body {
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-pw-non-visibility {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/visibility_off-gray.png);
-  background-size: cover;
+  background-image: url(../svg/visibility_off.svg);
   background-repeat: no-repeat;
+  background-position: center center;
   position: absolute;
-  top: 55%;
+  top: 54%;
   right: 20px;
   transform: translateY(-50%);
   background-size: contain;
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-pw-visibility {
   width: 24px;
   height: 24px;
-  background-image: url(../img/icons/visibility-gray.png);
-  background-size: cover;
+  background-image: url(../svg/visibility.svg);
   background-repeat: no-repeat;
+  background-position: center center;
   position: absolute;
   top: 50%;
   right: 20px;
@@ -253,7 +251,6 @@ body {
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: 0.5;
 }
 
 .login-signup-container-down {
