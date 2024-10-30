@@ -203,6 +203,18 @@
   z-index: 1;
 }
 
+.overDuo-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff3d00;
+  color: white;
+  border-radius: 9999px;
+  width: 24px;
+  height: 24px;
+  cursor: help;
+}
+
 @media (max-width: 1367px) {
   .btn-custom-more {
     display: flex;
