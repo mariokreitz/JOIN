@@ -715,7 +715,7 @@ async function saveEditedTodo(index) {
     showToastMessage("error", error);
   }
 
-  openBigCardModal(index, true);
+  openTodoModal(index, true);
   triggerRender();
   selectedOptions.length = 0;
   subTasks = {};
