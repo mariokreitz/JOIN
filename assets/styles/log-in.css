@@ -121,6 +121,7 @@ body {
 }
 
 #login-login-btn {
+  width: 97px;
   display: flex;
   background-color: #2a3647;
   color: white;
@@ -317,6 +318,7 @@ input:focus {
 
   #login-login-btn,
   #login-login-guest-btn {
+    height: 49px;
     display: block;
     justify-content: center;
     align-items: center;
