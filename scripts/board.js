@@ -352,15 +352,18 @@ function searchTodos(event) {
 function openStateChangeMenu(event, todoIndex) {
   event.stopPropagation();
   const stateChangeMenu = document.getElementById(`card-switch-state-${todoIndex}`);
+  const todoCard = document.getElementById(`task-card-small-${todoIndex}`);
+  const profileMenu = document.getElementById("profile-menu");
 
+  if (profileMenu && !profileMenu.classList.contains("d_none")) {
+    profileMenu.classList.add("d_none");
+  }
   if (currentlyOpenMenu && currentlyOpenMenu !== stateChangeMenu) {
     currentlyOpenMenu.classList.add("d_none");
   }
 
   stateChangeMenu.classList.toggle("d_none");
   currentlyOpenMenu = stateChangeMenu.classList.contains("d_none") ? null : stateChangeMenu;
-
-  const todoCard = document.getElementById(`task-card-small-${todoIndex}`);
   todoCard.onclick = null;
 
   /**
