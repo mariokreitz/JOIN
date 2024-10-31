@@ -44,6 +44,11 @@ document.addEventListener("click", ({ target }) => {
   ) {
     profileMenu.classList.add("d_none");
   }
+
+  if (currentlyOpenMenu && !currentlyOpenMenu.contains(target)) {
+    currentlyOpenMenu.classList.add("d_none");
+    currentlyOpenMenu = null;
+  }
 });
 
 /**

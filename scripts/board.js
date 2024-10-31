@@ -1,3 +1,5 @@
+let currentlyOpenMenu = null;
+
 /**
  * Destructures the columns from the DOM elements.
  *
@@ -349,11 +351,19 @@ function searchTodos(event) {
  */
 function openStateChangeMenu(event, todoIndex) {
   event.stopPropagation();
-
   const stateChangeMenu = document.getElementById(`card-switch-state-${todoIndex}`);
-  stateChangeMenu.classList.remove("d_none");
-
   const todoCard = document.getElementById(`task-card-small-${todoIndex}`);
+  const profileMenu = document.getElementById("profile-menu");
+
+  if (profileMenu && !profileMenu.classList.contains("d_none")) {
+    profileMenu.classList.add("d_none");
+  }
+  if (currentlyOpenMenu && currentlyOpenMenu !== stateChangeMenu) {
+    currentlyOpenMenu.classList.add("d_none");
+  }
+
+  stateChangeMenu.classList.toggle("d_none");
+  currentlyOpenMenu = stateChangeMenu.classList.contains("d_none") ? null : stateChangeMenu;
   todoCard.onclick = null;
 
   /**
@@ -369,6 +379,7 @@ function openStateChangeMenu(event, todoIndex) {
       stateChangeMenu.classList.add("d_none");
       document.removeEventListener("click", handleOutsideClick);
       todoCard.onclick = () => openTodoModal(todoIndex);
+      currentlyOpenMenu = null;
     }
   };
 
