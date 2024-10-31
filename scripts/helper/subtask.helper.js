@@ -205,3 +205,41 @@ function toggleSubtaskModalWrapperVisibility() {
 
   subtaskModalWrapper.style.display = subtasksContainer.children.length > 0 ? "block" : "none";
 }
+
+/**
+ * Toggles the state of a subtask in the given todo.
+ *
+ * @param {number} index - The index of the todo in the globalTodos array.
+ * @param {string} subtaskKey - The key of the subtask to be toggled.
+ *
+ * @returns {Promise<void>} - Resolves when the subtask state has been toggled.
+ */
+async function toggleSubtask(index, subTaskKey) {
+  const currentTodo = globalTodos[index];
+  const { subTasks = {} } = currentTodo;
+  const subtask = subTasks[subTaskKey];
+
+  subTasks[subTaskKey] = { ...subtask, state: !subtask?.state };
+  const response = await updateTodosInFirebase("guest", arrayToObject(globalTodos));
+  if (!response.ok) showToastMessage("error", response);
+  globalTodos[index] = { ...currentTodo, subTasks };
+
+  updateSubTasksDisplay(index, subTaskKey);
+  triggerRender();
+}
+
+/**
+ * Updates the display of the big task card modal with the todo item at the given index.
+ * This is called when a subtask is checked or unchecked, and the big card modal needs
+ * to be updated to reflect the change.
+ *
+ * @param {number} index - The index of the todo item in the globalTodos array
+ * @returns {void}
+ */
+function updateSubTasksDisplay(index, subTaskKey) {
+  const todoItem = globalTodos[index];
+  const subTask = todoItem.subTasks[subTaskKey];
+  const imgElement = document.getElementById(`subTaskImageChecked${subTaskKey}`);
+  const isChecked = subTask.state === true ? "subtask-checked.svg" : "subtask-non-checked.svg";
+  imgElement.src = `./assets/svg/${isChecked}`;
+}

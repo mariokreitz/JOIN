@@ -76,12 +76,12 @@ function validateForm() {
   let isValid = true;
 
   if (!nameRegex.test(name)) {
-    document.getElementById("nameError").textContent = "Please enter a valid name.";
+    document.getElementById("nameError").textContent = "Name must be in the format: Firstname Lastname";
     isValid = false;
   }
 
   if (!emailRegex.test(email)) {
-    document.getElementById("emailError").textContent = "Please enter a valid email address.";
+    document.getElementById("emailError").textContent = "Email must be in the format: example@domain.com";
     isValid = false;
   }
 

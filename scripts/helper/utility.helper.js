@@ -154,6 +154,74 @@ function checkScrollbar() {
 }
 
 /**
+ * Retrieves the column elements from the DOM by their IDs and returns them as an object.
+ *
+ * @returns {Object} An object containing references to the todo, progress, feedback, and done column elements.
+ * @property {HTMLElement} todoColumn - The todo column element.
+ * @property {HTMLElement} progressColumn - The progress column element.
+ * @property {HTMLElement} feedbackColumn - The feedback column element.
+ * @property {HTMLElement} doneColumn - The done column element.
+ */
+function getBoardColumns() {
+  const todoColumn = document.getElementById("board-todo");
+  const progressColumn = document.getElementById("board-progress");
+  const feedbackColumn = document.getElementById("board-feedback");
+  const doneColumn = document.getElementById("board-done");
+  return { todoColumn, progressColumn, feedbackColumn, doneColumn };
+}
+
+/**
+ * Renders the assigned members for a specific todo item by creating and appending
+ * HTML elements representing each assigned member to the DOM element corresponding
+ * to the todo's assigned members section.
+ *
+ * If the assigned members element does not exist, the function returns immediately.
+ *
+ * @param {number} todoIndex - The index of the todo item.
+ * @param {Object} todo - The todo object containing the assigned members information.
+ * @returns {void}
+ */
+
+function renderAssignedMembersForTodo(todoIndex, todo) {
+  const assignedMembersElement = document.getElementById(`assigned-members-${todoIndex}`);
+  if (!assignedMembersElement) return;
+
+  const assignedMembers = objectToArray(todo.assignedMembers);
+  assignedMembersElement.append(
+    ...assignedMembers.map((assignedMember, memberIndex) => {
+      const contact = globalContacts.find((contact) => contact.email === assignedMember.email);
+      return createAssignedMemberElement(contact, memberIndex, assignedMembers.length);
+    })
+  );
+}
+
+/**
+ * Creates an HTML element representing an assigned member badge.
+ *
+ * @param {Object} contact - The contact object containing information about the assigned member.
+ * @param {number} index - The index of the member in the assigned members list.
+ * @param {number} totalMembers - The total number of assigned members.
+ * @returns {HTMLElement|string} The HTML element representing the member badge or an empty string if the index is greater than 3.
+ */
+function createAssignedMemberElement(contact, index, totalMembers) {
+  const memberElement = document.createElement("div");
+  memberElement.classList.add("card-mall-assigend-member-badge");
+
+  if (index < 3 && contact) {
+    memberElement.textContent = getInitialsFromContact(contact);
+    memberElement.style.backgroundColor = contact.color;
+  } else if (index === 3) {
+    memberElement.textContent = `+${totalMembers - 3}`;
+    memberElement.style.backgroundColor = "#c7c7c7";
+  } else if (!contact) {
+    memberElement.textContent = "N/A";
+    memberElement.style.backgroundColor = "#c7c7c7";
+  } else return "";
+
+  return memberElement;
+}
+
+/**
  * Listens for the window resize event and calls the checkScrollbar function
  * when fired.
  *

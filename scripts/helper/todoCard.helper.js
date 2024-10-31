@@ -1,4 +1,15 @@
 /**
+ * Destructures the columns from the DOM elements.
+ *
+ * @type {Object}
+ * @property {HTMLElement} todoColumn - The todo column element.
+ * @property {HTMLElement} progressColumn - The progress column element.
+ * @property {HTMLElement} feedbackColumn - The feedback column element.
+ * @property {HTMLElement} doneColumn - The done column element.
+ */
+let { todoColumn, progressColumn, feedbackColumn, doneColumn } = {};
+
+/**
  * An object representing the different states a task can be in.
  *
  * @type {Object}
@@ -44,7 +55,6 @@ let currentTarget = null;
 function getSubtasksText(subTasks) {
   const subTasksArray = objectToArray(subTasks);
   const doneSubtasks = getDoneAmount(subTasks);
-
   return `${doneSubtasks}/${subTasksArray.length} Subtasks`;
 }
 
@@ -59,7 +69,6 @@ function getProgressValueFromSubTasks(subTasks) {
   const subTasksDone = getDoneAmount(subTasks);
   const subTasksTotal = subTasksArray.length;
   const progressValue = (subTasksDone / subTasksTotal) * 100;
-
   return progressValue;
 }
 /**
@@ -184,9 +193,7 @@ function loadScripts(scripts, callback) {
         if (scriptsLoaded === scripts.length) callback();
       };
       document.head.appendChild(scriptElement);
-    } else {
-      scriptsLoaded++;
-    }
+    } else scriptsLoaded++;
   });
 }
 
@@ -287,10 +294,104 @@ function isDueOrOverdue(index) {
   if (state === "done") return;
   const today = new Date();
   const dueDate = new Date(dueDateString);
-
   return (
     dueDate.getFullYear() === today.getFullYear() &&
     dueDate.getMonth() === today.getMonth() &&
     dueDate.getDate() < today.getDate()
   );
+}
+
+/**
+ * Clears all task cards from all columns on the board.
+ *
+ * This function is called whenever the user searches for a task, in order to clear the
+ * board and then render only the found tasks.
+ *
+ * @returns {void}
+ */
+function clearBoardColumns() {
+  todoColumn.innerHTML = "";
+  progressColumn.innerHTML = "";
+  feedbackColumn.innerHTML = "";
+  doneColumn.innerHTML = "";
+}
+
+/**
+ * Removes the "drag-area" class from all elements, effectively removing
+ * the highlighting from all drag areas on the board.
+ *
+ * @returns {void}
+ */
+function removeAllHighlights() {
+  const dragAreas = document.querySelectorAll(".drag-area");
+  if (!dragAreas) return;
+  dragAreas.forEach((dragArea) => dragArea.classList.remove("drag-area"));
+}
+
+/**
+ * Triggers the rendering of the entire board by clearing the columns, rendering all
+ * todo items and rendering all placeholder elements.
+ *
+ * @returns {void}
+ */
+function triggerRender() {
+  clearBoardColumns();
+  renderTodos(globalTodos);
+  renderAllPlaceholder();
+}
+
+/**
+ * Renders a hollow drag area placeholder in each column, which is used to
+ * indicate a place where a task card can be dragged to.
+ *
+ * @returns {void}
+ */
+function renderHollowPlaceholder() {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
+  columns.forEach((column) => column.insertAdjacentHTML("beforeend", getDragAreaHollowPlaceholder()));
+}
+
+/**
+ * Renders all placeholder elements on the board, including the regular placeholder and the hollow drag area placeholder.
+ */
+function renderAllPlaceholder() {
+  renderPlaceholder();
+  renderHollowPlaceholder();
+}
+
+/**
+ * Retrieves the column elements from the DOM and assigns them to the corresponding variables.
+ * The todo, progress, feedback, and done column elements are obtained using their respective IDs.
+ *
+ * @returns {void}
+ */
+function getBoardColumnsFromDOM() {
+  searchTodoRef = document.getElementById("search-task");
+  ({ todoColumn, progressColumn, feedbackColumn, doneColumn } = getBoardColumns());
+}
+
+/**
+ * Returns the color of the assigned member specified by the given name.
+ *
+ * @param {string} assignedMemberName - The name of the assigned member.
+ * @returns {string|undefined} The color of the assigned member or undefined if no contact with the given name is found.
+ */
+function getAssignedMemberColor(assignedMemberName) {
+  const contact = globalContacts.find((contact) => contact.name === assignedMemberName);
+  return contact ? contact.color : undefined;
+}
+
+/**
+ * Clears the board columns and renders only the specified todos. Additionally, renders
+ * the regular placeholder and hollow drag area placeholder.
+ *
+ * @param {Todo[]} todos The list of todos to render.
+ * @returns {void}
+ */
+function renderSpecificTodos(todos) {
+  clearBoardColumns();
+  renderTodos(todos);
+  renderPlaceholder();
+  renderHollowPlaceholder();
 }
