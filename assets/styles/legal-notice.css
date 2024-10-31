@@ -72,6 +72,7 @@
 @media (max-width: 768px) {
   .legal-main {
     padding-top: 80px;
+    padding-bottom: 80px;
     margin-left: 16px;
   }
   .legal-main h1 {
