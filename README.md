@@ -1,3 +1,7 @@
+Here's the updated README with a new **Demo** section added:
+
+---
+
 # 🎉 **JOIN - Your Smart Project Management Tool** 🎉
 
 ![JOIN Logo](https://raw.githubusercontent.com/mariokreitz/JOIN/refs/heads/main/assets/img/logo.png)
@@ -8,14 +12,21 @@ JOIN is a user-friendly and powerful project management tool that helps you keep
 ![Forks](https://img.shields.io/github/forks/mariokreitz/JOIN.svg)
 ![Stars](https://img.shields.io/github/stars/mariokreitz/JOIN.svg)
 ![Wiki](https://img.shields.io/badge/Wiki-Available-brightgreen)
-[View Wiki](https://github.com/mariokreitz/JOIN/wiki)
 
----
+
+
 [![pages-build-deployment](https://github.com/mariokreitz/JOIN/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/mariokreitz/JOIN/actions/workflows/pages/pages-build-deployment)
 ![Version](https://img.shields.io/github/v/release/mariokreitz/JOIN.svg)
 ![License](https://img.shields.io/badge/license-Custom%20License-blue.svg)
 ![Issues](https://img.shields.io/github/issues/mariokreitz/JOIN.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/mariokreitz/JOIN.svg)
+
+## 🎬 **Demo**
+
+Check out the live demo of **JOIN** here: [JOIN Demo](https://join.mario-kreitz.dev/)
+
+---
+
 ## 🚀 **About the Project**
 
 **JOIN** provides everything you need to manage your tasks and projects clearly. With a real-time database, dynamic features, and a responsive design, it allows you to work efficiently and productively, whether you're working alone or as part of a team.
@@ -113,7 +124,7 @@ New features, updates, and improvements are regularly released to further optimi
 
 ## 📜 **License**
 
-This project is licensed under the **MIT License**. For more information, please refer to the [LICENSE file](LICENSE).
+For more information, please refer to the [LICENSE file](LICENSE).
 
 ---
 
