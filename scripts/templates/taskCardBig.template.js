@@ -26,15 +26,14 @@ function getTaskCardBigTemplate(todo, index) {
     : "";
 
   const assignedMembersHtml = todo.assignedMembers
-    ? Object.keys(todo.assignedMembers)
-        .map((key) => {
-          const member = todo.assignedMembers[key];
-          const initials = getInitialsFromContact({ name: member });
-          const color = getAssignedMemberColor(member);
-          return `
+    ? Object.values(todo.assignedMembers)
+        .map((contact) => {
+          return /*html*/ `
         <div class="assigned-member-initial-wrapper">
-          <div class="b-card-initial-circle" style="background-color: ${color};"><span>${initials}</span></div>
-          <div class="big-card-assigned-name"><p>${member}</p></div>
+          <div class="b-card-initial-circle" style="background-color: ${contact.color};"><span>${getInitialsFromContact(
+            contact
+          )}</span></div>
+          <div class="big-card-assigned-name"><p>${contact.name}</p></div>
         </div>`;
         })
         .join("")

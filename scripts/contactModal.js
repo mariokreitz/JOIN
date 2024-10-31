@@ -105,7 +105,11 @@ async function handleSaveClick(event) {
     const createdAt = Number(contactNameElement.dataset.createdat);
     const contact = globalContacts.find((c) => c.createdAt === createdAt);
 
-    await updateContact(contact);
+    const contactForm = document.getElementById("contact-form");
+    const formData = new FormData(contactForm);
+
+    await updateContact(contact, formData);
+    await updateAssignedMembers(contact, formData);
   } else {
     await createContact();
   }
@@ -117,12 +121,10 @@ async function handleSaveClick(event) {
  * @param {Object} contact - The contact to be updated.
  * @returns {Promise<void>}
  */
-async function updateContact(contact) {
-  const contactForm = document.getElementById("contact-form");
+async function updateContact(contact, formData) {
   const contactId = await getContactIdByCreatedAt("guest", contact.createdAt);
 
-  if (contactForm && contactId && validateFormdata()) {
-    const formData = new FormData(contactForm);
+  if (formData && contactId && validateFormdata()) {
     const phoneNumber = formData.get("phone");
     const updatedPhoneNumber = phoneNumber.startsWith("0") ? "+49" + phoneNumber.slice(1) : phoneNumber;
     const updatedContact = {
@@ -137,6 +139,50 @@ async function updateContact(contact) {
     renderContactsPage();
     await selectLatestCreatedContact();
   }
+}
+
+/**
+ * Updates the assigned members of all todos in the globalTodos array that match the email of the given contact
+ * with the new name from the given formData. Finally, it patches the updated todos object in the Firebase Realtime Database.
+ *
+ * @param {Object} contact - The contact to be updated.
+ * @param {FormData} formData - The form data containing the new name of the contact.
+ * @returns {Promise<void>}
+ */
+async function updateAssignedMembers(contact, formData) {
+  const newContactName = formData.get("name");
+  const contactEmail = contact.email;
+
+  const updatedTodos = globalTodos.map((todo) => {
+    const updatedAssignedMembers = Object.fromEntries(
+      Object.entries(todo.assignedMembers).map(([key, member]) => {
+        const updatedMember = member.email === contactEmail ? { ...member, name: newContactName } : member;
+        return [key, updatedMember];
+      })
+    );
+    return { ...todo, assignedMembers: updatedAssignedMembers };
+  });
+  await updateTodosInFirebase("guest", arrayToObject(updatedTodos));
+}
+
+/**
+ * Deletes the given contact from the assigned members of all todos in the globalTodos array
+ * and patches the updated todos object in the Firebase Realtime Database.
+ *
+ * @param {Object} contact - The contact to be deleted.
+ * @returns {Promise<void>}
+ */
+async function deleteContactFromAssignedMembers(createdAt) {
+  const contact = globalContacts.find((c) => c.createdAt === createdAt);
+  const contactEmail = contact.email;
+
+  const updatedTodos = globalTodos.map((todo) => {
+    const updatedAssignedMembers = Object.fromEntries(
+      Object.entries(todo.assignedMembers).filter(([key, member]) => member.email !== contactEmail)
+    );
+    return { ...todo, assignedMembers: updatedAssignedMembers };
+  });
+  await updateTodosInFirebase("guest", arrayToObject(updatedTodos));
 }
 
 /**
@@ -305,6 +351,7 @@ async function deleteContact() {
   if (!contactCreatedAtElement) return;
 
   const contactId = await getContactIdByCreatedAt("guest", Number(contactCreatedAtElement.dataset.createdat));
+  await deleteContactFromAssignedMembers(Number(contactCreatedAtElement.dataset.createdat));
 
   if (!contactId) return;
 

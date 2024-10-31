@@ -200,6 +200,7 @@ async function updateTodoMobile(index, newState) {
  * @param {Object} todo - The todo object containing the assigned members information.
  * @returns {void}
  */
+
 function renderAssignedMembersForTodo(todoIndex, todo) {
   const assignedMembersElement = document.getElementById(`assigned-members-${todoIndex}`);
 
@@ -208,8 +209,8 @@ function renderAssignedMembersForTodo(todoIndex, todo) {
   const assignedMembers = objectToArray(todo.assignedMembers);
 
   assignedMembersElement.append(
-    ...assignedMembers.map((memberName, memberIndex) => {
-      const contact = globalContacts.find((contact) => contact.name === memberName);
+    ...assignedMembers.map((assignedMember, memberIndex) => {
+      const contact = globalContacts.find((contact) => contact.email === assignedMember.email);
       return createAssignedMemberElement(contact, memberIndex, assignedMembers.length);
     })
   );
@@ -232,6 +233,9 @@ function createAssignedMemberElement(contact, index, totalMembers) {
     memberElement.style.backgroundColor = contact.color;
   } else if (index === 3) {
     memberElement.textContent = `+${totalMembers - 3}`;
+    memberElement.style.backgroundColor = "#c7c7c7";
+  } else if (!contact) {
+    memberElement.textContent = "N/A";
     memberElement.style.backgroundColor = "#c7c7c7";
   } else return "";
 
@@ -565,6 +569,11 @@ function openTodoModal(index, isFromEdit = false) {
   selectedOptions.length = 0;
 }
 
+/**
+ * Applies the given animation to the big card modal content element.
+ *
+ * @param {string} animationType - The type of animation to apply.
+ */
 function applyCardAnimation(animationType) {
   const modalContent = document.getElementById("big-card-modal") || document.getElementById("closeEditContainer");
   modalContent.style.animation = `${animationType} 0.3s ease-out forwards`;
