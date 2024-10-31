@@ -1,7 +1,3 @@
-Here's the updated README with a new **Demo** section added:
-
----
-
 # 🎉 **JOIN - Your Smart Project Management Tool** 🎉
 
 ![JOIN Logo](https://raw.githubusercontent.com/mariokreitz/JOIN/refs/heads/main/assets/img/logo.png)
