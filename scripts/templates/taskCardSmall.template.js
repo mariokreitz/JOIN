@@ -62,21 +62,6 @@ function getTaskCardSmallTemplate(index, { category, description, priority, titl
 }
 
 /**
- * Given the initials and color of a contact, returns an
- * HTML string representing a single contact item in the assigned members section
- * of a task card.
- *
- * @param {string} [initials="?"] - The initials of the contact.
- * @param {string} [color="red"] - The color of the contact's avatar.
- * @returns {string} An HTML string representing the assigned member item.
- */
-function getAssignedMemberTemplate(color = "red", initials = "?") {
-  return /*html*/ `
-    <div class="card-mall-assigend-member-badge" style="background-color: ${color}">${initials}</div>
-  `;
-}
-
-/**
  * Returns an HTML string representing a hollow drag area placeholder, used to
  * indicate a place where a task card can be dragged to.
  *

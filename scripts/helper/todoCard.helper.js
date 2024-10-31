@@ -218,7 +218,10 @@ function getFormData(urgentElementId, mediumElementId, lowElementId, titleId, de
  * @returns {string[]} An array of names of the assigned members.
  */
 function getAssignedMembersNames() {
-  return selectedOptions.map((id) => globalContacts[id].name);
+  return selectedOptions.reduce((acc, id) => {
+    acc[globalContacts[id].name] = globalContacts[id];
+    return acc;
+  }, {});
 }
 
 /**
