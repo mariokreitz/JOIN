@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: scripts/templates/contactsList.template.js</title>
+    <title>JSDoc: Source: scripts/helper/dragAndDrop.helper.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: scripts/templates/contactsList.template.js</h1>
+    <h1 class="page-title">Source: scripts/helper/dragAndDrop.helper.js</h1>
 
     
 
@@ -27,46 +27,170 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Given the index, initials, color, full name, and email of a contact, returns an
- * HTML string representing a single contact item in the contact list.
+ * Highlights the drag area element identified by the given elementId by adding
+ * the "drag-area" class to it. Also toggles the placeholder element for the
+ * given elementId. If the element is already highlighted or does not exist,
+ * the function does nothing.
  *
- * @param {number} index - The index of the contact in the array of contacts.
- * @param {string} initials - The initials of the contact.
- * @param {string} color - The color of the contact's avatar.
- * @param {string} fullName - The full name of the contact.
- * @param {string} email - The email of the contact.
- * @returns {string} An HTML string representing the contact item.
+ * @param {string} elementId - The id of the drag area element to highlight.
  */
+function addDragAreaHighlighting(elementId) {
+  const dragAreaElement = document.getElementById(elementId);
+  if (!dragAreaElement || currentTarget === dragAreaElement) return;
 
-function getContactTemplate(index, initials, color, fullName, email) {
-  return /*html*/ `
-        &lt;li onclick="toggleContactView(${index})" id="contact-item-${index}" class="contact-item" data-sorted-index="${index}">
-            &lt;span class="inter-extralight contact-initials" style="background-color: ${color}">${initials}&lt;/span>
-            &lt;div class="contact-info">
-                &lt;p class="inter-extralight contact-name">${fullName}&lt;/p>
-                &lt;p class="inter-extralight contact-email">${email}&lt;/p>
-            &lt;/div>
-        &lt;/li>
-    `;
+  dragAreaElement.classList.add("drag-area");
+  togglePlaceholder(elementId);
+  addHollowPlaceholder(elementId);
+  currentTarget = dragAreaElement;
 }
 
 /**
- * Given the letter and an array of contact elements, returns an HTML string
- * representing a contact list section.
- *
- * @param {string} letter - The letter of the contact list section.
- * @param {string[]} contactElements - An array of HTML strings representing the
- *   contact elements.
- * @returns {string} An HTML string representing the contact list section.
+ * Removes the highlighting from the drag area element with the given elementId
+ * by removing the "drag-area" class from it. Also toggles the placeholder
+ * element for the given elementId. If the element is already highlighted or
+ * does not exist, the function does nothing.
+ * @param {string} elementId - The id of the drag area element to remove highlighting from.
  */
-function getContactSectionTemplate(letter, contactElements) {
-  return /*html*/ `
-        &lt;li class="contact-letter">
-          &lt;h3 class="inter-extralight">${letter}&lt;/h3>
-        &lt;/li>
-        &lt;li class="contact-horizontal-seperator">&lt;/li>
-        ${contactElements.join("")}
-      `;
+function removeDragAreaHighlighting(elementId) {
+  const dragAreaElement = document.getElementById(elementId);
+  if (!dragAreaElement) return;
+
+  dragAreaElement.classList.remove("drag-area");
+  togglePlaceholder(elementId);
+  removeHollowPlaceholder(elementId);
+  currentTarget = null;
+}
+
+/**
+ * Attaches event listeners to each todo item to set its cursor style based on whether the left mouse button is being
+ * pressed or not. This is necessary because the CSS `:active` pseudo-class does not work when the element is being
+ * dragged.
+ *
+ * @returns {void}
+ */
+function handleDragEvents() {
+  document.querySelectorAll(".task-card-small").forEach((element) => {
+    element.addEventListener("mousedown", (event) => {
+      if (event.button === 0) element.style.cursor = "grab";
+    });
+    element.addEventListener("mouseup", (event) => {
+      if (event.button === 0) element.style.cursor = "pointer";
+    });
+  });
+}
+
+/**
+ * Renders a placeholder element in each column if the column is empty.
+ *
+ * @returns {void}
+ */
+function renderPlaceholder() {
+  if (!todoColumn || !progressColumn || !feedbackColumn || !doneColumn) return;
+  const columns = [todoColumn, progressColumn, feedbackColumn, doneColumn];
+  columns.forEach((column) => {
+    if (!column.innerHTML) {
+      column.insertAdjacentHTML(
+        "beforeend",
+        /*html*/ `
+        &lt;div class="board-column-placeholder inter-extralight">
+          &lt;p>${getPlaceholderText(column)}&lt;/p>
+        &lt;/div>`
+      );
+    }
+  });
+}
+
+/**
+ * Toggles the visibility of the placeholder element within the specified column.
+ *
+ * @param {string} elementId - The ID of the column element in which to toggle the placeholder.
+ */
+function togglePlaceholder(elementId) {
+  const element = document.getElementById(elementId);
+  const placeholder = element.querySelector(".board-column-placeholder");
+  if (!placeholder) return;
+  placeholder.classList.toggle("d_none");
+}
+
+/**
+ * Makes the hollow rag area placeholder within the specified column
+ * visible by removing the "d_none" class from it.
+ *
+ * @param {string} elementId - The ID of the column element in which to show the hollow placeholder.
+ */
+function addHollowPlaceholder(elementId) {
+  const element = document.getElementById(elementId);
+  const placeholder = element.querySelector(".drag-area-hollow-placeholder");
+  if (!placeholder) return;
+  placeholder.classList.remove("d_none");
+}
+
+/**
+ * Hides the hollow drag area placeholder within the specified column
+ * by adding the "d_none" class to it.
+ *
+ * @param {string} elementId - The ID of the column element in which to hide the hollow placeholder.
+ */
+function removeHollowPlaceholder(elementId) {
+  const element = document.getElementById(elementId);
+  const placeholder = element.querySelector(".drag-area-hollow-placeholder");
+  if (!placeholder) return;
+  placeholder.classList.add("d_none");
+}
+
+/**
+ * Handles the drop event of a todo card being dragged to a new column.
+ *
+ * Calls updateTodo to update the state of the todo in the global todos array
+ * and patches the todos object in the Firebase Realtime Database.
+ *
+ * Then, it clears all columns on the board and renders all todos again. Finally,
+ * it calls renderAllPlaceholder to render all placeholder elements and
+ * removeAllHighlights to remove any highlights from the board.
+ *
+ * @param {string} state - The new state of the todo.
+ * @returns {void}
+ */
+function onDrop(state) {
+  updateTodo(state);
+  triggerRender();
+  removeAllHighlights();
+}
+
+/**
+ * Sets the currently dragged element to the given todoId and adds the "dragging"
+ * class to the corresponding task card element.
+ *
+ * @param {number} todoId - The ID of the todo element that is being dragged.
+ * @returns {void}
+ */
+function startDraggingTodo(todoId) {
+  currentlyDraggedElement = todoId;
+  const todoCardElement = document.getElementById(`task-card-small-${todoId}`);
+  if (!todoCardElement) return;
+
+  todoCardElement.classList.add("dragging");
+
+  document.addEventListener(
+    "dragend",
+    () => {
+      todoCardElement.classList.remove("dragging");
+      document.body.style.cursor = "";
+    },
+    { once: true }
+  );
+}
+
+/**
+ * Allows an element to be dropped by preventing the default behavior.
+ *
+ * This function is used as an event handler for the `ondragover` event,
+ * enabling drag-and-drop functionality on an element.
+ *
+ * @param {Event} event - The dragover event object.
+ */
+function allowDrop(event) {
+  event.preventDefault();
 }
 </code></pre>
         </article>
