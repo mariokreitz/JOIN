@@ -1,5 +1,3 @@
-let currentlyOpenMenu = null;
-
 /**
  * Destructures the columns from the DOM elements.
  *

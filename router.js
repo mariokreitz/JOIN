@@ -1,4 +1,11 @@
 /**
+ * A reference to the currently open menu, if any.
+ *
+ * @type {HTMLDivElement|null}
+ */
+let currentlyOpenMenu = null;
+
+/**
  * The current user object, used to store the user's
  * information and keep track of their login status.
  * @type {Object}
