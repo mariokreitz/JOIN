@@ -283,21 +283,24 @@ function getNewDueDateValue(duoDateElementID) {
 }
 
 /**
- * Determines if the due date of a todo item is today or earlier, excluding completed tasks.
+ * Checks if the due date of a todo item is today or earlier, excluding completed tasks.
  *
  * @param {number} index - The index of the todo item in the globalTodos array.
  * @returns {boolean|undefined} Returns true if the due date is today or earlier, false otherwise.
  * Returns undefined if the task is completed.
  */
 function isDueOrOverdue(index) {
-  const { date: dueDateString, state } = globalTodos[index];
-  if (state === "done") return;
+  const todo = globalTodos[index];
+  if (todo.state === "done") return;
+
   const today = new Date();
-  const dueDate = new Date(dueDateString);
+  const dueDate = new Date(todo.date);
   return (
-    dueDate.getFullYear() === today.getFullYear() &&
-    dueDate.getMonth() === today.getMonth() &&
-    dueDate.getDate() < today.getDate()
+    dueDate.getFullYear() < today.getFullYear() ||
+    (dueDate.getFullYear() === today.getFullYear() && dueDate.getMonth() < today.getMonth()) ||
+    (dueDate.getFullYear() === today.getFullYear() &&
+      dueDate.getMonth() === today.getMonth() &&
+      dueDate.getDate() <= today.getDate())
   );
 }
 
